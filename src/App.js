@@ -13,7 +13,7 @@ import {
   FaVolleyballBall, FaFootballBall, FaTableTennis, FaSwimmer,
   FaDumbbell, FaMicroscope, FaRobot, FaPaintBrush, FaGuitar,
   FaDrum, FaChess, FaGamepad, FaLeaf, FaHeartbeat, FaShieldAlt,
-  FaFileAlt, FaPaperPlane, FaArrowRight, FaArrowLeft
+  FaFileAlt, FaPaperPlane, FaArrowRight, FaArrowLeft, FaStar
 } from 'react-icons/fa';
 import { 
   MdSchool, MdScience, MdComputer, MdSportsBasketball,
@@ -41,7 +41,6 @@ import { RiParentLine, RiGovernmentLine, RiTeamLine } from 'react-icons/ri';
 import { GiTeacher, GiGraduateCap, GiTrophyCup } from 'react-icons/gi';
 import { BsCalendarEvent, BsNewspaper, BsDownload } from 'react-icons/bs';
 import { FiDownload, FiExternalLink, FiSearch } from 'react-icons/fi';
-import { FaStar } from 'react-icons/fa';
 
 const App = () => {
   const [scrolled, setScrolled] = useState(false);
@@ -50,6 +49,7 @@ const App = () => {
   const [activeAccordion, setActiveAccordion] = useState(null);
   const [selectedGalleryCategory, setSelectedGalleryCategory] = useState('all');
   const [selectedNewsCategory, setSelectedNewsCategory] = useState('all');
+  // const [isMobile, setIsMobile] = useState(window.innerWidth <= 1024);
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -62,16 +62,28 @@ const App = () => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 50);
     };
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 1024);
+      if (window.innerWidth > 1024) {
+        setMobileMenuOpen(false);
+      }
+    };
+    
     window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    window.addEventListener('resize', handleResize);
+    
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener('resize', handleResize);
+    };
   }, []);
 
   const colors = {
-    primary: '#228B22',      // Green
-    secondary: '#9ACD32',    // Light green
-    dark: '#0F0F0F',         // Almost black
-    gray: '#999999',         // Gray
-    light: '#E8E8E8',        // Light gray
+    primary: '#228B22',
+    secondary: '#9ACD32',
+    dark: '#0F0F0F',
+    gray: '#999999',
+    light: '#E8E8E8',
     white: '#FFFFFF'
   };
 
@@ -85,6 +97,19 @@ const App = () => {
     { id: 'gallery', label: 'Gallery', icon: <FaImages /> },
     { id: 'contact', label: 'Contact', icon: <FaEnvelope /> }
   ];
+
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 1024);
+  
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 1024);
+      if (window.innerWidth > 1024) {
+        setMobileMenuOpen(false);
+      }
+    };
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   const Header = () => (
     <header style={{
@@ -100,105 +125,113 @@ const App = () => {
       <div style={{
         maxWidth: '1400px',
         margin: '0 auto',
-        padding: scrolled ? '15px 20px' : '20px',
+        padding: scrolled ? '10px 20px' : '15px 20px',
         display: 'flex',
         justifyContent: 'space-between',
         alignItems: 'center'
       }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '15px' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
           <div style={{
-            width: '50px',
-            height: '50px',
+            width: window.innerWidth < 768 ? '40px' : '50px',
+            height: window.innerWidth < 768 ? '40px' : '50px',
             background: `linear-gradient(135deg, ${colors.primary}, ${colors.secondary})`,
             borderRadius: '12px',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            boxShadow: '0 4px 15px rgba(34, 139, 34, 0.3)'
+            boxShadow: '0 4px 15px rgba(34, 139, 34, 0.3)',
+            flexShrink: 0
           }}>
-            <FaGraduationCap style={{ color: colors.white, fontSize: '24px' }} />
+            <FaGraduationCap style={{ color: colors.white, fontSize: window.innerWidth < 768 ? '20px' : '24px' }} />
           </div>
           <div>
             <h1 style={{ 
               margin: 0, 
-              fontSize: '24px', 
+              fontSize: window.innerWidth < 768 ? '18px' : '24px', 
               fontWeight: '700', 
               color: colors.white,
-              letterSpacing: '-0.5px'
+              letterSpacing: '-0.5px',
+              fontFamily: "'Rubik', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif"
             }}>
               Harding Secondary
             </h1>
             <p style={{ 
               margin: 0, 
-              fontSize: '12px', 
+              fontSize: window.innerWidth < 768 ? '10px' : '12px', 
               color: colors.secondary,
-              letterSpacing: '0.5px'
+              letterSpacing: '0.5px',
+              fontFamily: "'Rubik', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif",
+              display: window.innerWidth < 480 ? 'none' : 'block'
             }}>
               Excellence in Education
             </p>
           </div>
         </div>
 
-        <nav style={{ 
-          display: 'flex', 
-          gap: '30px',
-          '@media (max-width: 768px)': { display: 'none' }
-        }}>
-          {navigation.map(nav => (
-            <button
-              key={nav.id}
-              onClick={() => setCurrentPage(nav.id)}
-              style={{
-                background: 'none',
-                border: 'none',
-                color: currentPage === nav.id ? colors.primary : colors.white,
-                fontSize: '16px',
-                fontWeight: '500',
-                cursor: 'pointer',
-                position: 'relative',
-                transition: 'all 0.3s ease',
-                padding: '5px 0'
-              }}
-              onMouseEnter={e => e.target.style.color = colors.primary}
-              onMouseLeave={e => e.target.style.color = currentPage === nav.id ? colors.primary : colors.white}
-            >
-              {nav.label}
-              {currentPage === nav.id && (
-                <div style={{
-                  position: 'absolute',
-                  bottom: '-5px',
-                  left: 0,
-                  right: 0,
-                  height: '2px',
-                  backgroundColor: colors.primary,
-                  borderRadius: '2px'
-                }} />
-              )}
-            </button>
-          ))}
-        </nav>
+        {!isMobile && (
+          <nav style={{ 
+            display: 'flex', 
+            gap: '25px'
+          }}>
+            {navigation.map(nav => (
+              <button
+                key={nav.id}
+                onClick={() => setCurrentPage(nav.id)}
+                style={{
+                  background: 'none',
+                  border: 'none',
+                  color: currentPage === nav.id ? colors.primary : colors.white,
+                  fontSize: '16px',
+                  fontWeight: '500',
+                  cursor: 'pointer',
+                  position: 'relative',
+                  transition: 'all 0.3s ease',
+                  padding: '5px 0',
+                  fontFamily: "'Rubik', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif"
+                }}
+                onMouseEnter={e => e.target.style.color = colors.primary}
+                onMouseLeave={e => e.target.style.color = currentPage === nav.id ? colors.primary : colors.white}
+              >
+                {nav.label}
+                {currentPage === nav.id && (
+                  <div style={{
+                    position: 'absolute',
+                    bottom: '-5px',
+                    left: 0,
+                    right: 0,
+                    height: '2px',
+                    backgroundColor: colors.primary,
+                    borderRadius: '2px'
+                  }} />
+                )}
+              </button>
+            ))}
+          </nav>
+        )}
 
-        <button
-          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-          style={{
-            display: 'none',
-            '@media (max-width: 768px)': { display: 'block' },
-            background: 'none',
-            border: 'none',
-            color: colors.white,
-            fontSize: '28px',
-            cursor: 'pointer'
-          }}
-        >
-          {mobileMenuOpen ? <FaTimes /> : <FaBars />}
-        </button>
+        {isMobile && (
+          <button
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            style={{
+              background: 'none',
+              border: 'none',
+              color: colors.white,
+              fontSize: '28px',
+              cursor: 'pointer',
+              padding: '5px',
+              zIndex: 1001
+            }}
+          >
+            {mobileMenuOpen ? <FaTimes /> : <FaBars />}
+          </button>
+        )}
       </div>
 
       {/* Mobile Menu */}
-      {mobileMenuOpen && (
+      {mobileMenuOpen && isMobile && (
         <div style={{
           position: 'fixed',
-          top: '80px',
+          top: window.innerWidth < 768 ? '60px' : '75px',
           left: 0,
           right: 0,
           bottom: 0,
@@ -206,7 +239,9 @@ const App = () => {
           padding: '20px',
           display: 'flex',
           flexDirection: 'column',
-          gap: '20px'
+          gap: '15px',
+          overflowY: 'auto',
+          zIndex: 999
         }}>
           {navigation.map(nav => (
             <button
@@ -227,7 +262,8 @@ const App = () => {
                 display: 'flex',
                 alignItems: 'center',
                 gap: '10px',
-                transition: 'all 0.3s ease'
+                transition: 'all 0.3s ease',
+                fontFamily: "'Rubik', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif"
               }}
             >
               {nav.icon}
@@ -270,7 +306,7 @@ const App = () => {
     }, []);
 
     return (
-      <div>
+      <div style={{ paddingTop: '0' }}>
         {/* Hero Section */}
         <section style={{
           position: 'relative',
@@ -316,19 +352,21 @@ const App = () => {
             maxWidth: '1000px'
           }}>
             <h1 style={{
-              fontSize: 'clamp(48px, 8vw, 80px)',
+              fontSize: window.innerWidth < 768 ? '36px' : window.innerWidth < 1024 ? '48px' : '64px',
               fontWeight: '800',
               marginBottom: '20px',
               textShadow: '2px 2px 4px rgba(0,0,0,0.5)',
-              animation: 'fadeInUp 1s ease'
+              animation: 'fadeInUp 1s ease',
+              lineHeight: '1.2'
             }}>
               {heroSlides[currentSlide].title}
             </h1>
             <p style={{
-              fontSize: 'clamp(20px, 3vw, 28px)',
-              marginBottom: '40px',
+              fontSize: window.innerWidth < 768 ? '16px' : window.innerWidth < 1024 ? '20px' : '24px',
+              marginBottom: '30px',
               opacity: 0.9,
-              animation: 'fadeInUp 1s ease 0.2s both'
+              animation: 'fadeInUp 1s ease 0.2s both',
+              lineHeight: '1.4'
             }}>
               {heroSlides[currentSlide].subtitle}
             </p>
@@ -338,8 +376,8 @@ const App = () => {
                 background: `linear-gradient(135deg, ${colors.primary}, ${colors.secondary})`,
                 border: 'none',
                 color: colors.white,
-                padding: '18px 40px',
-                fontSize: '18px',
+                padding: window.innerWidth < 768 ? '14px 28px' : '18px 40px',
+                fontSize: window.innerWidth < 768 ? '16px' : '18px',
                 fontWeight: '600',
                 borderRadius: '50px',
                 cursor: 'pointer',
@@ -367,11 +405,11 @@ const App = () => {
           {/* Slide Indicators */}
           <div style={{
             position: 'absolute',
-            bottom: '40px',
+            bottom: '30px',
             left: '50%',
             transform: 'translateX(-50%)',
             display: 'flex',
-            gap: '15px',
+            gap: '10px',
             zIndex: 1
           }}>
             {heroSlides.map((_, index) => (
@@ -379,10 +417,10 @@ const App = () => {
                 key={index}
                 onClick={() => setCurrentSlide(index)}
                 style={{
-                  width: currentSlide === index ? '40px' : '12px',
-                  height: '12px',
+                  width: currentSlide === index ? '30px' : '10px',
+                  height: '10px',
                   border: 'none',
-                  borderRadius: '6px',
+                  borderRadius: '5px',
                   backgroundColor: currentSlide === index ? colors.primary : 'rgba(255,255,255,0.5)',
                   cursor: 'pointer',
                   transition: 'all 0.3s ease'
@@ -394,15 +432,15 @@ const App = () => {
 
         {/* Stats Section */}
         <section style={{
-          padding: '100px 20px',
+          padding: window.innerWidth < 768 ? '60px 20px' : '100px 20px',
           background: `linear-gradient(135deg, ${colors.dark} 0%, #1a1a1a 100%)`
         }}>
           <div style={{
             maxWidth: '1200px',
             margin: '0 auto',
             display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))',
-            gap: '40px'
+            gridTemplateColumns: window.innerWidth < 768 ? '1fr' : window.innerWidth < 1024 ? 'repeat(2, 1fr)' : 'repeat(4, 1fr)',
+            gap: window.innerWidth < 768 ? '30px' : '40px'
           }}>
             {[
               { icon: <FaUserGraduate />, number: '1,252', label: 'Students', color: colors.primary },
@@ -414,7 +452,7 @@ const App = () => {
                 key={index}
                 style={{
                   textAlign: 'center',
-                  padding: '40px',
+                  padding: window.innerWidth < 768 ? '30px' : '40px',
                   background: 'rgba(255,255,255,0.05)',
                   borderRadius: '20px',
                   border: '1px solid rgba(255,255,255,0.1)',
@@ -434,14 +472,14 @@ const App = () => {
                 }}
               >
                 <div style={{
-                  fontSize: '48px',
+                  fontSize: window.innerWidth < 768 ? '36px' : '48px',
                   color: stat.color,
                   marginBottom: '20px'
                 }}>
                   {stat.icon}
                 </div>
                 <h3 style={{
-                  fontSize: '48px',
+                  fontSize: window.innerWidth < 768 ? '36px' : '48px',
                   fontWeight: '800',
                   color: colors.white,
                   marginBottom: '10px'
@@ -449,7 +487,7 @@ const App = () => {
                   {stat.number}
                 </h3>
                 <p style={{
-                  fontSize: '18px',
+                  fontSize: window.innerWidth < 768 ? '16px' : '18px',
                   color: colors.gray,
                   textTransform: 'uppercase',
                   letterSpacing: '1px'
@@ -463,24 +501,25 @@ const App = () => {
 
         {/* Features Section */}
         <section style={{
-          padding: '100px 20px',
+          padding: window.innerWidth < 768 ? '60px 20px' : '100px 20px',
           backgroundColor: colors.white
         }}>
           <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
             <h2 style={{
-              fontSize: '48px',
+              fontSize: window.innerWidth < 768 ? '32px' : window.innerWidth < 1024 ? '40px' : '48px',
               fontWeight: '800',
               textAlign: 'center',
-              marginBottom: '60px',
-              color: colors.dark
+              marginBottom: window.innerWidth < 768 ? '40px' : '60px',
+              color: colors.dark,
+              lineHeight: '1.2'
             }}>
               Why Choose <span style={{ color: colors.primary }}>Harding Secondary</span>?
             </h2>
             
             <div style={{
               display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fit, minmax(350px, 1fr))',
-              gap: '40px'
+              gridTemplateColumns: window.innerWidth < 768 ? '1fr' : window.innerWidth < 1024 ? 'repeat(2, 1fr)' : 'repeat(3, 1fr)',
+              gap: window.innerWidth < 768 ? '30px' : '40px'
             }}>
               {[
                 {
@@ -505,7 +544,7 @@ const App = () => {
                 <div
                   key={index}
                   style={{
-                    padding: '40px',
+                    padding: window.innerWidth < 768 ? '30px' : '40px',
                     backgroundColor: colors.light,
                     borderRadius: '20px',
                     transition: 'all 0.3s ease',
@@ -534,14 +573,14 @@ const App = () => {
                   }} />
                   
                   <div style={{
-                    fontSize: '48px',
+                    fontSize: window.innerWidth < 768 ? '36px' : '48px',
                     color: colors.primary,
                     marginBottom: '20px'
                   }}>
                     {feature.icon}
                   </div>
                   <h3 style={{
-                    fontSize: '24px',
+                    fontSize: window.innerWidth < 768 ? '20px' : '24px',
                     fontWeight: '700',
                     marginBottom: '15px',
                     color: colors.dark
@@ -559,7 +598,7 @@ const App = () => {
                   <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
                     {feature.features.map((item, i) => (
                       <div key={i} style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                        <FaCheckCircle style={{ color: colors.primary, fontSize: '16px' }} />
+                        <FaCheckCircle style={{ color: colors.primary, fontSize: '16px', flexShrink: 0 }} />
                         <span style={{ color: colors.dark, fontSize: '14px' }}>{item}</span>
                       </div>
                     ))}
@@ -572,20 +611,23 @@ const App = () => {
 
         {/* Latest News Preview */}
         <section style={{
-          padding: '100px 20px',
+          padding: window.innerWidth < 768 ? '60px 20px' : '100px 20px',
           background: `linear-gradient(135deg, ${colors.white} 0%, ${colors.light} 100%)`
         }}>
           <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
             <div style={{
               display: 'flex',
+              flexDirection: window.innerWidth < 768 ? 'column' : 'row',
               justifyContent: 'space-between',
-              alignItems: 'center',
-              marginBottom: '60px'
+              alignItems: window.innerWidth < 768 ? 'flex-start' : 'center',
+              marginBottom: window.innerWidth < 768 ? '40px' : '60px',
+              gap: '20px'
             }}>
               <h2 style={{
-                fontSize: '48px',
+                fontSize: window.innerWidth < 768 ? '32px' : window.innerWidth < 1024 ? '40px' : '48px',
                 fontWeight: '800',
-                color: colors.dark
+                color: colors.dark,
+                margin: 0
               }}>
                 Latest <span style={{ color: colors.primary }}>News & Events</span>
               </h2>
@@ -603,7 +645,8 @@ const App = () => {
                   display: 'flex',
                   alignItems: 'center',
                   gap: '10px',
-                  transition: 'all 0.3s ease'
+                  transition: 'all 0.3s ease',
+                  whiteSpace: 'nowrap'
                 }}
                 onMouseEnter={e => {
                   e.target.style.backgroundColor = colors.primary;
@@ -621,8 +664,8 @@ const App = () => {
 
             <div style={{
               display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fit, minmax(350px, 1fr))',
-              gap: '40px'
+              gridTemplateColumns: window.innerWidth < 768 ? '1fr' : window.innerWidth < 1200 ? 'repeat(2, 1fr)' : 'repeat(3, 1fr)',
+              gap: window.innerWidth < 768 ? '30px' : '40px'
             }}>
               {[
                 {
@@ -689,9 +732,9 @@ const App = () => {
                       {news.category}
                     </div>
                   </div>
-                  <div style={{ padding: '30px' }}>
+                  <div style={{ padding: window.innerWidth < 768 ? '20px' : '30px' }}>
                     <h3 style={{
-                      fontSize: '22px',
+                      fontSize: window.innerWidth < 768 ? '18px' : '22px',
                       fontWeight: '700',
                       marginBottom: '15px',
                       color: colors.dark,
@@ -733,36 +776,43 @@ const App = () => {
 
         {/* CTA Section */}
         <section style={{
-          padding: '100px 20px',
+          padding: window.innerWidth < 768 ? '60px 20px' : '100px 20px',
           background: `linear-gradient(135deg, ${colors.primary}, ${colors.secondary})`,
           textAlign: 'center'
         }}>
           <div style={{ maxWidth: '800px', margin: '0 auto' }}>
             <h2 style={{
-              fontSize: '48px',
+              fontSize: window.innerWidth < 768 ? '32px' : window.innerWidth < 1024 ? '40px' : '48px',
               fontWeight: '800',
               color: colors.white,
-              marginBottom: '20px'
+              marginBottom: '20px',
+              lineHeight: '1.2'
             }}>
               Begin Your Journey With Us
             </h2>
             <p style={{
-              fontSize: '20px',
+              fontSize: window.innerWidth < 768 ? '16px' : '20px',
               color: colors.white,
               opacity: 0.9,
-              marginBottom: '40px'
+              marginBottom: '40px',
+              lineHeight: '1.4'
             }}>
               Join our community of learners and discover your potential at Harding Secondary School
             </p>
-            <div style={{ display: 'flex', gap: '20px', justifyContent: 'center', flexWrap: 'wrap' }}>
+            <div style={{ 
+              display: 'flex', 
+              gap: '20px', 
+              justifyContent: 'center', 
+              flexWrap: 'wrap' 
+            }}>
               <button
                 onClick={() => setCurrentPage('admissions')}
                 style={{
                   backgroundColor: colors.white,
                   color: colors.primary,
                   border: 'none',
-                  padding: '18px 40px',
-                  fontSize: '18px',
+                  padding: window.innerWidth < 768 ? '14px 30px' : '18px 40px',
+                  fontSize: window.innerWidth < 768 ? '16px' : '18px',
                   fontWeight: '600',
                   borderRadius: '50px',
                   cursor: 'pointer',
@@ -789,8 +839,8 @@ const App = () => {
                   backgroundColor: 'transparent',
                   color: colors.white,
                   border: `2px solid ${colors.white}`,
-                  padding: '18px 40px',
-                  fontSize: '18px',
+                  padding: window.innerWidth < 768 ? '14px 30px' : '18px 40px',
+                  fontSize: window.innerWidth < 768 ? '16px' : '18px',
                   fontWeight: '600',
                   borderRadius: '50px',
                   cursor: 'pointer',
@@ -819,24 +869,26 @@ const App = () => {
   };
 
   const AboutPage = () => (
-    <div style={{ paddingTop: '100px' }}>
+    <div style={{ paddingTop: '0' }}>
       {/* Hero Section */}
       <section style={{
-        padding: '100px 20px',
+        padding: window.innerWidth < 768 ? '60px 20px' : '100px 20px',
+        paddingTop: window.innerWidth < 768 ? '130px' : '180px',
         background: `linear-gradient(135deg, ${colors.dark} 0%, #1a1a1a 100%)`,
         textAlign: 'center'
       }}>
         <div style={{ maxWidth: '800px', margin: '0 auto' }}>
           <h1 style={{
-            fontSize: '56px',
+            fontSize: window.innerWidth < 768 ? '36px' : window.innerWidth < 1024 ? '48px' : '56px',
             fontWeight: '800',
             color: colors.white,
-            marginBottom: '20px'
+            marginBottom: '20px',
+            lineHeight: '1.2'
           }}>
             About <span style={{ color: colors.primary }}>Harding Secondary</span>
           </h1>
           <p style={{
-            fontSize: '20px',
+            fontSize: window.innerWidth < 768 ? '16px' : '20px',
             color: colors.gray,
             lineHeight: '1.6'
           }}>
@@ -846,17 +898,20 @@ const App = () => {
       </section>
 
       {/* History Section */}
-      <section style={{ padding: '100px 20px', backgroundColor: colors.white }}>
+      <section style={{ 
+        padding: window.innerWidth < 768 ? '60px 20px' : '100px 20px', 
+        backgroundColor: colors.white 
+      }}>
         <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
           <div style={{
             display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(500px, 1fr))',
-            gap: '60px',
+            gridTemplateColumns: window.innerWidth < 1024 ? '1fr' : 'repeat(2, 1fr)',
+            gap: window.innerWidth < 768 ? '40px' : '60px',
             alignItems: 'center'
           }}>
-            <div>
+            <div style={{ order: window.innerWidth < 1024 ? 2 : 1 }}>
               <h2 style={{
-                fontSize: '48px',
+                fontSize: window.innerWidth < 768 ? '32px' : window.innerWidth < 1024 ? '40px' : '48px',
                 fontWeight: '800',
                 color: colors.dark,
                 marginBottom: '30px'
@@ -864,7 +919,7 @@ const App = () => {
                 Our <span style={{ color: colors.primary }}>Story</span>
               </h2>
               <p style={{
-                fontSize: '18px',
+                fontSize: window.innerWidth < 768 ? '16px' : '18px',
                 color: colors.gray,
                 lineHeight: '1.8',
                 marginBottom: '20px'
@@ -874,7 +929,7 @@ const App = () => {
                 we have been committed to nurturing young minds and building future leaders for over seven decades.
               </p>
               <p style={{
-                fontSize: '18px',
+                fontSize: window.innerWidth < 768 ? '16px' : '18px',
                 color: colors.gray,
                 lineHeight: '1.8',
                 marginBottom: '20px'
@@ -884,7 +939,7 @@ const App = () => {
               </p>
               <div style={{
                 display: 'grid',
-                gridTemplateColumns: 'repeat(2, 1fr)',
+                gridTemplateColumns: window.innerWidth < 480 ? '1fr' : 'repeat(2, 1fr)',
                 gap: '20px',
                 marginTop: '40px'
               }}>
@@ -913,7 +968,8 @@ const App = () => {
               </div>
             </div>
             <div style={{
-              height: '500px',
+              order: window.innerWidth < 1024 ? 1 : 2,
+              height: window.innerWidth < 768 ? '300px' : '500px',
               backgroundImage: 'url(https://images.unsplash.com/photo-1580582932707-520aed937b7b?w=800)',
               backgroundSize: 'cover',
               backgroundPosition: 'center',
@@ -926,31 +982,31 @@ const App = () => {
 
       {/* Mission & Vision */}
       <section style={{
-        padding: '100px 20px',
+        padding: window.innerWidth < 768 ? '60px 20px' : '100px 20px',
         background: `linear-gradient(135deg, ${colors.light} 0%, ${colors.white} 100%)`
       }}>
         <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
           <div style={{
             display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(400px, 1fr))',
-            gap: '60px'
+            gridTemplateColumns: window.innerWidth < 768 ? '1fr' : window.innerWidth < 1024 ? 'repeat(2, 1fr)' : 'repeat(2, 1fr)',
+            gap: window.innerWidth < 768 ? '40px' : '60px'
           }}>
             <div style={{
-              padding: '60px',
+              padding: window.innerWidth < 768 ? '40px' : '60px',
               backgroundColor: colors.white,
               borderRadius: '20px',
               boxShadow: '0 20px 40px rgba(0,0,0,0.08)',
               borderLeft: `5px solid ${colors.primary}`
             }}>
               <div style={{
-                fontSize: '48px',
+                fontSize: window.innerWidth < 768 ? '36px' : '48px',
                 color: colors.primary,
                 marginBottom: '30px'
               }}>
                 <FaBullhorn />
               </div>
               <h3 style={{
-                fontSize: '32px',
+                fontSize: window.innerWidth < 768 ? '24px' : '32px',
                 fontWeight: '700',
                 color: colors.dark,
                 marginBottom: '20px'
@@ -958,7 +1014,7 @@ const App = () => {
                 Our Mission
               </h3>
               <p style={{
-                fontSize: '18px',
+                fontSize: window.innerWidth < 768 ? '16px' : '18px',
                 color: colors.gray,
                 lineHeight: '1.8'
               }}>
@@ -968,21 +1024,21 @@ const App = () => {
               </p>
             </div>
             <div style={{
-              padding: '60px',
+              padding: window.innerWidth < 768 ? '40px' : '60px',
               backgroundColor: colors.white,
               borderRadius: '20px',
               boxShadow: '0 20px 40px rgba(0,0,0,0.08)',
               borderLeft: `5px solid ${colors.secondary}`
             }}>
               <div style={{
-                fontSize: '48px',
+                fontSize: window.innerWidth < 768 ? '36px' : '48px',
                 color: colors.secondary,
                 marginBottom: '30px'
               }}>
                 <FaLightbulb />
               </div>
               <h3 style={{
-                fontSize: '32px',
+                fontSize: window.innerWidth < 768 ? '24px' : '32px',
                 fontWeight: '700',
                 color: colors.dark,
                 marginBottom: '20px'
@@ -990,7 +1046,7 @@ const App = () => {
                 Our Vision
               </h3>
               <p style={{
-                fontSize: '18px',
+                fontSize: window.innerWidth < 768 ? '16px' : '18px',
                 color: colors.gray,
                 lineHeight: '1.8'
               }}>
@@ -1004,21 +1060,24 @@ const App = () => {
       </section>
 
       {/* Core Values */}
-      <section style={{ padding: '100px 20px', backgroundColor: colors.white }}>
+      <section style={{ 
+        padding: window.innerWidth < 768 ? '60px 20px' : '100px 20px', 
+        backgroundColor: colors.white 
+      }}>
         <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
           <h2 style={{
-            fontSize: '48px',
+            fontSize: window.innerWidth < 768 ? '32px' : window.innerWidth < 1024 ? '40px' : '48px',
             fontWeight: '800',
             textAlign: 'center',
-            marginBottom: '60px',
+            marginBottom: window.innerWidth < 768 ? '40px' : '60px',
             color: colors.dark
           }}>
             Our Core <span style={{ color: colors.primary }}>Values</span>
           </h2>
           <div style={{
             display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))',
-            gap: '40px'
+            gridTemplateColumns: window.innerWidth < 768 ? '1fr' : window.innerWidth < 1024 ? 'repeat(2, 1fr)' : 'repeat(3, 1fr)',
+            gap: window.innerWidth < 768 ? '30px' : '40px'
           }}>
             {[
               { icon: <FaAward />, title: 'Excellence', description: 'We pursue the highest standards in academics, sports, and character development.' },
@@ -1032,7 +1091,7 @@ const App = () => {
                 key={index}
                 style={{
                   textAlign: 'center',
-                  padding: '40px',
+                  padding: window.innerWidth < 768 ? '30px' : '40px',
                   backgroundColor: colors.light,
                   borderRadius: '20px',
                   transition: 'all 0.3s ease'
@@ -1047,14 +1106,14 @@ const App = () => {
                 }}
               >
                 <div style={{
-                  fontSize: '48px',
+                  fontSize: window.innerWidth < 768 ? '36px' : '48px',
                   color: colors.primary,
                   marginBottom: '20px'
                 }}>
                   {value.icon}
                 </div>
                 <h3 style={{
-                  fontSize: '24px',
+                  fontSize: window.innerWidth < 768 ? '20px' : '24px',
                   fontWeight: '700',
                   color: colors.dark,
                   marginBottom: '15px'
@@ -1076,23 +1135,23 @@ const App = () => {
 
       {/* Leadership Team */}
       <section style={{
-        padding: '100px 20px',
+        padding: window.innerWidth < 768 ? '60px 20px' : '100px 20px',
         background: `linear-gradient(135deg, ${colors.dark} 0%, #1a1a1a 100%)`
       }}>
         <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
           <h2 style={{
-            fontSize: '48px',
+            fontSize: window.innerWidth < 768 ? '32px' : window.innerWidth < 1024 ? '40px' : '48px',
             fontWeight: '800',
             textAlign: 'center',
-            marginBottom: '60px',
+            marginBottom: window.innerWidth < 768 ? '40px' : '60px',
             color: colors.white
           }}>
             School <span style={{ color: colors.primary }}>Leadership</span>
           </h2>
           <div style={{
             display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
-            gap: '40px'
+            gridTemplateColumns: window.innerWidth < 768 ? '1fr' : window.innerWidth < 1024 ? 'repeat(2, 1fr)' : 'repeat(3, 1fr)',
+            gap: window.innerWidth < 768 ? '30px' : '40px'
           }}>
             {[
               { title: 'School Governing Body', icon: <RiGovernmentLine />, description: 'Parent representatives working with school management for excellence' },
@@ -1102,7 +1161,7 @@ const App = () => {
               <div
                 key={index}
                 style={{
-                  padding: '40px',
+                  padding: window.innerWidth < 768 ? '30px' : '40px',
                   background: 'rgba(255,255,255,0.05)',
                   borderRadius: '20px',
                   border: '1px solid rgba(255,255,255,0.1)',
@@ -1111,14 +1170,14 @@ const App = () => {
                 }}
               >
                 <div style={{
-                  fontSize: '48px',
+                  fontSize: window.innerWidth < 768 ? '36px' : '48px',
                   color: colors.primary,
                   marginBottom: '20px'
                 }}>
                   {item.icon}
                 </div>
                 <h3 style={{
-                  fontSize: '24px',
+                  fontSize: window.innerWidth < 768 ? '20px' : '24px',
                   fontWeight: '700',
                   color: colors.white,
                   marginBottom: '15px'
@@ -1193,16 +1252,17 @@ const App = () => {
     };
 
     return (
-      <div style={{ paddingTop: '100px' }}>
+      <div style={{ paddingTop: '0' }}>
         {/* Hero Section */}
         <section style={{
-          padding: '100px 20px',
+          padding: window.innerWidth < 768 ? '60px 20px' : '100px 20px',
+          paddingTop: window.innerWidth < 768 ? '130px' : '180px',
           background: `linear-gradient(135deg, ${colors.dark} 0%, #1a1a1a 100%)`,
           textAlign: 'center'
         }}>
           <div style={{ maxWidth: '800px', margin: '0 auto' }}>
             <h1 style={{
-              fontSize: '56px',
+              fontSize: window.innerWidth < 768 ? '36px' : window.innerWidth < 1024 ? '48px' : '56px',
               fontWeight: '800',
               color: colors.white,
               marginBottom: '20px'
@@ -1210,7 +1270,7 @@ const App = () => {
               Academic <span style={{ color: colors.primary }}>Excellence</span>
             </h1>
             <p style={{
-              fontSize: '20px',
+              fontSize: window.innerWidth < 768 ? '16px' : '20px',
               color: colors.gray,
               lineHeight: '1.6'
             }}>
@@ -1220,16 +1280,19 @@ const App = () => {
         </section>
 
         {/* Curriculum Overview */}
-        <section style={{ padding: '100px 20px', backgroundColor: colors.white }}>
+        <section style={{ 
+          padding: window.innerWidth < 768 ? '60px 20px' : '100px 20px', 
+          backgroundColor: colors.white 
+        }}>
           <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
             <div style={{
-              padding: '60px',
+              padding: window.innerWidth < 768 ? '40px' : '60px',
               background: `linear-gradient(135deg, ${colors.primary}11, ${colors.secondary}11)`,
               borderRadius: '20px',
-              marginBottom: '60px'
+              marginBottom: window.innerWidth < 768 ? '40px' : '60px'
             }}>
               <h2 style={{
-                fontSize: '36px',
+                fontSize: window.innerWidth < 768 ? '28px' : '36px',
                 fontWeight: '700',
                 color: colors.dark,
                 marginBottom: '20px',
@@ -1238,7 +1301,7 @@ const App = () => {
                 National Senior Certificate (NSC)
               </h2>
               <p style={{
-                fontSize: '18px',
+                fontSize: window.innerWidth < 768 ? '16px' : '18px',
                 color: colors.gray,
                 lineHeight: '1.8',
                 textAlign: 'center',
@@ -1253,7 +1316,7 @@ const App = () => {
 
             {/* Subject Streams */}
             <h3 style={{
-              fontSize: '36px',
+              fontSize: window.innerWidth < 768 ? '28px' : '36px',
               fontWeight: '700',
               textAlign: 'center',
               marginBottom: '40px',
@@ -1265,8 +1328,8 @@ const App = () => {
             <div style={{
               display: 'flex',
               justifyContent: 'center',
-              gap: '20px',
-              marginBottom: '60px',
+              gap: window.innerWidth < 768 ? '10px' : '20px',
+              marginBottom: window.innerWidth < 768 ? '40px' : '60px',
               flexWrap: 'wrap'
             }}>
               {Object.entries(streams).map(([key, stream]) => (
@@ -1274,10 +1337,10 @@ const App = () => {
                   key={key}
                   onClick={() => setActiveStream(key)}
                   style={{
-                    padding: '15px 30px',
+                    padding: window.innerWidth < 768 ? '10px 20px' : '15px 30px',
                     border: 'none',
                     borderRadius: '50px',
-                    fontSize: '16px',
+                    fontSize: window.innerWidth < 768 ? '14px' : '16px',
                     fontWeight: '600',
                     cursor: 'pointer',
                     transition: 'all 0.3s ease',
@@ -1285,37 +1348,39 @@ const App = () => {
                     alignItems: 'center',
                     gap: '10px',
                     backgroundColor: activeStream === key ? colors.primary : colors.light,
-                    color: activeStream === key ? colors.white : colors.dark
+                    color: activeStream === key ? colors.white : colors.dark,
+                    marginBottom: window.innerWidth < 768 ? '10px' : 0
                   }}
                 >
-                  {stream.icon}
-                  {stream.title}
+                  <span style={{ display: window.innerWidth < 480 ? 'none' : 'block' }}>{stream.icon}</span>
+                  {window.innerWidth < 480 ? stream.title.split(' ')[0] : stream.title}
                 </button>
               ))}
             </div>
 
             <div style={{
               backgroundColor: colors.light,
-              padding: '60px',
+              padding: window.innerWidth < 768 ? '40px' : '60px',
               borderRadius: '20px'
             }}>
               <h4 style={{
-                fontSize: '28px',
+                fontSize: window.innerWidth < 768 ? '24px' : '28px',
                 fontWeight: '700',
                 color: colors.dark,
                 marginBottom: '40px',
                 display: 'flex',
                 alignItems: 'center',
-                gap: '15px'
+                gap: '15px',
+                flexWrap: 'wrap'
               }}>
-                <span style={{ fontSize: '36px', color: colors.primary }}>
+                <span style={{ fontSize: window.innerWidth < 768 ? '28px' : '36px', color: colors.primary }}>
                   {streams[activeStream].icon}
                 </span>
                 {streams[activeStream].title}
               </h4>
               <div style={{
                 display: 'grid',
-                gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))',
+                gridTemplateColumns: window.innerWidth < 768 ? '1fr' : window.innerWidth < 1024 ? 'repeat(2, 1fr)' : 'repeat(3, 1fr)',
                 gap: '20px'
               }}>
                 {streams[activeStream].subjects.map((subject, index) => (
@@ -1340,7 +1405,7 @@ const App = () => {
                       e.currentTarget.style.boxShadow = 'none';
                     }}
                   >
-                    <FaCheckCircle style={{ color: colors.primary, fontSize: '20px' }} />
+                    <FaCheckCircle style={{ color: colors.primary, fontSize: '20px', flexShrink: 0 }} />
                     <span style={{ fontSize: '16px', fontWeight: '600', color: colors.dark }}>
                       {subject}
                     </span>
@@ -1353,23 +1418,23 @@ const App = () => {
 
         {/* Academic Support */}
         <section style={{
-          padding: '100px 20px',
+          padding: window.innerWidth < 768 ? '60px 20px' : '100px 20px',
           background: `linear-gradient(135deg, ${colors.light} 0%, ${colors.white} 100%)`
         }}>
           <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
             <h2 style={{
-              fontSize: '48px',
+              fontSize: window.innerWidth < 768 ? '32px' : window.innerWidth < 1024 ? '40px' : '48px',
               fontWeight: '800',
               textAlign: 'center',
-              marginBottom: '60px',
+              marginBottom: window.innerWidth < 768 ? '40px' : '60px',
               color: colors.dark
             }}>
               Academic <span style={{ color: colors.primary }}>Support & Resources</span>
             </h2>
             <div style={{
               display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fit, minmax(350px, 1fr))',
-              gap: '40px'
+              gridTemplateColumns: window.innerWidth < 768 ? '1fr' : window.innerWidth < 1024 ? 'repeat(2, 1fr)' : 'repeat(3, 1fr)',
+              gap: window.innerWidth < 768 ? '30px' : '40px'
             }}>
               {[
                 {
@@ -1412,7 +1477,7 @@ const App = () => {
                 <div
                   key={index}
                   style={{
-                    padding: '40px',
+                    padding: window.innerWidth < 768 ? '30px' : '40px',
                     backgroundColor: colors.white,
                     borderRadius: '20px',
                     boxShadow: '0 10px 30px rgba(0,0,0,0.08)',
@@ -1430,14 +1495,14 @@ const App = () => {
                   }}
                 >
                   <div style={{
-                    fontSize: '48px',
+                    fontSize: window.innerWidth < 768 ? '36px' : '48px',
                     color: item.color,
                     marginBottom: '20px'
                   }}>
                     {item.icon}
                   </div>
                   <h3 style={{
-                    fontSize: '24px',
+                    fontSize: window.innerWidth < 768 ? '20px' : '24px',
                     fontWeight: '700',
                     color: colors.dark,
                     marginBottom: '15px'
@@ -1459,23 +1524,23 @@ const App = () => {
 
         {/* Academic Achievements */}
         <section style={{
-          padding: '100px 20px',
+          padding: window.innerWidth < 768 ? '60px 20px' : '100px 20px',
           background: `linear-gradient(135deg, ${colors.primary}, ${colors.secondary})`
         }}>
           <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
             <h2 style={{
-              fontSize: '48px',
+              fontSize: window.innerWidth < 768 ? '32px' : window.innerWidth < 1024 ? '40px' : '48px',
               fontWeight: '800',
               textAlign: 'center',
-              marginBottom: '60px',
+              marginBottom: window.innerWidth < 768 ? '40px' : '60px',
               color: colors.white
             }}>
               Academic Achievements
             </h2>
             <div style={{
               display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))',
-              gap: '40px'
+              gridTemplateColumns: window.innerWidth < 768 ? '1fr' : window.innerWidth < 1024 ? 'repeat(2, 1fr)' : 'repeat(4, 1fr)',
+              gap: window.innerWidth < 768 ? '30px' : '40px'
             }}>
               {[
                 { number: '95%', label: 'Matric Pass Rate', icon: <FaTrophy /> },
@@ -1487,7 +1552,7 @@ const App = () => {
                   key={index}
                   style={{
                     textAlign: 'center',
-                    padding: '40px',
+                    padding: window.innerWidth < 768 ? '30px' : '40px',
                     background: 'rgba(255,255,255,0.1)',
                     borderRadius: '20px',
                     backdropFilter: 'blur(10px)',
@@ -1495,14 +1560,14 @@ const App = () => {
                   }}
                 >
                   <div style={{
-                    fontSize: '48px',
+                    fontSize: window.innerWidth < 768 ? '36px' : '48px',
                     color: colors.white,
                     marginBottom: '20px'
                   }}>
                     {stat.icon}
                   </div>
                   <h3 style={{
-                    fontSize: '48px',
+                    fontSize: window.innerWidth < 768 ? '36px' : '48px',
                     fontWeight: '800',
                     color: colors.white,
                     marginBottom: '10px'
@@ -1510,7 +1575,7 @@ const App = () => {
                     {stat.number}
                   </h3>
                   <p style={{
-                    fontSize: '18px',
+                    fontSize: window.innerWidth < 768 ? '16px' : '18px',
                     color: 'rgba(255,255,255,0.9)'
                   }}>
                     {stat.label}
@@ -1528,16 +1593,17 @@ const App = () => {
     const [activeTab, setActiveTab] = useState('process');
 
     return (
-      <div style={{ paddingTop: '100px' }}>
+      <div style={{ paddingTop: '0' }}>
         {/* Hero Section */}
         <section style={{
-          padding: '100px 20px',
+          padding: window.innerWidth < 768 ? '60px 20px' : '100px 20px',
+          paddingTop: window.innerWidth < 768 ? '130px' : '180px',
           background: `linear-gradient(135deg, ${colors.dark} 0%, #1a1a1a 100%)`,
           textAlign: 'center'
         }}>
           <div style={{ maxWidth: '800px', margin: '0 auto' }}>
             <h1 style={{
-              fontSize: '56px',
+              fontSize: window.innerWidth < 768 ? '36px' : window.innerWidth < 1024 ? '48px' : '56px',
               fontWeight: '800',
               color: colors.white,
               marginBottom: '20px'
@@ -1545,7 +1611,7 @@ const App = () => {
               <span style={{ color: colors.primary }}>Admissions</span>
             </h1>
             <p style={{
-              fontSize: '20px',
+              fontSize: window.innerWidth < 768 ? '16px' : '20px',
               color: colors.gray,
               lineHeight: '1.6'
             }}>
@@ -1556,10 +1622,10 @@ const App = () => {
 
         {/* Tabs Navigation */}
         <section style={{
-          padding: '40px 20px',
+          padding: window.innerWidth < 768 ? '20px' : '40px 20px',
           backgroundColor: colors.white,
           position: 'sticky',
-          top: '80px',
+          top: window.innerWidth < 768 ? '60px' : '75px',
           zIndex: 100,
           boxShadow: '0 4px 20px rgba(0,0,0,0.05)'
         }}>
@@ -1568,7 +1634,7 @@ const App = () => {
             margin: '0 auto',
             display: 'flex',
             justifyContent: 'center',
-            gap: '20px',
+            gap: window.innerWidth < 768 ? '10px' : '20px',
             flexWrap: 'wrap'
           }}>
             {[
@@ -1581,10 +1647,10 @@ const App = () => {
                 key={tab.id}
                 onClick={() => setActiveTab(tab.id)}
                 style={{
-                  padding: '15px 30px',
+                  padding: window.innerWidth < 768 ? '10px 20px' : '15px 30px',
                   border: 'none',
                   borderRadius: '50px',
-                  fontSize: '16px',
+                  fontSize: window.innerWidth < 768 ? '14px' : '16px',
                   fontWeight: '600',
                   cursor: 'pointer',
                   transition: 'all 0.3s ease',
@@ -1592,10 +1658,11 @@ const App = () => {
                   alignItems: 'center',
                   gap: '10px',
                   backgroundColor: activeTab === tab.id ? colors.primary : colors.light,
-                  color: activeTab === tab.id ? colors.white : colors.dark
+                  color: activeTab === tab.id ? colors.white : colors.dark,
+                  marginBottom: window.innerWidth < 768 ? '10px' : 0
                 }}
               >
-                {tab.icon}
+                <span style={{ display: window.innerWidth < 480 ? 'none' : 'block' }}>{tab.icon}</span>
                 {tab.label}
               </button>
             ))}
@@ -1603,12 +1670,15 @@ const App = () => {
         </section>
 
         {/* Content Sections */}
-        <section style={{ padding: '60px 20px', backgroundColor: colors.white }}>
+        <section style={{ 
+          padding: window.innerWidth < 768 ? '40px 20px' : '60px 20px', 
+          backgroundColor: colors.white 
+        }}>
           <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
             {activeTab === 'process' && (
               <div>
                 <h2 style={{
-                  fontSize: '36px',
+                  fontSize: window.innerWidth < 768 ? '28px' : '36px',
                   fontWeight: '700',
                   marginBottom: '40px',
                   color: colors.dark,
@@ -1616,7 +1686,7 @@ const App = () => {
                 }}>
                   Application Process
                 </h2>
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '30px' }}>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: window.innerWidth < 768 ? '20px' : '30px' }}>
                   {[
                     {
                       step: '1',
@@ -1648,11 +1718,13 @@ const App = () => {
                       style={{
                         display: 'flex',
                         alignItems: 'center',
-                        gap: '30px',
-                        padding: '40px',
+                        gap: window.innerWidth < 768 ? '20px' : '30px',
+                        padding: window.innerWidth < 768 ? '25px' : '40px',
                         backgroundColor: colors.light,
                         borderRadius: '20px',
-                        transition: 'all 0.3s ease'
+                        transition: 'all 0.3s ease',
+                        flexDirection: window.innerWidth < 480 ? 'column' : 'row',
+                        textAlign: window.innerWidth < 480 ? 'center' : 'left'
                       }}
                       onMouseEnter={e => {
                         e.currentTarget.style.transform = 'translateX(10px)';
@@ -1664,14 +1736,14 @@ const App = () => {
                       }}
                     >
                       <div style={{
-                        width: '80px',
-                        height: '80px',
+                        width: window.innerWidth < 768 ? '60px' : '80px',
+                        height: window.innerWidth < 768 ? '60px' : '80px',
                         backgroundColor: colors.primary,
                         borderRadius: '50%',
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'center',
-                        fontSize: '36px',
+                        fontSize: window.innerWidth < 768 ? '28px' : '36px',
                         fontWeight: '700',
                         color: colors.white,
                         flexShrink: 0
@@ -1680,13 +1752,14 @@ const App = () => {
                       </div>
                       <div style={{ flex: 1 }}>
                         <h3 style={{
-                          fontSize: '24px',
+                          fontSize: window.innerWidth < 768 ? '20px' : '24px',
                           fontWeight: '700',
                           marginBottom: '10px',
                           color: colors.dark,
                           display: 'flex',
                           alignItems: 'center',
-                          gap: '10px'
+                          gap: '10px',
+                          justifyContent: window.innerWidth < 480 ? 'center' : 'flex-start'
                         }}>
                           {item.icon}
                           {item.title}
@@ -1708,7 +1781,7 @@ const App = () => {
             {activeTab === 'requirements' && (
               <div>
                 <h2 style={{
-                  fontSize: '36px',
+                  fontSize: window.innerWidth < 768 ? '28px' : '36px',
                   fontWeight: '700',
                   marginBottom: '40px',
                   color: colors.dark,
@@ -1718,17 +1791,17 @@ const App = () => {
                 </h2>
                 <div style={{
                   display: 'grid',
-                  gridTemplateColumns: 'repeat(auto-fit, minmax(400px, 1fr))',
-                  gap: '40px'
+                  gridTemplateColumns: window.innerWidth < 768 ? '1fr' : 'repeat(2, 1fr)',
+                  gap: window.innerWidth < 768 ? '30px' : '40px'
                 }}>
                   <div style={{
-                    padding: '40px',
+                    padding: window.innerWidth < 768 ? '30px' : '40px',
                     backgroundColor: colors.light,
                     borderRadius: '20px',
                     borderTop: `4px solid ${colors.primary}`
                   }}>
                     <h3 style={{
-                      fontSize: '24px',
+                      fontSize: window.innerWidth < 768 ? '20px' : '24px',
                       fontWeight: '700',
                       marginBottom: '20px',
                       color: colors.dark,
@@ -1761,13 +1834,13 @@ const App = () => {
                     </ul>
                   </div>
                   <div style={{
-                    padding: '40px',
+                    padding: window.innerWidth < 768 ? '30px' : '40px',
                     backgroundColor: colors.light,
                     borderRadius: '20px',
                     borderTop: `4px solid ${colors.secondary}`
                   }}>
                     <h3 style={{
-                      fontSize: '24px',
+                      fontSize: window.innerWidth < 768 ? '20px' : '24px',
                       fontWeight: '700',
                       marginBottom: '20px',
                       color: colors.dark,
@@ -1809,7 +1882,7 @@ const App = () => {
             {activeTab === 'dates' && (
               <div>
                 <h2 style={{
-                  fontSize: '36px',
+                  fontSize: window.innerWidth < 768 ? '28px' : '36px',
                   fontWeight: '700',
                   marginBottom: '40px',
                   color: colors.dark,
@@ -1837,21 +1910,22 @@ const App = () => {
                         display: 'flex',
                         alignItems: 'center',
                         gap: '20px',
-                        padding: '25px',
+                        padding: window.innerWidth < 768 ? '20px' : '25px',
                         backgroundColor: colors.light,
                         borderRadius: '15px',
                         borderLeft: `4px solid ${index % 2 === 0 ? colors.primary : colors.secondary}`
                       }}
                     >
                       <div style={{
-                        fontSize: '32px',
-                        color: index % 2 === 0 ? colors.primary : colors.secondary
+                        fontSize: window.innerWidth < 768 ? '28px' : '32px',
+                        color: index % 2 === 0 ? colors.primary : colors.secondary,
+                        display: window.innerWidth < 480 ? 'none' : 'block'
                       }}>
                         {item.icon}
                       </div>
                       <div>
                         <h4 style={{
-                          fontSize: '20px',
+                          fontSize: window.innerWidth < 768 ? '18px' : '20px',
                           fontWeight: '700',
                           color: colors.dark,
                           marginBottom: '5px'
@@ -1859,7 +1933,7 @@ const App = () => {
                           {item.event}
                         </h4>
                         <p style={{
-                          fontSize: '16px',
+                          fontSize: window.innerWidth < 768 ? '14px' : '16px',
                           color: colors.gray,
                           margin: 0
                         }}>
@@ -1875,7 +1949,7 @@ const App = () => {
             {activeTab === 'fees' && (
               <div>
                 <h2 style={{
-                  fontSize: '36px',
+                  fontSize: window.innerWidth < 768 ? '28px' : '36px',
                   fontWeight: '700',
                   marginBottom: '40px',
                   color: colors.dark,
@@ -1886,12 +1960,12 @@ const App = () => {
                 <div style={{
                   maxWidth: '800px',
                   margin: '0 auto',
-                  padding: '40px',
+                  padding: window.innerWidth < 768 ? '30px' : '40px',
                   backgroundColor: colors.light,
                   borderRadius: '20px'
                 }}>
                   <p style={{
-                    fontSize: '18px',
+                    fontSize: window.innerWidth < 768 ? '16px' : '18px',
                     color: colors.gray,
                     lineHeight: '1.8',
                     marginBottom: '30px'
@@ -1912,10 +1986,10 @@ const App = () => {
                       alignItems: 'center',
                       gap: '15px'
                     }}>
-                      <FaCheckCircle style={{ color: colors.primary, fontSize: '24px' }} />
+                      <FaCheckCircle style={{ color: colors.primary, fontSize: '24px', flexShrink: 0 }} />
                       <div>
                         <h4 style={{ margin: '0 0 5px 0', color: colors.dark }}>School Fees</h4>
-                        <p style={{ margin: 0, color: colors.gray }}>Annual fees determined by SGB (contact office for current rates)</p>
+                        <p style={{ margin: 0, color: colors.gray, fontSize: window.innerWidth < 768 ? '14px' : '16px' }}>Annual fees determined by SGB (contact office for current rates)</p>
                       </div>
                     </div>
                     <div style={{
@@ -1926,10 +2000,10 @@ const App = () => {
                       alignItems: 'center',
                       gap: '15px'
                     }}>
-                      <FaCheckCircle style={{ color: colors.primary, fontSize: '24px' }} />
+                      <FaCheckCircle style={{ color: colors.primary, fontSize: '24px', flexShrink: 0 }} />
                       <div>
                         <h4 style={{ margin: '0 0 5px 0', color: colors.dark }}>Fee Exemptions</h4>
-                        <p style={{ margin: 0, color: colors.gray }}>Available for qualifying families based on financial need</p>
+                        <p style={{ margin: 0, color: colors.gray, fontSize: window.innerWidth < 768 ? '14px' : '16px' }}>Available for qualifying families based on financial need</p>
                       </div>
                     </div>
                     <div style={{
@@ -1940,10 +2014,10 @@ const App = () => {
                       alignItems: 'center',
                       gap: '15px'
                     }}>
-                      <FaCheckCircle style={{ color: colors.primary, fontSize: '24px' }} />
+                      <FaCheckCircle style={{ color: colors.primary, fontSize: '24px', flexShrink: 0 }} />
                       <div>
                         <h4 style={{ margin: '0 0 5px 0', color: colors.dark }}>Payment Options</h4>
-                        <p style={{ margin: 0, color: colors.gray }}>Full payment, termly installments, or monthly debit orders</p>
+                        <p style={{ margin: 0, color: colors.gray, fontSize: window.innerWidth < 768 ? '14px' : '16px' }}>Full payment, termly installments, or monthly debit orders</p>
                       </div>
                     </div>
                   </div>
@@ -1955,13 +2029,13 @@ const App = () => {
 
         {/* Contact CTA */}
         <section style={{
-          padding: '80px 20px',
+          padding: window.innerWidth < 768 ? '60px 20px' : '80px 20px',
           background: `linear-gradient(135deg, ${colors.primary}, ${colors.secondary})`,
           textAlign: 'center'
         }}>
           <div style={{ maxWidth: '800px', margin: '0 auto' }}>
             <h2 style={{
-              fontSize: '36px',
+              fontSize: window.innerWidth < 768 ? '28px' : '36px',
               fontWeight: '700',
               color: colors.white,
               marginBottom: '20px'
@@ -1969,7 +2043,7 @@ const App = () => {
               Ready to Apply?
             </h2>
             <p style={{
-              fontSize: '18px',
+              fontSize: window.innerWidth < 768 ? '16px' : '18px',
               color: colors.white,
               opacity: 0.9,
               marginBottom: '30px'
@@ -1982,8 +2056,8 @@ const App = () => {
                 backgroundColor: colors.white,
                 color: colors.primary,
                 border: 'none',
-                padding: '18px 40px',
-                fontSize: '18px',
+                padding: window.innerWidth < 768 ? '14px 30px' : '18px 40px',
+                fontSize: window.innerWidth < 768 ? '16px' : '18px',
                 fontWeight: '600',
                 borderRadius: '50px',
                 cursor: 'pointer',
@@ -2059,16 +2133,17 @@ const App = () => {
     };
 
     return (
-      <div style={{ paddingTop: '100px' }}>
+      <div style={{ paddingTop: '0' }}>
         {/* Hero Section */}
         <section style={{
-          padding: '100px 20px',
+          padding: window.innerWidth < 768 ? '60px 20px' : '100px 20px',
+          paddingTop: window.innerWidth < 768 ? '130px' : '180px',
           background: `linear-gradient(135deg, ${colors.dark} 0%, #1a1a1a 100%)`,
           textAlign: 'center'
         }}>
           <div style={{ maxWidth: '800px', margin: '0 auto' }}>
             <h1 style={{
-              fontSize: '56px',
+              fontSize: window.innerWidth < 768 ? '36px' : window.innerWidth < 1024 ? '48px' : '56px',
               fontWeight: '800',
               color: colors.white,
               marginBottom: '20px'
@@ -2076,7 +2151,7 @@ const App = () => {
               Student <span style={{ color: colors.primary }}>Life</span>
             </h1>
             <p style={{
-              fontSize: '20px',
+              fontSize: window.innerWidth < 768 ? '16px' : '20px',
               color: colors.gray,
               lineHeight: '1.6'
             }}>
@@ -2086,10 +2161,13 @@ const App = () => {
         </section>
 
         {/* Activities Overview */}
-        <section style={{ padding: '100px 20px', backgroundColor: colors.white }}>
+        <section style={{ 
+          padding: window.innerWidth < 768 ? '60px 20px' : '100px 20px', 
+          backgroundColor: colors.white 
+        }}>
           <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
             <h2 style={{
-              fontSize: '48px',
+              fontSize: window.innerWidth < 768 ? '32px' : window.innerWidth < 1024 ? '40px' : '48px',
               fontWeight: '800',
               textAlign: 'center',
               marginBottom: '20px',
@@ -2098,10 +2176,10 @@ const App = () => {
               A Vibrant School <span style={{ color: colors.primary }}>Community</span>
             </h2>
             <p style={{
-              fontSize: '18px',
+              fontSize: window.innerWidth < 768 ? '16px' : '18px',
               color: colors.gray,
               textAlign: 'center',
-              marginBottom: '60px',
+              marginBottom: window.innerWidth < 768 ? '40px' : '60px',
               maxWidth: '800px',
               margin: '0 auto 60px'
             }}>
@@ -2114,8 +2192,8 @@ const App = () => {
             <div style={{
               display: 'flex',
               justifyContent: 'center',
-              gap: '20px',
-              marginBottom: '60px',
+              gap: window.innerWidth < 768 ? '10px' : '20px',
+              marginBottom: window.innerWidth < 768 ? '40px' : '60px',
               flexWrap: 'wrap'
             }}>
               {Object.entries(activities).map(([key, activity]) => (
@@ -2123,10 +2201,10 @@ const App = () => {
                   key={key}
                   onClick={() => setActiveActivity(key)}
                   style={{
-                    padding: '20px 40px',
+                    padding: window.innerWidth < 768 ? '15px 25px' : '20px 40px',
                     border: 'none',
                     borderRadius: '15px',
-                    fontSize: '18px',
+                    fontSize: window.innerWidth < 768 ? '16px' : '18px',
                     fontWeight: '600',
                     cursor: 'pointer',
                     transition: 'all 0.3s ease',
@@ -2135,11 +2213,12 @@ const App = () => {
                     gap: '10px',
                     backgroundColor: activeActivity === key ? colors.primary : colors.light,
                     color: activeActivity === key ? colors.white : colors.dark,
-                    boxShadow: activeActivity === key ? '0 10px 30px rgba(34, 139, 34, 0.3)' : 'none'
+                    boxShadow: activeActivity === key ? '0 10px 30px rgba(34, 139, 34, 0.3)' : 'none',
+                    marginBottom: window.innerWidth < 768 ? '10px' : 0
                   }}
                 >
-                  <span style={{ fontSize: '24px' }}>{activity.icon}</span>
-                  {activity.title}
+                  <span style={{ fontSize: window.innerWidth < 768 ? '20px' : '24px' }}>{activity.icon}</span>
+                  {window.innerWidth < 480 ? activity.title.split(' ')[0] : activity.title}
                 </button>
               ))}
             </div>
@@ -2147,14 +2226,14 @@ const App = () => {
             {/* Activity Items */}
             <div style={{
               display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))',
-              gap: '30px'
+              gridTemplateColumns: window.innerWidth < 768 ? 'repeat(2, 1fr)' : window.innerWidth < 1024 ? 'repeat(3, 1fr)' : 'repeat(4, 1fr)',
+              gap: window.innerWidth < 768 ? '20px' : '30px'
             }}>
               {activities[activeActivity].items.map((item, index) => (
                 <div
                   key={index}
                   style={{
-                    padding: '30px',
+                    padding: window.innerWidth < 768 ? '25px' : '30px',
                     backgroundColor: colors.light,
                     borderRadius: '15px',
                     textAlign: 'center',
@@ -2174,14 +2253,14 @@ const App = () => {
                   }}
                 >
                   <div style={{
-                    fontSize: '48px',
+                    fontSize: window.innerWidth < 768 ? '36px' : '48px',
                     color: colors.primary,
                     marginBottom: '15px'
                   }}>
                     {item.icon}
                   </div>
                   <h3 style={{
-                    fontSize: '20px',
+                    fontSize: window.innerWidth < 768 ? '16px' : '20px',
                     fontWeight: '600',
                     color: colors.dark
                   }}>
@@ -2195,23 +2274,23 @@ const App = () => {
 
         {/* Student Support */}
         <section style={{
-          padding: '100px 20px',
+          padding: window.innerWidth < 768 ? '60px 20px' : '100px 20px',
           background: `linear-gradient(135deg, ${colors.light} 0%, ${colors.white} 100%)`
         }}>
           <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
             <h2 style={{
-              fontSize: '48px',
+              fontSize: window.innerWidth < 768 ? '32px' : window.innerWidth < 1024 ? '40px' : '48px',
               fontWeight: '800',
               textAlign: 'center',
-              marginBottom: '60px',
+              marginBottom: window.innerWidth < 768 ? '40px' : '60px',
               color: colors.dark
             }}>
               Student <span style={{ color: colors.primary }}>Support Services</span>
             </h2>
             <div style={{
               display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fit, minmax(350px, 1fr))',
-              gap: '40px'
+              gridTemplateColumns: window.innerWidth < 768 ? '1fr' : window.innerWidth < 1024 ? 'repeat(2, 1fr)' : 'repeat(3, 1fr)',
+              gap: window.innerWidth < 768 ? '30px' : '40px'
             }}>
               {[
                 {
@@ -2254,7 +2333,7 @@ const App = () => {
                 <div
                   key={index}
                   style={{
-                    padding: '40px',
+                    padding: window.innerWidth < 768 ? '30px' : '40px',
                     backgroundColor: colors.white,
                     borderRadius: '20px',
                     boxShadow: '0 10px 30px rgba(0,0,0,0.08)',
@@ -2272,14 +2351,14 @@ const App = () => {
                   }}
                 >
                   <div style={{
-                    fontSize: '48px',
+                    fontSize: window.innerWidth < 768 ? '36px' : '48px',
                     color: service.color,
                     marginBottom: '20px'
                   }}>
                     {service.icon}
                   </div>
                   <h3 style={{
-                    fontSize: '24px',
+                    fontSize: window.innerWidth < 768 ? '20px' : '24px',
                     fontWeight: '700',
                     color: colors.dark,
                     marginBottom: '15px'
@@ -2301,12 +2380,12 @@ const App = () => {
 
         {/* Leadership Opportunities */}
         <section style={{
-          padding: '100px 20px',
+          padding: window.innerWidth < 768 ? '60px 20px' : '100px 20px',
           background: `linear-gradient(135deg, ${colors.primary}, ${colors.secondary})`
         }}>
           <div style={{ maxWidth: '1200px', margin: '0 auto', textAlign: 'center' }}>
             <h2 style={{
-              fontSize: '48px',
+              fontSize: window.innerWidth < 768 ? '32px' : window.innerWidth < 1024 ? '40px' : '48px',
               fontWeight: '800',
               marginBottom: '20px',
               color: colors.white
@@ -2314,10 +2393,10 @@ const App = () => {
               Student Leadership
             </h2>
             <p style={{
-              fontSize: '20px',
+              fontSize: window.innerWidth < 768 ? '16px' : '20px',
               color: colors.white,
               opacity: 0.9,
-              marginBottom: '60px',
+              marginBottom: window.innerWidth < 768 ? '40px' : '60px',
               maxWidth: '800px',
               margin: '0 auto 60px'
             }}>
@@ -2326,8 +2405,8 @@ const App = () => {
             </p>
             <div style={{
               display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
-              gap: '40px'
+              gridTemplateColumns: window.innerWidth < 768 ? 'repeat(2, 1fr)' : 'repeat(4, 1fr)',
+              gap: window.innerWidth < 768 ? '30px' : '40px'
             }}>
               {[
                 { number: '25', label: 'Prefects', icon: <FaUserTie /> },
@@ -2338,7 +2417,7 @@ const App = () => {
                 <div
                   key={index}
                   style={{
-                    padding: '30px',
+                    padding: window.innerWidth < 768 ? '25px' : '30px',
                     background: 'rgba(255,255,255,0.1)',
                     borderRadius: '20px',
                     backdropFilter: 'blur(10px)',
@@ -2346,14 +2425,14 @@ const App = () => {
                   }}
                 >
                   <div style={{
-                    fontSize: '36px',
+                    fontSize: window.innerWidth < 768 ? '28px' : '36px',
                     color: colors.white,
                     marginBottom: '15px'
                   }}>
                     {stat.icon}
                   </div>
                   <h3 style={{
-                    fontSize: '48px',
+                    fontSize: window.innerWidth < 768 ? '36px' : '48px',
                     fontWeight: '800',
                     color: colors.white,
                     marginBottom: '10px'
@@ -2361,7 +2440,7 @@ const App = () => {
                     {stat.number}
                   </h3>
                   <p style={{
-                    fontSize: '18px',
+                    fontSize: window.innerWidth < 768 ? '14px' : '18px',
                     color: 'rgba(255,255,255,0.9)'
                   }}>
                     {stat.label}
@@ -2434,16 +2513,17 @@ const App = () => {
       : newsItems.filter(item => item.category.toLowerCase() === selectedNewsCategory);
 
     return (
-      <div style={{ paddingTop: '100px' }}>
+      <div style={{ paddingTop: '0' }}>
         {/* Hero Section */}
         <section style={{
-          padding: '100px 20px',
+          padding: window.innerWidth < 768 ? '60px 20px' : '100px 20px',
+          paddingTop: window.innerWidth < 768 ? '130px' : '180px',
           background: `linear-gradient(135deg, ${colors.dark} 0%, #1a1a1a 100%)`,
           textAlign: 'center'
         }}>
           <div style={{ maxWidth: '800px', margin: '0 auto' }}>
             <h1 style={{
-              fontSize: '56px',
+              fontSize: window.innerWidth < 768 ? '36px' : window.innerWidth < 1024 ? '48px' : '56px',
               fontWeight: '800',
               color: colors.white,
               marginBottom: '20px'
@@ -2451,7 +2531,7 @@ const App = () => {
               News & <span style={{ color: colors.primary }}>Events</span>
             </h1>
             <p style={{
-              fontSize: '20px',
+              fontSize: window.innerWidth < 768 ? '16px' : '20px',
               color: colors.gray,
               lineHeight: '1.6'
             }}>
@@ -2462,10 +2542,10 @@ const App = () => {
 
         {/* Filter Section */}
         <section style={{
-          padding: '40px 20px',
+          padding: window.innerWidth < 768 ? '20px' : '40px 20px',
           backgroundColor: colors.white,
           position: 'sticky',
-          top: '80px',
+          top: window.innerWidth < 768 ? '60px' : '75px',
           zIndex: 100,
           boxShadow: '0 4px 20px rgba(0,0,0,0.05)'
         }}>
@@ -2474,7 +2554,7 @@ const App = () => {
             margin: '0 auto',
             display: 'flex',
             justifyContent: 'center',
-            gap: '15px',
+            gap: window.innerWidth < 768 ? '10px' : '15px',
             flexWrap: 'wrap'
           }}>
             {['all', 'academic', 'sports', 'cultural', 'achievement', 'community'].map(category => (
@@ -2482,16 +2562,17 @@ const App = () => {
                 key={category}
                 onClick={() => setSelectedNewsCategory(category)}
                 style={{
-                  padding: '10px 25px',
+                  padding: window.innerWidth < 768 ? '8px 20px' : '10px 25px',
                   border: 'none',
                   borderRadius: '25px',
-                  fontSize: '16px',
+                  fontSize: window.innerWidth < 768 ? '14px' : '16px',
                   fontWeight: '600',
                   cursor: 'pointer',
                   transition: 'all 0.3s ease',
                   backgroundColor: selectedNewsCategory === category ? colors.primary : colors.light,
                   color: selectedNewsCategory === category ? colors.white : colors.dark,
-                  textTransform: 'capitalize'
+                  textTransform: 'capitalize',
+                  marginBottom: window.innerWidth < 768 ? '5px' : 0
                 }}
               >
                 {category}
@@ -2502,10 +2583,13 @@ const App = () => {
 
         {/* Featured News */}
         {selectedNewsCategory === 'all' && (
-          <section style={{ padding: '60px 20px', backgroundColor: colors.light }}>
+          <section style={{ 
+            padding: window.innerWidth < 768 ? '40px 20px' : '60px 20px', 
+            backgroundColor: colors.light 
+          }}>
             <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
               <h2 style={{
-                fontSize: '36px',
+                fontSize: window.innerWidth < 768 ? '28px' : '36px',
                 fontWeight: '700',
                 marginBottom: '40px',
                 color: colors.dark
@@ -2514,8 +2598,8 @@ const App = () => {
               </h2>
               <div style={{
                 display: 'grid',
-                gridTemplateColumns: 'repeat(auto-fit, minmax(500px, 1fr))',
-                gap: '40px'
+                gridTemplateColumns: window.innerWidth < 768 ? '1fr' : 'repeat(2, 1fr)',
+                gap: window.innerWidth < 768 ? '30px' : '40px'
               }}>
                 {newsItems.filter(item => item.featured).map(item => (
                   <article
@@ -2538,17 +2622,18 @@ const App = () => {
                     }}
                   >
                     <div style={{
-                      height: '300px',
+                      height: window.innerWidth < 768 ? '200px' : '300px',
                       backgroundImage: `url(${item.image})`,
                       backgroundSize: 'cover',
                       backgroundPosition: 'center'
                     }} />
-                    <div style={{ padding: '40px' }}>
+                    <div style={{ padding: window.innerWidth < 768 ? '30px' : '40px' }}>
                       <div style={{
                         display: 'flex',
                         alignItems: 'center',
                         gap: '15px',
-                        marginBottom: '20px'
+                        marginBottom: '20px',
+                        flexWrap: 'wrap'
                       }}>
                         <span style={{
                           backgroundColor: colors.primary,
@@ -2573,7 +2658,7 @@ const App = () => {
                         </span>
                       </div>
                       <h3 style={{
-                        fontSize: '28px',
+                        fontSize: window.innerWidth < 768 ? '22px' : '28px',
                         fontWeight: '700',
                         marginBottom: '15px',
                         color: colors.dark,
@@ -2582,7 +2667,7 @@ const App = () => {
                         {item.title}
                       </h3>
                       <p style={{
-                        fontSize: '18px',
+                        fontSize: window.innerWidth < 768 ? '16px' : '18px',
                         color: colors.gray,
                         lineHeight: '1.6'
                       }}>
@@ -2597,10 +2682,13 @@ const App = () => {
         )}
 
         {/* All News */}
-        <section style={{ padding: '60px 20px', backgroundColor: colors.white }}>
+        <section style={{ 
+          padding: window.innerWidth < 768 ? '40px 20px' : '60px 20px', 
+          backgroundColor: colors.white 
+        }}>
           <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
             <h2 style={{
-              fontSize: '36px',
+              fontSize: window.innerWidth < 768 ? '28px' : '36px',
               fontWeight: '700',
               marginBottom: '40px',
               color: colors.dark
@@ -2609,8 +2697,8 @@ const App = () => {
             </h2>
             <div style={{
               display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fit, minmax(350px, 1fr))',
-              gap: '40px'
+              gridTemplateColumns: window.innerWidth < 768 ? '1fr' : window.innerWidth < 1024 ? 'repeat(2, 1fr)' : 'repeat(3, 1fr)',
+              gap: window.innerWidth < 768 ? '30px' : '40px'
             }}>
               {filteredNews.map(item => (
                 <article
@@ -2654,9 +2742,9 @@ const App = () => {
                       {item.category}
                     </div>
                   </div>
-                  <div style={{ padding: '30px' }}>
+                  <div style={{ padding: window.innerWidth < 768 ? '25px' : '30px' }}>
                     <h3 style={{
-                      fontSize: '22px',
+                      fontSize: window.innerWidth < 768 ? '18px' : '22px',
                       fontWeight: '700',
                       marginBottom: '15px',
                       color: colors.dark,
@@ -2698,15 +2786,15 @@ const App = () => {
 
         {/* Upcoming Events */}
         <section style={{
-          padding: '80px 20px',
+          padding: window.innerWidth < 768 ? '60px 20px' : '80px 20px',
           background: `linear-gradient(135deg, ${colors.dark} 0%, #1a1a1a 100%)`
         }}>
           <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
             <h2 style={{
-              fontSize: '48px',
+              fontSize: window.innerWidth < 768 ? '32px' : window.innerWidth < 1024 ? '40px' : '48px',
               fontWeight: '800',
               textAlign: 'center',
-              marginBottom: '60px',
+              marginBottom: window.innerWidth < 768 ? '40px' : '60px',
               color: colors.white
             }}>
               Upcoming <span style={{ color: colors.primary }}>Events</span>
@@ -2729,8 +2817,8 @@ const App = () => {
                   style={{
                     display: 'flex',
                     alignItems: 'center',
-                    gap: '30px',
-                    padding: '25px',
+                    gap: window.innerWidth < 768 ? '20px' : '30px',
+                    padding: window.innerWidth < 768 ? '20px' : '25px',
                     background: 'rgba(255,255,255,0.05)',
                     borderRadius: '15px',
                     backdropFilter: 'blur(10px)',
@@ -2740,21 +2828,21 @@ const App = () => {
                   <div style={{
                     backgroundColor: colors.primary,
                     color: colors.white,
-                    padding: '20px',
+                    padding: window.innerWidth < 768 ? '15px' : '20px',
                     borderRadius: '10px',
                     textAlign: 'center',
-                    minWidth: '80px'
+                    minWidth: window.innerWidth < 768 ? '70px' : '80px'
                   }}>
                     <div style={{ fontSize: '14px', marginBottom: '5px' }}>
                       {event.date.split(' ')[0]}
                     </div>
-                    <div style={{ fontSize: '24px', fontWeight: '700' }}>
+                    <div style={{ fontSize: window.innerWidth < 768 ? '20px' : '24px', fontWeight: '700' }}>
                       {event.date.split(' ')[1]}
                     </div>
                   </div>
                   <div style={{ flex: 1 }}>
                     <h3 style={{
-                      fontSize: '20px',
+                      fontSize: window.innerWidth < 768 ? '18px' : '20px',
                       fontWeight: '600',
                       color: colors.white,
                       marginBottom: '5px'
@@ -2762,7 +2850,7 @@ const App = () => {
                       {event.event}
                     </h3>
                     <p style={{
-                      fontSize: '16px',
+                      fontSize: window.innerWidth < 768 ? '14px' : '16px',
                       color: colors.gray,
                       display: 'flex',
                       alignItems: 'center',
@@ -2846,16 +2934,17 @@ const App = () => {
       : galleryImages.filter(img => img.category === selectedGalleryCategory);
 
     return (
-      <div style={{ paddingTop: '100px' }}>
+      <div style={{ paddingTop: '0' }}>
         {/* Hero Section */}
         <section style={{
-          padding: '100px 20px',
+          padding: window.innerWidth < 768 ? '60px 20px' : '100px 20px',
+          paddingTop: window.innerWidth < 768 ? '130px' : '180px',
           background: `linear-gradient(135deg, ${colors.dark} 0%, #1a1a1a 100%)`,
           textAlign: 'center'
         }}>
           <div style={{ maxWidth: '800px', margin: '0 auto' }}>
             <h1 style={{
-              fontSize: '56px',
+              fontSize: window.innerWidth < 768 ? '36px' : window.innerWidth < 1024 ? '48px' : '56px',
               fontWeight: '800',
               color: colors.white,
               marginBottom: '20px'
@@ -2863,7 +2952,7 @@ const App = () => {
               <span style={{ color: colors.primary }}>Gallery</span>
             </h1>
             <p style={{
-              fontSize: '20px',
+              fontSize: window.innerWidth < 768 ? '16px' : '20px',
               color: colors.gray,
               lineHeight: '1.6'
             }}>
@@ -2874,10 +2963,10 @@ const App = () => {
 
         {/* Filter Section */}
         <section style={{
-          padding: '40px 20px',
+          padding: window.innerWidth < 768 ? '20px' : '40px 20px',
           backgroundColor: colors.white,
           position: 'sticky',
-          top: '80px',
+          top: window.innerWidth < 768 ? '60px' : '75px',
           zIndex: 100,
           boxShadow: '0 4px 20px rgba(0,0,0,0.05)'
         }}>
@@ -2886,7 +2975,7 @@ const App = () => {
             margin: '0 auto',
             display: 'flex',
             justifyContent: 'center',
-            gap: '15px',
+            gap: window.innerWidth < 768 ? '10px' : '15px',
             flexWrap: 'wrap'
           }}>
             {[
@@ -2901,10 +2990,10 @@ const App = () => {
                 key={category.id}
                 onClick={() => setSelectedGalleryCategory(category.id)}
                 style={{
-                  padding: '12px 25px',
+                  padding: window.innerWidth < 768 ? '8px 20px' : '12px 25px',
                   border: 'none',
                   borderRadius: '25px',
-                  fontSize: '16px',
+                  fontSize: window.innerWidth < 768 ? '14px' : '16px',
                   fontWeight: '600',
                   cursor: 'pointer',
                   transition: 'all 0.3s ease',
@@ -2912,10 +3001,11 @@ const App = () => {
                   color: selectedGalleryCategory === category.id ? colors.white : colors.dark,
                   display: 'flex',
                   alignItems: 'center',
-                  gap: '8px'
+                  gap: '8px',
+                  marginBottom: window.innerWidth < 768 ? '5px' : 0
                 }}
               >
-                {category.icon}
+                <span style={{ display: window.innerWidth < 480 ? 'none' : 'block' }}>{category.icon}</span>
                 {category.label}
               </button>
             ))}
@@ -2923,12 +3013,15 @@ const App = () => {
         </section>
 
         {/* Gallery Grid */}
-        <section style={{ padding: '60px 20px', backgroundColor: colors.white }}>
+        <section style={{ 
+          padding: window.innerWidth < 768 ? '40px 20px' : '60px 20px', 
+          backgroundColor: colors.white 
+        }}>
           <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
             <div style={{
               display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fill, minmax(350px, 1fr))',
-              gap: '30px'
+              gridTemplateColumns: window.innerWidth < 768 ? '1fr' : window.innerWidth < 1024 ? 'repeat(2, 1fr)' : 'repeat(3, 1fr)',
+              gap: window.innerWidth < 768 ? '20px' : '30px'
             }}>
               {filteredImages.map(image => (
                 <div
@@ -2970,7 +3063,7 @@ const App = () => {
                     background: 'linear-gradient(to top, rgba(0,0,0,0.8), transparent)',
                     color: colors.white
                   }}>
-                    <h3 style={{ fontSize: '20px', fontWeight: '600' }}>{image.title}</h3>
+                    <h3 style={{ fontSize: window.innerWidth < 768 ? '18px' : '20px', fontWeight: '600' }}>{image.title}</h3>
                   </div>
                 </div>
               ))}
@@ -3027,23 +3120,23 @@ const App = () => {
 
         {/* Video Section */}
         <section style={{
-          padding: '80px 20px',
+          padding: window.innerWidth < 768 ? '60px 20px' : '80px 20px',
           background: `linear-gradient(135deg, ${colors.light} 0%, ${colors.white} 100%)`
         }}>
           <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
             <h2 style={{
-              fontSize: '48px',
+              fontSize: window.innerWidth < 768 ? '32px' : window.innerWidth < 1024 ? '40px' : '48px',
               fontWeight: '800',
               textAlign: 'center',
-              marginBottom: '60px',
+              marginBottom: window.innerWidth < 768 ? '40px' : '60px',
               color: colors.dark
             }}>
               Video <span style={{ color: colors.primary }}>Highlights</span>
             </h2>
             <div style={{
               display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fit, minmax(500px, 1fr))',
-              gap: '40px'
+              gridTemplateColumns: window.innerWidth < 768 ? '1fr' : 'repeat(2, 1fr)',
+              gap: window.innerWidth < 768 ? '30px' : '40px'
             }}>
               {[
                 { title: 'School Tour', thumbnail: 'https://images.unsplash.com/photo-1580582932707-520aed937b7b?w=800' },
@@ -3081,14 +3174,14 @@ const App = () => {
                     justifyContent: 'center'
                   }}>
                     <div style={{
-                      width: '80px',
-                      height: '80px',
+                      width: window.innerWidth < 768 ? '60px' : '80px',
+                      height: window.innerWidth < 768 ? '60px' : '80px',
                       backgroundColor: colors.primary,
                       borderRadius: '50%',
                       display: 'flex',
                       alignItems: 'center',
                       justifyContent: 'center',
-                      fontSize: '30px',
+                      fontSize: window.innerWidth < 768 ? '24px' : '30px',
                       color: colors.white,
                       transition: 'all 0.3s ease'
                     }}
@@ -3108,7 +3201,7 @@ const App = () => {
                     left: '20px',
                     color: colors.white
                   }}>
-                    <h3 style={{ fontSize: '24px', fontWeight: '600' }}>{video.title}</h3>
+                    <h3 style={{ fontSize: window.innerWidth < 768 ? '20px' : '24px', fontWeight: '600' }}>{video.title}</h3>
                   </div>
                 </div>
               ))}
@@ -3133,16 +3226,17 @@ const App = () => {
     };
 
     return (
-      <div style={{ paddingTop: '100px' }}>
+      <div style={{ paddingTop: '0' }}>
         {/* Hero Section */}
         <section style={{
-          padding: '100px 20px',
+          padding: window.innerWidth < 768 ? '60px 20px' : '100px 20px',
+          paddingTop: window.innerWidth < 768 ? '130px' : '180px',
           background: `linear-gradient(135deg, ${colors.dark} 0%, #1a1a1a 100%)`,
           textAlign: 'center'
         }}>
           <div style={{ maxWidth: '800px', margin: '0 auto' }}>
             <h1 style={{
-              fontSize: '56px',
+              fontSize: window.innerWidth < 768 ? '36px' : window.innerWidth < 1024 ? '48px' : '56px',
               fontWeight: '800',
               color: colors.white,
               marginBottom: '20px'
@@ -3150,7 +3244,7 @@ const App = () => {
               Contact <span style={{ color: colors.primary }}>Us</span>
             </h1>
             <p style={{
-              fontSize: '20px',
+              fontSize: window.innerWidth < 768 ? '16px' : '20px',
               color: colors.gray,
               lineHeight: '1.6'
             }}>
@@ -3160,26 +3254,29 @@ const App = () => {
         </section>
 
         {/* Contact Information & Form */}
-        <section style={{ padding: '100px 20px', backgroundColor: colors.white }}>
+        <section style={{ 
+          padding: window.innerWidth < 768 ? '60px 20px' : '100px 20px', 
+          backgroundColor: colors.white 
+        }}>
           <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
             <div style={{
               display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fit, minmax(500px, 1fr))',
-              gap: '60px'
+              gridTemplateColumns: window.innerWidth < 1024 ? '1fr' : 'repeat(2, 1fr)',
+              gap: window.innerWidth < 768 ? '40px' : '60px'
             }}>
               {/* Contact Information */}
-              <div>
+              <div style={{ order: window.innerWidth < 1024 ? 2 : 1 }}>
                 <h2 style={{
-                  fontSize: '36px',
+                  fontSize: window.innerWidth < 768 ? '28px' : '36px',
                   fontWeight: '700',
                   marginBottom: '40px',
                   color: colors.dark
                 }}>
                   Get In Touch
                 </h2>
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '30px' }}>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: window.innerWidth < 768 ? '20px' : '30px' }}>
                   <div style={{
-                    padding: '30px',
+                    padding: window.innerWidth < 768 ? '25px' : '30px',
                     backgroundColor: colors.light,
                     borderRadius: '15px',
                     display: 'flex',
@@ -3187,24 +3284,24 @@ const App = () => {
                     gap: '20px'
                   }}>
                     <div style={{
-                      width: '50px',
-                      height: '50px',
+                      width: window.innerWidth < 768 ? '40px' : '50px',
+                      height: window.innerWidth < 768 ? '40px' : '50px',
                       backgroundColor: colors.primary,
                       borderRadius: '10px',
                       display: 'flex',
                       alignItems: 'center',
                       justifyContent: 'center',
-                      fontSize: '24px',
+                      fontSize: window.innerWidth < 768 ? '20px' : '24px',
                       color: colors.white,
                       flexShrink: 0
                     }}>
                       <FaMapMarkerAlt />
                     </div>
                     <div>
-                      <h3 style={{ fontSize: '20px', fontWeight: '600', marginBottom: '10px', color: colors.dark }}>
+                      <h3 style={{ fontSize: window.innerWidth < 768 ? '18px' : '20px', fontWeight: '600', marginBottom: '10px', color: colors.dark }}>
                         Address
                       </h3>
-                      <p style={{ color: colors.gray, lineHeight: '1.6' }}>
+                      <p style={{ color: colors.gray, lineHeight: '1.6', fontSize: window.innerWidth < 768 ? '14px' : '16px' }}>
                         Harding Secondary School<br />
                         Harding<br />
                         KwaZulu-Natal, South Africa
@@ -3213,7 +3310,7 @@ const App = () => {
                   </div>
 
                   <div style={{
-                    padding: '30px',
+                    padding: window.innerWidth < 768 ? '25px' : '30px',
                     backgroundColor: colors.light,
                     borderRadius: '15px',
                     display: 'flex',
@@ -3221,31 +3318,31 @@ const App = () => {
                     gap: '20px'
                   }}>
                     <div style={{
-                      width: '50px',
-                      height: '50px',
+                      width: window.innerWidth < 768 ? '40px' : '50px',
+                      height: window.innerWidth < 768 ? '40px' : '50px',
                       backgroundColor: colors.primary,
                       borderRadius: '10px',
                       display: 'flex',
                       alignItems: 'center',
                       justifyContent: 'center',
-                      fontSize: '24px',
+                      fontSize: window.innerWidth < 768 ? '20px' : '24px',
                       color: colors.white,
                       flexShrink: 0
                     }}>
                       <FaPhone />
                     </div>
                     <div>
-                      <h3 style={{ fontSize: '20px', fontWeight: '600', marginBottom: '10px', color: colors.dark }}>
+                      <h3 style={{ fontSize: window.innerWidth < 768 ? '18px' : '20px', fontWeight: '600', marginBottom: '10px', color: colors.dark }}>
                         Phone
                       </h3>
-                      <p style={{ color: colors.gray }}>
+                      <p style={{ color: colors.gray, fontSize: window.innerWidth < 768 ? '14px' : '16px' }}>
                         039 433 1223
                       </p>
                     </div>
                   </div>
 
                   <div style={{
-                    padding: '30px',
+                    padding: window.innerWidth < 768 ? '25px' : '30px',
                     backgroundColor: colors.light,
                     borderRadius: '15px',
                     display: 'flex',
@@ -3253,31 +3350,31 @@ const App = () => {
                     gap: '20px'
                   }}>
                     <div style={{
-                      width: '50px',
-                      height: '50px',
+                      width: window.innerWidth < 768 ? '40px' : '50px',
+                      height: window.innerWidth < 768 ? '40px' : '50px',
                       backgroundColor: colors.primary,
                       borderRadius: '10px',
                       display: 'flex',
                       alignItems: 'center',
                       justifyContent: 'center',
-                      fontSize: '24px',
+                      fontSize: window.innerWidth < 768 ? '20px' : '24px',
                       color: colors.white,
                       flexShrink: 0
                     }}>
                       <FaEnvelope />
                     </div>
                     <div>
-                      <h3 style={{ fontSize: '20px', fontWeight: '600', marginBottom: '10px', color: colors.dark }}>
+                      <h3 style={{ fontSize: window.innerWidth < 768 ? '18px' : '20px', fontWeight: '600', marginBottom: '10px', color: colors.dark }}>
                         Email
                       </h3>
-                      <p style={{ color: colors.gray }}>
+                      <p style={{ color: colors.gray, fontSize: window.innerWidth < 768 ? '14px' : '16px' }}>
                         info@hardingsecondary.edu.za
                       </p>
                     </div>
                   </div>
 
                   <div style={{
-                    padding: '30px',
+                    padding: window.innerWidth < 768 ? '25px' : '30px',
                     backgroundColor: colors.light,
                     borderRadius: '15px',
                     display: 'flex',
@@ -3285,24 +3382,24 @@ const App = () => {
                     gap: '20px'
                   }}>
                     <div style={{
-                      width: '50px',
-                      height: '50px',
+                      width: window.innerWidth < 768 ? '40px' : '50px',
+                      height: window.innerWidth < 768 ? '40px' : '50px',
                       backgroundColor: colors.primary,
                       borderRadius: '10px',
                       display: 'flex',
                       alignItems: 'center',
                       justifyContent: 'center',
-                      fontSize: '24px',
+                      fontSize: window.innerWidth < 768 ? '20px' : '24px',
                       color: colors.white,
                       flexShrink: 0
                     }}>
                       <FaClock />
                     </div>
                     <div>
-                      <h3 style={{ fontSize: '20px', fontWeight: '600', marginBottom: '10px', color: colors.dark }}>
+                      <h3 style={{ fontSize: window.innerWidth < 768 ? '18px' : '20px', fontWeight: '600', marginBottom: '10px', color: colors.dark }}>
                         Office Hours
                       </h3>
-                      <p style={{ color: colors.gray, lineHeight: '1.6' }}>
+                      <p style={{ color: colors.gray, lineHeight: '1.6', fontSize: window.innerWidth < 768 ? '14px' : '16px' }}>
                         Monday - Thursday: 7:30 AM - 4:00 PM<br />
                         Friday: 7:30 AM - 3:00 PM<br />
                         Weekends: Closed
@@ -3313,9 +3410,9 @@ const App = () => {
               </div>
 
               {/* Contact Form */}
-              <div>
+              <div style={{ order: window.innerWidth < 1024 ? 1 : 2 }}>
                 <h2 style={{
-                  fontSize: '36px',
+                  fontSize: window.innerWidth < 768 ? '28px' : '36px',
                   fontWeight: '700',
                   marginBottom: '40px',
                   color: colors.dark
@@ -3323,7 +3420,7 @@ const App = () => {
                   Send Us a Message
                 </h2>
                 <form onSubmit={handleSubmit} style={{
-                  padding: '40px',
+                  padding: window.innerWidth < 768 ? '30px' : '40px',
                   backgroundColor: colors.light,
                   borderRadius: '20px'
                 }}>
@@ -3440,8 +3537,8 @@ const App = () => {
                         background: `linear-gradient(135deg, ${colors.primary}, ${colors.secondary})`,
                         color: colors.white,
                         border: 'none',
-                        padding: '18px 40px',
-                        fontSize: '18px',
+                        padding: window.innerWidth < 768 ? '14px 30px' : '18px 40px',
+                        fontSize: window.innerWidth < 768 ? '16px' : '18px',
                         fontWeight: '600',
                         borderRadius: '50px',
                         cursor: 'pointer',
@@ -3472,23 +3569,23 @@ const App = () => {
 
         {/* Quick Links */}
         <section style={{
-          padding: '80px 20px',
+          padding: window.innerWidth < 768 ? '60px 20px' : '80px 20px',
           background: `linear-gradient(135deg, ${colors.primary}, ${colors.secondary})`
         }}>
           <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
             <h2 style={{
-              fontSize: '36px',
+              fontSize: window.innerWidth < 768 ? '28px' : '36px',
               fontWeight: '700',
               textAlign: 'center',
-              marginBottom: '60px',
+              marginBottom: window.innerWidth < 768 ? '40px' : '60px',
               color: colors.white
             }}>
               Quick Links & Resources
             </h2>
             <div style={{
               display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))',
-              gap: '30px'
+              gridTemplateColumns: window.innerWidth < 768 ? '1fr' : window.innerWidth < 1024 ? 'repeat(2, 1fr)' : 'repeat(4, 1fr)',
+              gap: window.innerWidth < 768 ? '20px' : '30px'
             }}>
               {[
                 { icon: <FaDownload />, title: 'Application Forms', description: 'Download admission forms' },
@@ -3499,7 +3596,7 @@ const App = () => {
                 <div
                   key={index}
                   style={{
-                    padding: '30px',
+                    padding: window.innerWidth < 768 ? '25px' : '30px',
                     background: 'rgba(255,255,255,0.1)',
                     borderRadius: '15px',
                     textAlign: 'center',
@@ -3517,13 +3614,13 @@ const App = () => {
                     e.currentTarget.style.transform = 'translateY(0)';
                   }}
                 >
-                  <div style={{ fontSize: '36px', color: colors.white, marginBottom: '15px' }}>
+                  <div style={{ fontSize: window.innerWidth < 768 ? '32px' : '36px', color: colors.white, marginBottom: '15px' }}>
                     {link.icon}
                   </div>
-                  <h3 style={{ fontSize: '20px', fontWeight: '600', color: colors.white, marginBottom: '10px' }}>
+                  <h3 style={{ fontSize: window.innerWidth < 768 ? '18px' : '20px', fontWeight: '600', color: colors.white, marginBottom: '10px' }}>
                     {link.title}
                   </h3>
-                  <p style={{ fontSize: '16px', color: 'rgba(255,255,255,0.8)' }}>
+                  <p style={{ fontSize: window.innerWidth < 768 ? '14px' : '16px', color: 'rgba(255,255,255,0.8)' }}>
                     {link.description}
                   </p>
                 </div>
@@ -3533,26 +3630,29 @@ const App = () => {
         </section>
 
         {/* Map Section */}
-        <section style={{ padding: '100px 20px', backgroundColor: colors.light }}>
+        <section style={{ 
+          padding: window.innerWidth < 768 ? '60px 20px' : '100px 20px', 
+          backgroundColor: colors.light 
+        }}>
           <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
             <h2 style={{
-              fontSize: '48px',
+              fontSize: window.innerWidth < 768 ? '32px' : window.innerWidth < 1024 ? '40px' : '48px',
               fontWeight: '800',
               textAlign: 'center',
-              marginBottom: '60px',
+              marginBottom: window.innerWidth < 768 ? '40px' : '60px',
               color: colors.dark
             }}>
               Find <span style={{ color: colors.primary }}>Us</span>
             </h2>
             <div style={{
               backgroundColor: colors.gray,
-              height: '500px',
+              height: window.innerWidth < 768 ? '300px' : '500px',
               borderRadius: '20px',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
               color: colors.white,
-              fontSize: '20px',
+              fontSize: window.innerWidth < 768 ? '18px' : '20px',
               position: 'relative',
               overflow: 'hidden'
             }}>
@@ -3563,9 +3663,9 @@ const App = () => {
                 transform: 'translate(-50%, -50%)',
                 textAlign: 'center'
               }}>
-                <FaMapMarkerAlt style={{ fontSize: '48px', marginBottom: '20px' }} />
+                <FaMapMarkerAlt style={{ fontSize: window.innerWidth < 768 ? '36px' : '48px', marginBottom: '20px' }} />
                 <p>Interactive Map</p>
-                <p style={{ fontSize: '16px', opacity: 0.8 }}>Integration with Google Maps API</p>
+                <p style={{ fontSize: window.innerWidth < 768 ? '14px' : '16px', opacity: 0.8 }}>Integration with Google Maps API</p>
               </div>
             </div>
           </div>
@@ -3578,33 +3678,33 @@ const App = () => {
     <footer style={{
       backgroundColor: colors.dark,
       color: colors.white,
-      padding: '80px 20px 40px',
-      marginTop: '100px'
+      padding: window.innerWidth < 768 ? '60px 20px 40px' : '80px 20px 40px',
+      marginTop: 0
     }}>
       <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
         <div style={{
           display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
-          gap: '60px',
-          marginBottom: '60px'
+          gridTemplateColumns: window.innerWidth < 768 ? '1fr' : window.innerWidth < 1024 ? 'repeat(2, 1fr)' : 'repeat(4, 1fr)',
+          gap: window.innerWidth < 768 ? '40px' : '60px',
+          marginBottom: window.innerWidth < 768 ? '40px' : '60px'
         }}>
           {/* School Info */}
           <div>
             <div style={{ display: 'flex', alignItems: 'center', gap: '15px', marginBottom: '20px' }}>
               <div style={{
-                width: '50px',
-                height: '50px',
+                width: window.innerWidth < 768 ? '40px' : '50px',
+                height: window.innerWidth < 768 ? '40px' : '50px',
                 background: `linear-gradient(135deg, ${colors.primary}, ${colors.secondary})`,
                 borderRadius: '12px',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center'
               }}>
-                <FaGraduationCap style={{ fontSize: '24px' }} />
+                <FaGraduationCap style={{ fontSize: window.innerWidth < 768 ? '20px' : '24px' }} />
               </div>
-              <h3 style={{ fontSize: '24px', fontWeight: '700' }}>Harding Secondary</h3>
+              <h3 style={{ fontSize: window.innerWidth < 768 ? '20px' : '24px', fontWeight: '700' }}>Harding Secondary</h3>
             </div>
-            <p style={{ color: colors.gray, lineHeight: '1.8', marginBottom: '20px' }}>
+            <p style={{ color: colors.gray, lineHeight: '1.8', marginBottom: '20px', fontSize: window.innerWidth < 768 ? '14px' : '16px' }}>
               Excellence in education since 1950. Nurturing tomorrow's leaders 
               in the heart of KwaZulu-Natal with over 1,250 learners and 41 dedicated educators.
             </p>
@@ -3614,8 +3714,8 @@ const App = () => {
                   key={index}
                   href="#"
                   style={{
-                    width: '40px',
-                    height: '40px',
+                    width: window.innerWidth < 768 ? '35px' : '40px',
+                    height: window.innerWidth < 768 ? '35px' : '40px',
                     backgroundColor: 'rgba(255,255,255,0.1)',
                     borderRadius: '50%',
                     display: 'flex',
@@ -3641,7 +3741,7 @@ const App = () => {
 
           {/* Quick Links */}
           <div>
-            <h4 style={{ fontSize: '20px', fontWeight: '600', marginBottom: '20px' }}>Quick Links</h4>
+            <h4 style={{ fontSize: window.innerWidth < 768 ? '18px' : '20px', fontWeight: '600', marginBottom: '20px' }}>Quick Links</h4>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '15px' }}>
               {navigation.slice(0, 6).map(nav => (
                 <a
@@ -3654,7 +3754,8 @@ const App = () => {
                     transition: 'color 0.3s ease',
                     display: 'flex',
                     alignItems: 'center',
-                    gap: '8px'
+                    gap: '8px',
+                    fontSize: window.innerWidth < 768 ? '14px' : '16px'
                   }}
                   onMouseEnter={e => e.currentTarget.style.color = colors.primary}
                   onMouseLeave={e => e.currentTarget.style.color = colors.gray}
@@ -3668,17 +3769,17 @@ const App = () => {
 
           {/* Contact Info */}
           <div>
-            <h4 style={{ fontSize: '20px', fontWeight: '600', marginBottom: '20px' }}>Contact Information</h4>
+            <h4 style={{ fontSize: window.innerWidth < 768 ? '18px' : '20px', fontWeight: '600', marginBottom: '20px' }}>Contact Information</h4>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '15px' }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '10px', color: colors.gray }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '10px', color: colors.gray, fontSize: window.innerWidth < 768 ? '14px' : '16px' }}>
                 <FaPhone style={{ color: colors.primary }} />
                 039 433 1223
               </div>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '10px', color: colors.gray }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '10px', color: colors.gray, fontSize: window.innerWidth < 768 ? '14px' : '16px' }}>
                 <FaEnvelope style={{ color: colors.primary }} />
                 info@hardingsecondary.edu.za
               </div>
-              <div style={{ display: 'flex', alignItems: 'flex-start', gap: '10px', color: colors.gray }}>
+              <div style={{ display: 'flex', alignItems: 'flex-start', gap: '10px', color: colors.gray, fontSize: window.innerWidth < 768 ? '14px' : '16px' }}>
                 <FaMapMarkerAlt style={{ color: colors.primary, marginTop: '4px' }} />
                 <div>
                   Harding Secondary School<br />
@@ -3691,11 +3792,11 @@ const App = () => {
 
           {/* Newsletter */}
           <div>
-            <h4 style={{ fontSize: '20px', fontWeight: '600', marginBottom: '20px' }}>Stay Connected</h4>
-            <p style={{ color: colors.gray, marginBottom: '20px' }}>
+            <h4 style={{ fontSize: window.innerWidth < 768 ? '18px' : '20px', fontWeight: '600', marginBottom: '20px' }}>Stay Connected</h4>
+            <p style={{ color: colors.gray, marginBottom: '20px', fontSize: window.innerWidth < 768 ? '14px' : '16px' }}>
               Subscribe to our newsletter for updates and announcements.
             </p>
-            <form style={{ display: 'flex', gap: '10px' }} onSubmit={(e) => {
+            <form style={{ display: 'flex', gap: '10px', flexDirection: window.innerWidth < 480 ? 'column' : 'row' }} onSubmit={(e) => {
               e.preventDefault();
               alert('Thank you for subscribing!');
             }}>
@@ -3711,7 +3812,8 @@ const App = () => {
                   backgroundColor: 'rgba(255,255,255,0.1)',
                   color: colors.white,
                   outline: 'none',
-                  transition: 'all 0.3s ease'
+                  transition: 'all 0.3s ease',
+                  fontSize: window.innerWidth < 768 ? '14px' : '16px'
                 }}
                 onFocus={e => e.target.style.backgroundColor = 'rgba(255,255,255,0.2)'}
                 onBlur={e => e.target.style.backgroundColor = 'rgba(255,255,255,0.1)'}
@@ -3726,7 +3828,8 @@ const App = () => {
                   color: colors.white,
                   fontWeight: '600',
                   cursor: 'pointer',
-                  transition: 'all 0.3s ease'
+                  transition: 'all 0.3s ease',
+                  fontSize: window.innerWidth < 768 ? '14px' : '16px'
                 }}
                 onMouseEnter={e => e.target.style.backgroundColor = colors.secondary}
                 onMouseLeave={e => e.target.style.backgroundColor = colors.primary}
@@ -3744,13 +3847,13 @@ const App = () => {
           textAlign: 'center',
           color: colors.gray
         }}>
-          <p style={{ marginBottom: '10px' }}>
+          <p style={{ marginBottom: '10px', fontSize: window.innerWidth < 768 ? '14px' : '16px' }}>
             © 2025 Harding Secondary School. All rights reserved.
           </p>
           <div style={{
             display: 'flex',
             justifyContent: 'center',
-            gap: '30px',
+            gap: window.innerWidth < 768 ? '20px' : '30px',
             flexWrap: 'wrap'
           }}>
             <a
@@ -3758,7 +3861,8 @@ const App = () => {
               style={{
                 color: colors.gray,
                 textDecoration: 'none',
-                transition: 'color 0.3s ease'
+                transition: 'color 0.3s ease',
+                fontSize: window.innerWidth < 768 ? '14px' : '16px'
               }}
               onMouseEnter={e => e.target.style.color = colors.primary}
               onMouseLeave={e => e.target.style.color = colors.gray}
@@ -3770,7 +3874,8 @@ const App = () => {
               style={{
                 color: colors.gray,
                 textDecoration: 'none',
-                transition: 'color 0.3s ease'
+                transition: 'color 0.3s ease',
+                fontSize: window.innerWidth < 768 ? '14px' : '16px'
               }}
               onMouseEnter={e => e.target.style.color = colors.primary}
               onMouseLeave={e => e.target.style.color = colors.gray}
@@ -3782,7 +3887,8 @@ const App = () => {
               style={{
                 color: colors.gray,
                 textDecoration: 'none',
-                transition: 'color 0.3s ease'
+                transition: 'color 0.3s ease',
+                fontSize: window.innerWidth < 768 ? '14px' : '16px'
               }}
               onMouseEnter={e => e.target.style.color = colors.primary}
               onMouseLeave={e => e.target.style.color = colors.gray}
@@ -3814,10 +3920,17 @@ const App = () => {
       box-sizing: border-box;
     }
 
+    html, body {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      overflow-x: hidden;
+    }
+
     body {
-  font-family: 'Rubik', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-  overflow-x: hidden;
-}
+      font-family: 'Rubik', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+      overflow-x: hidden;
+    }
 
     ::-webkit-scrollbar {
       width: 10px;
@@ -3844,10 +3957,10 @@ const App = () => {
   `;
 
   return (
-    <div style={{ minHeight: '100vh', backgroundColor: colors.white }}>
+    <div style={{ minHeight: '100vh', backgroundColor: colors.white, margin: 0, padding: 0 }}>
       <style>{styles}</style>
       <Header />
-      <main style={{ paddingTop: scrolled ? '70px' : '80px' }}>
+      <main style={{ paddingTop: '0' }}>
         {currentPage === 'home' && <HomePage />}
         {currentPage === 'about' && <AboutPage />}
         {currentPage === 'academics' && <AcademicsPage />}
