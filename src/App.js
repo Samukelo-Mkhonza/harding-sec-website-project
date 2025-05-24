@@ -49,7 +49,7 @@ const App = () => {
   const [activeAccordion, setActiveAccordion] = useState(null);
   const [selectedGalleryCategory, setSelectedGalleryCategory] = useState('all');
   const [selectedNewsCategory, setSelectedNewsCategory] = useState('all');
-  // const [isMobile, setIsMobile] = useState(window.innerWidth <= 1024);
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 1024);
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -72,11 +72,19 @@ const App = () => {
     window.addEventListener('scroll', handleScroll);
     window.addEventListener('resize', handleResize);
     
+    // Add/remove body overflow when mobile menu opens/closes
+    if (mobileMenuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+    
     return () => {
       window.removeEventListener('scroll', handleScroll);
       window.removeEventListener('resize', handleResize);
+      document.body.style.overflow = 'unset';
     };
-  }, []);
+  }, [mobileMenuOpen]);
 
   const colors = {
     primary: '#228B22',
@@ -98,7 +106,7 @@ const App = () => {
     { id: 'contact', label: 'Contact', icon: <FaEnvelope /> }
   ];
 
-  const [isMobile, setIsMobile] = useState(window.innerWidth <= 1024);
+  // const [isMobile, setIsMobile] = useState(window.innerWidth <= 1024);
   
   useEffect(() => {
     const handleResize = () => {
@@ -116,19 +124,20 @@ const App = () => {
       position: 'fixed',
       top: 0,
       width: '100%',
-      backgroundColor: scrolled ? 'rgba(15, 15, 15, 0.98)' : colors.dark,
+      backgroundColor: scrolled ? '#0F0F0F' : '#0F0F0F',
       backdropFilter: 'blur(10px)',
       transition: 'all 0.3s ease',
-      zIndex: 1000,
-      boxShadow: scrolled ? '0 4px 20px rgba(0,0,0,0.3)' : 'none'
+      zIndex: 10000,
+      boxShadow: '0 4px 20px rgba(0,0,0,0.5)'
     }}>
       <div style={{
         maxWidth: '1400px',
         margin: '0 auto',
-        padding: scrolled ? '10px 20px' : '15px 20px',
+        padding: window.innerWidth < 768 ? '10px 15px' : scrolled ? '10px 20px' : '15px 20px',
         display: 'flex',
         justifyContent: 'space-between',
-        alignItems: 'center'
+        alignItems: 'center',
+        minHeight: window.innerWidth < 768 ? '60px' : '75px'
       }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
           <div style={{
@@ -213,13 +222,21 @@ const App = () => {
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             style={{
-              background: 'none',
+              background: mobileMenuOpen ? 'rgba(255,255,255,0.1)' : 'none',
               border: 'none',
               color: colors.white,
               fontSize: '28px',
               cursor: 'pointer',
-              padding: '5px',
-              zIndex: 1001
+              padding: '8px',
+              zIndex: 10001,
+              position: 'relative',
+              borderRadius: '8px',
+              transition: 'all 0.3s ease',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              width: '44px',
+              height: '44px'
             }}
           >
             {mobileMenuOpen ? <FaTimes /> : <FaBars />}
@@ -229,47 +246,71 @@ const App = () => {
 
       {/* Mobile Menu */}
       {mobileMenuOpen && isMobile && (
-        <div style={{
-          position: 'fixed',
-          top: window.innerWidth < 768 ? '60px' : '75px',
-          left: 0,
-          right: 0,
-          bottom: 0,
-          backgroundColor: colors.dark,
-          padding: '20px',
-          display: 'flex',
-          flexDirection: 'column',
-          gap: '15px',
-          overflowY: 'auto',
-          zIndex: 999
-        }}>
-          {navigation.map(nav => (
-            <button
-              key={nav.id}
-              onClick={() => {
-                setCurrentPage(nav.id);
-                setMobileMenuOpen(false);
-              }}
-              style={{
-                background: currentPage === nav.id ? colors.primary : 'transparent',
-                border: `2px solid ${currentPage === nav.id ? colors.primary : colors.gray}`,
-                color: colors.white,
-                padding: '15px 20px',
-                borderRadius: '10px',
-                fontSize: '18px',
-                fontWeight: '500',
-                cursor: 'pointer',
-                display: 'flex',
-                alignItems: 'center',
-                gap: '10px',
-                transition: 'all 0.3s ease',
-                fontFamily: "'Rubik', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif"
-              }}
-            >
-              {nav.icon}
-              {nav.label}
-            </button>
-          ))}
+        <div style={{ position: 'fixed', inset: 0, zIndex: 999997 }}>
+          {/* Overlay */}
+          <div 
+            style={{
+              position: 'absolute',
+              top: 0,
+              left: 0,
+              right: 0,
+              bottom: 0,
+              backgroundColor: 'rgba(0, 0, 0, 0.7)',
+              cursor: 'pointer',
+              width: '100vw',
+              height: '100vh'
+            }}
+            onClick={() => setMobileMenuOpen(false)}
+          />
+          <div style={{
+            position: 'absolute',
+            top: window.innerWidth < 768 ? '60px' : '75px',
+            left: 0,
+            right: 0,
+            bottom: 0,
+            backgroundColor: 'rgb(15, 15, 15)',
+            background: 'rgb(15, 15, 15)',
+            padding: '20px',
+            display: 'flex',
+            flexDirection: 'column',
+            gap: '15px',
+            overflowY: 'auto',
+            boxShadow: '0 4px 20px rgba(0,0,0,0.8)',
+            width: '100%',
+            height: `calc(100vh - ${window.innerWidth < 768 ? '60px' : '75px'})`,
+            opacity: 1,
+            isolation: 'isolate',
+            transform: 'translateZ(0)',
+            contain: 'layout style'
+          }}>
+            {navigation.map(nav => (
+              <button
+                key={nav.id}
+                onClick={() => {
+                  setCurrentPage(nav.id);
+                  setMobileMenuOpen(false);
+                }}
+                style={{
+                  background: currentPage === nav.id ? colors.primary : 'transparent',
+                  border: `2px solid ${currentPage === nav.id ? colors.primary : colors.gray}`,
+                  color: colors.white,
+                  padding: '15px 20px',
+                  borderRadius: '10px',
+                  fontSize: '18px',
+                  fontWeight: '500',
+                  cursor: 'pointer',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '10px',
+                  transition: 'all 0.3s ease',
+                  fontFamily: "'Rubik', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif"
+                }}
+              >
+                {nav.icon}
+                {nav.label}
+              </button>
+            ))}
+          </div>
         </div>
       )}
     </header>
@@ -311,10 +352,13 @@ const App = () => {
         <section style={{
           position: 'relative',
           height: '100vh',
+          minHeight: '600px',
           overflow: 'hidden',
           display: 'flex',
           alignItems: 'center',
-          justifyContent: 'center'
+          justifyContent: 'center',
+          marginTop: 0,
+          paddingTop: window.innerWidth < 768 ? '70px' : '80px'
         }}>
           {heroSlides.map((slide, index) => (
             <div
@@ -329,7 +373,8 @@ const App = () => {
                 transition: 'opacity 1s ease',
                 backgroundImage: `url(${slide.image})`,
                 backgroundSize: 'cover',
-                backgroundPosition: 'center'
+                backgroundPosition: 'center',
+                zIndex: -1
               }}
             >
               <div style={{
@@ -338,7 +383,8 @@ const App = () => {
                 left: 0,
                 right: 0,
                 bottom: 0,
-                background: 'linear-gradient(135deg, rgba(15,15,15,0.8) 0%, rgba(34,139,34,0.4) 100%)'
+                background: 'linear-gradient(135deg, rgba(15,15,15,0.7) 0%, rgba(34,139,34,0.3) 100%)',
+                zIndex: 0
               }} />
             </div>
           ))}
@@ -349,7 +395,8 @@ const App = () => {
             textAlign: 'center',
             color: colors.white,
             padding: '0 20px',
-            maxWidth: '1000px'
+            maxWidth: '1000px',
+            paddingTop: window.innerWidth < 768 ? '40px' : '0'
           }}>
             <h1 style={{
               fontSize: window.innerWidth < 768 ? '36px' : window.innerWidth < 1024 ? '48px' : '64px',
@@ -386,7 +433,9 @@ const App = () => {
                 animation: 'fadeInUp 1s ease 0.4s both',
                 display: 'inline-flex',
                 alignItems: 'center',
-                gap: '10px'
+                gap: '10px',
+                position: 'relative',
+                zIndex: 2
               }}
               onMouseEnter={e => {
                 e.target.style.transform = 'translateY(-2px)';
@@ -410,7 +459,7 @@ const App = () => {
             transform: 'translateX(-50%)',
             display: 'flex',
             gap: '10px',
-            zIndex: 1
+            zIndex: 2
           }}>
             {heroSlides.map((_, index) => (
               <button
@@ -1625,8 +1674,8 @@ const App = () => {
           padding: window.innerWidth < 768 ? '20px' : '40px 20px',
           backgroundColor: colors.white,
           position: 'sticky',
-          top: window.innerWidth < 768 ? '60px' : '75px',
-          zIndex: 100,
+          top: window.innerWidth < 768 ? '70px' : '85px',
+          zIndex: 90,
           boxShadow: '0 4px 20px rgba(0,0,0,0.05)'
         }}>
           <div style={{
@@ -2545,8 +2594,8 @@ const App = () => {
           padding: window.innerWidth < 768 ? '20px' : '40px 20px',
           backgroundColor: colors.white,
           position: 'sticky',
-          top: window.innerWidth < 768 ? '60px' : '75px',
-          zIndex: 100,
+          top: window.innerWidth < 768 ? '70px' : '85px',
+          zIndex: 90,
           boxShadow: '0 4px 20px rgba(0,0,0,0.05)'
         }}>
           <div style={{
@@ -2966,8 +3015,8 @@ const App = () => {
           padding: window.innerWidth < 768 ? '20px' : '40px 20px',
           backgroundColor: colors.white,
           position: 'sticky',
-          top: window.innerWidth < 768 ? '60px' : '75px',
-          zIndex: 100,
+          top: window.innerWidth < 768 ? '70px' : '85px',
+          zIndex: 90,
           boxShadow: '0 4px 20px rgba(0,0,0,0.05)'
         }}>
           <div style={{
@@ -3084,7 +3133,7 @@ const App = () => {
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              zIndex: 2000,
+              zIndex: 20000,
               padding: '20px'
             }}
             onClick={() => setSelectedImage(null)}
@@ -3957,10 +4006,10 @@ const App = () => {
   `;
 
   return (
-    <div style={{ minHeight: '100vh', backgroundColor: colors.white, margin: 0, padding: 0 }}>
+    <div style={{ minHeight: '100vh', backgroundColor: colors.white, margin: 0, padding: 0, position: 'relative', overflowX: 'hidden' }}>
       <style>{styles}</style>
       <Header />
-      <main style={{ paddingTop: '0' }}>
+      <main style={{ paddingTop: '0', position: 'relative', zIndex: 1 }}>
         {currentPage === 'home' && <HomePage />}
         {currentPage === 'about' && <AboutPage />}
         {currentPage === 'academics' && <AcademicsPage />}
