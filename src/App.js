@@ -58,6 +58,9 @@ const App = () => {
     message: ''
   });
 
+  // REPLACE THIS WITH YOUR LOGO IMAGE URL
+  const logoImageUrl = "https://via.placeholder.com/50x50/228B22/FFFFFF?text=LOGO";
+
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 50);
@@ -140,19 +143,18 @@ const App = () => {
         minHeight: window.innerWidth < 768 ? '60px' : '75px'
       }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-          <div style={{
-            width: window.innerWidth < 768 ? '40px' : '50px',
-            height: window.innerWidth < 768 ? '40px' : '50px',
-            background: `linear-gradient(135deg, ${colors.primary}, ${colors.secondary})`,
-            borderRadius: '12px',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            boxShadow: '0 4px 15px rgba(34, 139, 34, 0.3)',
-            flexShrink: 0
-          }}>
-            <FaGraduationCap style={{ color: colors.white, fontSize: window.innerWidth < 768 ? '20px' : '24px' }} />
-          </div>
+          <img
+            src={logoImageUrl}
+            alt="Harding Secondary Logo"
+            style={{
+              width: window.innerWidth < 768 ? '40px' : '50px',
+              height: window.innerWidth < 768 ? '40px' : '50px',
+              borderRadius: '12px',
+              objectFit: 'cover',
+              boxShadow: '0 4px 15px rgba(34, 139, 34, 0.3)',
+              flexShrink: 0
+            }}
+          />
           <div>
             <h1 style={{ 
               margin: 0, 
@@ -3740,17 +3742,16 @@ const App = () => {
           {/* School Info */}
           <div>
             <div style={{ display: 'flex', alignItems: 'center', gap: '15px', marginBottom: '20px' }}>
-              <div style={{
-                width: window.innerWidth < 768 ? '40px' : '50px',
-                height: window.innerWidth < 768 ? '40px' : '50px',
-                background: `linear-gradient(135deg, ${colors.primary}, ${colors.secondary})`,
-                borderRadius: '12px',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center'
-              }}>
-                <FaGraduationCap style={{ fontSize: window.innerWidth < 768 ? '20px' : '24px' }} />
-              </div>
+              <img
+                src={logoImageUrl}
+                alt="Harding Secondary Logo"
+                style={{
+                  width: window.innerWidth < 768 ? '40px' : '50px',
+                  height: window.innerWidth < 768 ? '40px' : '50px',
+                  borderRadius: '12px',
+                  objectFit: 'cover'
+                }}
+              />
               <h3 style={{ fontSize: window.innerWidth < 768 ? '20px' : '24px', fontWeight: '700' }}>Harding Secondary</h3>
             </div>
             <p style={{ color: colors.gray, lineHeight: '1.8', marginBottom: '20px', fontSize: window.innerWidth < 768 ? '14px' : '16px' }}>
