@@ -1,154 +1,205 @@
-// components/Header.js
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import Navigation from './Navigation';
 import MobileMenu from './MobileMenu';
+import SearchOverlay from './SearchOverlay';
+import useScrollDirection from '../hooks/useScrollDirection';
+import { SCROLL_THRESHOLDS } from '../utils/constants';
 
 const Header = () => {
-  const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
   const location = useLocation();
-
-  useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50);
-    };
-
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  
+  // Use smart scroll detection hook
+  const { scrollY, scrollDirection, isScrolled } = useScrollDirection(SCROLL_THRESHOLDS.HEADER_MINIMIZE);
+  
+  // Determine if header should be minimized
+  const isMinimized = isScrolled && scrollDirection === 'down' && scrollY > SCROLL_THRESHOLDS.HEADER_MINIMIZE;
+  
+  // Always show full header when scrolling up or at top
+  const showFullHeader = !isScrolled || scrollDirection === 'up';
 
   useEffect(() => {
     setIsMobileMenuOpen(false);
   }, [location]);
 
-  const headerStyles = {
-    position: 'fixed',
-    top: 0,
-    width: '100%',
-    backgroundColor: isScrolled ? 'rgba(25, 70, 126, 0.98)' : '#19467E',
-    boxShadow: isScrolled ? '0 2px 10px rgba(0,0,0,0.1)' : 'none',
-    transition: 'all 0.3s ease',
-    zIndex: 1000,
-    padding: isScrolled ? '10px 0' : '15px 0'
-  };
+  // Keyboard shortcut for search (Ctrl/Cmd + K)
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
+        e.preventDefault();
+        setIsSearchOpen(true);
+      }
+    };
 
-  const containerStyles = {
-    maxWidth: '1200px',
-    margin: '0 auto',
-    padding: '0 20px',
-    display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'center'
-  };
-
-  const logoContainerStyles = {
-    display: 'flex',
-    alignItems: 'center',
-    textDecoration: 'none',
-    color: '#FFFFFF'
-  };
-
-  const logoStyles = {
-    width: '50px',
-    height: '50px',
-    marginRight: '15px',
-    backgroundColor: '#FFFFFF',
-    borderRadius: '50%',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    fontWeight: '800',
-    fontSize: '24px',
-    color: '#19467E'
-  };
-
-  const schoolNameStyles = {
-    display: 'flex',
-    flexDirection: 'column',
-    lineHeight: 1.2
-  };
-
-  const mainTitleStyles = {
-    fontSize: '24px',
-    fontWeight: '700',
-    margin: 0,
-    letterSpacing: '0.5px'
-  };
-
-  const subTitleStyles = {
-    fontSize: '14px',
-    fontWeight: '400',
-    margin: 0,
-    opacity: 0.9
-  };
-
-  const mobileMenuButtonStyles = {
-    display: 'none',
-    background: 'none',
-    border: 'none',
-    color: '#FFFFFF',
-    fontSize: '24px',
-    cursor: 'pointer',
-    padding: '10px',
-    '@media (max-width: 768px)': {
-      display: 'block'
-    }
-  };
-
-  const hamburgerStyles = {
-    width: '30px',
-    height: '3px',
-    backgroundColor: '#FFFFFF',
-    margin: '5px 0',
-    transition: '0.3s',
-    borderRadius: '2px'
-  };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, []);
 
   return (
     <>
-      <header style={headerStyles}>
-        <div style={containerStyles}>
-          <Link to="/" style={logoContainerStyles}>
-            <div style={logoStyles}>
-              HSS
+      <header
+        className={`fixed top-0 w-full z-50 transition-all duration-300 ${
+          isMinimized
+            ? 'bg-primary/98 shadow-xl py-2'
+            : isScrolled
+            ? 'bg-primary/98 shadow-xl py-3'
+            : 'bg-primary py-4'
+        }`}
+        style={{
+          transform: isMinimized ? 'translateY(0)' : 'translateY(0)',
+          backdropFilter: isScrolled ? 'blur(10px)' : 'none',
+        }}
+      >
+        {/* Top Bar - Quick Links */}
+        <div className={`bg-primary-dark text-white text-sm transition-all duration-300 ${
+          isScrolled || isMinimized ? 'h-0 overflow-hidden opacity-0' : 'h-auto py-2'
+        }`}>
+          <div className="container-custom">
+            <div className="flex justify-between items-center">
+              <div className="flex gap-6 items-center">
+                <a
+                  href="tel:+27123456789"
+                  className="hover:text-secondary transition-colors duration-200 flex items-center gap-2"
+                >
+                  <i className="fas fa-phone"></i>
+                  <span className="hidden sm:inline">+27 12 345 6789</span>
+                </a>
+                <a
+                  href="mailto:info@hardingsec.co.za"
+                  className="hover:text-secondary transition-colors duration-200 flex items-center gap-2"
+                >
+                  <i className="fas fa-envelope"></i>
+                  <span className="hidden sm:inline">info@hardingsec.co.za</span>
+                </a>
+              </div>
+              <div className="flex gap-4">
+                <a
+                  href="#"
+                  className="hover:text-secondary transition-colors duration-200"
+                  aria-label="Facebook"
+                >
+                  <i className="fab fa-facebook-f"></i>
+                </a>
+                <a
+                  href="#"
+                  className="hover:text-secondary transition-colors duration-200"
+                  aria-label="Twitter"
+                >
+                  <i className="fab fa-twitter"></i>
+                </a>
+                <a
+                  href="#"
+                  className="hover:text-secondary transition-colors duration-200"
+                  aria-label="Instagram"
+                >
+                  <i className="fab fa-instagram"></i>
+                </a>
+                <a
+                  href="#"
+                  className="hover:text-secondary transition-colors duration-200"
+                  aria-label="LinkedIn"
+                >
+                  <i className="fab fa-linkedin-in"></i>
+                </a>
+              </div>
             </div>
-            <div style={schoolNameStyles}>
-              <h1 style={mainTitleStyles}>Harding Secondary School</h1>
-              <p style={subTitleStyles}>Excellence in Education Since 1950</p>
+          </div>
+        </div>
+
+        {/* Main Header */}
+        <div className="container-custom">
+          <div className="flex justify-between items-center">
+            {/* Logo and School Name */}
+            <Link
+              to="/"
+              className="flex items-center gap-4 text-white hover:opacity-90 transition-opacity duration-200 group"
+            >
+              <div className="w-14 h-14 bg-white rounded-full flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300 p-1">
+                <img
+                  src="/harding-sec-logo-2.png"
+                  alt="Harding Secondary School Logo"
+                  className="w-full h-full object-contain"
+                  onError={(e) => {
+                    console.error('Logo failed to load');
+                    e.target.style.display = 'none';
+                    e.target.nextSibling.style.display = 'flex';
+                  }}
+                />
+                <span
+                  className="text-primary font-bold text-xl hidden"
+                  style={{ display: 'none' }}
+                >
+                  HSS
+                </span>
+              </div>
+              <div className="flex flex-col">
+                <h1 className={`font-heading font-bold text-white transition-all duration-300 ${
+                  isMinimized ? 'text-lg' : isScrolled ? 'text-xl' : 'text-2xl'
+                }`}>
+                  Harding Secondary School
+                </h1>
+                <p className={`text-white/90 text-sm transition-all duration-300 ${
+                  isScrolled || isMinimized ? 'opacity-0 h-0' : 'opacity-100'
+                }`}>
+                  Excellence in Education Since 1950
+                </p>
+              </div>
+            </Link>
+
+            {/* Desktop Navigation */}
+            <div className="flex items-center gap-4">
+              <Navigation />
+              
+              {/* Search Button */}
+              <button
+                onClick={() => setIsSearchOpen(true)}
+                className="hidden lg:flex items-center gap-2 px-4 py-2 text-white/90 hover:text-white hover:bg-white/10 rounded-lg transition-all duration-200"
+                aria-label="Search"
+                title="Search (Ctrl+K)"
+              >
+                <i className="fas fa-search"></i>
+                <span className="text-sm">Search</span>
+              </button>
             </div>
-          </Link>
-          
-          <Navigation />
-          
-          <button
-            style={{
-              ...mobileMenuButtonStyles,
-              display: window.innerWidth <= 768 ? 'block' : 'none'
-            }}
-            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            aria-label="Toggle mobile menu"
-          >
-            <div style={{
-              ...hamburgerStyles,
-              transform: isMobileMenuOpen ? 'rotate(-45deg) translateY(8px)' : 'none'
-            }}></div>
-            <div style={{
-              ...hamburgerStyles,
-              opacity: isMobileMenuOpen ? 0 : 1
-            }}></div>
-            <div style={{
-              ...hamburgerStyles,
-              transform: isMobileMenuOpen ? 'rotate(45deg) translateY(-8px)' : 'none'
-            }}></div>
-          </button>
+
+            {/* Mobile Menu Button */}
+            <button
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              className="lg:hidden text-white p-2 hover:bg-white/10 rounded-lg transition-colors duration-200"
+              aria-label="Toggle mobile menu"
+            >
+              <div className="w-6 h-6 flex flex-col justify-center items-center">
+                <span
+                  className={`block w-full h-0.5 bg-white transition-all duration-300 ${
+                    isMobileMenuOpen ? 'rotate-45 translate-y-1.5' : 'mb-1'
+                  }`}
+                ></span>
+                <span
+                  className={`block w-full h-0.5 bg-white transition-all duration-300 ${
+                    isMobileMenuOpen ? 'opacity-0' : 'mb-1'
+                  }`}
+                ></span>
+                <span
+                  className={`block w-full h-0.5 bg-white transition-all duration-300 ${
+                    isMobileMenuOpen ? '-rotate-45 -translate-y-1.5' : ''
+                  }`}
+                ></span>
+              </div>
+            </button>
+          </div>
         </div>
       </header>
-      
+
+      {/* Mobile Menu */}
       <MobileMenu isOpen={isMobileMenuOpen} onClose={() => setIsMobileMenuOpen(false)} />
-      
+
+      {/* Search Overlay */}
+      <SearchOverlay isOpen={isSearchOpen} onClose={() => setIsSearchOpen(false)} />
+
       {/* Spacer to account for fixed header */}
-      <div style={{ height: isScrolled ? '80px' : '95px' }}></div>
+      <div className={`transition-all duration-300 ${isMinimized ? 'h-16' : isScrolled ? 'h-20' : 'h-32'}`}></div>
     </>
   );
 };

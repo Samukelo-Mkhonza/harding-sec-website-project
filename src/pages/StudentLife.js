@@ -1,5 +1,6 @@
 // pages/StudentLife.js
 import React from 'react';
+import { SEO, SEOConfigs } from '../components';
 
 const StudentLife = () => {
   const pageStyles = {
@@ -163,8 +164,10 @@ const StudentLife = () => {
   ];
 
   return (
-    <div style={pageStyles}>
-      {/* Hero Section */}
+    <>
+      <SEO {...SEOConfigs.studentLife} />
+      <div style={pageStyles}>
+        {/* Hero Section */}
       <section style={heroSectionStyles}>
         <div style={containerStyles}>
           <h1 style={headingStyles}>Student Life</h1>
@@ -395,7 +398,8 @@ const StudentLife = () => {
           </div>
         </div>
       </section>
-    </div>
+      </div>
+    </>
   );
 };
 

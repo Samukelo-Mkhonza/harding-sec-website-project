@@ -1,5 +1,6 @@
 // pages/Academics.js
 import React, { useState } from 'react';
+import { SEO, SEOConfigs } from '../components';
 
 const Academics = () => {
   const [activeTab, setActiveTab] = useState('sciences');
@@ -146,8 +147,10 @@ const Academics = () => {
   };
 
   return (
-    <div style={pageStyles}>
-      {/* Hero Section */}
+    <>
+      <SEO {...SEOConfigs.academics} />
+      <div style={pageStyles}>
+        {/* Hero Section */}
       <section style={heroSectionStyles}>
         <div style={containerStyles}>
           <h1 style={headingStyles}>Academic Excellence</h1>
@@ -345,7 +348,8 @@ const Academics = () => {
           </div>
         </div>
       </section>
-    </div>
+      </div>
+    </>
   );
 };
 

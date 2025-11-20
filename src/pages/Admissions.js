@@ -1,5 +1,6 @@
 // pages/Admissions.js
 import React, { useState } from 'react';
+import { SEO, SEOConfigs } from '../components';
 
 const Admissions = () => {
   const [activeAccordion, setActiveAccordion] = useState(null);
@@ -172,8 +173,10 @@ const Admissions = () => {
   ];
 
   return (
-    <div style={pageStyles}>
-      {/* Hero Section */}
+    <>
+      <SEO {...SEOConfigs.admissions} />
+      <div style={pageStyles}>
+        {/* Hero Section */}
       <section style={heroSectionStyles}>
         <div style={containerStyles}>
           <h1 style={headingStyles}>Admissions</h1>
@@ -339,7 +342,8 @@ const Admissions = () => {
           </a>
         </div>
       </section>
-    </div>
+      </div>
+    </>
   );
 };
 

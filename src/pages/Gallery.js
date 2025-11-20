@@ -1,5 +1,6 @@
 // pages/Gallery.js
 import React, { useState } from 'react';
+import { SEO, SEOConfigs } from '../components';
 
 const Gallery = () => {
   const [selectedCategory, setSelectedCategory] = useState('all');
@@ -198,8 +199,10 @@ const Gallery = () => {
     : galleryImages.filter(img => img.category === selectedCategory);
 
   return (
-    <div style={pageStyles}>
-      {/* Hero Section */}
+    <>
+      <SEO {...SEOConfigs.gallery} />
+      <div style={pageStyles}>
+        {/* Hero Section */}
       <section style={heroSectionStyles}>
         <div style={containerStyles}>
           <h1 style={headingStyles}>Gallery</h1>
@@ -325,7 +328,8 @@ const Gallery = () => {
           />
         </div>
       )}
-    </div>
+      </div>
+    </>
   );
 };
 

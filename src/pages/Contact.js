@@ -1,35 +1,9 @@
 // pages/Contact.js
-import React, { useState } from 'react';
+import React from 'react';
+import ContactForm from '../components/ContactForm';
+import { SEO, SEOConfigs } from '../components';
 
 const Contact = () => {
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    phone: '',
-    subject: '',
-    message: ''
-  });
-
-  const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value
-    });
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // Handle form submission
-    console.log('Form submitted:', formData);
-    alert('Thank you for your message. We will get back to you soon!');
-    setFormData({
-      name: '',
-      email: '',
-      phone: '',
-      subject: '',
-      message: ''
-    });
-  };
 
   const pageStyles = {
     paddingTop: '40px'
@@ -150,8 +124,10 @@ const Contact = () => {
   };
 
   return (
-    <div style={pageStyles}>
-      {/* Hero Section */}
+    <>
+      <SEO {...SEOConfigs.contact} />
+      <div style={pageStyles}>
+        {/* Hero Section */}
       <section style={heroSectionStyles}>
         <div style={containerStyles}>
           <h1 style={headingStyles}>Contact Us</h1>
@@ -228,85 +204,7 @@ const Contact = () => {
 
           {/* Contact Form */}
           <div>
-            <h2 style={{ ...subHeadingStyles, fontSize: '28px' }}>Send Us a Message</h2>
-            <form style={formStyles} onSubmit={handleSubmit}>
-              <input
-                type="text"
-                name="name"
-                placeholder="Your Name"
-                value={formData.name}
-                onChange={handleChange}
-                required
-                style={inputStyles}
-                onFocus={(e) => e.target.style.borderColor = '#19467E'}
-                onBlur={(e) => e.target.style.borderColor = '#E0E0E0'}
-              />
-              
-              <input
-                type="email"
-                name="email"
-                placeholder="Your Email"
-                value={formData.email}
-                onChange={handleChange}
-                required
-                style={inputStyles}
-                onFocus={(e) => e.target.style.borderColor = '#19467E'}
-                onBlur={(e) => e.target.style.borderColor = '#E0E0E0'}
-              />
-              
-              <input
-                type="tel"
-                name="phone"
-                placeholder="Your Phone Number"
-                value={formData.phone}
-                onChange={handleChange}
-                style={inputStyles}
-                onFocus={(e) => e.target.style.borderColor = '#19467E'}
-                onBlur={(e) => e.target.style.borderColor = '#E0E0E0'}
-              />
-              
-              <select
-                name="subject"
-                value={formData.subject}
-                onChange={handleChange}
-                required
-                style={inputStyles}
-                onFocus={(e) => e.target.style.borderColor = '#19467E'}
-                onBlur={(e) => e.target.style.borderColor = '#E0E0E0'}
-              >
-                <option value="">Select Subject</option>
-                <option value="admissions">Admissions Inquiry</option>
-                <option value="academic">Academic Information</option>
-                <option value="general">General Inquiry</option>
-                <option value="other">Other</option>
-              </select>
-              
-              <textarea
-                name="message"
-                placeholder="Your Message"
-                value={formData.message}
-                onChange={handleChange}
-                required
-                style={textareaStyles}
-                onFocus={(e) => e.target.style.borderColor = '#19467E'}
-                onBlur={(e) => e.target.style.borderColor = '#E0E0E0'}
-              />
-              
-              <button 
-                type="submit" 
-                style={buttonStyles}
-                onMouseEnter={(e) => {
-                  e.target.style.backgroundColor = '#0D3F2F';
-                  e.target.style.transform = 'scale(1.02)';
-                }}
-                onMouseLeave={(e) => {
-                  e.target.style.backgroundColor = '#19467E';
-                  e.target.style.transform = 'scale(1)';
-                }}
-              >
-                Send Message
-              </button>
-            </form>
+            <ContactForm />
           </div>
         </div>
 
@@ -335,20 +233,59 @@ const Contact = () => {
         <div style={containerStyles}>
           <h2 style={{ ...subHeadingStyles, textAlign: 'center' }}>Find Us</h2>
           <div style={{
-            backgroundColor: '#E0E0E0',
-            height: '400px',
+            height: '450px',
             borderRadius: '12px',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            color: '#666',
-            fontSize: '18px'
+            overflow: 'hidden',
+            boxShadow: '0 4px 20px rgba(0,0,0,0.1)'
           }}>
-            <p>Map placeholder - Integrate with Google Maps API</p>
+            <iframe
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d55116.41646077676!2d30.02456747910156!3d-30.66502640000001!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1ef6973b8b8b8b8b%3A0x1234567890abcdef!2sHarding%2C%20KwaZulu-Natal!5e0!3m2!1sen!2sza!4v1732125000000!5m2!1sen!2sza"
+              width="100%"
+              height="100%"
+              style={{ border: 0 }}
+              allowFullScreen=""
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+              title="Harding Secondary School Location"
+            ></iframe>
+          </div>
+          <div style={{
+            textAlign: 'center',
+            marginTop: '30px',
+            padding: '20px',
+            backgroundColor: '#FFFFFF',
+            borderRadius: '8px',
+            boxShadow: '0 2px 10px rgba(0,0,0,0.05)'
+          }}>
+            <p style={{ color: '#666', fontSize: '16px', marginBottom: '15px' }}>
+              <i className="fas fa-directions" style={{ marginRight: '10px', color: '#19467E' }}></i>
+              Click on the map to get directions
+            </p>
+            <a
+              href="https://www.google.com/maps/search/?api=1&query=Harding+Secondary+School+Harding+KwaZulu-Natal"
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{
+                display: 'inline-block',
+                padding: '12px 30px',
+                backgroundColor: '#19467E',
+                color: '#FFFFFF',
+                textDecoration: 'none',
+                borderRadius: '6px',
+                fontSize: '16px',
+                fontWeight: '600',
+                transition: 'all 0.3s ease'
+              }}
+              onMouseEnter={(e) => e.target.style.backgroundColor = '#0D3F2F'}
+              onMouseLeave={(e) => e.target.style.backgroundColor = '#19467E'}
+            >
+              Open in Google Maps
+            </a>
           </div>
         </div>
       </section>
-    </div>
+      </div>
+    </>
   );
 };
 

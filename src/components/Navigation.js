@@ -1,70 +1,121 @@
-// components/Navigation.js
-import React from 'react';
+import React, { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 
 const Navigation = () => {
-  const navStyles = {
-    display: 'flex',
-    gap: '30px',
-    alignItems: 'center',
-    '@media (max-width: 768px)': {
-      display: 'none'
-    }
-  };
-
-  const linkStyles = {
-    color: '#FFFFFF',
-    textDecoration: 'none',
-    fontSize: '16px',
-    fontWeight: '500',
-    padding: '8px 16px',
-    borderRadius: '4px',
-    transition: 'all 0.3s ease',
-    position: 'relative',
-    overflow: 'hidden'
-  };
-
-  const activeLinkStyles = {
-    backgroundColor: 'rgba(255, 255, 255, 0.2)'
-  };
+  const [openDropdown, setOpenDropdown] = useState(null);
 
   const navItems = [
     { path: '/', label: 'Home' },
-    { path: '/about', label: 'About Us' },
-    { path: '/academics', label: 'Academics' },
+    {
+      label: 'About',
+      path: '/about',
+      dropdown: [
+        { path: '/about', label: 'About Us' },
+        { path: '/about#mission', label: 'Our Mission' },
+        { path: '/about#values', label: 'Our Values' },
+        { path: '/about#history', label: 'History' },
+      ]
+    },
+    {
+      label: 'Academics',
+      path: '/academics',
+      dropdown: [
+        { path: '/academics', label: 'Academic Programs' },
+        { path: '/academics#subjects', label: 'Subjects' },
+        { path: '/academics#achievements', label: 'Achievements' },
+      ]
+    },
     { path: '/admissions', label: 'Admissions' },
-    { path: '/student-life', label: 'Student Life' },
+    {
+      label: 'Student Life',
+      path: '/student-life',
+      dropdown: [
+        { path: '/student-life', label: 'Student Life' },
+        { path: '/student-life#sports', label: 'Sports' },
+        { path: '/student-life#clubs', label: 'Clubs & Societies' },
+        { path: '/student-life#events', label: 'Events' },
+      ]
+    },
     { path: '/gallery', label: 'Gallery' },
     { path: '/contact', label: 'Contact' }
   ];
 
+  const handleMouseEnter = (index) => {
+    setOpenDropdown(index);
+  };
+
+  const handleMouseLeave = () => {
+    setOpenDropdown(null);
+  };
+
   return (
-    <nav style={{
-      ...navStyles,
-      display: window.innerWidth > 768 ? 'flex' : 'none'
-    }}>
-      {navItems.map((item) => (
-        <NavLink
-          key={item.path}
-          to={item.path}
-          style={({ isActive }) => ({
-            ...linkStyles,
-            ...(isActive ? activeLinkStyles : {})
-          })}
-          onMouseEnter={(e) => {
-            e.target.style.backgroundColor = 'rgba(255, 255, 255, 0.1)';
-            e.target.style.transform = 'translateY(-2px)';
-          }}
-          onMouseLeave={(e) => {
-            if (!e.target.classList.contains('active')) {
-              e.target.style.backgroundColor = 'transparent';
-            }
-            e.target.style.transform = 'translateY(0)';
-          }}
+    <nav className="hidden lg:flex items-center gap-1">
+      {navItems.map((item, index) => (
+        <div
+          key={index}
+          className="relative group"
+          onMouseEnter={() => handleMouseEnter(index)}
+          onMouseLeave={handleMouseLeave}
         >
-          {item.label}
-        </NavLink>
+          {/* Main Nav Link */}
+          <NavLink
+            to={item.path}
+            className={({ isActive }) =>
+              `flex items-center gap-1 px-4 py-2 text-white font-medium rounded-lg transition-all duration-200 hover:bg-white/10 ${
+                isActive ? 'bg-white/20' : ''
+              }`
+            }
+          >
+            {item.label}
+            {item.dropdown && (
+              <i className={`fas fa-chevron-down text-xs transition-transform duration-200 ${
+                openDropdown === index ? 'rotate-180' : ''
+              }`}></i>
+            )}
+          </NavLink>
+
+          {/* Dropdown Menu */}
+          {item.dropdown && (
+            <div
+              className={`absolute top-full left-0 mt-2 w-56 bg-white rounded-lg shadow-2xl overflow-hidden transition-all duration-300 origin-top ${
+                openDropdown === index
+                  ? 'opacity-100 scale-100 translate-y-0 pointer-events-auto'
+                  : 'opacity-0 scale-95 -translate-y-2 pointer-events-none'
+              }`}
+            >
+              <div className="py-2">
+                {item.dropdown.map((dropdownItem, dropdownIndex) => (
+                  <NavLink
+                    key={dropdownIndex}
+                    to={dropdownItem.path}
+                    className={({ isActive }) =>
+                      `block px-4 py-3 text-neutral-700 hover:bg-primary/10 hover:text-primary transition-colors duration-200 ${
+                        isActive ? 'bg-primary/5 text-primary font-semibold' : ''
+                      }`
+                    }
+                  >
+                    <div className="flex items-center gap-3">
+                      <i className="fas fa-angle-right text-xs"></i>
+                      <span>{dropdownItem.label}</span>
+                    </div>
+                  </NavLink>
+                ))}
+              </div>
+            </div>
+          )}
+        </div>
       ))}
+
+      {/* Quick Action Button */}
+      <div className="ml-4">
+        <NavLink
+          to="/admissions"
+          className="px-6 py-2.5 bg-secondary text-white font-semibold rounded-lg hover:bg-secondary/90 transform hover:scale-105 transition-all duration-200 shadow-lg hover:shadow-xl flex items-center gap-2"
+        >
+          <i className="fas fa-user-graduate"></i>
+          <span>Apply Now</span>
+        </NavLink>
+      </div>
     </nav>
   );
 };

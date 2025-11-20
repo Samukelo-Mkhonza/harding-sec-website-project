@@ -1,5 +1,6 @@
 // pages/About.js
 import React from 'react';
+import { SEO, SEOConfigs } from '../components';
 
 const About = () => {
   const pageStyles = {
@@ -94,9 +95,11 @@ const About = () => {
   };
 
   return (
-    <div style={pageStyles}>
-      {/* Hero Section */}
-      <section style={heroSectionStyles}>
+    <>
+      <SEO {...SEOConfigs.about} />
+      <div style={pageStyles}>
+        {/* Hero Section */}
+        <section style={heroSectionStyles}>
         <div style={containerStyles}>
           <h1 style={headingStyles}>About Harding Secondary School</h1>
           <p style={{ fontSize: '20px', maxWidth: '800px', margin: '0 auto' }}>
@@ -271,7 +274,8 @@ const About = () => {
           </div>
         </div>
       </section>
-    </div>
+      </div>
+    </>
   );
 };
 

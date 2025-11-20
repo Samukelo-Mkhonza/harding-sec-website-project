@@ -1,0 +1,23 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(cd:*)",
+      "Bash(find:*)",
+      "Bash(cat:*)",
+      "Bash(npm install:*)",
+      "Bash(npx tailwindcss:*)",
+      "Bash(npm start)",
+      "Bash(timeout /t 15 /nobreak)",
+      "Bash(ping:*)",
+      "Bash(nul)",
+      "Bash(npm uninstall:*)",
+      "Bash(taskkill:*)",
+      "Bash(dir:*)",
+      "Bash(findstr:*)",
+      "Bash(netstat:*)",
+      "Bash(npm run build:*)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}

@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Hero from '../components/Hero';
+import { SEO, SEOConfigs } from '../components';
 
 const Home = () => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
@@ -123,6 +124,7 @@ const Home = () => {
 
   return (
     <>
+      <SEO {...SEOConfigs.home} />
       <Hero images={heroImages} currentIndex={currentImageIndex} />
       
       {/* Welcome Section */}
