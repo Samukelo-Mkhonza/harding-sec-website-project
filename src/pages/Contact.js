@@ -72,43 +72,6 @@ const Contact = () => {
     flexShrink: 0
   };
 
-  const formStyles = {
-    backgroundColor: '#FFFFFF',
-    padding: '40px',
-    borderRadius: '12px',
-    boxShadow: '0 4px 20px rgba(0,0,0,0.08)'
-  };
-
-  const inputStyles = {
-    width: '100%',
-    padding: '15px',
-    marginBottom: '20px',
-    border: '2px solid #E0E0E0',
-    borderRadius: '6px',
-    fontSize: '16px',
-    fontFamily: "'Outfit', sans-serif",
-    transition: 'border-color 0.3s ease'
-  };
-
-  const textareaStyles = {
-    ...inputStyles,
-    minHeight: '150px',
-    resize: 'vertical'
-  };
-
-  const buttonStyles = {
-    width: '100%',
-    padding: '15px',
-    backgroundColor: '#19467E',
-    color: '#FFFFFF',
-    border: 'none',
-    borderRadius: '6px',
-    fontSize: '18px',
-    fontWeight: '600',
-    cursor: 'pointer',
-    transition: 'all 0.3s ease'
-  };
-
   const mapSectionStyles = {
     backgroundColor: '#F9F9F9',
     padding: '80px 20px'
@@ -236,18 +199,19 @@ const Contact = () => {
             height: '450px',
             borderRadius: '12px',
             overflow: 'hidden',
-            boxShadow: '0 4px 20px rgba(0,0,0,0.1)'
+            boxShadow: '0 4px 20px rgba(0,0,0,0.1)',
+            position: 'relative'
           }}>
             <iframe
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d55116.41646077676!2d30.02456747910156!3d-30.66502640000001!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1ef6973b8b8b8b8b%3A0x1234567890abcdef!2sHarding%2C%20KwaZulu-Natal!5e0!3m2!1sen!2sza!4v1732125000000!5m2!1sen!2sza"
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2616.664353518629!2d29.88457517443031!3d-30.571598655920482!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1ef5ee9ecb734163%3A0x51508346adc98662!2sKirk%20St%2C%20Harding%2C%204680!5e0!3m2!1sen!2sza!4v1763674351697!5m2!1sen!2sza"
               width="100%"
               height="100%"
-              style={{ border: 0 }}
+              style={{ border: 0, display: 'block' }}
               allowFullScreen=""
-              loading="lazy"
+              loading="eager"
               referrerPolicy="no-referrer-when-downgrade"
               title="Harding Secondary School Location"
-            ></iframe>
+            />
           </div>
           <div style={{
             textAlign: 'center',
@@ -262,7 +226,7 @@ const Contact = () => {
               Click on the map to get directions
             </p>
             <a
-              href="https://www.google.com/maps/search/?api=1&query=Harding+Secondary+School+Harding+KwaZulu-Natal"
+              href="https://www.google.com/maps/place/Kirk+St,+Harding,+4680/@-30.5715987,29.8845752,17z/data=!3m1!4b1!4m6!3m5!1s0x1ef5ee9ecb734163:0x51508346adc98662!8m2!3d-30.5715987!4d29.8871501!16s%2Fg%2F11c5q3y3y3"
               target="_blank"
               rel="noopener noreferrer"
               style={{
