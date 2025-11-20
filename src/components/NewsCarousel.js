@@ -2,6 +2,7 @@ import React from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay, Pagination, Navigation } from 'swiper/modules';
 import { Link } from 'react-router-dom';
+import { NEWS_IMAGES } from '../utils/imageConstants';
 
 // Import Swiper styles
 import 'swiper/css';
@@ -16,7 +17,7 @@ const NewsCarousel = ({ news = [] }) => {
       excerpt: "Celebrating our students' outstanding achievements in the recent national examinations.",
       date: "March 15, 2024",
       category: "Academics",
-      image: "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=800",
+      image: NEWS_IMAGES.schoolEvent,
       link: "#"
     },
     {
@@ -25,7 +26,7 @@ const NewsCarousel = ({ news = [] }) => {
       excerpt: "State-of-the-art facilities to enhance our STEM education programs.",
       date: "March 10, 2024",
       category: "Facilities",
-      image: "https://images.unsplash.com/photo-1532094349884-543bc11b234d?w=800",
+      image: NEWS_IMAGES.scienceLab,
       link: "#"
     },
     {
@@ -34,7 +35,7 @@ const NewsCarousel = ({ news = [] }) => {
       excerpt: "Our athletes shine at the inter-school sports competition, bringing home multiple medals.",
       date: "March 5, 2024",
       category: "Sports",
-      image: "https://images.unsplash.com/photo-1461896836934-ffe607ba8211?w=800",
+      image: NEWS_IMAGES.sportsDay,
       link: "#"
     },
     {
@@ -43,7 +44,7 @@ const NewsCarousel = ({ news = [] }) => {
       excerpt: "Students making a difference through our new outreach program.",
       date: "February 28, 2024",
       category: "Community",
-      image: "https://images.unsplash.com/photo-1559027615-cd4628902d4a?w=800",
+      image: NEWS_IMAGES.community,
       link: "#"
     }
   ];

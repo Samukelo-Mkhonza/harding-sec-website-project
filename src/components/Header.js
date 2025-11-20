@@ -5,6 +5,7 @@ import MobileMenu from './MobileMenu';
 import SearchOverlay from './SearchOverlay';
 import useScrollDirection from '../hooks/useScrollDirection';
 import { SCROLL_THRESHOLDS } from '../utils/constants';
+import logo from '../images/logo.png';
 
 const Header = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -116,24 +117,13 @@ const Header = () => {
               to="/"
               className="flex items-center gap-4 text-white hover:opacity-90 transition-opacity duration-200 group"
             >
-              <div className="w-14 h-14 bg-white rounded-full flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300 p-1">
-                <img
-                  src="/harding-sec-logo-2.png"
-                  alt="Harding Secondary School Logo"
-                  className="w-full h-full object-contain"
-                  onError={(e) => {
-                    console.error('Logo failed to load');
-                    e.target.style.display = 'none';
-                    e.target.nextSibling.style.display = 'flex';
-                  }}
-                />
-                <span
-                  className="text-primary font-bold text-xl hidden"
-                  style={{ display: 'none' }}
-                >
-                  HSS
-                </span>
-              </div>
+              <img
+                src={logo}
+                alt="Harding Secondary School Logo"
+                className={`transition-all duration-300 group-hover:scale-110 ${
+                  isMinimized ? 'h-10' : isScrolled ? 'h-12' : 'h-14'
+                }`}
+              />
               <div className="flex flex-col">
                 <h1 className={`font-heading font-bold text-white transition-all duration-300 ${
                   isMinimized ? 'text-lg' : isScrolled ? 'text-xl' : 'text-2xl'

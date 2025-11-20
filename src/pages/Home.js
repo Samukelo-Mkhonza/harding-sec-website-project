@@ -3,14 +3,15 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Hero from '../components/Hero';
 import { SEO, SEOConfigs } from '../components';
+import { HERO_IMAGES, NEWS_IMAGES } from '../utils/imageConstants';
 
 const Home = () => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   
   const heroImages = [
-    'https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=1600',
-    'https://images.unsplash.com/photo-1580582932707-520aed937b7b?w=1600',
-    'https://images.unsplash.com/photo-1509062522246-3755977927d7?w=1600'
+    HERO_IMAGES.students,
+    HERO_IMAGES.classroom,
+    HERO_IMAGES.graduation
   ];
 
   useEffect(() => {
@@ -266,7 +267,7 @@ const Home = () => {
             transition: 'transform 0.3s ease'
           }}>
             <img 
-              src="https://images.unsplash.com/photo-1427504494785-3a9ca7044f45?w=800" 
+              src={NEWS_IMAGES.academicAwards} 
               alt="School event"
               style={{ width: '100%', height: '200px', objectFit: 'cover' }}
             />
@@ -289,7 +290,7 @@ const Home = () => {
             transition: 'transform 0.3s ease'
           }}>
             <img 
-              src="https://images.unsplash.com/photo-1509062522246-3755977927d7?w=800" 
+              src={NEWS_IMAGES.matricResults} 
               alt="Matric results"
               style={{ width: '100%', height: '200px', objectFit: 'cover' }}
             />

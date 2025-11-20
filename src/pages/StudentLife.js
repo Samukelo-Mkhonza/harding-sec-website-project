@@ -1,6 +1,7 @@
 // pages/StudentLife.js
 import React from 'react';
 import { SEO, SEOConfigs } from '../components';
+import { ACTIVITY_IMAGES } from '../utils/imageConstants';
 
 const StudentLife = () => {
   const pageStyles = {
@@ -110,17 +111,17 @@ const StudentLife = () => {
   const activitiesData = [
     {
       title: 'Sports Programs',
-      image: 'https://images.unsplash.com/photo-1574629810360-7efbbe195018?w=800',
+      image: ACTIVITY_IMAGES.sports,
       description: 'Soccer, rugby, netball, athletics, and more. Our sports programs develop teamwork, discipline, and healthy competition.'
     },
     {
       title: 'Cultural Activities',
-      image: 'https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=800',
+      image: ACTIVITY_IMAGES.cultural,
       description: 'Drama, music, dance, and debate societies that nurture creativity and self-expression.'
     },
     {
       title: 'Academic Clubs',
-      image: 'https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=800',
+      image: ACTIVITY_IMAGES.academicClubs,
       description: 'Science club, mathematics olympiad, computer club, and reading clubs for academic enrichment.'
     }
   ];

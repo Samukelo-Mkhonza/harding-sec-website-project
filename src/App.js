@@ -58,8 +58,8 @@ const App = () => {
     message: ''
   });
 
-  // REPLACE THIS WITH YOUR LOGO IMAGE URL
-  const logoImageUrl = "https://via.placeholder.com/50x50/228B22/FFFFFF?text=LOGO";
+  // School logo from public folder
+  const logoImageUrl = "/harding-sec-logo-2.png";
 
   useEffect(() => {
     const handleScroll = () => {

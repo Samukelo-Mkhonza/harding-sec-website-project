@@ -1,6 +1,7 @@
 // pages/Gallery.js
 import React, { useState } from 'react';
 import { SEO, SEOConfigs } from '../components';
+import { ALL_GALLERY_IMAGES } from '../utils/imageConstants';
 
 const Gallery = () => {
   const [selectedCategory, setSelectedCategory] = useState('all');
@@ -128,71 +129,8 @@ const Gallery = () => {
     { id: 'facilities', label: 'Facilities' }
   ];
 
-  const galleryImages = [
-    {
-      id: 1,
-      category: 'academic',
-      title: 'Science Laboratory',
-      description: 'Students conducting experiments',
-      image: 'https://images.unsplash.com/photo-1562654501-a0ccc0fc3fb1?w=800'
-    },
-    {
-      id: 2,
-      category: 'sports',
-      title: 'Athletics Day',
-      description: 'Annual sports competition',
-      image: 'https://images.unsplash.com/photo-1541252260730-0412e8e2108e?w=800'
-    },
-    {
-      id: 3,
-      category: 'cultural',
-      title: 'Drama Performance',
-      description: 'School theatrical production',
-      image: 'https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?w=800'
-    },
-    {
-      id: 4,
-      category: 'facilities',
-      title: 'School Library',
-      description: 'Modern learning resource center',
-      image: 'https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=800'
-    },
-    {
-      id: 5,
-      category: 'events',
-      title: 'Graduation Ceremony',
-      description: 'Class of 2024 celebration',
-      image: 'https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=800'
-    },
-    {
-      id: 6,
-      category: 'academic',
-      title: 'Computer Lab',
-      description: 'IT education in progress',
-      image: 'https://images.unsplash.com/photo-1509062522246-3755977927d7?w=800'
-    },
-    {
-      id: 7,
-      category: 'sports',
-      title: 'Soccer Team',
-      description: 'School soccer champions',
-      image: 'https://images.unsplash.com/photo-1431324155629-1a6deb1dec8d?w=800'
-    },
-    {
-      id: 8,
-      category: 'cultural',
-      title: 'Music Festival',
-      description: 'Annual music showcase',
-      image: 'https://images.unsplash.com/photo-1514320291840-2e0a9bf2a9ae?w=800'
-    },
-    {
-      id: 9,
-      category: 'facilities',
-      title: 'School Grounds',
-      description: 'Beautiful campus environment',
-      image: 'https://images.unsplash.com/photo-1580582932707-520aed937b7b?w=800'
-    }
-  ];
+  // Use centralized gallery images from constants
+  const galleryImages = ALL_GALLERY_IMAGES;
 
   const filteredImages = selectedCategory === 'all' 
     ? galleryImages 

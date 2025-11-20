@@ -36,9 +36,9 @@ module.exports = {
         },
       },
       fontFamily: {
-        heading: ['Montserrat', 'Outfit', 'sans-serif'],
-        body: ['Open Sans', 'Nunito', 'sans-serif'],
-        display: ['Playfair Display', 'serif'],
+        heading: ['Carlito', 'sans-serif'],
+        body: ['Carlito', 'sans-serif'],
+        display: ['Carlito', 'sans-serif'],
       },
       fontSize: {
         'xs': '0.75rem',

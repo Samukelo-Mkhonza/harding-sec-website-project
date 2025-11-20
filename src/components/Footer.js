@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import logo from '../images/logo.png';
 
 const Footer = () => {
   const [email, setEmail] = useState('');
@@ -41,19 +42,11 @@ const Footer = () => {
             {/* About Column */}
             <div className="space-y-6">
               <div className="flex items-center gap-3">
-                <div className="w-12 h-12 bg-white rounded-full flex items-center justify-center p-1">
-                  <img
-                    src="/harding-sec-logo-2.png"
-                    alt="Harding Secondary School Logo"
-                    className="w-full h-full object-contain"
-                    onError={(e) => {
-                      console.error('Footer logo failed to load');
-                      e.target.style.display = 'none';
-                      e.target.nextSibling.style.display = 'inline';
-                    }}
-                  />
-                  <span className="text-primary font-bold text-lg" style={{ display: 'none' }}>HSS</span>
-                </div>
+                <img
+                  src={logo}
+                  alt="Harding Secondary School Logo"
+                  className="h-12"
+                />
                 <div>
                   <h3 className="font-heading font-bold text-xl">Harding Secondary</h3>
                   <p className="text-white/80 text-sm">Since 1950</p>
