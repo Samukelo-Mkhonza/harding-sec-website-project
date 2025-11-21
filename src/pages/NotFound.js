@@ -1,5 +1,9 @@
-import React from 'react';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { 
+  FaSearch, FaHome, FaInfoCircle, FaGraduationCap, FaClipboardList, 
+  FaUsers, FaImages, FaEnvelope, FaNewspaper, FaArrowRight, FaArrowLeft 
+} from 'react-icons/fa';
 import { SEO } from '../components';
 import SearchOverlay from '../components/SearchOverlay';
 
@@ -8,7 +12,7 @@ import SearchOverlay from '../components/SearchOverlay';
  * Custom error page with navigation and search functionality
  */
 const NotFound = () => {
-  const [searchOpen, setSearchOpen] = React.useState(false);
+  const [searchOpen, setSearchOpen] = useState(false);
 
   return (
     <>
@@ -39,7 +43,7 @@ const NotFound = () => {
             onClick={() => setSearchOpen(true)}
             className="inline-flex items-center gap-2 px-8 py-4 bg-primary text-white rounded-lg font-semibold hover:bg-primary-dark transition-all duration-300 hover:shadow-lg hover:-translate-y-1 mb-8"
           >
-            <i className="fas fa-search"></i>
+            <FaSearch className="text-base" />
             Search Our Site
           </button>
 
@@ -50,33 +54,36 @@ const NotFound = () => {
             </h3>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
               {[
-                { to: '/', icon: 'fa-home', label: 'Home' },
-                { to: '/about', icon: 'fa-info-circle', label: 'About' },
-                { to: '/academics', icon: 'fa-graduation-cap', label: 'Academics' },
-                { to: '/admissions', icon: 'fa-clipboard-list', label: 'Admissions' },
-                { to: '/student-life', icon: 'fa-users', label: 'Student Life' },
-                { to: '/gallery', icon: 'fa-images', label: 'Gallery' },
-                { to: '/contact', icon: 'fa-envelope', label: 'Contact' },
-                { to: '/', icon: 'fa-newspaper', label: 'News' },
-              ].map((link, index) => (
-                <Link
-                  key={index}
-                  to={link.to}
-                  className="flex flex-col items-center gap-2 p-4 rounded-lg border-2 border-neutral-200 hover:border-primary hover:bg-primary/5 transition-all duration-300 group"
-                >
-                  <i className={`fas ${link.icon} text-2xl text-neutral-400 group-hover:text-primary transition-colors`}></i>
-                  <span className="text-sm font-semibold text-neutral-700 group-hover:text-primary transition-colors">
-                    {link.label}
-                  </span>
-                </Link>
-              ))}
+                { to: '/', Icon: FaHome, label: 'Home' },
+                { to: '/about', Icon: FaInfoCircle, label: 'About' },
+                { to: '/academics', Icon: FaGraduationCap, label: 'Academics' },
+                { to: '/admissions', Icon: FaClipboardList, label: 'Admissions' },
+                { to: '/student-life', Icon: FaUsers, label: 'Student Life' },
+                { to: '/gallery', Icon: FaImages, label: 'Gallery' },
+                { to: '/contact', Icon: FaEnvelope, label: 'Contact' },
+                { to: '/', Icon: FaNewspaper, label: 'News' },
+              ].map((link, index) => {
+                const IconComponent = link.Icon;
+                return (
+                  <Link
+                    key={index}
+                    to={link.to}
+                    className="flex flex-col items-center gap-2 p-4 rounded-lg border-2 border-neutral-200 hover:border-primary hover:bg-primary/5 transition-all duration-300 group"
+                  >
+                    <IconComponent className="text-2xl text-neutral-400 group-hover:text-primary transition-colors" />
+                    <span className="text-sm font-semibold text-neutral-700 group-hover:text-primary transition-colors">
+                      {link.label}
+                    </span>
+                  </Link>
+                );
+              })}
             </div>
           </div>
 
           {/* Help Text */}
           <div className="bg-blue-50 border-2 border-blue-200 rounded-lg p-6">
             <div className="flex items-start gap-4">
-              <i className="fas fa-info-circle text-blue-500 text-2xl flex-shrink-0 mt-1"></i>
+              <FaInfoCircle className="text-blue-500 text-2xl flex-shrink-0 mt-1" />
               <div className="text-left">
                 <h4 className="font-semibold text-blue-900 mb-2">Need Help?</h4>
                 <p className="text-blue-700 text-sm mb-3">
@@ -87,7 +94,7 @@ const NotFound = () => {
                   className="inline-flex items-center gap-2 text-blue-600 hover:text-blue-800 font-semibold text-sm"
                 >
                   Contact Support
-                  <i className="fas fa-arrow-right"></i>
+                  <FaArrowRight className="text-sm" />
                 </Link>
               </div>
             </div>
@@ -98,7 +105,7 @@ const NotFound = () => {
             onClick={() => window.history.back()}
             className="mt-8 inline-flex items-center gap-2 text-neutral-600 hover:text-primary transition-colors"
           >
-            <i className="fas fa-arrow-left"></i>
+            <FaArrowLeft className="text-base" />
             Go Back
           </button>
         </div>

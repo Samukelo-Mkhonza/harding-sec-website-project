@@ -1,5 +1,5 @@
-import React from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { FaArrowUp } from 'react-icons/fa';
 import useScrollPosition from '../hooks/useScrollPosition';
 import { SCROLL_THRESHOLDS } from '../utils/constants';
 
@@ -46,7 +46,7 @@ const BackToTop = ({
           className={`fixed ${positionClasses[position]} z-50 w-12 h-12 bg-primary text-white rounded-full shadow-lg hover:shadow-xl flex items-center justify-center transition-all duration-300 group`}
           aria-label="Back to top"
         >
-          <i className="fas fa-arrow-up text-lg group-hover:-translate-y-1 transition-transform duration-200"></i>
+          <FaArrowUp className="text-lg group-hover:-translate-y-1 transition-transform duration-200" />
           
           {/* Ripple effect on hover */}
           <span className="absolute inset-0 rounded-full bg-white opacity-0 group-hover:opacity-20 transition-opacity duration-300"></span>

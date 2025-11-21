@@ -1,5 +1,5 @@
-import React from 'react';
 import { Link } from 'react-router-dom';
+import { FaExclamationTriangle, FaRedo, FaHome, FaPhone, FaEnvelope, FaClock, FaCode } from 'react-icons/fa';
 import { SEO } from '../components';
 
 /**
@@ -24,7 +24,7 @@ const ServerError = () => {
           {/* Error Code */}
           <div className="mb-8">
             <div className="inline-flex items-center justify-center w-32 h-32 bg-red-100 rounded-full mb-6">
-              <i className="fas fa-exclamation-triangle text-5xl text-red-500"></i>
+              <FaExclamationTriangle className="text-5xl text-red-500" />
             </div>
             <h1 className="text-7xl font-bold text-red-600 mb-4">500</h1>
             <div className="h-1 w-32 bg-red-500 mx-auto rounded-full"></div>
@@ -44,14 +44,14 @@ const ServerError = () => {
               onClick={handleRetry}
               className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-primary text-white rounded-lg font-semibold hover:bg-primary-dark transition-all duration-300 hover:shadow-lg hover:-translate-y-1"
             >
-              <i className="fas fa-redo"></i>
+              <FaRedo className="text-base" />
               Try Again
             </button>
             <Link
               to="/"
               className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-white text-primary border-2 border-primary rounded-lg font-semibold hover:bg-primary hover:text-white transition-all duration-300 hover:shadow-lg hover:-translate-y-1"
             >
-              <i className="fas fa-home"></i>
+              <FaHome className="text-base" />
               Go Home
             </Link>
           </div>
@@ -63,7 +63,7 @@ const ServerError = () => {
             </h3>
             <div className="grid md:grid-cols-3 gap-6">
               <div className="flex flex-col items-center gap-3 p-4 rounded-lg bg-neutral-50">
-                <i className="fas fa-phone text-3xl text-primary"></i>
+                <FaPhone className="text-3xl text-primary" />
                 <div>
                   <p className="text-sm text-neutral-600 mb-1">Call Us</p>
                   <a
@@ -75,7 +75,7 @@ const ServerError = () => {
                 </div>
               </div>
               <div className="flex flex-col items-center gap-3 p-4 rounded-lg bg-neutral-50">
-                <i className="fas fa-envelope text-3xl text-primary"></i>
+                <FaEnvelope className="text-3xl text-primary" />
                 <div>
                   <p className="text-sm text-neutral-600 mb-1">Email Us</p>
                   <a
@@ -87,7 +87,7 @@ const ServerError = () => {
                 </div>
               </div>
               <div className="flex flex-col items-center gap-3 p-4 rounded-lg bg-neutral-50">
-                <i className="fas fa-clock text-3xl text-primary"></i>
+                <FaClock className="text-3xl text-primary" />
                 <div>
                   <p className="text-sm text-neutral-600 mb-1">Office Hours</p>
                   <p className="font-semibold text-neutral-900 text-sm">
@@ -102,7 +102,7 @@ const ServerError = () => {
           {process.env.NODE_ENV === 'development' && (
             <div className="bg-neutral-100 border-2 border-neutral-300 rounded-lg p-6 text-left">
               <div className="flex items-start gap-4">
-                <i className="fas fa-code text-neutral-500 text-2xl flex-shrink-0 mt-1"></i>
+                <FaCode className="text-neutral-500 text-2xl flex-shrink-0 mt-1" />
                 <div>
                   <h4 className="font-semibold text-neutral-900 mb-2">Development Mode</h4>
                   <p className="text-neutral-600 text-sm mb-2">

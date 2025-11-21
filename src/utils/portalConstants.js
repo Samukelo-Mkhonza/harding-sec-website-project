@@ -4,17 +4,17 @@
 
 // Subject definitions with icons and colors
 export const SUBJECTS = [
-  { id: 'accounting', name: 'Accounting', icon: 'calculator', color: '#0D3F2F' },
-  { id: 'afrikaans', name: 'Afrikaans', icon: 'language', color: '#0D3F2F' },
-  { id: 'business-studies', name: 'Business Studies', icon: 'briefcase', color: '#19467E' },
-  { id: 'economics', name: 'Economics', icon: 'trending-up', color: '#00A651' },
-  { id: 'english', name: 'English Home Language', icon: 'book', color: '#00A651' },
-  { id: 'geography', name: 'Geography', icon: 'globe', color: '#0D3F2F' },
-  { id: 'history', name: 'History', icon: 'clock', color: '#19467E' },
-  { id: 'life-orientation', name: 'Life Orientation', icon: 'heart', color: '#00A651' },
-  { id: 'life-sciences', name: 'Life Sciences', icon: 'dna', color: '#00A651' },
-  { id: 'mathematics', name: 'Mathematics', icon: 'calculator', color: '#19467E' },
-  { id: 'physical-sciences', name: 'Physical Sciences', icon: 'atom', color: '#19467E' }
+  { id: 'accounting', name: 'Accounting', icon: 'calculator', color: '#0D4E25' },
+  { id: 'afrikaans', name: 'Afrikaans', icon: 'language', color: '#0D4E25' },
+  { id: 'business-studies', name: 'Business Studies', icon: 'briefcase', color: '#147538' },
+  { id: 'economics', name: 'Economics', icon: 'trending-up', color: '#147538' },
+  { id: 'english', name: 'English Home Language', icon: 'book', color: '#147538' },
+  { id: 'geography', name: 'Geography', icon: 'globe', color: '#0D4E25' },
+  { id: 'history', name: 'History', icon: 'clock', color: '#147538' },
+  { id: 'life-orientation', name: 'Life Orientation', icon: 'heart', color: '#147538' },
+  { id: 'life-sciences', name: 'Life Sciences', icon: 'dna', color: '#147538' },
+  { id: 'mathematics', name: 'Mathematics', icon: 'calculator', color: '#147538' },
+  { id: 'physical-sciences', name: 'Physical Sciences', icon: 'atom', color: '#147538' }
 ];
 
 // Exam type definitions

@@ -1,112 +1,12 @@
 // pages/StudentLife.js
-import React from 'react';
+import { 
+  FaComments, FaFlask, FaTheaterMasks, FaMusic, FaSeedling, FaCamera, 
+  FaChess, FaFirstAid, FaBullseye, FaBook, FaHospital 
+} from 'react-icons/fa';
 import { SEO, SEOConfigs } from '../components';
 import { ACTIVITY_IMAGES } from '../utils/imageConstants';
 
 const StudentLife = () => {
-  const pageStyles = {
-    paddingTop: '40px'
-  };
-
-  const heroSectionStyles = {
-    backgroundColor: '#19467E',
-    color: '#FFFFFF',
-    padding: '80px 20px',
-    textAlign: 'center'
-  };
-
-  const containerStyles = {
-    maxWidth: '1200px',
-    margin: '0 auto',
-    padding: '0 20px'
-  };
-
-  const sectionStyles = {
-    padding: '80px 20px'
-  };
-
-  const headingStyles = {
-    fontSize: '48px',
-    fontWeight: '800',
-    marginBottom: '20px'
-  };
-
-  const subHeadingStyles = {
-    fontSize: '32px',
-    fontWeight: '700',
-    color: '#19467E',
-    marginBottom: '30px'
-  };
-
-  const activityGridStyles = {
-    display: 'grid',
-    gridTemplateColumns: 'repeat(auto-fit, minmax(350px, 1fr))',
-    gap: '40px',
-    marginTop: '40px'
-  };
-
-  const activityCardStyles = {
-    backgroundColor: '#FFFFFF',
-    borderRadius: '12px',
-    overflow: 'hidden',
-    boxShadow: '0 4px 20px rgba(0,0,0,0.08)',
-    transition: 'transform 0.3s ease'
-  };
-
-  const activityImageStyles = {
-    width: '100%',
-    height: '250px',
-    objectFit: 'cover'
-  };
-
-  const activityContentStyles = {
-    padding: '30px'
-  };
-
-  const clubsGridStyles = {
-    display: 'grid',
-    gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
-    gap: '20px',
-    marginTop: '40px'
-  };
-
-  const clubCardStyles = {
-    backgroundColor: '#19467E',
-    color: '#FFFFFF',
-    padding: '30px',
-    borderRadius: '12px',
-    textAlign: 'center',
-    transition: 'all 0.3s ease',
-    cursor: 'pointer'
-  };
-
-  const timelineStyles = {
-    maxWidth: '800px',
-    margin: '40px auto'
-  };
-
-  const eventStyles = {
-    display: 'flex',
-    marginBottom: '40px',
-    alignItems: 'flex-start'
-  };
-
-  const dateBoxStyles = {
-    backgroundColor: '#19467E',
-    color: '#FFFFFF',
-    padding: '20px',
-    borderRadius: '8px',
-    minWidth: '120px',
-    textAlign: 'center',
-    marginRight: '30px'
-  };
-
-  const eventContentStyles = {
-    backgroundColor: '#F9F9F9',
-    padding: '30px',
-    borderRadius: '12px',
-    flex: 1
-  };
 
   const activitiesData = [
     {
@@ -127,14 +27,14 @@ const StudentLife = () => {
   ];
 
   const clubs = [
-    { name: 'Debate Society', icon: '💬' },
-    { name: 'Science Club', icon: '🔬' },
-    { name: 'Drama Club', icon: '🎭' },
-    { name: 'Music Society', icon: '🎵' },
-    { name: 'Environmental Club', icon: '🌱' },
-    { name: 'Photography Club', icon: '📷' },
-    { name: 'Chess Club', icon: '♟️' },
-    { name: 'First Aid Club', icon: '🏥' }
+    { name: 'Debate Society', Icon: FaComments },
+    { name: 'Science Club', Icon: FaFlask },
+    { name: 'Drama Club', Icon: FaTheaterMasks },
+    { name: 'Music Society', Icon: FaMusic },
+    { name: 'Environmental Club', Icon: FaSeedling },
+    { name: 'Photography Club', Icon: FaCamera },
+    { name: 'Chess Club', Icon: FaChess },
+    { name: 'First Aid Club', Icon: FaFirstAid }
   ];
 
   const events = [
@@ -167,238 +67,189 @@ const StudentLife = () => {
   return (
     <>
       <SEO {...SEOConfigs.studentLife} />
-      <div style={pageStyles}>
+      <div className="pt-0">
         {/* Hero Section */}
-      <section style={heroSectionStyles}>
-        <div style={containerStyles}>
-          <h1 style={headingStyles}>Student Life</h1>
-          <p style={{ fontSize: '20px', maxWidth: '800px', margin: '0 auto' }}>
-            Beyond the classroom: Building character, friendships, and memories
-          </p>
-        </div>
-      </section>
+        <section className="bg-primary-dark text-white py-16 md:py-20 lg:py-24 text-center">
+          <div className="container-custom">
+            <h1 className="text-3xl md:text-4xl lg:text-5xl font-heading font-bold mb-4 md:mb-6">
+              Student Life
+            </h1>
+            <p className="text-lg md:text-xl max-w-3xl mx-auto">
+              Beyond the classroom: Building character, friendships, and memories
+            </p>
+          </div>
+        </section>
 
-      {/* Activities Overview */}
-      <section style={{ ...sectionStyles, ...containerStyles }}>
-        <h2 style={subHeadingStyles}>A Vibrant School Community</h2>
-        <p style={{ fontSize: '18px', lineHeight: '1.8', color: '#666', marginBottom: '40px' }}>
-          At Harding Secondary School, we believe in developing well-rounded individuals. 
-          Our diverse range of extracurricular activities ensures every learner finds their passion 
-          and develops skills beyond academics.
-        </p>
+        {/* Activities Overview */}
+        <section className="section-padding">
+          <div className="container-custom">
+            <h2 className="text-2xl md:text-3xl lg:text-4xl font-heading font-bold text-primary-dark mb-6 md:mb-8">
+              A Vibrant School Community
+            </h2>
+            <p className="text-base md:text-lg leading-relaxed text-neutral-500 mb-10 md:mb-12">
+              At Harding Secondary School, we believe in developing well-rounded individuals. 
+              Our diverse range of extracurricular activities ensures every learner finds their passion 
+              and develops skills beyond academics.
+            </p>
 
-        <div style={activityGridStyles}>
-          {activitiesData.map((activity, index) => (
-            <div 
-              key={index}
-              style={activityCardStyles}
-              onMouseEnter={(e) => e.currentTarget.style.transform = 'translateY(-5px)'}
-              onMouseLeave={(e) => e.currentTarget.style.transform = 'translateY(0)'}
-            >
-              <img src={activity.image} alt={activity.title} style={activityImageStyles} />
-              <div style={activityContentStyles}>
-                <h3 style={{ fontSize: '24px', marginBottom: '15px', color: '#19467E' }}>
-                  {activity.title}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10">
+              {activitiesData.map((activity, index) => (
+                <div 
+                  key={index}
+                  className="bg-white rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-2"
+                >
+                  <img 
+                    src={activity.image} 
+                    alt={activity.title} 
+                    className="w-full h-48 md:h-56 object-cover"
+                  />
+                  <div className="p-6 md:p-8">
+                    <h3 className="text-xl md:text-2xl font-semibold mb-4 text-primary-dark">
+                      {activity.title}
+                    </h3>
+                    <p className="text-neutral-500 leading-relaxed">
+                      {activity.description}
+                    </p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* Clubs and Societies */}
+        <section className="section-padding bg-neutral-50">
+          <div className="container-custom">
+            <h2 className="text-2xl md:text-3xl lg:text-4xl font-heading font-bold text-primary-dark mb-6 md:mb-8">
+              Clubs & Societies
+            </h2>
+            <p className="text-base md:text-lg leading-relaxed text-neutral-500 mb-10 md:mb-12">
+              Join our vibrant clubs and societies to explore your interests and develop new skills.
+            </p>
+            
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-4 gap-4 md:gap-5">
+              {clubs.map((club, index) => {
+                const IconComponent = club.Icon;
+                return (
+                  <div 
+                    key={index}
+                    className="bg-primary-dark text-white p-6 md:p-8 rounded-xl text-center transition-all duration-300 cursor-pointer hover:bg-primary hover:scale-105"
+                  >
+                    <div className="mb-4">
+                      <IconComponent className="text-3xl md:text-4xl mx-auto" />
+                    </div>
+                    <h4 className="text-sm md:text-base lg:text-lg font-medium">{club.name}</h4>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        </section>
+
+        {/* Annual Events */}
+        <section className="section-padding">
+          <div className="container-custom">
+            <h2 className="text-2xl md:text-3xl lg:text-4xl font-heading font-bold text-primary-dark mb-10 md:mb-12 text-center">
+              Annual Events Calendar
+            </h2>
+            <div className="max-w-4xl mx-auto space-y-6 md:space-y-8">
+              {events.map((event, index) => (
+                <div key={index} className="flex flex-col sm:flex-row items-start gap-4 sm:gap-6">
+                  <div className="bg-accent-neon text-white p-5 md:p-6 rounded-lg min-w-[100px] md:min-w-[120px] text-center flex-shrink-0">
+                    <div className="text-xs md:text-sm mb-1">{event.month}</div>
+                    <div className="text-2xl md:text-3xl font-bold">{event.day}</div>
+                  </div>
+                  <div className="bg-neutral-50 p-6 md:p-8 rounded-xl flex-1 w-full">
+                    <h3 className="text-lg md:text-xl lg:text-2xl font-semibold mb-2 md:mb-3 text-primary-dark">
+                      {event.title}
+                    </h3>
+                    <p className="text-neutral-500 leading-relaxed">
+                      {event.description}
+                    </p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* Student Support */}
+        <section className="section-padding bg-neutral-50">
+          <div className="container-custom">
+            <h2 className="text-2xl md:text-3xl lg:text-4xl font-heading font-bold text-primary-dark mb-10 md:mb-12">
+              Student Support Services
+            </h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10">
+              <div className="bg-white p-8 md:p-10 rounded-xl shadow-md">
+                <div className="w-14 h-14 md:w-16 md:h-16 bg-accent-neon rounded-full flex items-center justify-center mb-5 md:mb-6">
+                  <FaBullseye className="text-2xl md:text-3xl text-white" />
+                </div>
+                <h3 className="text-xl md:text-2xl font-semibold mb-4 text-primary-dark">
+                  Counseling Services
                 </h3>
-                <p style={{ color: '#666', lineHeight: '1.6' }}>
-                  {activity.description}
+                <p className="text-neutral-500 leading-relaxed">
+                  Professional guidance counselors available to support students' emotional 
+                  well-being and academic planning.
+                </p>
+              </div>
+
+              <div className="bg-white p-8 md:p-10 rounded-xl shadow-md">
+                <div className="w-14 h-14 md:w-16 md:h-16 bg-accent-neon rounded-full flex items-center justify-center mb-5 md:mb-6">
+                  <FaBook className="text-2xl md:text-3xl text-white" />
+                </div>
+                <h3 className="text-xl md:text-2xl font-semibold mb-4 text-primary-dark">
+                  Peer Tutoring
+                </h3>
+                <p className="text-neutral-500 leading-relaxed">
+                  Senior students mentor and tutor junior students, fostering a 
+                  supportive learning community.
+                </p>
+              </div>
+
+              <div className="bg-white p-8 md:p-10 rounded-xl shadow-md">
+                <div className="w-14 h-14 md:w-16 md:h-16 bg-accent-neon rounded-full flex items-center justify-center mb-5 md:mb-6">
+                  <FaHospital className="text-2xl md:text-3xl text-white" />
+                </div>
+                <h3 className="text-xl md:text-2xl font-semibold mb-4 text-primary-dark">
+                  Health & Wellness
+                </h3>
+                <p className="text-neutral-500 leading-relaxed">
+                  On-site health services and wellness programs promoting physical 
+                  and mental health.
                 </p>
               </div>
             </div>
-          ))}
-        </div>
-      </section>
-
-      {/* Clubs and Societies */}
-      <section style={{ backgroundColor: '#F9F9F9', ...sectionStyles }}>
-        <div style={containerStyles}>
-          <h2 style={subHeadingStyles}>Clubs & Societies</h2>
-          <p style={{ fontSize: '18px', lineHeight: '1.8', color: '#666', marginBottom: '40px' }}>
-            Join our vibrant clubs and societies to explore your interests and develop new skills.
-          </p>
-          
-          <div style={clubsGridStyles}>
-            {clubs.map((club, index) => (
-              <div 
-                key={index}
-                style={clubCardStyles}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.backgroundColor = '#0D3F2F';
-                  e.currentTarget.style.transform = 'scale(1.05)';
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.backgroundColor = '#19467E';
-                  e.currentTarget.style.transform = 'scale(1)';
-                }}
-              >
-                <div style={{ fontSize: '40px', marginBottom: '15px' }}>{club.icon}</div>
-                <h4 style={{ fontSize: '18px', margin: 0 }}>{club.name}</h4>
-              </div>
-            ))}
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* Annual Events */}
-      <section style={{ ...sectionStyles, ...containerStyles }}>
-        <h2 style={{ ...subHeadingStyles, textAlign: 'center' }}>Annual Events Calendar</h2>
-        <div style={timelineStyles}>
-          {events.map((event, index) => (
-            <div key={index} style={eventStyles}>
-              <div style={dateBoxStyles}>
-                <div style={{ fontSize: '14px', marginBottom: '5px' }}>{event.month}</div>
-                <div style={{ fontSize: '28px', fontWeight: '700' }}>{event.day}</div>
-              </div>
-              <div style={eventContentStyles}>
-                <h3 style={{ fontSize: '22px', marginBottom: '10px', color: '#19467E' }}>
-                  {event.title}
-                </h3>
-                <p style={{ color: '#666', margin: 0 }}>
-                  {event.description}
-                </p>
-              </div>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* Student Support */}
-      <section style={{ backgroundColor: '#F9F9F9', ...sectionStyles }}>
-        <div style={containerStyles}>
-          <h2 style={subHeadingStyles}>Student Support Services</h2>
-          <div style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
-            gap: '40px',
-            marginTop: '40px'
-          }}>
-            <div style={{
-              backgroundColor: '#FFFFFF',
-              padding: '40px',
-              borderRadius: '12px',
-              boxShadow: '0 4px 20px rgba(0,0,0,0.08)'
-            }}>
-              <div style={{
-                width: '60px',
-                height: '60px',
-                backgroundColor: '#19467E',
-                borderRadius: '50%',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                marginBottom: '20px',
-                fontSize: '24px',
-                color: '#FFFFFF'
-              }}>
-                🎯
-              </div>
-              <h3 style={{ fontSize: '24px', marginBottom: '15px', color: '#19467E' }}>
-                Counseling Services
-              </h3>
-              <p style={{ color: '#666', lineHeight: '1.6' }}>
-                Professional guidance counselors available to support students' emotional 
-                well-being and academic planning.
+        {/* Leadership Opportunities */}
+        <section className="section-padding">
+          <div className="container-custom">
+            <div className="bg-primary-dark text-white p-8 md:p-12 lg:p-16 rounded-xl text-center">
+              <h2 className="text-2xl md:text-3xl lg:text-4xl font-heading font-bold mb-5 md:mb-6">
+                Student Leadership
+              </h2>
+              <p className="text-base md:text-lg lg:text-xl mb-10 md:mb-12 max-w-3xl mx-auto">
+                Develop leadership skills through our Student Representative Council, 
+                prefect system, and various leadership programs.
               </p>
-            </div>
-
-            <div style={{
-              backgroundColor: '#FFFFFF',
-              padding: '40px',
-              borderRadius: '12px',
-              boxShadow: '0 4px 20px rgba(0,0,0,0.08)'
-            }}>
-              <div style={{
-                width: '60px',
-                height: '60px',
-                backgroundColor: '#19467E',
-                borderRadius: '50%',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                marginBottom: '20px',
-                fontSize: '24px',
-                color: '#FFFFFF'
-              }}>
-                📚
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 md:gap-8">
+                <div>
+                  <div className="text-4xl md:text-5xl font-bold mb-2 md:mb-3">25</div>
+                  <p className="text-base md:text-lg">Prefects</p>
+                </div>
+                <div>
+                  <div className="text-4xl md:text-5xl font-bold mb-2 md:mb-3">15</div>
+                  <p className="text-base md:text-lg">SRC Members</p>
+                </div>
+                <div>
+                  <div className="text-4xl md:text-5xl font-bold mb-2 md:mb-3">30+</div>
+                  <p className="text-base md:text-lg">Club Leaders</p>
+                </div>
               </div>
-              <h3 style={{ fontSize: '24px', marginBottom: '15px', color: '#19467E' }}>
-                Peer Tutoring
-              </h3>
-              <p style={{ color: '#666', lineHeight: '1.6' }}>
-                Senior students mentor and tutor junior students, fostering a 
-                supportive learning community.
-              </p>
-            </div>
-
-            <div style={{
-              backgroundColor: '#FFFFFF',
-              padding: '40px',
-              borderRadius: '12px',
-              boxShadow: '0 4px 20px rgba(0,0,0,0.08)'
-            }}>
-              <div style={{
-                width: '60px',
-                height: '60px',
-                backgroundColor: '#19467E',
-                borderRadius: '50%',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                marginBottom: '20px',
-                fontSize: '24px',
-                color: '#FFFFFF'
-              }}>
-                🏥
-              </div>
-              <h3 style={{ fontSize: '24px', marginBottom: '15px', color: '#19467E' }}>
-                Health & Wellness
-              </h3>
-              <p style={{ color: '#666', lineHeight: '1.6' }}>
-                On-site health services and wellness programs promoting physical 
-                and mental health.
-              </p>
             </div>
           </div>
-        </div>
-      </section>
-
-      {/* Leadership Opportunities */}
-      <section style={{ ...sectionStyles, ...containerStyles }}>
-        <div style={{
-          backgroundColor: '#19467E',
-          color: '#FFFFFF',
-          padding: '60px',
-          borderRadius: '12px',
-          textAlign: 'center'
-        }}>
-          <h2 style={{ fontSize: '36px', marginBottom: '20px' }}>
-            Student Leadership
-          </h2>
-          <p style={{ fontSize: '20px', marginBottom: '30px', maxWidth: '600px', margin: '0 auto' }}>
-            Develop leadership skills through our Student Representative Council, 
-            prefect system, and various leadership programs.
-          </p>
-          <div style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
-            gap: '30px',
-            marginTop: '40px'
-          }}>
-            <div>
-              <div style={{ fontSize: '48px', fontWeight: '800', marginBottom: '10px' }}>25</div>
-              <p>Prefects</p>
-            </div>
-            <div>
-              <div style={{ fontSize: '48px', fontWeight: '800', marginBottom: '10px' }}>15</div>
-              <p>SRC Members</p>
-            </div>
-            <div>
-              <div style={{ fontSize: '48px', fontWeight: '800', marginBottom: '10px' }}>30+</div>
-              <p>Club Leaders</p>
-            </div>
-          </div>
-        </div>
-      </section>
+        </section>
       </div>
     </>
   );

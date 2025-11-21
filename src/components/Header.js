@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
+import { FaPhone, FaEnvelope, FaFacebookF, FaTwitter, FaInstagram, FaLinkedinIn, FaSearch, FaBars, FaTimes } from 'react-icons/fa';
 import Navigation from './Navigation';
 import MobileMenu from './MobileMenu';
 import SearchOverlay from './SearchOverlay';
@@ -45,7 +46,7 @@ const Header = () => {
           isMinimized
             ? 'bg-primary/98 shadow-xl py-2'
             : isScrolled
-            ? 'bg-primary/98 shadow-xl py-3'
+            ? 'bg-primary/98 shadow-xl py-4'
             : 'bg-primary py-4'
         }`}
         style={{
@@ -62,47 +63,47 @@ const Header = () => {
               <div className="flex gap-6 items-center">
                 <a
                   href="tel:+27123456789"
-                  className="hover:text-secondary transition-colors duration-200 flex items-center gap-2"
+                  className="hover:text-accent-neon transition-colors duration-200 flex items-center gap-2"
                 >
-                  <i className="fas fa-phone"></i>
+                  <FaPhone className="text-sm" />
                   <span className="hidden sm:inline">+27 12 345 6789</span>
                 </a>
                 <a
                   href="mailto:info@hardingsec.co.za"
-                  className="hover:text-secondary transition-colors duration-200 flex items-center gap-2"
+                  className="hover:text-accent-neon transition-colors duration-200 flex items-center gap-2"
                 >
-                  <i className="fas fa-envelope"></i>
+                  <FaEnvelope className="text-sm" />
                   <span className="hidden sm:inline">info@hardingsec.co.za</span>
                 </a>
               </div>
               <div className="flex gap-4">
                 <a
                   href="#"
-                  className="hover:text-secondary transition-colors duration-200"
+                  className="hover:text-accent-neon transition-colors duration-200"
                   aria-label="Facebook"
                 >
-                  <i className="fab fa-facebook-f"></i>
+                  <FaFacebookF className="text-base" />
                 </a>
                 <a
                   href="#"
-                  className="hover:text-secondary transition-colors duration-200"
+                  className="hover:text-accent-neon transition-colors duration-200"
                   aria-label="Twitter"
                 >
-                  <i className="fab fa-twitter"></i>
+                  <FaTwitter className="text-base" />
                 </a>
                 <a
                   href="#"
-                  className="hover:text-secondary transition-colors duration-200"
+                  className="hover:text-accent-neon transition-colors duration-200"
                   aria-label="Instagram"
                 >
-                  <i className="fab fa-instagram"></i>
+                  <FaInstagram className="text-base" />
                 </a>
                 <a
                   href="#"
-                  className="hover:text-secondary transition-colors duration-200"
+                  className="hover:text-accent-neon transition-colors duration-200"
                   aria-label="LinkedIn"
                 >
-                  <i className="fab fa-linkedin-in"></i>
+                  <FaLinkedinIn className="text-base" />
                 </a>
               </div>
             </div>
@@ -149,7 +150,7 @@ const Header = () => {
                 aria-label="Search"
                 title="Search (Ctrl+K)"
               >
-                <i className="fas fa-search"></i>
+                <FaSearch className="text-sm" />
                 <span className="text-sm">Search</span>
               </button>
             </div>
@@ -160,23 +161,11 @@ const Header = () => {
               className="lg:hidden text-white p-2 hover:bg-white/10 rounded-lg transition-colors duration-200"
               aria-label="Toggle mobile menu"
             >
-              <div className="w-6 h-6 flex flex-col justify-center items-center">
-                <span
-                  className={`block w-full h-0.5 bg-white transition-all duration-300 ${
-                    isMobileMenuOpen ? 'rotate-45 translate-y-1.5' : 'mb-1'
-                  }`}
-                ></span>
-                <span
-                  className={`block w-full h-0.5 bg-white transition-all duration-300 ${
-                    isMobileMenuOpen ? 'opacity-0' : 'mb-1'
-                  }`}
-                ></span>
-                <span
-                  className={`block w-full h-0.5 bg-white transition-all duration-300 ${
-                    isMobileMenuOpen ? '-rotate-45 -translate-y-1.5' : ''
-                  }`}
-                ></span>
-              </div>
+              {isMobileMenuOpen ? (
+                <FaTimes className="text-xl" />
+              ) : (
+                <FaBars className="text-xl" />
+              )}
             </button>
           </div>
         </div>

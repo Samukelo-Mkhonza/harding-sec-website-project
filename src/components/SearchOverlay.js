@@ -1,6 +1,7 @@
-import React, { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
+import { FaSearch, FaTimes, FaArrowRight } from 'react-icons/fa';
 import { VALIDATION } from '../utils/constants';
 
 const SearchOverlay = ({ isOpen, onClose }) => {
@@ -87,7 +88,7 @@ const SearchOverlay = ({ isOpen, onClose }) => {
           >
             <div className="p-6">
               <div className="flex items-center gap-4 mb-6">
-                <i className="fas fa-search text-2xl text-neutral-400"></i>
+                <FaSearch className="text-2xl text-neutral-400" />
                 <input
                   ref={inputRef}
                   type="text"
@@ -98,7 +99,7 @@ const SearchOverlay = ({ isOpen, onClose }) => {
                   className="flex-1 text-2xl outline-none"
                 />
                 <button onClick={onClose} className="text-neutral-400 hover:text-neutral-600">
-                  <i className="fas fa-times text-xl"></i>
+                  <FaTimes className="text-xl" />
                 </button>
               </div>
 
@@ -126,7 +127,7 @@ const SearchOverlay = ({ isOpen, onClose }) => {
                           </h3>
                           <p className="text-sm text-neutral-600 mt-1">{result.excerpt}</p>
                         </div>
-                        <i className="fas fa-arrow-right text-neutral-400"></i>
+                        <FaArrowRight className="text-neutral-400" />
                       </div>
                     </div>
                   ))}

@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { FaUserGraduate, FaArrowRight, FaInfoCircle, FaAward, FaUsers, FaGraduationCap, FaChevronLeft, FaChevronRight, FaChevronDown } from 'react-icons/fa';
 import useScrollPosition from '../hooks/useScrollPosition';
 import { calculateParallax } from '../utils/animations';
 
@@ -81,25 +82,25 @@ const Hero = ({
         <div className="container-custom">
           <div className="max-w-4xl mx-auto text-center">
             {/* Title with Animation */}
-            <h1 className="text-4xl md:text-6xl lg:text-7xl font-heading font-bold text-white mb-6 animate-fade-in text-shadow-lg">
+            <h1 className="text-4xl md:text-6xl lg:text-7xl font-heading font-bold text-white mb-8 animate-fade-in text-shadow-lg">
               {title}
             </h1>
 
             {/* Subtitle */}
-            <p className="text-lg md:text-2xl lg:text-3xl text-white/95 mb-8 md:mb-12 font-light animate-slide-up text-shadow">
+            <p className="text-lg md:text-2xl lg:text-3xl text-white/95 mb-10 md:mb-14 font-light animate-slide-up text-shadow">
               {subtitle}
             </p>
 
             {/* CTA Buttons */}
-            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center animate-slide-up">
+            <div className="flex flex-col sm:flex-row gap-6 justify-center items-center animate-slide-up">
               <Link
                 to={primaryCTA.link}
                 className="btn-primary group"
               >
                 <span className="flex items-center gap-2">
-                  <i className="fas fa-user-graduate"></i>
+                  <FaUserGraduate className="text-base" />
                   {primaryCTA.text}
-                  <i className="fas fa-arrow-right group-hover:translate-x-1 transition-transform"></i>
+                  <FaArrowRight className="text-base group-hover:translate-x-1 transition-transform" />
                 </span>
               </Link>
 
@@ -108,33 +109,33 @@ const Hero = ({
                 className="btn-outline bg-white/10 backdrop-blur-sm"
               >
                 <span className="flex items-center gap-2">
-                  <i className="fas fa-info-circle"></i>
+                  <FaInfoCircle className="text-base" />
                   {secondaryCTA.text}
                 </span>
               </Link>
             </div>
 
             {/* Features/Quick Info */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-16 md:mt-20">
-              <div className="bg-white/10 backdrop-blur-md rounded-xl p-6 transform hover:scale-105 transition-all duration-300 hover:bg-white/20">
-                <div className="text-4xl mb-3">
-                  <i className="fas fa-award text-secondary"></i>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-20 md:mt-24">
+              <div className="bg-white/10 backdrop-blur-md rounded-xl p-8 border border-white/20 transform hover:scale-105 transition-all duration-300 hover:bg-white/20 hover:border-accent-neon/50">
+                <div className="mb-4">
+                  <FaAward className="text-4xl md:text-5xl text-accent-neon mx-auto" />
                 </div>
                 <h3 className="text-xl font-bold text-white mb-2">70+ Years</h3>
                 <p className="text-white/90 text-sm">Of Educational Excellence</p>
               </div>
 
-              <div className="bg-white/10 backdrop-blur-md rounded-xl p-6 transform hover:scale-105 transition-all duration-300 hover:bg-white/20">
-                <div className="text-4xl mb-3">
-                  <i className="fas fa-users text-secondary"></i>
+              <div className="bg-white/10 backdrop-blur-md rounded-xl p-8 border border-white/20 transform hover:scale-105 transition-all duration-300 hover:bg-white/20 hover:border-accent-neon/50">
+                <div className="mb-4">
+                  <FaUsers className="text-4xl md:text-5xl text-accent-neon mx-auto" />
                 </div>
                 <h3 className="text-xl font-bold text-white mb-2">1000+</h3>
                 <p className="text-white/90 text-sm">Students Enrolled</p>
               </div>
 
-              <div className="bg-white/10 backdrop-blur-md rounded-xl p-6 transform hover:scale-105 transition-all duration-300 hover:bg-white/20">
-                <div className="text-4xl mb-3">
-                  <i className="fas fa-graduation-cap text-secondary"></i>
+              <div className="bg-white/10 backdrop-blur-md rounded-xl p-8 border border-white/20 transform hover:scale-105 transition-all duration-300 hover:bg-white/20 hover:border-accent-neon/50">
+                <div className="mb-4">
+                  <FaGraduationCap className="text-4xl md:text-5xl text-accent-neon mx-auto" />
                 </div>
                 <h3 className="text-xl font-bold text-white mb-2">95%</h3>
                 <p className="text-white/90 text-sm">University Acceptance Rate</p>
@@ -152,7 +153,7 @@ const Hero = ({
             className="absolute left-4 top-1/2 -translate-y-1/2 z-20 bg-white/20 hover:bg-white/30 backdrop-blur-sm text-white p-4 rounded-full transition-all duration-300 hover:scale-110 hidden md:block"
             aria-label="Previous slide"
           >
-            <i className="fas fa-chevron-left text-xl"></i>
+            <FaChevronLeft className="text-xl" />
           </button>
 
           <button
@@ -160,7 +161,7 @@ const Hero = ({
             className="absolute right-4 top-1/2 -translate-y-1/2 z-20 bg-white/20 hover:bg-white/30 backdrop-blur-sm text-white p-4 rounded-full transition-all duration-300 hover:scale-110 hidden md:block"
             aria-label="Next slide"
           >
-            <i className="fas fa-chevron-right text-xl"></i>
+            <FaChevronRight className="text-xl" />
           </button>
         </>
       )}
@@ -190,7 +191,7 @@ const Hero = ({
           className="text-white/80 hover:text-white transition-colors"
           aria-label="Scroll down"
         >
-          <i className="fas fa-chevron-down text-2xl"></i>
+          <FaChevronDown className="text-2xl" />
         </a>
       </div>
     </section>

@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { NavLink } from 'react-router-dom';
+import { FaChevronDown, FaAngleRight, FaUserGraduate } from 'react-icons/fa';
 
 const Navigation = () => {
   const [openDropdown, setOpenDropdown] = useState(null);
@@ -68,9 +69,9 @@ const Navigation = () => {
           >
             {item.label}
             {item.dropdown && (
-              <i className={`fas fa-chevron-down text-xs transition-transform duration-200 ${
+              <FaChevronDown className={`text-xs ml-1 transition-transform duration-200 ${
                 openDropdown === index ? 'rotate-180' : ''
-              }`}></i>
+              }`} />
             )}
           </NavLink>
 
@@ -95,7 +96,7 @@ const Navigation = () => {
                     }
                   >
                     <div className="flex items-center gap-3">
-                      <i className="fas fa-angle-right text-xs"></i>
+                      <FaAngleRight className="text-xs" />
                       <span>{dropdownItem.label}</span>
                     </div>
                   </NavLink>
@@ -112,7 +113,7 @@ const Navigation = () => {
           to="/admissions"
           className="px-6 py-2.5 bg-secondary text-white font-semibold rounded-lg hover:bg-secondary/90 transform hover:scale-105 transition-all duration-200 shadow-lg hover:shadow-xl flex items-center gap-2"
         >
-          <i className="fas fa-user-graduate"></i>
+          <FaUserGraduate className="text-base" />
           <span>Apply Now</span>
         </NavLink>
       </div>

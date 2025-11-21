@@ -6,23 +6,37 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        // Brand Colors - Preserving existing color scheme
+        // Brand Colors - Green, White, and Black Color Scheme
         primary: {
-          DEFAULT: '#19467E',
-          dark: '#0D3F2F',
-          light: '#2196F3',
+          DEFAULT: '#147538',  // green-700 - Main brand green
+          light: '#1a8f45',    // Lighter green variant
+          dark: '#0D4E25',     // green-800 - Dark green
         },
         secondary: {
-          DEFAULT: '#00A651',
-          light: '#E8F5E9',
-          neon: '#00FF00',
+          DEFAULT: '#0D4E25',  // green-800 - Dark green
+          light: '#147538',    // green-700
+          dark: '#072713',     // green-900 - Darker green
         },
         accent: {
-          success: '#4CAF50',
+          neon: '#22C55E',     // Neon/bright green for highlights and CTAs
+          success: '#147538',  // green-700
           error: '#F44336',
           warning: '#FF9800',
-          info: '#2196F3',
+          info: '#147538',     // green-700
+          dark: '#072713',     // green-900
+          darker: '#04160A',   // green-950
         },
+        green: {
+          neon: '#22C55E',     // Bright/neon green
+          700: '#147538',      // Main green
+          800: '#0D4E25',      // Dark green
+          900: '#072713',      // Darker green
+          950: '#04160A',      // Darkest green
+        },
+        // Pure black and white
+        black: '#000000',
+        white: '#FFFFFF',
+        // Neutral grays
         neutral: {
           50: '#F9F9F9',
           100: '#F5F5F5',
@@ -32,6 +46,7 @@ module.exports = {
           500: '#333333',
           600: '#0F0F0F',
           700: '#080808',
+          800: '#050505',
           900: '#000000',
         },
       },
@@ -54,8 +69,16 @@ module.exports = {
         '7xl': '4.5rem',
       },
       spacing: {
-        '18': '4.5rem',
-        '22': '5.5rem',
+        '2': '0.5rem',    // 8px
+        '4': '1rem',      // 16px
+        '6': '1.5rem',    // 24px
+        '8': '2rem',      // 32px
+        '12': '3rem',     // 48px
+        '16': '4rem',     // 64px
+        '18': '4.5rem',   // 72px
+        '20': '5rem',     // 80px
+        '22': '5.5rem',   // 88px
+        '24': '6rem',     // 96px
         '88': '22rem',
         '100': '25rem',
         '120': '30rem',
