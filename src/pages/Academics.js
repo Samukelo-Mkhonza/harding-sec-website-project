@@ -1,5 +1,6 @@
 // pages/Academics.js
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { SEO, SEOConfigs } from '../components';
 
 const Academics = () => {
@@ -229,6 +230,48 @@ const Academics = () => {
       <section style={{ backgroundColor: '#F9F9F9', ...sectionStyles }}>
         <div style={containerStyles}>
           <h2 style={subHeadingStyles}>Academic Support & Resources</h2>
+          
+          {/* Past Papers Portal Highlight */}
+          <div style={{ 
+            backgroundColor: '#19467E', 
+            color: '#FFFFFF', 
+            padding: '40px', 
+            borderRadius: '12px', 
+            marginBottom: '40px',
+            textAlign: 'center'
+          }}>
+            <div style={{ fontSize: '48px', marginBottom: '20px' }}>📚</div>
+            <h3 style={{ fontSize: '28px', marginBottom: '15px' }}>Past Papers Portal</h3>
+            <p style={{ fontSize: '18px', lineHeight: '1.6', marginBottom: '25px', maxWidth: '700px', margin: '0 auto 25px' }}>
+              Access our comprehensive collection of past examination papers across all subjects and grades. 
+              Perfect for exam preparation and practice.
+            </p>
+            <Link 
+              to="/past-papers"
+              style={{
+                display: 'inline-block',
+                backgroundColor: '#00A651',
+                color: '#FFFFFF',
+                padding: '15px 40px',
+                borderRadius: '6px',
+                textDecoration: 'none',
+                fontSize: '18px',
+                fontWeight: '600',
+                transition: 'all 0.3s ease'
+              }}
+              onMouseEnter={(e) => {
+                e.target.style.backgroundColor = '#008A43';
+                e.target.style.transform = 'scale(1.05)';
+              }}
+              onMouseLeave={(e) => {
+                e.target.style.backgroundColor = '#00A651';
+                e.target.style.transform = 'scale(1)';
+              }}
+            >
+              Access Past Papers
+            </Link>
+          </div>
+
           <div style={featureStyles}>
             <div 
               style={featureCardStyles}
