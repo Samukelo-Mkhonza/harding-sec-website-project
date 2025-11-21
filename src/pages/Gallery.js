@@ -1,6 +1,6 @@
 // pages/Gallery.js
 import { useState } from 'react';
-import { SEO, SEOConfigs } from '../components';
+import { SEO, SEOConfigs, Breadcrumbs } from '../components';
 import { ALL_GALLERY_IMAGES } from '../utils/imageConstants';
 
 const Gallery = () => {
@@ -26,14 +26,17 @@ const Gallery = () => {
   return (
     <>
       <SEO {...SEOConfigs.gallery} />
-      <div className="pt-0">
+      <div className="pt-16 md:pt-20">
+        {/* Breadcrumbs */}
+        <Breadcrumbs />
+        
         {/* Hero Section */}
         <section className="bg-primary-dark text-white py-16 md:py-20 lg:py-24 text-center">
           <div className="container-custom">
-            <h1 className="text-3xl md:text-4xl lg:text-5xl font-heading font-bold mb-4 md:mb-6">
+            <h1 className="text-3xl md:text-4xl lg:text-5xl font-heading font-bold mb-4 md:mb-6 !text-white text-shadow-strong">
               Gallery
             </h1>
-            <p className="text-lg md:text-xl max-w-3xl mx-auto">
+            <p className="text-lg md:text-xl max-w-3xl mx-auto !text-white text-shadow-strong">
               Capturing moments and memories at Harding Secondary School
             </p>
           </div>

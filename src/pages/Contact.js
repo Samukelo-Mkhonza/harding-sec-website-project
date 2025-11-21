@@ -1,20 +1,23 @@
 // pages/Contact.js
 import React from 'react';
 import ContactForm from '../components/ContactForm';
-import { SEO, SEOConfigs } from '../components';
+import { SEO, SEOConfigs, Breadcrumbs } from '../components';
 
 const Contact = () => {
   return (
     <>
       <SEO {...SEOConfigs.contact} />
-      <div className="pt-0">
+      <div className="pt-16 md:pt-20">
+        {/* Breadcrumbs */}
+        <Breadcrumbs />
+        
         {/* Hero Section */}
         <section className="bg-primary-dark text-white py-16 md:py-20 lg:py-24 text-center">
           <div className="container-custom">
-            <h1 className="text-3xl md:text-4xl lg:text-5xl font-heading font-bold mb-4 md:mb-6">
+            <h1 className="text-3xl md:text-4xl lg:text-5xl font-heading font-bold mb-4 md:mb-6 !text-white text-shadow-strong">
               Contact Us
             </h1>
-            <p className="text-lg md:text-xl max-w-3xl mx-auto">
+            <p className="text-lg md:text-xl max-w-3xl mx-auto !text-white text-shadow-strong">
               Get in touch with Harding Secondary School
             </p>
           </div>

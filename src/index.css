@@ -116,9 +116,9 @@
     @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
   }
 
-  /* Hero overlay - Updated to use green gradient */
+  /* Hero overlay - Dark overlay for text readability */
   .hero-overlay {
-    @apply absolute inset-0 bg-gradient-to-r from-primary/90 to-primary-dark/80;
+    @apply absolute inset-0 bg-gradient-to-b from-black/40 via-black/30 to-black/50;
   }
 
   /* Gradient text - Updated to use green colors */
@@ -149,6 +149,13 @@
 
   .text-shadow-lg {
     text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.5);
+  }
+
+  .text-shadow-strong {
+    text-shadow: 
+      0 2px 4px rgba(0, 0, 0, 0.4),
+      0 4px 8px rgba(0, 0, 0, 0.3),
+      0 8px 16px rgba(0, 0, 0, 0.2);
   }
 }
 

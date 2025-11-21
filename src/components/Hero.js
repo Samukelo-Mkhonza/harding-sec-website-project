@@ -82,12 +82,12 @@ const Hero = ({
         <div className="container-custom">
           <div className="max-w-4xl mx-auto text-center">
             {/* Title with Animation */}
-            <h1 className="text-4xl md:text-6xl lg:text-7xl font-heading font-bold text-white mb-8 animate-fade-in text-shadow-lg">
+            <h1 className="text-4xl md:text-6xl lg:text-7xl font-heading font-bold !text-white mb-8 animate-fade-in text-shadow-strong">
               {title}
             </h1>
 
             {/* Subtitle */}
-            <p className="text-lg md:text-2xl lg:text-3xl text-white/95 mb-10 md:mb-14 font-light animate-slide-up text-shadow">
+            <p className="text-lg md:text-2xl lg:text-3xl !text-white mb-10 md:mb-14 font-light animate-slide-up text-shadow-strong">
               {subtitle}
             </p>
 

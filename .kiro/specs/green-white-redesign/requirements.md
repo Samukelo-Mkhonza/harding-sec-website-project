@@ -62,6 +62,8 @@ This specification defines the requirements for redesigning the Harding Secondar
 3. WHEN the color contrast is calculated THEN the Website SHALL meet WCAG AA accessibility standards (minimum 4.5:1 for normal text)
 4. WHEN links render THEN the Website SHALL provide sufficient contrast and visible hover states
 5. WHEN buttons render THEN the Website SHALL provide sufficient contrast between text and background
+6. WHEN banner text renders on Hero backgrounds THEN the Website SHALL apply strong text shadows or background overlays to ensure readability
+7. WHEN breadcrumb text renders THEN the Website SHALL use colors with sufficient contrast against the breadcrumb background
 
 ### Requirement 5
 

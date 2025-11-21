@@ -55,7 +55,7 @@ const Footer = () => {
                   className="h-12"
                 />
                 <div>
-                  <h3 className="font-heading font-bold text-xl">Harding Secondary</h3>
+                  <h3 className="font-heading font-bold text-xl !text-white">Harding Secondary</h3>
                   <p className="text-white/80 text-sm">Since 1950</p>
                 </div>
               </div>
@@ -103,7 +103,7 @@ const Footer = () => {
 
             {/* Quick Links Column */}
             <div>
-              <h3 className="font-heading font-bold text-xl mb-6">Quick Links</h3>
+              <h3 className="font-heading font-bold text-xl mb-6 !text-white">Quick Links</h3>
               <ul className="space-y-4">
                 {quickLinks.map((link) => {
                   const IconComponent = link.Icon;
@@ -124,7 +124,7 @@ const Footer = () => {
 
             {/* Resources Column */}
             <div>
-              <h3 className="font-heading font-bold text-xl mb-6">Resources</h3>
+              <h3 className="font-heading font-bold text-xl mb-6 !text-white">Resources</h3>
               <ul className="space-y-4">
                 {resources.map((link) => {
                   const IconComponent = link.Icon;
@@ -155,7 +155,7 @@ const Footer = () => {
 
             {/* Contact & Newsletter Column */}
             <div>
-              <h3 className="font-heading font-bold text-xl mb-6">Contact Us</h3>
+              <h3 className="font-heading font-bold text-xl mb-6 !text-white">Contact Us</h3>
               <div className="space-y-4 mb-6">
                 <div className="flex items-start gap-3">
                   <FaMapMarkerAlt className="text-base text-accent-neon mt-1" />
@@ -187,7 +187,7 @@ const Footer = () => {
 
               {/* Newsletter */}
               <div className="mt-6">
-                <h4 className="font-semibold mb-3">Newsletter</h4>
+                <h4 className="font-semibold mb-3 !text-white">Newsletter</h4>
                 <form onSubmit={handleNewsletterSubmit} className="space-y-3">
                   <div className="relative">
                     <input

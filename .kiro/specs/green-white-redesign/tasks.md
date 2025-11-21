@@ -42,6 +42,8 @@
 
 
 
+
+
   - Update top bar background to green-800 (`bg-primary-dark`)
   - Update hover states for contact links to use green
   - Update social media icon hover colors to green
@@ -82,19 +84,21 @@
     - Size feature icons at `text-4xl md:text-5xl`
     - Add `mb-4` spacing below icons in feature cards
   - Add FontAwesome arrow icons to CTA buttons: `FaArrowRight` or `FaChevronRight` with `ml-2`
-
-
-
+  - **Improve banner text visibility:**
+    - Add strong text shadows to title and subtitle for better readability
+    - Use multiple layered shadows (e.g., `0 2px 4px rgba(0,0,0,0.3), 0 4px 8px rgba(0,0,0,0.2)`)
+    - Ensure white text is clearly visible against green backgrounds
+    - Consider adding custom CSS classes for enhanced text shadows
   - Update button colors to use new green palette
   - Update hover states for buttons and cards to use green
   - Update feature card hover backgrounds to green
   - Improve spacing: title margin to `mb-8`, subtitle to `mb-10 md:mb-14`
   - Update CTA button gap to `gap-6`
-
-
   - Standardize feature card padding to `p-8` and gap to `gap-8`
   - Update feature cards top margin to `mt-20 md:mt-24`
-  - _Requirements: 2.3, 2.5, 3.1, 3.2, 3.4, 4.1, 7.1, 8.4, 8.5_
+  - _Requirements: 2.3, 2.5, 3.1, 3.2, 3.4, 4.1, 4.6, 7.1, 8.4, 8.5_
+
+
 
 - [ ] 6. Migrate Footer component
   - Update main footer background to green (`bg-primary`)
@@ -177,9 +181,15 @@
   - Update BackToTop button to use green and add FontAwesome icon: `FaArrowUp` or `FaChevronUp`
   - Replace SearchOverlay search icon with FontAwesome: `FaSearch`
   - Update ProgressBar color to green
+  - **Improve Breadcrumbs visibility:**
+    - Update link colors to `text-neutral-700` for better contrast
+    - Update hover states to `hover:text-primary` (green-700)
+    - Ensure current page text uses `text-neutral-900` with `font-semibold`
+    - Replace Font Awesome class icon with `FaHome` from react-icons
+    - Verify contrast ratios meet WCAG AA standards (4.5:1)
   - Update any other shared components with color references
   - Ensure all icons use consistent sizing and spacing
-  - _Requirements: 2.5, 7.1, 7.2, 8.1, 8.5_
+  - _Requirements: 2.5, 4.7, 7.1, 7.2, 8.1, 8.5_
 
 - [ ] 12. Update responsive spacing across all components
   - Review and standardize mobile spacing (py-12 md:py-16)

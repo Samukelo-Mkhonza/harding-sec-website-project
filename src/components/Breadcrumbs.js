@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
+import { FaHome } from 'react-icons/fa';
 
 /**
  * Breadcrumbs Component
@@ -69,18 +70,19 @@ const Breadcrumbs = ({
 
   return (
     <nav aria-label="Breadcrumb" className="bg-neutral-50 border-b border-neutral-200">
-      <div className="container-custom py-3">
-        <ol className="flex items-center flex-wrap gap-2 text-sm">
+      <div className="container-custom py-2 sm:py-3">
+        <ol className="flex items-center flex-wrap gap-1.5 sm:gap-2 text-xs sm:text-sm">
           {breadcrumbs.map((crumb, index) => (
-            <li key={crumb.path} className="flex items-center gap-2">
+            <li key={crumb.path} className="flex items-center gap-1.5 sm:gap-2">
               {/* Breadcrumb Link */}
               {crumb.isLast ? (
                 <span 
-                  className="text-neutral-900 font-semibold"
+                  className="text-neutral-900 font-semibold truncate max-w-[120px] sm:max-w-none"
                   aria-current="page"
+                  title={crumb.label}
                 >
                   {crumb.isHome ? (
-                    <i className="fas fa-home"></i>
+                    <FaHome className="text-sm sm:text-base flex-shrink-0" />
                   ) : (
                     crumb.label
                   )}
@@ -88,10 +90,11 @@ const Breadcrumbs = ({
               ) : (
                 <Link
                   to={crumb.path}
-                  className="text-neutral-600 hover:text-primary transition-colors duration-200 flex items-center gap-2"
+                  className="text-neutral-700 hover:text-primary transition-colors duration-200 flex items-center gap-1.5 sm:gap-2 truncate max-w-[100px] sm:max-w-none"
+                  title={crumb.label}
                 >
                   {crumb.isHome ? (
-                    <i className="fas fa-home"></i>
+                    <FaHome className="text-sm sm:text-base flex-shrink-0" />
                   ) : (
                     crumb.label
                   )}
@@ -100,7 +103,7 @@ const Breadcrumbs = ({
 
               {/* Separator */}
               {!crumb.isLast && (
-                <span className="text-neutral-400" aria-hidden="true">
+                <span className="text-neutral-400 flex-shrink-0" aria-hidden="true">
                   {separator}
                 </span>
               )}

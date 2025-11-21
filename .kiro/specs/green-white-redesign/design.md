@@ -142,6 +142,12 @@ module.exports = {
 - Button colors: Use new green palette
 - Hover states: Update to green shades
 
+**Text Visibility Improvements:**
+- Title text shadow: Enhance to use multiple layered shadows for better visibility (e.g., `0 2px 4px rgba(0,0,0,0.3), 0 4px 8px rgba(0,0,0,0.2)`)
+- Subtitle text shadow: Apply strong text shadow for readability
+- Consider adding a semi-transparent dark overlay behind text if shadows alone are insufficient
+- Ensure white text (#FFFFFF) has strong contrast against green backgrounds
+
 **Spacing Updates:**
 - Title margin: `mb-6` → `mb-8` for better breathing room
 - Subtitle margin: `mb-8 md:mb-12` → `mb-10 md:mb-14`
@@ -198,7 +204,26 @@ module.exports = {
 - Icon spacing: `ml-1` after link text
 - Navigation icons (if applicable): Consistent sizing at `text-base`
 
-### 7. Button Utilities
+### 7. Breadcrumbs Component (`src/components/Breadcrumbs.js`)
+
+**Color Updates:**
+- Background: Keep `bg-neutral-50` for contrast
+- Border: Keep `border-neutral-200`
+- Link colors: Update to `text-neutral-700` for better visibility
+- Hover states: Update to `hover:text-primary` (green-700)
+- Current page: Update to `text-neutral-900` with `font-semibold` for emphasis
+- Separator: Keep `text-neutral-400`
+
+**Icon Updates:**
+- Home icon: Replace Font Awesome class with `FaHome` from react-icons
+- Ensure consistent icon sizing
+
+**Visibility Improvements:**
+- Increase text contrast by using darker neutral colors
+- Ensure hover states are clearly visible
+- Maintain adequate spacing for readability
+
+### 8. Button Utilities
 
 **Updates Required:**
 - `.btn-primary`: Green background with darker green hover
@@ -294,6 +319,18 @@ No new data models are required. This is a visual redesign that maintains all ex
 *For any* icon displayed in the application, it should be a FontAwesome icon imported from `react-icons/fa`, and should have consistent sizing using Tailwind text size classes (text-sm, text-base, text-lg, text-xl, text-2xl, etc.).
 
 **Validates: Requirements 8.1, 8.2, 8.3, 8.4, 8.5**
+
+### Property 9: Banner Text Visibility
+
+*For any* Hero component banner text (title or subtitle), the text should have either strong text shadows (multiple layered shadows) or a semi-transparent dark overlay to ensure readability against background images.
+
+**Validates: Requirements 4.6**
+
+### Property 10: Breadcrumb Text Contrast
+
+*For any* breadcrumb link or text element, the text color should have sufficient contrast (minimum 4.5:1) against the breadcrumb background color to meet WCAG AA standards.
+
+**Validates: Requirements 4.7**
 
 ## Error Handling
 
