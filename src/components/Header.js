@@ -112,24 +112,24 @@ const Header = () => {
             {/* Logo and School Name */}
             <Link
               to="/"
-              className="flex items-center gap-4 hover:opacity-90 transition-opacity duration-200 group"
+              className="flex items-center gap-2 sm:gap-4 hover:opacity-90 transition-opacity duration-200 group flex-shrink min-w-0"
             >
               <img
                 src="/harding-sec-logo-2.png"
                 alt="Harding Secondary School Logo"
-                className={`transition-all duration-300 group-hover:scale-110 ${
-                  isMinimized ? 'h-10' : isScrolled ? 'h-12' : 'h-14'
+                className={`transition-all duration-300 group-hover:scale-110 flex-shrink-0 ${
+                  isMinimized ? 'h-8 sm:h-10' : isScrolled ? 'h-10 sm:h-12' : 'h-12 sm:h-14'
                 }`}
               />
-              <div className="flex flex-col">
-                <h1 className={`font-heading font-bold transition-all duration-300 ${
+              <div className="flex flex-col min-w-0 flex-1">
+                <h1 className={`font-heading font-bold transition-all duration-300 whitespace-nowrap overflow-hidden text-ellipsis ${
                   isScrolled ? 'text-black' : 'text-white'
                 } ${
-                  isMinimized ? 'text-lg' : isScrolled ? 'text-xl' : 'text-2xl'
+                  isMinimized ? 'text-sm sm:text-lg' : isScrolled ? 'text-base sm:text-xl' : 'text-lg sm:text-2xl'
                 }`}>
                   Harding Secondary School
                 </h1>
-                <p className={`text-sm transition-all duration-300 ${
+                <p className={`text-xs sm:text-sm transition-all duration-300 whitespace-nowrap overflow-hidden text-ellipsis ${
                   isScrolled ? 'text-black/90' : 'text-white/90'
                 } ${
                   isScrolled || isMinimized ? 'opacity-0 h-0' : 'opacity-100'
