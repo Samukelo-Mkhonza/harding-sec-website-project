@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react';
-import { FixedSizeList as List } from 'react-window';
+import { List as VirtualList } from 'react-window';
 import { motion } from 'framer-motion';
 import { FiGrid, FiList } from 'react-icons/fi';
 import PaperCard from './PaperCard';
@@ -149,14 +149,14 @@ const PapersList = ({
       {/* Papers grid/list */}
       {useVirtualScrolling ? (
         <div className="bg-white rounded-lg shadow-md p-4">
-          <List
+          <VirtualList
             height={800}
             itemCount={sortedPapers.length}
             itemSize={viewMode === 'grid' ? 400 : 120}
             width="100%"
           >
             {Row}
-          </List>
+          </VirtualList>
         </div>
       ) : (
         <motion.div

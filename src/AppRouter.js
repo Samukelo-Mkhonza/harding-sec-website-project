@@ -1,5 +1,5 @@
 import React, { Suspense, lazy } from 'react';
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { Routes, Route, Navigate } from 'react-router-dom';
 import { SkeletonLoader } from './components';
 import Header from './components/Header';
 import Footer from './components/Footer';
@@ -37,7 +37,7 @@ const PageLoader = () => (
  */
 const AppRouter = () => {
   return (
-    <BrowserRouter>
+    <>
       <ScrollToTop />
       <div className="flex flex-col min-h-screen">
         <Header />
@@ -60,7 +60,7 @@ const AppRouter = () => {
         </main>
         <Footer />
       </div>
-    </BrowserRouter>
+    </>
   );
 };
 
