@@ -43,7 +43,7 @@ const Header = () => {
             ? 'bg-white shadow-xl py-2'
             : isScrolled
             ? 'bg-white shadow-xl py-4'
-            : 'bg-primary py-4'
+            : 'bg-white shadow-md py-4'
         }`}
         style={{
           transform: isMinimized ? 'translateY(0)' : 'translateY(0)',
@@ -122,16 +122,12 @@ const Header = () => {
                 }`}
               />
               <div className="flex flex-col min-w-0 flex-1">
-                <h1 className={`font-heading font-bold transition-all duration-300 whitespace-nowrap overflow-hidden text-ellipsis ${
-                  isScrolled ? 'text-black' : 'text-white'
-                } ${
+                <h1 className={`font-heading font-bold transition-all duration-300 whitespace-nowrap overflow-hidden text-ellipsis text-black ${
                   isMinimized ? 'text-sm sm:text-lg' : isScrolled ? 'text-base sm:text-xl' : 'text-lg sm:text-2xl'
                 }`}>
                   Harding Secondary School
                 </h1>
-                <p className={`text-xs sm:text-sm transition-all duration-300 whitespace-nowrap overflow-hidden text-ellipsis ${
-                  isScrolled ? 'text-black/90' : 'text-white/90'
-                } ${
+                <p className={`text-xs sm:text-sm transition-all duration-300 whitespace-nowrap overflow-hidden text-ellipsis text-black/90 ${
                   isScrolled || isMinimized ? 'opacity-0 h-0' : 'opacity-100'
                 }`}>
                   Excellence in Education Since 1950
@@ -146,11 +142,7 @@ const Header = () => {
               {/* Search Button */}
               <button
                 onClick={() => setIsSearchOpen(true)}
-                className={`hidden lg:flex items-center gap-2 px-4 py-2 rounded-lg transition-all duration-200 ${
-                  isScrolled 
-                    ? 'text-black/90 hover:text-black hover:bg-black/10' 
-                    : 'text-white/90 hover:text-white hover:bg-white/10'
-                }`}
+                className="hidden lg:flex items-center gap-2 px-4 py-2 rounded-lg transition-all duration-200 text-black/90 hover:text-black hover:bg-black/10"
                 aria-label="Search"
                 title="Search (Ctrl+K)"
               >
@@ -162,11 +154,7 @@ const Header = () => {
             {/* Mobile Menu Button */}
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className={`lg:hidden p-2 rounded-lg transition-colors duration-200 ${
-                isScrolled 
-                  ? 'text-black hover:bg-black/10' 
-                  : 'text-white hover:bg-white/10'
-              }`}
+              className="lg:hidden p-2 rounded-lg transition-colors duration-200 text-black hover:bg-black/10"
               aria-label="Toggle mobile menu"
             >
               {isMobileMenuOpen ? (

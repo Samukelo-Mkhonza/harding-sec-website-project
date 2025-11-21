@@ -62,10 +62,8 @@ const Navigation = ({ isScrolled = false }) => {
           <NavLink
             to={item.path}
             className={({ isActive }) =>
-              `flex items-center gap-1 px-4 py-2 font-medium rounded-lg transition-all duration-200 ${
-                isScrolled 
-                  ? `text-black hover:bg-black/10 ${isActive ? 'bg-black/20' : ''}` 
-                  : `text-white hover:bg-white/10 ${isActive ? 'bg-white/20' : ''}`
+              `flex items-center gap-1 px-4 py-2 font-medium rounded-lg transition-all duration-200 text-black hover:bg-black/10 ${
+                isActive ? 'bg-black/20' : ''
               }`
             }
           >
