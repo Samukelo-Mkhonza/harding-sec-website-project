@@ -23,6 +23,7 @@ const Footer = () => {
   ];
 
   const resources = [
+    { path: '/past-papers', label: 'Past Papers Portal', icon: 'book-open' },
     { path: '#', label: 'Parent Portal', icon: 'user-friends' },
     { path: '#', label: 'Student Portal', icon: 'user-graduate' },
     { path: '#', label: 'Staff Portal', icon: 'chalkboard-teacher' },
@@ -118,13 +119,23 @@ const Footer = () => {
               <ul className="space-y-3">
                 {resources.map((link) => (
                   <li key={link.label}>
-                    <a
-                      href={link.path}
-                      className="text-white/80 hover:text-secondary transition-colors duration-200 flex items-center gap-2 group"
-                    >
-                      <i className={`fas fa-${link.icon} w-4 group-hover:translate-x-1 transition-transform`}></i>
-                      <span>{link.label}</span>
-                    </a>
+                    {link.path.startsWith('/') ? (
+                      <Link
+                        to={link.path}
+                        className="text-white/80 hover:text-secondary transition-colors duration-200 flex items-center gap-2 group"
+                      >
+                        <i className={`fas fa-${link.icon} w-4 group-hover:translate-x-1 transition-transform`}></i>
+                        <span>{link.label}</span>
+                      </Link>
+                    ) : (
+                      <a
+                        href={link.path}
+                        className="text-white/80 hover:text-secondary transition-colors duration-200 flex items-center gap-2 group"
+                      >
+                        <i className={`fas fa-${link.icon} w-4 group-hover:translate-x-1 transition-transform`}></i>
+                        <span>{link.label}</span>
+                      </a>
+                    )}
                   </li>
                 ))}
               </ul>
