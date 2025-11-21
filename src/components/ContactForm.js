@@ -37,128 +37,82 @@ const ContactForm = () => {
     }, 1000);
   };
 
-  const formStyles = {
-    backgroundColor: '#FFFFFF',
-    padding: '40px',
-    borderRadius: '12px',
-    boxShadow: '0 4px 20px rgba(0,0,0,0.08)'
-  };
-
-  const inputStyles = {
-    width: '100%',
-    padding: '15px',
-    marginBottom: '20px',
-    border: '2px solid #E0E0E0',
-    borderRadius: '6px',
-    fontSize: '16px',
-    fontFamily: "'Open Sans', sans-serif",
-    transition: 'border-color 0.3s ease',
-    boxSizing: 'border-box'
-  };
-
-  const textareaStyles = {
-    ...inputStyles,
-    minHeight: '150px',
-    resize: 'vertical'
-  };
-
-  const buttonStyles = {
-    width: '100%',
-    padding: '15px',
-    backgroundColor: '#19467E',
-    color: '#FFFFFF',
-    border: 'none',
-    borderRadius: '6px',
-    fontSize: '18px',
-    fontWeight: '600',
-    cursor: 'pointer',
-    transition: 'all 0.3s ease'
-  };
-
   return (
-    <div style={formStyles}>
-      <h2 style={{ fontSize: '28px', fontWeight: '700', color: '#19467E', marginBottom: '30px' }}>
+    <div className="bg-white p-8 md:p-10 lg:p-12 rounded-xl shadow-lg">
+      <h2 className="text-xl md:text-2xl lg:text-3xl font-heading font-bold text-primary-dark mb-6 md:mb-8">
         Send Us a Message
       </h2>
       
       {status === 'success' && (
-        <div style={{
-          padding: '15px',
-          backgroundColor: '#00A651',
-          color: '#FFFFFF',
-          borderRadius: '6px',
-          marginBottom: '20px',
-          textAlign: 'center'
-        }}>
+        <div className="p-4 md:p-5 bg-accent-neon text-white rounded-lg mb-6 md:mb-8 text-center font-medium">
           Thank you! Your message has been sent successfully.
         </div>
       )}
 
-      <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          name="name"
-          placeholder="Your Name *"
-          value={formData.name}
-          onChange={handleChange}
-          required
-          style={inputStyles}
-          onFocus={(e) => e.target.style.borderColor = '#19467E'}
-          onBlur={(e) => e.target.style.borderColor = '#E0E0E0'}
-        />
+      <form onSubmit={handleSubmit} className="space-y-5 md:space-y-6">
+        <div>
+          <input
+            type="text"
+            name="name"
+            placeholder="Your Name *"
+            value={formData.name}
+            onChange={handleChange}
+            required
+            className="w-full px-4 md:px-5 py-3 md:py-4 border-2 border-neutral-200 rounded-lg text-base md:text-lg font-body transition-all duration-300 focus:border-primary-dark focus:outline-none focus:ring-2 focus:ring-primary-dark/20 hover:border-neutral-300"
+          />
+        </div>
 
-        <input
-          type="email"
-          name="email"
-          placeholder="Your Email *"
-          value={formData.email}
-          onChange={handleChange}
-          required
-          style={inputStyles}
-          onFocus={(e) => e.target.style.borderColor = '#19467E'}
-          onBlur={(e) => e.target.style.borderColor = '#E0E0E0'}
-        />
+        <div>
+          <input
+            type="email"
+            name="email"
+            placeholder="Your Email *"
+            value={formData.email}
+            onChange={handleChange}
+            required
+            className="w-full px-4 md:px-5 py-3 md:py-4 border-2 border-neutral-200 rounded-lg text-base md:text-lg font-body transition-all duration-300 focus:border-primary-dark focus:outline-none focus:ring-2 focus:ring-primary-dark/20 hover:border-neutral-300"
+          />
+        </div>
 
-        <input
-          type="tel"
-          name="phone"
-          placeholder="Your Phone Number"
-          value={formData.phone}
-          onChange={handleChange}
-          style={inputStyles}
-          onFocus={(e) => e.target.style.borderColor = '#19467E'}
-          onBlur={(e) => e.target.style.borderColor = '#E0E0E0'}
-        />
+        <div>
+          <input
+            type="tel"
+            name="phone"
+            placeholder="Your Phone Number"
+            value={formData.phone}
+            onChange={handleChange}
+            className="w-full px-4 md:px-5 py-3 md:py-4 border-2 border-neutral-200 rounded-lg text-base md:text-lg font-body transition-all duration-300 focus:border-primary-dark focus:outline-none focus:ring-2 focus:ring-primary-dark/20 hover:border-neutral-300"
+          />
+        </div>
 
-        <input
-          type="text"
-          name="subject"
-          placeholder="Subject *"
-          value={formData.subject}
-          onChange={handleChange}
-          required
-          style={inputStyles}
-          onFocus={(e) => e.target.style.borderColor = '#19467E'}
-          onBlur={(e) => e.target.style.borderColor = '#E0E0E0'}
-        />
+        <div>
+          <input
+            type="text"
+            name="subject"
+            placeholder="Subject *"
+            value={formData.subject}
+            onChange={handleChange}
+            required
+            className="w-full px-4 md:px-5 py-3 md:py-4 border-2 border-neutral-200 rounded-lg text-base md:text-lg font-body transition-all duration-300 focus:border-primary-dark focus:outline-none focus:ring-2 focus:ring-primary-dark/20 hover:border-neutral-300"
+          />
+        </div>
 
-        <textarea
-          name="message"
-          placeholder="Your Message *"
-          value={formData.message}
-          onChange={handleChange}
-          required
-          style={textareaStyles}
-          onFocus={(e) => e.target.style.borderColor = '#19467E'}
-          onBlur={(e) => e.target.style.borderColor = '#E0E0E0'}
-        />
+        <div>
+          <textarea
+            name="message"
+            placeholder="Your Message *"
+            value={formData.message}
+            onChange={handleChange}
+            required
+            rows="6"
+            className="w-full px-4 md:px-5 py-3 md:py-4 border-2 border-neutral-200 rounded-lg text-base md:text-lg font-body transition-all duration-300 focus:border-primary-dark focus:outline-none focus:ring-2 focus:ring-primary-dark/20 hover:border-neutral-300 resize-vertical min-h-[150px]"
+          />
+        </div>
 
         <button
           type="submit"
-          style={buttonStyles}
           disabled={status === 'sending'}
-          onMouseEnter={(e) => e.target.style.backgroundColor = '#0D3F2F'}
-          onMouseLeave={(e) => e.target.style.backgroundColor = '#19467E'}
+          className="w-full px-6 md:px-8 py-3 md:py-4 bg-primary-dark text-white rounded-lg text-base md:text-lg font-semibold transition-all duration-300 hover:bg-primary hover:scale-[1.02] active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100 shadow-md hover:shadow-lg"
         >
           {status === 'sending' ? 'Sending...' : 'Send Message'}
         </button>

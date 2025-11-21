@@ -91,12 +91,6 @@ const PastPapersPortal = () => {
     setAuthenticated(success);
   };
 
-  // Breadcrumb items
-  const breadcrumbItems = [
-    { label: 'Home', path: '/' },
-    { label: 'Past Papers Portal', path: '/past-papers' }
-  ];
-
   return (
     <>
       <SEO
@@ -105,26 +99,22 @@ const PastPapersPortal = () => {
         keywords="past papers, exam papers, study materials, marking memos, Harding Secondary School"
       />
 
-      <div className="min-h-screen bg-gray-50">
+      <div className="pt-[3.75rem] md:pt-[4.25rem]">
         {/* Breadcrumbs */}
-        <div className="bg-white border-b">
-          <div className="container mx-auto px-4 py-4">
-            <Breadcrumbs items={breadcrumbItems} />
-          </div>
-        </div>
+        <Breadcrumbs />
 
         {/* Portal Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
-          className="bg-gradient-to-r from-primary to-secondary text-white py-12"
+          className="bg-gradient-to-r from-primary-dark to-primary text-white py-12 md:py-16"
         >
           <div className="container mx-auto px-4">
-            <h1 className="text-4xl md:text-5xl font-bold mb-4">
+            <h1 className="text-4xl md:text-5xl font-bold mb-4 !text-white">
               Past Papers Portal
             </h1>
-            <p className="text-lg md:text-xl opacity-90 max-w-3xl">
+            <p className="text-lg md:text-xl opacity-90 max-w-3xl !text-white">
               Access historical examination papers and marking memos across all subjects. 
               Browse, preview, and download study materials to help you prepare for exams.
             </p>
@@ -133,16 +123,16 @@ const PastPapersPortal = () => {
             {!loading && (
               <div className="grid grid-cols-3 gap-4 mt-8 max-w-2xl">
                 <div className="bg-white/10 backdrop-blur-sm rounded-lg p-4 text-center">
-                  <div className="text-3xl font-bold">{statistics.totalPapers}</div>
-                  <div className="text-sm opacity-90">Papers</div>
+                  <div className="text-3xl font-bold !text-white">{statistics.totalPapers}</div>
+                  <div className="text-sm opacity-90 !text-white">Papers</div>
                 </div>
                 <div className="bg-white/10 backdrop-blur-sm rounded-lg p-4 text-center">
-                  <div className="text-3xl font-bold">{statistics.totalSubjects}</div>
-                  <div className="text-sm opacity-90">Subjects</div>
+                  <div className="text-3xl font-bold !text-white">{statistics.totalSubjects}</div>
+                  <div className="text-sm opacity-90 !text-white">Subjects</div>
                 </div>
                 <div className="bg-white/10 backdrop-blur-sm rounded-lg p-4 text-center">
-                  <div className="text-3xl font-bold">{statistics.totalYears}</div>
-                  <div className="text-sm opacity-90">Years</div>
+                  <div className="text-3xl font-bold !text-white">{statistics.totalYears}</div>
+                  <div className="text-sm opacity-90 !text-white">Years</div>
                 </div>
               </div>
             )}
@@ -150,7 +140,8 @@ const PastPapersPortal = () => {
         </motion.div>
 
         {/* Main Content */}
-        <div className="container mx-auto px-4 py-8">
+        <div className="min-h-screen bg-gray-50">
+          <div className="container mx-auto px-4 py-8">
           {loading ? (
             <div className="flex items-center justify-center py-20">
               <div className="text-center">
@@ -222,6 +213,7 @@ const PastPapersPortal = () => {
               />
             </div>
           )}
+          </div>
         </div>
       </div>
     </>

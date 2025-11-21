@@ -70,7 +70,7 @@ const Breadcrumbs = ({
 
   return (
     <nav aria-label="Breadcrumb" className="bg-neutral-50 border-b border-neutral-200">
-      <div className="container-custom py-2 sm:py-3">
+      <div className="container-custom py-1.5">
         <ol className="flex items-center flex-wrap gap-1.5 sm:gap-2 text-xs sm:text-sm">
           {breadcrumbs.map((crumb, index) => (
             <li key={crumb.path} className="flex items-center gap-1.5 sm:gap-2">
