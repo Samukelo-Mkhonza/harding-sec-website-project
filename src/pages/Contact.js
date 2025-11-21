@@ -7,12 +7,12 @@ const Contact = () => {
   return (
     <>
       <SEO {...SEOConfigs.contact} />
-      {/* Breadcrumbs */}
-      <div className="pt-20 md:pt-24">
-        <Breadcrumbs />
-      </div>
-      
-      <div>
+      <div className="pt-16 md:pt-20">
+        {/* Breadcrumbs */}
+        <div className="bg-white">
+          <Breadcrumbs />
+        </div>
+        
         {/* Hero Section */}
         <section className="bg-primary-dark text-white py-16 md:py-20 lg:py-24 text-center">
           <div className="container-custom">
@@ -26,7 +26,7 @@ const Contact = () => {
         </section>
 
         {/* Contact Information & Form */}
-        <section className="section-padding">
+        <section className="py-16 md:py-24 lg:py-28">
           <div className="container-custom">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-10">
               {/* Contact Information */}
@@ -35,9 +35,9 @@ const Contact = () => {
                   Get In Touch
                 </h2>
                 <div className="space-y-5 md:space-y-6">
-                  <div className="bg-white p-6 md:p-8 rounded-xl shadow-md border-l-4 border-accent-neon transition-all duration-300 hover:shadow-xl hover:-translate-y-1">
+                  <div className="bg-white p-6 md:p-8 rounded-xl shadow-md border-l-4 border-[#0D4E25] transition-all duration-300 hover:shadow-xl hover:-translate-y-1">
                     <div className="flex items-start gap-4 md:gap-5">
-                      <div className="w-12 h-12 md:w-14 md:h-14 bg-accent-neon text-white rounded-full flex items-center justify-center flex-shrink-0 transition-all duration-300 hover:scale-110">
+                      <div className="w-12 h-12 md:w-14 md:h-14 text-white rounded-full flex items-center justify-center flex-shrink-0 transition-all duration-300 hover:scale-110" style={{ backgroundColor: '#0D4E25' }}>
                         <FaMapMarkerAlt className="text-xl md:text-2xl" />
                       </div>
                       <div className="flex-1">
@@ -53,9 +53,9 @@ const Contact = () => {
                     </div>
                   </div>
 
-                  <div className="bg-white p-6 md:p-8 rounded-xl shadow-md border-l-4 border-accent-neon transition-all duration-300 hover:shadow-xl hover:-translate-y-1">
+                  <div className="bg-white p-6 md:p-8 rounded-xl shadow-md border-l-4 border-[#0D4E25] transition-all duration-300 hover:shadow-xl hover:-translate-y-1">
                     <div className="flex items-start gap-4 md:gap-5">
-                      <div className="w-12 h-12 md:w-14 md:h-14 bg-accent-neon text-white rounded-full flex items-center justify-center flex-shrink-0 transition-all duration-300 hover:scale-110">
+                      <div className="w-12 h-12 md:w-14 md:h-14 text-white rounded-full flex items-center justify-center flex-shrink-0 transition-all duration-300 hover:scale-110" style={{ backgroundColor: '#0D4E25' }}>
                         <FaPhone className="text-xl md:text-2xl" />
                       </div>
                       <div className="flex-1">
@@ -63,7 +63,7 @@ const Contact = () => {
                           Phone
                         </h3>
                         <p className="text-sm md:text-base text-neutral-500">
-                          <a href="tel:0394331223" className="text-accent-neon hover:text-primary-dark transition-colors font-medium hover:underline">
+                          <a href="tel:0394331223" className="hover:text-primary-dark transition-colors font-medium hover:underline" style={{ color: '#0D4E25' }}>
                             039 433 1223
                           </a>
                         </p>
@@ -71,9 +71,9 @@ const Contact = () => {
                     </div>
                   </div>
 
-                  <div className="bg-white p-6 md:p-8 rounded-xl shadow-md border-l-4 border-accent-neon transition-all duration-300 hover:shadow-xl hover:-translate-y-1">
+                  <div className="bg-white p-6 md:p-8 rounded-xl shadow-md border-l-4 border-[#0D4E25] transition-all duration-300 hover:shadow-xl hover:-translate-y-1">
                     <div className="flex items-start gap-4 md:gap-5">
-                      <div className="w-12 h-12 md:w-14 md:h-14 bg-accent-neon text-white rounded-full flex items-center justify-center flex-shrink-0 transition-all duration-300 hover:scale-110">
+                      <div className="w-12 h-12 md:w-14 md:h-14 text-white rounded-full flex items-center justify-center flex-shrink-0 transition-all duration-300 hover:scale-110" style={{ backgroundColor: '#0D4E25' }}>
                         <FaEnvelope className="text-xl md:text-2xl" />
                       </div>
                       <div className="flex-1">
@@ -81,7 +81,7 @@ const Contact = () => {
                           Email
                         </h3>
                         <p className="text-sm md:text-base text-neutral-500">
-                          <a href="mailto:info@hardingsecondary.edu.za" className="text-accent-neon hover:text-primary-dark transition-colors font-medium hover:underline break-all">
+                          <a href="mailto:info@hardingsecondary.edu.za" className="hover:text-primary-dark transition-colors font-medium hover:underline break-all" style={{ color: '#0D4E25' }}>
                             info@hardingsecondary.edu.za
                           </a>
                         </p>
@@ -145,7 +145,7 @@ const Contact = () => {
         </section>
 
         {/* Map Section */}
-        <section className="section-padding bg-neutral-50">
+        <section className="py-16 md:py-24 lg:py-28 bg-neutral-50">
           <div className="container-custom">
             <h2 className="text-2xl md:text-3xl lg:text-4xl font-heading font-bold text-primary-dark mb-10 md:mb-12 text-center">
               Find Us
@@ -189,7 +189,7 @@ const Contact = () => {
               <h2 className="text-2xl md:text-3xl lg:text-4xl font-heading font-bold mb-5 md:mb-6 !text-white">
                 Have Questions?
               </h2>
-              <p className="text-base md:text-lg lg:text-xl mb-8 md:mb-10 max-w-3xl mx-auto opacity-90 !text-white">
+              <p className="text-base md:text-lg lg:text-xl mb-8 md:mb-10 max-w-3xl mx-auto !text-white">
                 Our friendly staff is ready to assist you with admissions, programs, or any other inquiries.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
@@ -202,7 +202,10 @@ const Contact = () => {
                 </a>
                 <a 
                   href="mailto:info@hardingsecondary.edu.za" 
-                  className="inline-flex items-center gap-2 px-8 md:px-10 py-3 md:py-4 bg-accent-neon text-white rounded-lg text-base md:text-lg font-semibold transition-all duration-300 hover:bg-accent-neon/90 hover:scale-105 shadow-md"
+                  className="inline-flex items-center gap-2 px-8 md:px-10 py-3 md:py-4 text-white rounded-lg text-base md:text-lg font-semibold transition-all duration-300 hover:scale-105 shadow-md"
+                  style={{ backgroundColor: '#0D4E25' }}
+                  onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#0A3A1C'}
+                  onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#0D4E25'}
                 >
                   <FaEnvelope />
                   Send Email

@@ -6,9 +6,11 @@ const About = () => {
   return (
     <>
       <SEO {...SEOConfigs.about} />
-      <div className="pt-[3.75rem] md:pt-[4.25rem]">
+      <div className="pt-16 md:pt-20">
         {/* Breadcrumbs */}
-        <Breadcrumbs />
+        <div className="bg-white">
+          <Breadcrumbs />
+        </div>
         
         {/* Hero Section */}
         <section className="bg-primary-dark text-white py-16 md:py-20 lg:py-24 text-center">
@@ -23,7 +25,7 @@ const About = () => {
         </section>
 
         {/* Our Story Section */}
-        <section className="section-padding">
+        <section className="py-16 md:py-24 lg:py-28">
           <div className="container-custom">
             <h2 className="text-2xl md:text-3xl lg:text-4xl font-heading font-bold text-primary-dark mb-6 md:mb-8">
               Our Story
@@ -49,7 +51,7 @@ const About = () => {
         </section>
 
         {/* Mission & Vision */}
-        <section className="section-padding bg-neutral-50">
+        <section className="py-16 md:py-24 lg:py-28 bg-neutral-50">
           <div className="container-custom">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-10">
               <div className="bg-white p-6 md:p-8 lg:p-10 rounded-xl shadow-md border-l-4 border-primary-dark transition-all duration-300 hover:shadow-xl hover:-translate-y-1">
@@ -62,7 +64,7 @@ const About = () => {
                   environment that nurtures academic excellence, personal growth, and social responsibility.
                 </p>
               </div>
-              <div className="bg-white p-6 md:p-8 lg:p-10 rounded-xl shadow-md border-l-4 border-accent-neon transition-all duration-300 hover:shadow-xl hover:-translate-y-1">
+              <div className="bg-white p-6 md:p-8 lg:p-10 rounded-xl shadow-md border-l-4 transition-all duration-300 hover:shadow-xl hover:-translate-y-1" style={{ borderLeftColor: '#0D4E25' }}>
                 <h3 className="text-xl md:text-2xl lg:text-3xl font-heading font-bold text-primary-dark mb-5 md:mb-6">
                   Our Vision
                 </h3>
@@ -77,7 +79,7 @@ const About = () => {
         </section>
 
         {/* Core Values */}
-        <section className="section-padding">
+        <section className="py-16 md:py-24 lg:py-28">
           <div className="container-custom">
             <h2 className="text-2xl md:text-3xl lg:text-4xl font-heading font-bold text-primary-dark mb-10 md:mb-12 text-center">
               Our Core Values
@@ -127,7 +129,7 @@ const About = () => {
         </section>
 
         {/* History Timeline */}
-        <section className="section-padding bg-neutral-50">
+        <section className="py-16 md:py-24 lg:py-28 bg-neutral-50">
           <div className="container-custom">
             <h2 className="text-2xl md:text-3xl lg:text-4xl font-heading font-bold text-primary-dark mb-10 md:mb-12 text-center">
               Our Journey
@@ -166,7 +168,7 @@ const About = () => {
                 </p>
               </div>
               <div className="flex flex-col sm:flex-row items-start gap-4 sm:gap-6 bg-white p-6 md:p-8 rounded-xl shadow-md transition-all duration-300 hover:shadow-xl hover:translate-x-2">
-                <div className="bg-accent-neon text-white px-6 py-4 rounded-lg font-bold text-lg md:text-xl min-w-[100px] md:min-w-[120px] text-center flex-shrink-0 shadow-md">
+                <div className="text-white px-6 py-4 rounded-lg font-bold text-lg md:text-xl min-w-[100px] md:min-w-[120px] text-center flex-shrink-0 shadow-md" style={{ backgroundColor: '#0D4E25' }}>
                   2025
                 </div>
                 <p className="text-base md:text-lg leading-relaxed text-neutral-500 flex-1">
@@ -178,28 +180,28 @@ const About = () => {
         </section>
 
         {/* Statistics Section */}
-        <section className="section-padding">
+        <section className="py-16 md:py-24 lg:py-28">
           <div className="container-custom">
             <div className="bg-primary-dark text-white p-8 md:p-12 lg:p-16 rounded-xl text-center shadow-xl">
-              <h2 className="text-2xl md:text-3xl lg:text-4xl font-heading font-bold mb-8 md:mb-10">
+              <h2 className="text-2xl md:text-3xl lg:text-4xl font-heading font-bold mb-8 md:mb-10 !text-white">
                 Our Impact Today
               </h2>
               <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8">
                 <div className="transition-all duration-300 hover:scale-110">
-                  <div className="text-4xl md:text-5xl lg:text-6xl font-bold mb-2 md:mb-3">1,252</div>
-                  <p className="text-base md:text-lg opacity-90">Students</p>
+                  <div className="text-4xl md:text-5xl lg:text-6xl font-bold mb-2 md:mb-3 !text-white">1,252</div>
+                  <p className="text-base md:text-lg !text-white">Students</p>
                 </div>
                 <div className="transition-all duration-300 hover:scale-110">
-                  <div className="text-4xl md:text-5xl lg:text-6xl font-bold mb-2 md:mb-3">41</div>
-                  <p className="text-base md:text-lg opacity-90">Educators</p>
+                  <div className="text-4xl md:text-5xl lg:text-6xl font-bold mb-2 md:mb-3 !text-white">41</div>
+                  <p className="text-base md:text-lg !text-white">Educators</p>
                 </div>
                 <div className="transition-all duration-300 hover:scale-110">
-                  <div className="text-4xl md:text-5xl lg:text-6xl font-bold mb-2 md:mb-3">95%</div>
-                  <p className="text-base md:text-lg opacity-90">Pass Rate</p>
+                  <div className="text-4xl md:text-5xl lg:text-6xl font-bold mb-2 md:mb-3 !text-white">95%</div>
+                  <p className="text-base md:text-lg !text-white">Pass Rate</p>
                 </div>
                 <div className="transition-all duration-300 hover:scale-110">
-                  <div className="text-4xl md:text-5xl lg:text-6xl font-bold mb-2 md:mb-3">70+</div>
-                  <p className="text-base md:text-lg opacity-90">Years</p>
+                  <div className="text-4xl md:text-5xl lg:text-6xl font-bold mb-2 md:mb-3 !text-white">70+</div>
+                  <p className="text-base md:text-lg !text-white">Years</p>
                 </div>
               </div>
             </div>

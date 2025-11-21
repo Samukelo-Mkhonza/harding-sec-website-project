@@ -6,7 +6,7 @@ import AuthenticationGate from '../components/portal/AuthenticationGate';
 import FilterPanel from '../components/portal/FilterPanel';
 import SearchBar from '../components/portal/SearchBar';
 import PapersList from '../components/portal/PapersList';
-import { applyFilters, clearFilters, getStatistics } from '../utils/filterUtils';
+import { applyFilters, clearFilters } from '../utils/filterUtils';
 import { getPreferences, isAuthenticated, isBookmarked, addBookmark, removeBookmark, updateViewMode } from '../utils/portalStorage';
 import { downloadPDF, downloadBoth, formatFilename } from '../utils/downloadUtils';
 
@@ -71,11 +71,6 @@ const PastPapersPortal = () => {
     return applyFilters(papers, filters);
   }, [papers, filters]);
 
-  // Get statistics
-  const statistics = useMemo(() => {
-    return getStatistics(filteredPapers);
-  }, [filteredPapers]);
-
   // Handle filter changes
   const handleFilterChange = (newFilters) => {
     setFilters(newFilters);
@@ -118,24 +113,6 @@ const PastPapersPortal = () => {
               Access historical examination papers and marking memos across all subjects. 
               Browse, preview, and download study materials to help you prepare for exams.
             </p>
-            
-            {/* Statistics */}
-            {!loading && (
-              <div className="grid grid-cols-3 gap-4 mt-8 max-w-2xl">
-                <div className="bg-white/10 backdrop-blur-sm rounded-lg p-4 text-center">
-                  <div className="text-3xl font-bold !text-white">{statistics.totalPapers}</div>
-                  <div className="text-sm opacity-90 !text-white">Papers</div>
-                </div>
-                <div className="bg-white/10 backdrop-blur-sm rounded-lg p-4 text-center">
-                  <div className="text-3xl font-bold !text-white">{statistics.totalSubjects}</div>
-                  <div className="text-sm opacity-90 !text-white">Subjects</div>
-                </div>
-                <div className="bg-white/10 backdrop-blur-sm rounded-lg p-4 text-center">
-                  <div className="text-3xl font-bold !text-white">{statistics.totalYears}</div>
-                  <div className="text-sm opacity-90 !text-white">Years</div>
-                </div>
-              </div>
-            )}
           </div>
         </motion.div>
 

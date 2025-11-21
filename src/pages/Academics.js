@@ -60,7 +60,9 @@ const Academics = () => {
       <SEO {...SEOConfigs.academics} />
       <div className="pt-16 md:pt-20">
         {/* Breadcrumbs */}
-        <Breadcrumbs />
+        <div className="bg-white">
+          <Breadcrumbs />
+        </div>
         
         {/* Hero Section */}
         <section className="bg-primary-dark text-white py-16 md:py-20 lg:py-24 text-center">
@@ -75,7 +77,7 @@ const Academics = () => {
         </section>
 
         {/* Curriculum Overview */}
-        <section className="section-padding">
+        <section className="py-16 md:py-24 lg:py-28">
           <div className="container-custom">
             <h2 className="text-2xl md:text-3xl lg:text-4xl font-heading font-bold text-primary-dark mb-8 md:mb-12">
               Our Curriculum
@@ -130,7 +132,7 @@ const Academics = () => {
         </section>
 
         {/* Academic Features */}
-        <section className="section-padding bg-neutral-50">
+        <section className="py-16 md:py-24 lg:py-28 bg-neutral-50">
           <div className="container-custom">
             <h2 className="text-2xl md:text-3xl lg:text-4xl font-heading font-bold text-primary-dark mb-8 md:mb-12 text-center">
               Academic Support & Resources
@@ -189,7 +191,7 @@ const Academics = () => {
         </section>
 
         {/* Academic Achievements */}
-        <section className="section-padding">
+        <section className="py-16 md:py-24 lg:py-28">
           <div className="container-custom">
             <h2 className="text-2xl md:text-3xl lg:text-4xl font-heading font-bold text-primary-dark mb-8 md:mb-12 text-center">
               Academic Achievements
@@ -216,7 +218,7 @@ const Academics = () => {
         </section>
 
         {/* Grade Structure */}
-        <section className="section-padding bg-neutral-50">
+        <section className="py-16 md:py-24 lg:py-28 bg-neutral-50">
           <div className="container-custom">
             <h2 className="text-2xl md:text-3xl lg:text-4xl font-heading font-bold text-primary-dark mb-8 md:mb-12 text-center">
               Grade Structure

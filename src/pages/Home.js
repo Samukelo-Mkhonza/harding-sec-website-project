@@ -27,7 +27,7 @@ const Home = () => {
       <Hero images={heroImages} currentIndex={currentImageIndex} />
       
       {/* Welcome Section */}
-      <section className="section-padding">
+      <section className="py-16 md:py-24 lg:py-28">
         <div className="container-custom">
           <h1 className="text-3xl md:text-4xl lg:text-5xl font-heading font-bold text-primary-dark mb-6 md:mb-8 text-center">
             Welcome to Harding Secondary School
@@ -61,14 +61,14 @@ const Home = () => {
       </section>
 
       {/* Why Choose Us Section */}
-      <section className="section-padding bg-neutral-50">
+      <section className="py-16 md:py-24 lg:py-28 bg-neutral-50">
         <div className="container-custom">
           <h2 className="text-2xl md:text-3xl lg:text-4xl font-heading font-semibold text-black mb-8 md:mb-12 text-center">
             Why Choose Harding Secondary School?
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10">
-            <div className="bg-white p-8 md:p-10 rounded-xl shadow-md hover:shadow-xl transition-all duration-300 border-2 border-transparent hover:border-accent-neon hover:-translate-y-2">
-              <div className="w-14 h-14 md:w-16 md:h-16 bg-accent-neon rounded-full flex items-center justify-center mb-5 md:mb-6">
+            <div className="bg-white p-8 md:p-10 rounded-xl shadow-md hover:shadow-xl transition-all duration-300 border-2 border-transparent hover:border-[#0D4E25] hover:-translate-y-2">
+              <div className="w-14 h-14 md:w-16 md:h-16 rounded-full flex items-center justify-center mb-5 md:mb-6" style={{ backgroundColor: '#0D4E25' }}>
                 <FaBook className="text-2xl md:text-3xl text-white" />
               </div>
               <h3 className="text-xl md:text-2xl font-semibold mb-4 text-primary-dark">
@@ -80,8 +80,8 @@ const Home = () => {
               </p>
             </div>
             
-            <div className="bg-white p-8 md:p-10 rounded-xl shadow-md hover:shadow-xl transition-all duration-300 border-2 border-transparent hover:border-accent-neon hover:-translate-y-2">
-              <div className="w-14 h-14 md:w-16 md:h-16 bg-accent-neon rounded-full flex items-center justify-center mb-5 md:mb-6">
+            <div className="bg-white p-8 md:p-10 rounded-xl shadow-md hover:shadow-xl transition-all duration-300 border-2 border-transparent hover:border-[#0D4E25] hover:-translate-y-2">
+              <div className="w-14 h-14 md:w-16 md:h-16 rounded-full flex items-center justify-center mb-5 md:mb-6" style={{ backgroundColor: '#0D4E25' }}>
                 <FaRunning className="text-2xl md:text-3xl text-white" />
               </div>
               <h3 className="text-xl md:text-2xl font-semibold mb-4 text-primary-dark">
@@ -93,8 +93,8 @@ const Home = () => {
               </p>
             </div>
             
-            <div className="bg-white p-8 md:p-10 rounded-xl shadow-md hover:shadow-xl transition-all duration-300 border-2 border-transparent hover:border-accent-neon hover:-translate-y-2">
-              <div className="w-14 h-14 md:w-16 md:h-16 bg-accent-neon rounded-full flex items-center justify-center mb-5 md:mb-6">
+            <div className="bg-white p-8 md:p-10 rounded-xl shadow-md hover:shadow-xl transition-all duration-300 border-2 border-transparent hover:border-[#0D4E25] hover:-translate-y-2">
+              <div className="w-14 h-14 md:w-16 md:h-16 rounded-full flex items-center justify-center mb-5 md:mb-6" style={{ backgroundColor: '#0D4E25' }}>
                 <FaChalkboardTeacher className="text-2xl md:text-3xl text-white" />
               </div>
               <h3 className="text-xl md:text-2xl font-semibold mb-4 text-primary-dark">
@@ -110,7 +110,7 @@ const Home = () => {
       </section>
 
       {/* News Section */}
-      <section className="section-padding">
+      <section className="py-16 md:py-24 lg:py-28">
         <div className="container-custom">
           <h2 className="text-2xl md:text-3xl lg:text-4xl font-heading font-semibold text-black mb-8 md:mb-12 text-center">
             Latest News & Events
@@ -154,7 +154,7 @@ const Home = () => {
       </section>
 
       {/* CTA Section */}
-      <section className="section-padding bg-neutral-100 text-center">
+      <section className="py-16 md:py-24 lg:py-28 bg-neutral-100 text-center">
         <div className="container-custom">
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-heading font-bold text-primary-dark mb-6">
             Begin Your Journey With Us

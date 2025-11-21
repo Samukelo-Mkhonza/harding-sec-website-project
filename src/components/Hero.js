@@ -89,7 +89,7 @@ const Hero = ({
             </p>
 
             {/* CTA Buttons */}
-            <div className="flex flex-col sm:flex-row gap-4 md:gap-6 justify-center items-center animate-slide-up mb-12 md:mb-0">
+            <div className="flex flex-col sm:flex-row gap-4 md:gap-6 justify-center items-center animate-slide-up mb-10 md:mb-12">
               <Link
                 to={primaryCTA.link}
                 className="btn-primary group w-full sm:w-auto"
@@ -113,7 +113,7 @@ const Hero = ({
             </div>
 
             {/* Features/Quick Info */}
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 md:gap-8 mt-12 md:mt-20 lg:mt-24">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 md:gap-6">
               <div className="bg-white/10 backdrop-blur-md rounded-xl p-6 md:p-8 border border-white/20 transform hover:scale-105 transition-all duration-300 hover:bg-white/20 hover:border-accent-neon/50">
                 <div className="mb-3 md:mb-4">
                   <FaAward className="text-3xl md:text-4xl lg:text-5xl text-accent-neon mx-auto" />
