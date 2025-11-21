@@ -49,7 +49,7 @@ const Hero = ({
   };
 
   return (
-    <section className="relative h-[600px] md:h-[700px] lg:h-[800px] overflow-hidden bg-primary">
+    <section className="relative h-[700px] md:h-[700px] lg:h-[800px] overflow-hidden bg-primary">
       {/* Background Images Slideshow with Parallax */}
       {images.length > 0 && (
         <div className="absolute inset-0">
@@ -75,26 +75,26 @@ const Hero = ({
       )}
 
       {/* Content */}
-      <div className="relative z-10 h-full flex items-center justify-center">
-        <div className="container-custom">
+      <div className="relative z-10 h-full flex items-center justify-center py-8 md:py-0">
+        <div className="container-custom px-4 md:px-6">
           <div className="max-w-4xl mx-auto text-center">
             {/* Title with Animation */}
-            <h1 className="text-4xl md:text-6xl lg:text-7xl font-heading font-bold !text-white mb-8 animate-fade-in text-shadow-strong">
+            <h1 className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-heading font-bold !text-white mb-4 md:mb-8 animate-fade-in text-shadow-strong leading-tight">
               {title}
             </h1>
 
             {/* Subtitle */}
-            <p className="text-lg md:text-2xl lg:text-3xl !text-white mb-10 md:mb-14 font-light animate-slide-up text-shadow-strong">
+            <p className="text-base sm:text-lg md:text-2xl lg:text-3xl !text-white mb-8 md:mb-10 lg:mb-14 font-light animate-slide-up text-shadow-strong px-4 md:px-0">
               {subtitle}
             </p>
 
             {/* CTA Buttons */}
-            <div className="flex flex-col sm:flex-row gap-6 justify-center items-center animate-slide-up">
+            <div className="flex flex-col sm:flex-row gap-4 md:gap-6 justify-center items-center animate-slide-up mb-12 md:mb-0">
               <Link
                 to={primaryCTA.link}
-                className="btn-primary group"
+                className="btn-primary group w-full sm:w-auto"
               >
-                <span className="flex items-center gap-2">
+                <span className="flex items-center justify-center gap-2">
                   <FaUserGraduate className="text-base" />
                   {primaryCTA.text}
                   <FaArrowRight className="text-base group-hover:translate-x-1 transition-transform" />
@@ -103,9 +103,9 @@ const Hero = ({
 
               <Link
                 to={secondaryCTA.link}
-                className="btn-outline bg-white/10 backdrop-blur-sm"
+                className="btn-outline bg-white/10 backdrop-blur-sm w-full sm:w-auto"
               >
-                <span className="flex items-center gap-2">
+                <span className="flex items-center justify-center gap-2">
                   <FaInfoCircle className="text-base" />
                   {secondaryCTA.text}
                 </span>
@@ -113,29 +113,29 @@ const Hero = ({
             </div>
 
             {/* Features/Quick Info */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-20 md:mt-24">
-              <div className="bg-white/10 backdrop-blur-md rounded-xl p-8 border border-white/20 transform hover:scale-105 transition-all duration-300 hover:bg-white/20 hover:border-accent-neon/50">
-                <div className="mb-4">
-                  <FaAward className="text-4xl md:text-5xl text-accent-neon mx-auto" />
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 md:gap-8 mt-12 md:mt-20 lg:mt-24">
+              <div className="bg-white/10 backdrop-blur-md rounded-xl p-6 md:p-8 border border-white/20 transform hover:scale-105 transition-all duration-300 hover:bg-white/20 hover:border-accent-neon/50">
+                <div className="mb-3 md:mb-4">
+                  <FaAward className="text-3xl md:text-4xl lg:text-5xl text-accent-neon mx-auto" />
                 </div>
-                <h3 className="text-xl font-bold text-white mb-2">70+ Years</h3>
-                <p className="text-white/90 text-sm">Of Educational Excellence</p>
+                <h3 className="text-lg md:text-xl font-bold text-white mb-1 md:mb-2">70+ Years</h3>
+                <p className="text-white/90 text-xs md:text-sm">Of Educational Excellence</p>
               </div>
 
-              <div className="bg-white/10 backdrop-blur-md rounded-xl p-8 border border-white/20 transform hover:scale-105 transition-all duration-300 hover:bg-white/20 hover:border-accent-neon/50">
-                <div className="mb-4">
-                  <FaUsers className="text-4xl md:text-5xl text-accent-neon mx-auto" />
+              <div className="bg-white/10 backdrop-blur-md rounded-xl p-6 md:p-8 border border-white/20 transform hover:scale-105 transition-all duration-300 hover:bg-white/20 hover:border-accent-neon/50">
+                <div className="mb-3 md:mb-4">
+                  <FaUsers className="text-3xl md:text-4xl lg:text-5xl text-accent-neon mx-auto" />
                 </div>
-                <h3 className="text-xl font-bold text-white mb-2">1000+</h3>
-                <p className="text-white/90 text-sm">Students Enrolled</p>
+                <h3 className="text-lg md:text-xl font-bold text-white mb-1 md:mb-2">1000+</h3>
+                <p className="text-white/90 text-xs md:text-sm">Students Enrolled</p>
               </div>
 
-              <div className="bg-white/10 backdrop-blur-md rounded-xl p-8 border border-white/20 transform hover:scale-105 transition-all duration-300 hover:bg-white/20 hover:border-accent-neon/50">
-                <div className="mb-4">
-                  <FaGraduationCap className="text-4xl md:text-5xl text-accent-neon mx-auto" />
+              <div className="bg-white/10 backdrop-blur-md rounded-xl p-6 md:p-8 border border-white/20 transform hover:scale-105 transition-all duration-300 hover:bg-white/20 hover:border-accent-neon/50">
+                <div className="mb-3 md:mb-4">
+                  <FaGraduationCap className="text-3xl md:text-4xl lg:text-5xl text-accent-neon mx-auto" />
                 </div>
-                <h3 className="text-xl font-bold text-white mb-2">95%</h3>
-                <p className="text-white/90 text-sm">University Acceptance Rate</p>
+                <h3 className="text-lg md:text-xl font-bold text-white mb-1 md:mb-2">95%</h3>
+                <p className="text-white/90 text-xs md:text-sm">University Acceptance Rate</p>
               </div>
             </div>
           </div>
