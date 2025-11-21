@@ -44,9 +44,9 @@ const Header = () => {
       <header
         className={`fixed top-0 w-full z-50 transition-all duration-300 ${
           isMinimized
-            ? 'bg-primary/98 shadow-xl py-2'
+            ? 'bg-white shadow-xl py-2'
             : isScrolled
-            ? 'bg-primary/98 shadow-xl py-4'
+            ? 'bg-white shadow-xl py-4'
             : 'bg-primary py-4'
         }`}
         style={{
@@ -116,7 +116,7 @@ const Header = () => {
             {/* Logo and School Name */}
             <Link
               to="/"
-              className="flex items-center gap-4 text-white hover:opacity-90 transition-opacity duration-200 group"
+              className="flex items-center gap-4 hover:opacity-90 transition-opacity duration-200 group"
             >
               <img
                 src={logo}
@@ -126,12 +126,16 @@ const Header = () => {
                 }`}
               />
               <div className="flex flex-col">
-                <h1 className={`font-heading font-bold text-white transition-all duration-300 ${
+                <h1 className={`font-heading font-bold transition-all duration-300 ${
+                  isScrolled ? 'text-black' : 'text-white'
+                } ${
                   isMinimized ? 'text-lg' : isScrolled ? 'text-xl' : 'text-2xl'
                 }`}>
                   Harding Secondary School
                 </h1>
-                <p className={`text-white/90 text-sm transition-all duration-300 ${
+                <p className={`text-sm transition-all duration-300 ${
+                  isScrolled ? 'text-black/90' : 'text-white/90'
+                } ${
                   isScrolled || isMinimized ? 'opacity-0 h-0' : 'opacity-100'
                 }`}>
                   Excellence in Education Since 1950
@@ -141,12 +145,16 @@ const Header = () => {
 
             {/* Desktop Navigation */}
             <div className="flex items-center gap-4">
-              <Navigation />
+              <Navigation isScrolled={isScrolled} />
               
               {/* Search Button */}
               <button
                 onClick={() => setIsSearchOpen(true)}
-                className="hidden lg:flex items-center gap-2 px-4 py-2 text-white/90 hover:text-white hover:bg-white/10 rounded-lg transition-all duration-200"
+                className={`hidden lg:flex items-center gap-2 px-4 py-2 rounded-lg transition-all duration-200 ${
+                  isScrolled 
+                    ? 'text-black/90 hover:text-black hover:bg-black/10' 
+                    : 'text-white/90 hover:text-white hover:bg-white/10'
+                }`}
                 aria-label="Search"
                 title="Search (Ctrl+K)"
               >
@@ -158,7 +166,11 @@ const Header = () => {
             {/* Mobile Menu Button */}
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="lg:hidden text-white p-2 hover:bg-white/10 rounded-lg transition-colors duration-200"
+              className={`lg:hidden p-2 rounded-lg transition-colors duration-200 ${
+                isScrolled 
+                  ? 'text-black hover:bg-black/10' 
+                  : 'text-white hover:bg-white/10'
+              }`}
               aria-label="Toggle mobile menu"
             >
               {isMobileMenuOpen ? (

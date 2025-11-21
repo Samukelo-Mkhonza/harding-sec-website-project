@@ -116,11 +116,6 @@
     @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
   }
 
-  /* Hero overlay - Dark overlay for text readability */
-  .hero-overlay {
-    @apply absolute inset-0 bg-gradient-to-b from-black/40 via-black/30 to-black/50;
-  }
-
   /* Gradient text - Updated to use green colors */
   .gradient-text {
     @apply bg-gradient-to-r from-primary to-primary-dark bg-clip-text text-transparent;

@@ -74,9 +74,6 @@ const Hero = ({
         </div>
       )}
 
-      {/* Overlay */}
-      <div className="hero-overlay"></div>
-
       {/* Content */}
       <div className="relative z-10 h-full flex items-center justify-center">
         <div className="container-custom">

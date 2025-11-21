@@ -10,7 +10,6 @@ const Home = () => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   
   const heroImages = [
-    HERO_IMAGES.students,
     HERO_IMAGES.classroom,
     HERO_IMAGES.graduation
   ];
