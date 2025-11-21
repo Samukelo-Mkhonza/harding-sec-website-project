@@ -13,6 +13,7 @@ const Admissions = lazy(() => import('./pages/Admissions'));
 const StudentLife = lazy(() => import('./pages/StudentLife'));
 const Gallery = lazy(() => import('./pages/Gallery'));
 const Contact = lazy(() => import('./pages/Contact'));
+const PastPapersPortal = lazy(() => import('./pages/PastPapersPortal'));
 
 /**
  * Loading fallback component
@@ -50,6 +51,7 @@ const AppRouter = () => {
               <Route path="/student-life" element={<StudentLife />} />
               <Route path="/gallery" element={<Gallery />} />
               <Route path="/contact" element={<Contact />} />
+              <Route path="/past-papers" element={<PastPapersPortal />} />
               
               {/* 404 redirect */}
               <Route path="*" element={<Navigate to="/" replace />} />

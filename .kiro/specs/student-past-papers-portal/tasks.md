@@ -1,13 +1,25 @@
 # Implementation Plan
 
-- [ ] 1. Set up data structures and utilities
+- [x] 1. Set up data structures and utilities
+
+
+
   - Create paper metadata JSON structure in `/public/data/papers-metadata.json`
   - Implement local storage utility functions in `src/utils/portalStorage.js`
   - Define constants for subjects, exam types, and grades in `src/utils/portalConstants.js`
   - Create filter logic utility functions in `src/utils/filterUtils.js`
   - _Requirements: 1.1, 2.2, 8.1, 12.1_
 
-- [ ] 1.1 Write property test for filter logic
+
+
+
+- [x] 1.1 Write property test for filter logic
+
+
+
+
+
+
   - **Property 5: Multi-filter AND logic**
   - **Validates: Requirements 2.2**
 
@@ -15,19 +27,30 @@
   - **Property 18: Bookmark persistence**
   - **Validates: Requirements 8.1, 8.4**
 
+
+
+
+
 - [ ] 2. Create core portal page component
   - Create `src/pages/PastPapersPortal.js` page component
   - Implement data loading on mount from JSON file
   - Set up state management for papers, filters, and authentication
   - Add route to `src/AppRouter.js` for `/past-papers`
   - Integrate with existing Header and Footer components
+
+
   - _Requirements: 1.1, 11.1, 15.1_
+
 
 - [ ] 2.1 Write property test for subject alphabetical ordering
   - **Property 1: Subject alphabetical ordering**
+
   - **Validates: Requirements 1.1**
 
-- [ ] 3. Implement authentication gate component
+- [x] 3. Implement authentication gate component
+
+
+
   - Create `src/components/portal/AuthenticationGate.js` component
   - Build access code input form with validation
   - Implement authentication logic with local storage token
@@ -35,11 +58,16 @@
   - Display error messages for invalid credentials
   - _Requirements: 11.1, 11.2, 11.3, 11.4_
 
+
 - [ ] 3.1 Write property test for authentication token storage
   - **Property 26: Authentication token storage**
   - **Validates: Requirements 11.2**
 
-- [ ] 3.2 Write property test for expired session handling
+
+- [x] 3.2 Write property test for expired session handling
+
+
+
   - **Property 27: Expired session handling**
   - **Validates: Requirements 11.4**
 
@@ -50,13 +78,18 @@
   - Implement year range filter
   - Implement exam type filter
   - Add "Clear All Filters" button
+
   - Display active filter chips
   - Make responsive with collapsible drawer on mobile
   - _Requirements: 2.1, 2.2, 2.3, 2.4, 7.2_
 
+
 - [ ] 4.1 Write property test for grade filter correctness
   - **Property 4: Grade filter correctness**
+
   - **Validates: Requirements 1.4**
+
+
 
 - [ ] 4.2 Write property test for filter clear round trip
   - **Property 6: Filter clear round trip**
@@ -64,11 +97,16 @@
 
 - [ ] 4.3 Write property test for year filter correctness
   - **Property 25: Year filter correctness**
+
   - **Validates: Requirements 10.5**
 
-- [ ] 5. Create search bar component
+- [x] 5. Create search bar component
+
   - Create `src/components/portal/SearchBar.js` component
   - Implement search input with 300ms debounce
+
+
+
   - Add search icon and clear button
   - Implement keyboard shortcut (Ctrl/Cmd + K)
   - Display result count
@@ -80,19 +118,27 @@
 
 - [ ] 5.2 Write property test for search clear round trip
   - **Property 14: Search clear round trip**
+
   - **Validates: Requirements 5.5**
 
-- [ ] 6. Implement paper card component
+- [x] 6. Implement paper card component
+
   - Create `src/components/portal/PaperCard.js` component
   - Display paper information (subject, grade, year, exam type, file size)
   - Add subject icon and color coding
+
   - Display "New" badge for papers within 30 days
   - Add download button with loading state
   - Add preview button
+
   - Add memo button (conditional on memo availability)
   - Add bookmark button with toggle state
   - Support both grid and list view modes
+
   - _Requirements: 1.3, 3.1, 3.2, 4.1, 6.1, 6.4, 8.1, 9.2_
+
+
+
 
 - [ ] 6.1 Write property test for paper information completeness
   - **Property 3: Paper information completeness**
@@ -102,15 +148,19 @@
   - **Property 22: New badge display logic**
   - **Validates: Requirements 9.2**
 
+
 - [ ] 6.3 Write property test for memo indicator presence
   - **Property 15: Memo indicator presence**
   - **Validates: Requirements 6.1**
 
+
 - [ ] 6.4 Write property test for memo absence message
   - **Property 16: Memo absence message**
+
   - **Validates: Requirements 6.4**
 
-- [ ] 6.5 Write property test for download both option
+- [x] 6.5 Write property test for download both option
+
   - **Property 17: Download both option availability**
   - **Validates: Requirements 6.5**
 
@@ -132,6 +182,9 @@
   - **Property 7: Result count accuracy**
   - **Validates: Requirements 2.5**
 
+
+
+
 - [ ] 7.3 Write property test for virtual scrolling activation
   - **Property 35: Virtual scrolling activation**
   - **Validates: Requirements 15.2**
@@ -140,9 +193,11 @@
   - **Property 36: Client-side filtering**
   - **Validates: Requirements 15.4**
 
+
 - [ ] 8. Build PDF viewer modal component
   - Create `src/components/portal/PDFViewerModal.js` component
   - Integrate react-pdf library for PDF rendering
+
   - Implement page navigation controls (prev/next, jump to page)
   - Add zoom controls (fit width, fit page, zoom in/out)
   - Add download button within viewer
