@@ -66,9 +66,11 @@ const MobileMenu = ({ isOpen, onClose }) => {
         {/* Header */}
         <div className="bg-primary p-6 flex justify-between items-center">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 bg-white rounded-full flex items-center justify-center">
-              <span className="text-primary font-bold text-sm">HSS</span>
-            </div>
+            <img
+              src="/harding-sec-logo-2.png"
+              alt="Harding Secondary School Logo"
+              className="w-10 h-10 object-contain"
+            />
             <div>
               <h2 className="text-white font-bold text-lg">Menu</h2>
               <p className="text-white/80 text-xs">Harding Secondary</p>

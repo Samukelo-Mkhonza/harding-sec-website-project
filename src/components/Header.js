@@ -6,7 +6,6 @@ import MobileMenu from './MobileMenu';
 import SearchOverlay from './SearchOverlay';
 import useScrollDirection from '../hooks/useScrollDirection';
 import { SCROLL_THRESHOLDS } from '../utils/constants';
-import logo from '../images/logo.png';
 
 const Header = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -18,9 +17,6 @@ const Header = () => {
   
   // Determine if header should be minimized
   const isMinimized = isScrolled && scrollDirection === 'down' && scrollY > SCROLL_THRESHOLDS.HEADER_MINIMIZE;
-  
-  // Always show full header when scrolling up or at top
-  const showFullHeader = !isScrolled || scrollDirection === 'up';
 
   useEffect(() => {
     setIsMobileMenuOpen(false);
@@ -119,7 +115,7 @@ const Header = () => {
               className="flex items-center gap-4 hover:opacity-90 transition-opacity duration-200 group"
             >
               <img
-                src={logo}
+                src="/harding-sec-logo-2.png"
                 alt="Harding Secondary School Logo"
                 className={`transition-all duration-300 group-hover:scale-110 ${
                   isMinimized ? 'h-10' : isScrolled ? 'h-12' : 'h-14'
