@@ -7,10 +7,12 @@ const Contact = () => {
   return (
     <>
       <SEO {...SEOConfigs.contact} />
-      <div className="pt-[3.75rem] md:pt-[4.25rem]">
-        {/* Breadcrumbs */}
+      {/* Breadcrumbs */}
+      <div className="pt-20 md:pt-24">
         <Breadcrumbs />
-        
+      </div>
+      
+      <div>
         {/* Hero Section */}
         <section className="bg-primary-dark text-white py-16 md:py-20 lg:py-24 text-center">
           <div className="container-custom">

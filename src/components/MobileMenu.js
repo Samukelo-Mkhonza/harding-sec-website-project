@@ -5,15 +5,14 @@ const MobileMenu = ({ isOpen, onClose }) => {
   const [expandedMenu, setExpandedMenu] = useState(null);
 
   const navItems = [
-    { path: '/', label: 'Home', icon: 'home' },
     {
       label: 'About',
       path: '/about',
       icon: 'info-circle',
       dropdown: [
-        { path: '/about', label: 'About Us' },
-        { path: '/about#mission', label: 'Our Mission' },
-        { path: '/about#values', label: 'Our Values' },
+        { path: '/about', label: 'About us' },
+        { path: '/about#mission', label: 'Our mission' },
+        { path: '/about#values', label: 'Our values' },
         { path: '/about#history', label: 'History' },
       ]
     },
@@ -22,24 +21,24 @@ const MobileMenu = ({ isOpen, onClose }) => {
       path: '/academics',
       icon: 'graduation-cap',
       dropdown: [
-        { path: '/academics', label: 'Academic Programs' },
+        { path: '/academics', label: 'Academic programs' },
         { path: '/academics#subjects', label: 'Subjects' },
         { path: '/academics#achievements', label: 'Achievements' },
       ]
     },
     { path: '/admissions', label: 'Admissions', icon: 'user-plus' },
     {
-      label: 'Student Life',
+      label: 'Student life',
       path: '/student-life',
       icon: 'users',
       dropdown: [
-        { path: '/student-life', label: 'Student Life' },
+        { path: '/student-life', label: 'Overview' },
         { path: '/student-life#sports', label: 'Sports' },
-        { path: '/student-life#clubs', label: 'Clubs & Societies' },
+        { path: '/student-life#clubs', label: 'Clubs & societies' },
         { path: '/student-life#events', label: 'Events' },
+        { path: '/gallery', label: 'Gallery' },
       ]
     },
-    { path: '/gallery', label: 'Gallery', icon: 'images' },
     { path: '/contact', label: 'Contact', icon: 'envelope' }
   ];
 
