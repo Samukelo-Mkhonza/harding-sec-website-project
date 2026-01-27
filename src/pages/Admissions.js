@@ -54,7 +54,7 @@ const Admissions = () => {
   return (
     <>
       <SEO {...SEOConfigs.admissions} />
-      <div className="pt-16 md:pt-20">
+      <div>
         {/* Breadcrumbs */}
         <Breadcrumbs />
         

@@ -26,7 +26,7 @@ const Gallery = () => {
   return (
     <>
       <SEO {...SEOConfigs.gallery} />
-      <div className="pt-16 md:pt-20">
+      <div>
         {/* Breadcrumbs */}
         <Breadcrumbs />
         

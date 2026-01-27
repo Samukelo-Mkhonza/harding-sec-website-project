@@ -67,7 +67,7 @@ const StudentLife = () => {
   return (
     <>
       <SEO {...SEOConfigs.studentLife} />
-      <div className="pt-16 md:pt-20">
+      <div>
         {/* Breadcrumbs */}
         <Breadcrumbs />
         

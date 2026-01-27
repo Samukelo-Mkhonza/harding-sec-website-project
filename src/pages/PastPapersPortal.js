@@ -99,7 +99,7 @@ const PastPapersPortal = () => {
         keywords="past papers, exam papers, study materials, marking memos, Harding Secondary School"
       />
 
-      <div className="pt-[3.75rem] md:pt-[4.25rem]">
+      <div>
         {/* Breadcrumbs */}
         <Breadcrumbs />
 
