@@ -56,7 +56,9 @@ const Admissions = () => {
       <SEO {...SEOConfigs.admissions} />
       <div>
         {/* Breadcrumbs */}
-        <Breadcrumbs />
+        <div className="bg-white">
+          <Breadcrumbs />
+        </div>
         
         {/* Hero Section */}
         <section className="bg-primary-dark text-white py-16 md:py-20 lg:py-24 text-center">
@@ -71,7 +73,7 @@ const Admissions = () => {
         </section>
 
         {/* Application Process */}
-        <section className="section-padding">
+        <section className="py-16 md:py-24 lg:py-28">
           <div className="container-custom">
             <h2 className="text-2xl md:text-3xl lg:text-4xl font-heading font-bold text-primary-dark mb-6 md:mb-8">
               Application Process
@@ -105,7 +107,7 @@ const Admissions = () => {
         </section>
 
         {/* Admission Requirements */}
-        <section className="section-padding bg-neutral-50">
+        <section className="py-16 md:py-24 lg:py-28 bg-neutral-50">
           <div className="container-custom">
             <h2 className="text-2xl md:text-3xl lg:text-4xl font-heading font-bold text-primary-dark mb-10 md:mb-12">
               Admission Requirements
@@ -140,7 +142,7 @@ const Admissions = () => {
         </section>
 
         {/* Important Information */}
-        <section className="section-padding">
+        <section className="py-16 md:py-24 lg:py-28">
           <div className="container-custom">
             <h2 className="text-2xl md:text-3xl lg:text-4xl font-heading font-bold text-primary-dark mb-8 md:mb-10">
               Important Information
@@ -212,10 +214,10 @@ const Admissions = () => {
         <section className="pb-16 md:pb-20">
           <div className="container-custom">
             <div className="bg-primary-dark text-white p-8 md:p-12 lg:p-16 rounded-xl text-center">
-              <h2 className="text-2xl md:text-3xl lg:text-4xl font-heading font-bold mb-5 md:mb-6">
+              <h2 className="text-2xl md:text-3xl lg:text-4xl font-heading font-bold mb-5 md:mb-6 !text-white">
                 Ready to Apply?
               </h2>
-              <p className="text-base md:text-lg lg:text-xl mb-8 md:mb-10 max-w-3xl mx-auto">
+              <p className="text-base md:text-lg lg:text-xl mb-8 md:mb-10 max-w-3xl mx-auto !text-white">
                 Take the first step towards joining Harding Secondary School. 
                 Contact our admissions office for application forms and guidance.
               </p>

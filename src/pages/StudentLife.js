@@ -123,7 +123,7 @@ const StudentLife = () => {
         {/* Clubs and Societies */}
         <section className="section-padding bg-neutral-50">
           <div className="container-custom">
-            <h2 className="text-2xl md:text-3xl lg:text-4xl font-heading font-bold text-primary-dark mb-6 md:mb-8">
+            <h2 className="text-2xl md:text-3xl lg:text-4xl font-heading font-bold mb-6 md:mb-8" style={{ color: '#0D4E25' }}>
               Clubs & Societies
             </h2>
             <p className="text-base md:text-lg leading-relaxed text-neutral-500 mb-10 md:mb-12">
@@ -139,9 +139,9 @@ const StudentLife = () => {
                     className="bg-primary-dark text-white p-6 md:p-8 rounded-xl text-center transition-all duration-300 cursor-pointer hover:bg-primary hover:scale-105"
                   >
                     <div className="mb-4">
-                      <IconComponent className="text-3xl md:text-4xl mx-auto" />
+                      <IconComponent className="text-3xl md:text-4xl mx-auto !text-white" />
                     </div>
-                    <h4 className="text-sm md:text-base lg:text-lg font-medium">{club.name}</h4>
+                    <h4 className="text-sm md:text-base lg:text-lg font-medium !text-white">{club.name}</h4>
                   </div>
                 );
               })}
@@ -158,7 +158,7 @@ const StudentLife = () => {
             <div className="max-w-4xl mx-auto space-y-6 md:space-y-8">
               {events.map((event, index) => (
                 <div key={index} className="flex flex-col sm:flex-row items-start gap-4 sm:gap-6">
-                  <div className="bg-accent-neon text-white p-5 md:p-6 rounded-lg min-w-[100px] md:min-w-[120px] text-center flex-shrink-0">
+                  <div className="text-white p-5 md:p-6 rounded-lg min-w-[100px] md:min-w-[120px] text-center flex-shrink-0" style={{ backgroundColor: '#0D4E25' }}>
                     <div className="text-xs md:text-sm mb-1">{event.month}</div>
                     <div className="text-2xl md:text-3xl font-bold">{event.day}</div>
                   </div>
@@ -184,7 +184,7 @@ const StudentLife = () => {
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10">
               <div className="bg-white p-8 md:p-10 rounded-xl shadow-md">
-                <div className="w-14 h-14 md:w-16 md:h-16 bg-accent-neon rounded-full flex items-center justify-center mb-5 md:mb-6">
+                <div className="w-14 h-14 md:w-16 md:h-16 rounded-full flex items-center justify-center mb-5 md:mb-6" style={{ backgroundColor: '#0D4E25' }}>
                   <FaBullseye className="text-2xl md:text-3xl text-white" />
                 </div>
                 <h3 className="text-xl md:text-2xl font-semibold mb-4 text-primary-dark">
@@ -197,7 +197,7 @@ const StudentLife = () => {
               </div>
 
               <div className="bg-white p-8 md:p-10 rounded-xl shadow-md">
-                <div className="w-14 h-14 md:w-16 md:h-16 bg-accent-neon rounded-full flex items-center justify-center mb-5 md:mb-6">
+                <div className="w-14 h-14 md:w-16 md:h-16 rounded-full flex items-center justify-center mb-5 md:mb-6" style={{ backgroundColor: '#0D4E25' }}>
                   <FaBook className="text-2xl md:text-3xl text-white" />
                 </div>
                 <h3 className="text-xl md:text-2xl font-semibold mb-4 text-primary-dark">
@@ -210,7 +210,7 @@ const StudentLife = () => {
               </div>
 
               <div className="bg-white p-8 md:p-10 rounded-xl shadow-md">
-                <div className="w-14 h-14 md:w-16 md:h-16 bg-accent-neon rounded-full flex items-center justify-center mb-5 md:mb-6">
+                <div className="w-14 h-14 md:w-16 md:h-16 rounded-full flex items-center justify-center mb-5 md:mb-6" style={{ backgroundColor: '#0D4E25' }}>
                   <FaHospital className="text-2xl md:text-3xl text-white" />
                 </div>
                 <h3 className="text-xl md:text-2xl font-semibold mb-4 text-primary-dark">
@@ -229,10 +229,10 @@ const StudentLife = () => {
         <section className="section-padding">
           <div className="container-custom">
             <div className="bg-primary-dark text-white p-8 md:p-12 lg:p-16 rounded-xl text-center">
-              <h2 className="text-2xl md:text-3xl lg:text-4xl font-heading font-bold mb-5 md:mb-6">
+              <h2 className="text-2xl md:text-3xl lg:text-4xl font-heading font-bold mb-5 md:mb-6 !text-white">
                 Student Leadership
               </h2>
-              <p className="text-base md:text-lg lg:text-xl mb-10 md:mb-12 max-w-3xl mx-auto">
+              <p className="text-base md:text-lg lg:text-xl mb-10 md:mb-12 max-w-3xl mx-auto !text-white">
                 Develop leadership skills through our Student Representative Council, 
                 prefect system, and various leadership programs.
               </p>

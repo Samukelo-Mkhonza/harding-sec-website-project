@@ -28,7 +28,9 @@ const Gallery = () => {
       <SEO {...SEOConfigs.gallery} />
       <div>
         {/* Breadcrumbs */}
-        <Breadcrumbs />
+        <div className="bg-white">
+          <Breadcrumbs />
+        </div>
         
         {/* Hero Section */}
         <section className="bg-primary-dark text-white py-16 md:py-20 lg:py-24 text-center">
@@ -43,7 +45,7 @@ const Gallery = () => {
         </section>
 
         {/* Gallery Section */}
-        <section className="section-padding">
+        <section className="py-16 md:py-24 lg:py-28">
           <div className="container-custom">
             {/* Filter Buttons */}
             <div className="flex flex-wrap justify-center gap-3 mb-10 md:mb-12">

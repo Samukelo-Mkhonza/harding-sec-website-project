@@ -36,7 +36,7 @@
   },
   "jest": {
     "transformIgnorePatterns": [
-      "node_modules/(?!(fast-check)/)"
+      "node_modules/(?!(fast-check|react-router|react-router-dom)/)"
     ]
   },
   "browserslist": {
