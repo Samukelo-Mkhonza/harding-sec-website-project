@@ -1,10 +1,24 @@
 import React, { useState } from 'react';
 import { NavLink } from 'react-router-dom';
+import {
+  FaTimes, FaChevronDown, FaAngleRight, FaUserGraduate,
+  FaInfoCircle, FaGraduationCap, FaUserPlus, FaUsers, FaEnvelope, FaHome
+} from 'react-icons/fa';
+
+const navIconMap = {
+  'info-circle': FaInfoCircle,
+  'graduation-cap': FaGraduationCap,
+  'user-plus': FaUserPlus,
+  'users': FaUsers,
+  'envelope': FaEnvelope,
+  'home': FaHome,
+};
 
 const MobileMenu = ({ isOpen, onClose }) => {
   const [expandedMenu, setExpandedMenu] = useState(null);
 
   const navItems = [
+    { path: '/', label: 'Home', icon: 'home' },
     {
       label: 'About',
       path: '/about',
@@ -46,6 +60,11 @@ const MobileMenu = ({ isOpen, onClose }) => {
     setExpandedMenu(expandedMenu === index ? null : index);
   };
 
+  const getIcon = (iconName) => {
+    const IconComponent = navIconMap[iconName];
+    return IconComponent ? <IconComponent className="text-primary w-5" /> : null;
+  };
+
   return (
     <>
       {/* Overlay */}
@@ -80,7 +99,7 @@ const MobileMenu = ({ isOpen, onClose }) => {
             className="text-white hover:bg-white/10 p-2 rounded-lg transition-colors"
             aria-label="Close menu"
           >
-            <i className="fas fa-times text-xl"></i>
+            <FaTimes className="text-xl" />
           </button>
         </div>
 
@@ -95,14 +114,14 @@ const MobileMenu = ({ isOpen, onClose }) => {
                   className="w-full flex items-center justify-between px-6 py-4 text-neutral-700 hover:bg-neutral-50 transition-colors"
                 >
                   <div className="flex items-center gap-3">
-                    <i className={`fas fa-${item.icon} text-primary w-5`}></i>
+                    {getIcon(item.icon)}
                     <span className="font-medium">{item.label}</span>
                   </div>
-                  <i
-                    className={`fas fa-chevron-down text-sm transition-transform duration-200 ${
+                  <FaChevronDown
+                    className={`text-sm transition-transform duration-200 ${
                       expandedMenu === index ? 'rotate-180' : ''
                     }`}
-                  ></i>
+                  />
                 </button>
               ) : (
                 <NavLink
@@ -114,7 +133,7 @@ const MobileMenu = ({ isOpen, onClose }) => {
                     }`
                   }
                 >
-                  <i className={`fas fa-${item.icon} text-primary w-5`}></i>
+                  {getIcon(item.icon)}
                   <span className="font-medium">{item.label}</span>
                 </NavLink>
               )}
@@ -138,7 +157,7 @@ const MobileMenu = ({ isOpen, onClose }) => {
                       }
                     >
                       <div className="flex items-center gap-2">
-                        <i className="fas fa-angle-right text-xs"></i>
+                        <FaAngleRight className="text-xs" />
                         <span className="text-sm">{dropdownItem.label}</span>
                       </div>
                     </NavLink>
@@ -154,9 +173,9 @@ const MobileMenu = ({ isOpen, onClose }) => {
           <NavLink
             to="/admissions"
             onClick={onClose}
-            className="block w-full px-6 py-3 bg-secondary text-white font-semibold rounded-lg text-center hover:bg-secondary/90 transition-colors shadow-lg"
+            className="flex items-center justify-center gap-2 w-full px-6 py-3 bg-secondary text-white font-semibold rounded-lg text-center hover:bg-secondary/90 transition-colors shadow-lg"
           >
-            <i className="fas fa-user-graduate mr-2"></i>
+            <FaUserGraduate />
             Apply Now
           </NavLink>
         </div>
