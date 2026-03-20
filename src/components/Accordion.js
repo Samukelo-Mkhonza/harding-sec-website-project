@@ -22,6 +22,7 @@ const AccordionItem = ({ item, isExpanded, onToggle, animated }) => {
         onClick={onToggle}
         className="w-full flex items-center justify-between p-4 text-left hover:bg-neutral-50 transition-colors duration-200"
         aria-expanded={isExpanded}
+        aria-label={`${isExpanded ? 'Collapse' : 'Expand'} ${item.title}`}
       >
         <span className="font-semibold text-neutral-900">{item.title}</span>
         <motion.i

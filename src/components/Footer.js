@@ -229,25 +229,19 @@ const Footer = () => {
               © {currentYear} Harding Secondary School. All rights reserved.
             </p>
             <div className="flex flex-wrap gap-4 text-sm">
-              <Link
-                to="/privacy"
-                className="text-gray-700 hover:text-primary transition-colors"
-              >
+              <span className="text-gray-500">
                 Privacy Policy
-              </Link>
+              </span>
               <span className="text-gray-400">|</span>
-              <Link
-                to="/terms"
-                className="text-gray-700 hover:text-primary transition-colors"
-              >
+              <span className="text-gray-500">
                 Terms of Use
-              </Link>
+              </span>
               <span className="text-gray-400">|</span>
               <Link
-                to="/sitemap"
+                to="/contact"
                 className="text-gray-700 hover:text-primary transition-colors"
               >
-                Sitemap
+                Contact
               </Link>
             </div>
           </div>
