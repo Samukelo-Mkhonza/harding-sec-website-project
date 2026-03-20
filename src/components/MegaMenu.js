@@ -109,7 +109,7 @@ const MegaMenu = ({ items = [], columns = 3, showIcons = true }) => {
                 className="absolute top-full left-0 mt-2 bg-white rounded-xl shadow-2xl overflow-hidden z-50"
                 style={{ minWidth: '600px' }}
               >
-                <div className={`grid grid-cols-${columns} gap-6 p-6`}>
+                <div className={`grid gap-6 p-6`} style={{ gridTemplateColumns: `repeat(${columns}, minmax(0, 1fr))` }}>
                   {item.columns && item.columns.map((column, colIndex) => (
                     <div key={colIndex} className="space-y-4">
                       {/* Column Header */}

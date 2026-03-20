@@ -11,6 +11,9 @@ const TabbedContent = ({ tabs = [], defaultTab = 0, className = '' }) => {
           <button
             key={index}
             onClick={() => setActiveTab(index)}
+            role="tab"
+            aria-selected={activeTab === index}
+            aria-label={tab.label}
             className={`px-6 py-3 font-semibold transition-colors duration-200 relative whitespace-nowrap ${
               activeTab === index
                 ? 'text-primary'
