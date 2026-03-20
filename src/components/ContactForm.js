@@ -51,7 +51,9 @@ const ContactForm = () => {
 
       <form onSubmit={handleSubmit} className="space-y-5 md:space-y-6">
         <div>
+          <label htmlFor="contact-name" className="sr-only">Your Name</label>
           <input
+            id="contact-name"
             type="text"
             name="name"
             placeholder="Your Name *"
@@ -63,7 +65,9 @@ const ContactForm = () => {
         </div>
 
         <div>
+          <label htmlFor="contact-email" className="sr-only">Your Email</label>
           <input
+            id="contact-email"
             type="email"
             name="email"
             placeholder="Your Email *"
@@ -75,7 +79,9 @@ const ContactForm = () => {
         </div>
 
         <div>
+          <label htmlFor="contact-phone" className="sr-only">Your Phone Number</label>
           <input
+            id="contact-phone"
             type="tel"
             name="phone"
             placeholder="Your Phone Number"
@@ -86,7 +92,9 @@ const ContactForm = () => {
         </div>
 
         <div>
+          <label htmlFor="contact-subject" className="sr-only">Subject</label>
           <input
+            id="contact-subject"
             type="text"
             name="subject"
             placeholder="Subject *"
@@ -98,7 +106,9 @@ const ContactForm = () => {
         </div>
 
         <div>
+          <label htmlFor="contact-message" className="sr-only">Your Message</label>
           <textarea
+            id="contact-message"
             name="message"
             placeholder="Your Message *"
             value={formData.message}

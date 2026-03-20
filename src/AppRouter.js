@@ -1,5 +1,5 @@
 import React, { Suspense, lazy } from 'react';
-import { Routes, Route, Navigate } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import { SkeletonLoader } from './components';
 import Header from './components/Header';
 import Footer from './components/Footer';
@@ -14,6 +14,7 @@ const StudentLife = lazy(() => import('./pages/StudentLife'));
 const Gallery = lazy(() => import('./pages/Gallery'));
 const Contact = lazy(() => import('./pages/Contact'));
 const PastPapersPortal = lazy(() => import('./pages/PastPapersPortal'));
+const NotFound = lazy(() => import('./pages/NotFound'));
 
 /**
  * Loading fallback component
@@ -39,9 +40,16 @@ const AppRouter = () => {
   return (
     <>
       <ScrollToTop />
+      {/* Skip to content link for accessibility */}
+      <a
+        href="#main-content"
+        className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100] focus:px-6 focus:py-3 focus:bg-primary-dark focus:text-white focus:rounded-lg focus:shadow-lg focus:outline-none"
+      >
+        Skip to main content
+      </a>
       <div className="flex flex-col min-h-screen">
         <Header />
-        <main className="flex-grow">
+        <main id="main-content" className="flex-grow">
           <Suspense fallback={<PageLoader />}>
             <Routes>
               <Route path="/" element={<Home />} />
@@ -53,8 +61,8 @@ const AppRouter = () => {
               <Route path="/contact" element={<Contact />} />
               <Route path="/past-papers" element={<PastPapersPortal />} />
               
-              {/* 404 redirect */}
-              <Route path="*" element={<Navigate to="/" replace />} />
+              {/* 404 page */}
+              <Route path="*" element={<NotFound />} />
             </Routes>
           </Suspense>
         </main>

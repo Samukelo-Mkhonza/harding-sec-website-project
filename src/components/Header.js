@@ -15,9 +15,6 @@ const Header = () => {
   // Use smart scroll detection hook
   const { scrollY, scrollDirection, isScrolled } = useScrollDirection(SCROLL_THRESHOLDS.HEADER_MINIMIZE);
   
-  // Determine if header should be minimized
-  const isMinimized = isScrolled && scrollDirection === 'down' && scrollY > SCROLL_THRESHOLDS.HEADER_MINIMIZE;
-
   useEffect(() => {
     setIsMobileMenuOpen(false);
   }, [location]);

@@ -79,17 +79,17 @@ const Hero = ({
         <div className="container-custom px-4 md:px-6">
           <div className="max-w-4xl mx-auto text-center">
             {/* Title with Animation */}
-            <h1 className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-heading font-bold !text-white mb-4 md:mb-8 animate-fade-in text-shadow-strong leading-tight">
+            <h1 className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-heading font-bold !text-white mb-4 md:mb-8 animate-fade-in text-shadow-strong leading-tight" style={{ animationFillMode: 'both' }}>
               {title}
             </h1>
 
             {/* Subtitle */}
-            <p className="text-base sm:text-lg md:text-2xl lg:text-3xl !text-white mb-8 md:mb-10 lg:mb-14 font-light animate-slide-up text-shadow-strong px-4 md:px-0">
+            <p className="text-base sm:text-lg md:text-2xl lg:text-3xl !text-white mb-8 md:mb-10 lg:mb-14 font-light animate-slide-up text-shadow-strong px-4 md:px-0" style={{ animationDelay: '200ms', animationFillMode: 'both' }}>
               {subtitle}
             </p>
 
             {/* CTA Buttons */}
-            <div className="flex flex-col sm:flex-row gap-4 md:gap-6 justify-center items-center animate-slide-up mb-10 md:mb-12">
+            <div className="flex flex-col sm:flex-row gap-4 md:gap-6 justify-center items-center animate-slide-up mb-10 md:mb-12" style={{ animationDelay: '400ms', animationFillMode: 'both' }}>
               <Link
                 to={primaryCTA.link}
                 className="btn-primary group w-full sm:w-auto"
@@ -113,7 +113,7 @@ const Hero = ({
             </div>
 
             {/* Features/Quick Info */}
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 md:gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 md:gap-6 animate-slide-up" style={{ animationDelay: '600ms', animationFillMode: 'both' }}>
               <div className="bg-white/10 backdrop-blur-md rounded-xl p-6 md:p-8 border border-white/20 transform hover:scale-105 transition-all duration-300 hover:bg-white/20 hover:border-accent-neon/50">
                 <div className="mb-3 md:mb-4">
                   <FaAward className="text-3xl md:text-4xl lg:text-5xl text-accent-neon mx-auto" />
@@ -183,13 +183,16 @@ const Hero = ({
 
       {/* Scroll Down Indicator */}
       <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10 animate-bounce-soft hidden md:block">
-        <a
-          href="#content"
-          className="text-white/80 hover:text-white transition-colors"
+        <button
+          onClick={() => {
+            const el = document.getElementById('content');
+            if (el) el.scrollIntoView({ behavior: 'smooth' });
+          }}
+          className="text-white/80 hover:text-white transition-colors bg-transparent border-none cursor-pointer"
           aria-label="Scroll down"
         >
           <FaChevronDown className="text-2xl" />
-        </a>
+        </button>
       </div>
     </section>
   );

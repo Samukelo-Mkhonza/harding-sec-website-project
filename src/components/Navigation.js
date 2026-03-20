@@ -6,6 +6,7 @@ const Navigation = ({ isScrolled = false }) => {
   const [openDropdown, setOpenDropdown] = useState(null);
 
   const navItems = [
+    { path: '/', label: 'Home' },
     {
       label: 'About',
       path: '/about',
@@ -48,6 +49,16 @@ const Navigation = ({ isScrolled = false }) => {
     setOpenDropdown(null);
   };
 
+  const handleKeyDown = (e, index) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      setOpenDropdown(openDropdown === index ? null : index);
+    }
+    if (e.key === 'Escape') {
+      setOpenDropdown(null);
+    }
+  };
+
   return (
     <nav className="hidden lg:flex items-center justify-center flex-1">
       <div className="flex items-center gap-2">
@@ -57,6 +68,7 @@ const Navigation = ({ isScrolled = false }) => {
             className="relative"
             onMouseEnter={() => handleMouseEnter(index)}
             onMouseLeave={handleMouseLeave}
+            onKeyDown={(e) => handleKeyDown(e, index)}
           >
             {/* Main Nav Link */}
             <NavLink

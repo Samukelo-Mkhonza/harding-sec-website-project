@@ -1,10 +1,12 @@
 // pages/StudentLife.js
-import { 
-  FaComments, FaFlask, FaTheaterMasks, FaMusic, FaSeedling, FaCamera, 
-  FaChess, FaFirstAid, FaBullseye, FaBook, FaHospital 
+import {
+  FaComments, FaFlask, FaTheaterMasks, FaMusic, FaSeedling, FaCamera,
+  FaChess, FaFirstAid, FaBullseye, FaBook, FaHospital
 } from 'react-icons/fa';
 import { SEO, SEOConfigs, Breadcrumbs } from '../components';
-import { ACTIVITY_IMAGES } from '../utils/imageConstants';
+import AnimateOnScroll from '../components/AnimateOnScroll';
+import CounterAnimation from '../components/CounterAnimation';
+import { ACTIVITY_IMAGES, PLACEHOLDER_IMAGES } from '../utils/imageConstants';
 
 const StudentLife = () => {
 
@@ -64,13 +66,19 @@ const StudentLife = () => {
     }
   ];
 
+  const handleImageError = (e) => {
+    e.target.src = PLACEHOLDER_IMAGES.default;
+  };
+
   return (
     <>
       <SEO {...SEOConfigs.studentLife} />
       <div>
         {/* Breadcrumbs */}
-        <Breadcrumbs />
-        
+        <div className="bg-white">
+          <Breadcrumbs />
+        </div>
+
         {/* Hero Section */}
         <section className="bg-primary-dark text-white py-16 md:py-20 lg:py-24 text-center">
           <div className="container-custom">
@@ -84,65 +92,73 @@ const StudentLife = () => {
         </section>
 
         {/* Activities Overview */}
-        <section className="section-padding">
+        <section id="sports" className="py-16 md:py-24 lg:py-28">
           <div className="container-custom">
-            <h2 className="text-2xl md:text-3xl lg:text-4xl font-heading font-bold text-primary-dark mb-6 md:mb-8">
-              A Vibrant School Community
-            </h2>
-            <p className="text-base md:text-lg leading-relaxed text-neutral-500 mb-10 md:mb-12">
-              At Harding Secondary School, we believe in developing well-rounded individuals. 
-              Our diverse range of extracurricular activities ensures every learner finds their passion 
-              and develops skills beyond academics.
-            </p>
+            <AnimateOnScroll animation="fade-in">
+              <h2 className="text-2xl md:text-3xl lg:text-4xl font-heading font-bold text-primary-dark mb-6 md:mb-8">
+                A Vibrant School Community
+              </h2>
+              <p className="text-base md:text-lg leading-relaxed text-neutral-500 mb-10 md:mb-12">
+                At Harding Secondary School, we believe in developing well-rounded individuals.
+                Our diverse range of extracurricular activities ensures every learner finds their passion
+                and develops skills beyond academics.
+              </p>
+            </AnimateOnScroll>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10">
               {activitiesData.map((activity, index) => (
-                <div 
-                  key={index}
-                  className="bg-white rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-2"
-                >
-                  <img 
-                    src={activity.image} 
-                    alt={activity.title} 
-                    className="w-full h-48 md:h-56 object-cover"
-                  />
-                  <div className="p-6 md:p-8">
-                    <h3 className="text-xl md:text-2xl font-semibold mb-4 text-primary-dark">
-                      {activity.title}
-                    </h3>
-                    <p className="text-neutral-500 leading-relaxed">
-                      {activity.description}
-                    </p>
+                <AnimateOnScroll key={activity.title} animation="slide-up" delay={index * 150}>
+                  <div
+                    className="bg-white rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-2"
+                  >
+                    <img
+                      src={activity.image}
+                      alt={activity.title}
+                      className="w-full h-48 md:h-56 object-cover"
+                      loading="lazy"
+                      onError={handleImageError}
+                    />
+                    <div className="p-6 md:p-8">
+                      <h3 className="text-xl md:text-2xl font-semibold mb-4 text-primary-dark">
+                        {activity.title}
+                      </h3>
+                      <p className="text-neutral-500 leading-relaxed">
+                        {activity.description}
+                      </p>
+                    </div>
                   </div>
-                </div>
+                </AnimateOnScroll>
               ))}
             </div>
           </div>
         </section>
 
         {/* Clubs and Societies */}
-        <section className="section-padding bg-neutral-50">
+        <section id="clubs" className="py-16 md:py-24 lg:py-28 bg-neutral-50">
           <div className="container-custom">
-            <h2 className="text-2xl md:text-3xl lg:text-4xl font-heading font-bold mb-6 md:mb-8" style={{ color: '#0D4E25' }}>
-              Clubs & Societies
-            </h2>
-            <p className="text-base md:text-lg leading-relaxed text-neutral-500 mb-10 md:mb-12">
-              Join our vibrant clubs and societies to explore your interests and develop new skills.
-            </p>
-            
+            <AnimateOnScroll animation="fade-in">
+              <h2 className="text-2xl md:text-3xl lg:text-4xl font-heading font-bold mb-6 md:mb-8" style={{ color: '#0D4E25' }}>
+                Clubs & Societies
+              </h2>
+              <p className="text-base md:text-lg leading-relaxed text-neutral-500 mb-10 md:mb-12">
+                Join our vibrant clubs and societies to explore your interests and develop new skills.
+              </p>
+            </AnimateOnScroll>
+
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-4 gap-4 md:gap-5">
               {clubs.map((club, index) => {
                 const IconComponent = club.Icon;
                 return (
-                  <div 
-                    key={index}
-                    className="bg-primary-dark text-white p-6 md:p-8 rounded-xl text-center transition-all duration-300 cursor-pointer hover:bg-primary hover:scale-105"
-                  >
-                    <div className="mb-4">
-                      <IconComponent className="text-3xl md:text-4xl mx-auto !text-white" />
+                  <AnimateOnScroll key={club.name} animation="zoom-in" delay={index * 80}>
+                    <div
+                      className="bg-primary-dark text-white p-6 md:p-8 rounded-xl text-center transition-all duration-300 cursor-pointer hover:bg-primary hover:scale-105 hover:shadow-xl"
+                    >
+                      <div className="mb-4">
+                        <IconComponent className="text-3xl md:text-4xl mx-auto !text-white" />
+                      </div>
+                      <h4 className="text-sm md:text-base lg:text-lg font-medium !text-white">{club.name}</h4>
                     </div>
-                    <h4 className="text-sm md:text-base lg:text-lg font-medium !text-white">{club.name}</h4>
-                  </div>
+                  </AnimateOnScroll>
                 );
               })}
             </div>
@@ -150,107 +166,96 @@ const StudentLife = () => {
         </section>
 
         {/* Annual Events */}
-        <section className="section-padding">
+        <section id="events" className="py-16 md:py-24 lg:py-28">
           <div className="container-custom">
-            <h2 className="text-2xl md:text-3xl lg:text-4xl font-heading font-bold text-primary-dark mb-10 md:mb-12 text-center">
-              Annual Events Calendar
-            </h2>
+            <AnimateOnScroll animation="fade-in">
+              <h2 className="text-2xl md:text-3xl lg:text-4xl font-heading font-bold text-primary-dark mb-10 md:mb-12 text-center">
+                Annual Events Calendar
+              </h2>
+            </AnimateOnScroll>
             <div className="max-w-4xl mx-auto space-y-6 md:space-y-8">
               {events.map((event, index) => (
-                <div key={index} className="flex flex-col sm:flex-row items-start gap-4 sm:gap-6">
-                  <div className="text-white p-5 md:p-6 rounded-lg min-w-[100px] md:min-w-[120px] text-center flex-shrink-0" style={{ backgroundColor: '#0D4E25' }}>
-                    <div className="text-xs md:text-sm mb-1">{event.month}</div>
-                    <div className="text-2xl md:text-3xl font-bold">{event.day}</div>
+                <AnimateOnScroll key={event.title} animation="slide-right" delay={index * 100}>
+                  <div className="flex flex-col sm:flex-row items-start gap-4 sm:gap-6">
+                    <div className="text-white p-5 md:p-6 rounded-lg min-w-[100px] md:min-w-[120px] text-center flex-shrink-0" style={{ backgroundColor: '#0D4E25' }}>
+                      <div className="text-xs md:text-sm mb-1">{event.month}</div>
+                      <div className="text-2xl md:text-3xl font-bold">{event.day}</div>
+                    </div>
+                    <div className="bg-neutral-50 p-6 md:p-8 rounded-xl flex-1 w-full transition-all duration-300 hover:shadow-md">
+                      <h3 className="text-lg md:text-xl lg:text-2xl font-semibold mb-2 md:mb-3 text-primary-dark">
+                        {event.title}
+                      </h3>
+                      <p className="text-neutral-500 leading-relaxed">
+                        {event.description}
+                      </p>
+                    </div>
                   </div>
-                  <div className="bg-neutral-50 p-6 md:p-8 rounded-xl flex-1 w-full">
-                    <h3 className="text-lg md:text-xl lg:text-2xl font-semibold mb-2 md:mb-3 text-primary-dark">
-                      {event.title}
-                    </h3>
-                    <p className="text-neutral-500 leading-relaxed">
-                      {event.description}
-                    </p>
-                  </div>
-                </div>
+                </AnimateOnScroll>
               ))}
             </div>
           </div>
         </section>
 
         {/* Student Support */}
-        <section className="section-padding bg-neutral-50">
+        <section className="py-16 md:py-24 lg:py-28 bg-neutral-50">
           <div className="container-custom">
-            <h2 className="text-2xl md:text-3xl lg:text-4xl font-heading font-bold text-primary-dark mb-10 md:mb-12">
-              Student Support Services
-            </h2>
+            <AnimateOnScroll animation="fade-in">
+              <h2 className="text-2xl md:text-3xl lg:text-4xl font-heading font-bold text-primary-dark mb-10 md:mb-12">
+                Student Support Services
+              </h2>
+            </AnimateOnScroll>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10">
-              <div className="bg-white p-8 md:p-10 rounded-xl shadow-md">
-                <div className="w-14 h-14 md:w-16 md:h-16 rounded-full flex items-center justify-center mb-5 md:mb-6" style={{ backgroundColor: '#0D4E25' }}>
-                  <FaBullseye className="text-2xl md:text-3xl text-white" />
-                </div>
-                <h3 className="text-xl md:text-2xl font-semibold mb-4 text-primary-dark">
-                  Counseling Services
-                </h3>
-                <p className="text-neutral-500 leading-relaxed">
-                  Professional guidance counselors available to support students' emotional 
-                  well-being and academic planning.
-                </p>
-              </div>
-
-              <div className="bg-white p-8 md:p-10 rounded-xl shadow-md">
-                <div className="w-14 h-14 md:w-16 md:h-16 rounded-full flex items-center justify-center mb-5 md:mb-6" style={{ backgroundColor: '#0D4E25' }}>
-                  <FaBook className="text-2xl md:text-3xl text-white" />
-                </div>
-                <h3 className="text-xl md:text-2xl font-semibold mb-4 text-primary-dark">
-                  Peer Tutoring
-                </h3>
-                <p className="text-neutral-500 leading-relaxed">
-                  Senior students mentor and tutor junior students, fostering a 
-                  supportive learning community.
-                </p>
-              </div>
-
-              <div className="bg-white p-8 md:p-10 rounded-xl shadow-md">
-                <div className="w-14 h-14 md:w-16 md:h-16 rounded-full flex items-center justify-center mb-5 md:mb-6" style={{ backgroundColor: '#0D4E25' }}>
-                  <FaHospital className="text-2xl md:text-3xl text-white" />
-                </div>
-                <h3 className="text-xl md:text-2xl font-semibold mb-4 text-primary-dark">
-                  Health & Wellness
-                </h3>
-                <p className="text-neutral-500 leading-relaxed">
-                  On-site health services and wellness programs promoting physical 
-                  and mental health.
-                </p>
-              </div>
+              {[
+                { Icon: FaBullseye, title: 'Counseling Services', desc: "Professional guidance counselors available to support students' emotional well-being and academic planning." },
+                { Icon: FaBook, title: 'Peer Tutoring', desc: 'Senior students mentor and tutor junior students, fostering a supportive learning community.' },
+                { Icon: FaHospital, title: 'Health & Wellness', desc: 'On-site health services and wellness programs promoting physical and mental health.' },
+              ].map((service, index) => (
+                <AnimateOnScroll key={service.title} animation="slide-up" delay={index * 100}>
+                  <div className="bg-white p-8 md:p-10 rounded-xl shadow-md transition-all duration-300 hover:shadow-xl hover:-translate-y-2">
+                    <div className="w-14 h-14 md:w-16 md:h-16 rounded-full flex items-center justify-center mb-5 md:mb-6" style={{ backgroundColor: '#0D4E25' }}>
+                      <service.Icon className="text-2xl md:text-3xl text-white" />
+                    </div>
+                    <h3 className="text-xl md:text-2xl font-semibold mb-4 text-primary-dark">
+                      {service.title}
+                    </h3>
+                    <p className="text-neutral-500 leading-relaxed">
+                      {service.desc}
+                    </p>
+                  </div>
+                </AnimateOnScroll>
+              ))}
             </div>
           </div>
         </section>
 
         {/* Leadership Opportunities */}
-        <section className="section-padding">
+        <section className="py-16 md:py-24 lg:py-28">
           <div className="container-custom">
-            <div className="bg-primary-dark text-white p-8 md:p-12 lg:p-16 rounded-xl text-center">
-              <h2 className="text-2xl md:text-3xl lg:text-4xl font-heading font-bold mb-5 md:mb-6 !text-white">
-                Student Leadership
-              </h2>
-              <p className="text-base md:text-lg lg:text-xl mb-10 md:mb-12 max-w-3xl mx-auto !text-white">
-                Develop leadership skills through our Student Representative Council, 
-                prefect system, and various leadership programs.
-              </p>
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 md:gap-8">
-                <div>
-                  <div className="text-4xl md:text-5xl font-bold mb-2 md:mb-3">25</div>
-                  <p className="text-base md:text-lg">Prefects</p>
-                </div>
-                <div>
-                  <div className="text-4xl md:text-5xl font-bold mb-2 md:mb-3">15</div>
-                  <p className="text-base md:text-lg">SRC Members</p>
-                </div>
-                <div>
-                  <div className="text-4xl md:text-5xl font-bold mb-2 md:mb-3">30+</div>
-                  <p className="text-base md:text-lg">Club Leaders</p>
+            <AnimateOnScroll animation="zoom-in">
+              <div className="bg-primary-dark text-white p-8 md:p-12 lg:p-16 rounded-xl text-center">
+                <h2 className="text-2xl md:text-3xl lg:text-4xl font-heading font-bold mb-5 md:mb-6 !text-white">
+                  Student Leadership
+                </h2>
+                <p className="text-base md:text-lg lg:text-xl mb-10 md:mb-12 max-w-3xl mx-auto !text-white">
+                  Develop leadership skills through our Student Representative Council,
+                  prefect system, and various leadership programs.
+                </p>
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 md:gap-8">
+                  {[
+                    { end: 25, suffix: '', label: 'Prefects' },
+                    { end: 15, suffix: '', label: 'SRC Members' },
+                    { end: 30, suffix: '+', label: 'Club Leaders' },
+                  ].map((stat) => (
+                    <div key={stat.label}>
+                      <div className="text-4xl md:text-5xl font-bold mb-2 md:mb-3">
+                        <CounterAnimation end={stat.end} suffix={stat.suffix} />
+                      </div>
+                      <p className="text-base md:text-lg">{stat.label}</p>
+                    </div>
+                  ))}
                 </div>
               </div>
-            </div>
+            </AnimateOnScroll>
           </div>
         </section>
       </div>
