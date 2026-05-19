@@ -12,8 +12,13 @@ const SearchOverlay = ({ isOpen, onClose }) => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (isOpen && inputRef.current) {
-      inputRef.current.focus();
+    if (isOpen) {
+      if (inputRef.current) {
+        inputRef.current.focus();
+      }
+      setQuery('');
+      setResults([]);
+      setSelectedIndex(0);
     }
   }, [isOpen]);
 
@@ -25,10 +30,12 @@ const SearchOverlay = ({ isOpen, onClose }) => {
       return () => clearTimeout(timer);
     } else {
       setResults([]);
+      setSelectedIndex(0);
     }
   }, [query]);
 
   const performSearch = (searchQuery) => {
+    setSelectedIndex(0);
     const mockResults = [
       { id: '1', title: 'About Us', excerpt: 'Learn about our school', category: 'Pages', url: '/about' },
       { id: '2', title: 'Academics', excerpt: 'Our academic programs', category: 'Pages', url: '/academics' },
@@ -61,7 +68,8 @@ const SearchOverlay = ({ isOpen, onClose }) => {
   };
 
   const highlightMatch = (text, query) => {
-    const parts = text.split(new RegExp(`(${query})`, 'gi'));
+    const escaped = query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    const parts = text.split(new RegExp(`(${escaped})`, 'gi'));
     return parts.map((part, i) => 
       part.toLowerCase() === query.toLowerCase() 
         ? <mark key={i} className="bg-yellow-200">{part}</mark>

@@ -126,6 +126,7 @@ const MobileMenu = ({ isOpen, onClose }) => {
               ) : (
                 <NavLink
                   to={item.path}
+                  end={item.path === '/'}
                   onClick={onClose}
                   className={({ isActive }) =>
                     `flex items-center gap-3 px-6 py-4 text-neutral-700 hover:bg-neutral-50 transition-colors ${

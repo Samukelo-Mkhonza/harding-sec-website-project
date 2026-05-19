@@ -73,6 +73,7 @@ const Navigation = ({ isScrolled = false }) => {
             {/* Main Nav Link */}
             <NavLink
               to={item.path}
+              end={item.path === '/'}
               className={({ isActive }) =>
                 `flex items-center gap-1.5 px-5 py-2 text-base font-medium text-neutral-700 hover:text-neutral-900 hover:bg-neutral-50 rounded-lg transition-all duration-200 ${
                   isActive ? 'text-primary bg-primary/5' : ''

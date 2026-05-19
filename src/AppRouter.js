@@ -49,7 +49,7 @@ const AppRouter = () => {
       </a>
       <div className="flex flex-col min-h-screen">
         <Header />
-        <main id="main-content" className="flex-grow">
+        <main id="main-content" className="flex-grow pt-[116px]">
           <Suspense fallback={<PageLoader />}>
             <Routes>
               <Route path="/" element={<Home />} />
