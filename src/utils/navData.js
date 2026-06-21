@@ -58,8 +58,21 @@ export const NAV_DATA = [
         links: [
           { path: '/student-life', label: 'Sports Programs' },
           { path: '/student-life', label: 'Cultural Activities' },
-          { path: '/student-life', label: 'Clubs & Societies' },
+          { path: '/student-life#clubs', label: 'Clubs & Societies' },
           { path: '/gallery', label: 'Photo Gallery' },
+        ],
+      },
+      {
+        heading: 'Clubs & Societies',
+        links: [
+          { path: '/student-life/clubs/debate-society', label: 'Debate Society' },
+          { path: '/student-life/clubs/science-club', label: 'Science Club' },
+          { path: '/student-life/clubs/drama-club', label: 'Drama Club' },
+          { path: '/student-life/clubs/music-society', label: 'Music Society' },
+          { path: '/student-life/clubs/environmental-club', label: 'Environmental Club' },
+          { path: '/student-life/clubs/photography-club', label: 'Photography Club' },
+          { path: '/student-life/clubs/chess-club', label: 'Chess Club' },
+          { path: '/student-life/clubs/first-aid-club', label: 'First Aid Club' },
         ],
       },
       {

@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import {
   FaComments, FaFlask, FaTheaterMasks, FaMusic, FaSeedling, FaCamera,
   FaChess, FaFirstAid, FaBullseye, FaBook, FaHospital, FaArrowRight
@@ -29,14 +30,14 @@ const ACTIVITIES = [
 ];
 
 const CLUBS = [
-  { name: 'Debate Society', Icon: FaComments },
-  { name: 'Science Club', Icon: FaFlask },
-  { name: 'Drama Club', Icon: FaTheaterMasks },
-  { name: 'Music Society', Icon: FaMusic },
-  { name: 'Environmental Club', Icon: FaSeedling },
-  { name: 'Photography Club', Icon: FaCamera },
-  { name: 'Chess Club', Icon: FaChess },
-  { name: 'First Aid Club', Icon: FaFirstAid },
+  { name: 'Debate Society', Icon: FaComments, slug: 'debate-society' },
+  { name: 'Science Club', Icon: FaFlask, slug: 'science-club' },
+  { name: 'Drama Club', Icon: FaTheaterMasks, slug: 'drama-club' },
+  { name: 'Music Society', Icon: FaMusic, slug: 'music-society' },
+  { name: 'Environmental Club', Icon: FaSeedling, slug: 'environmental-club' },
+  { name: 'Photography Club', Icon: FaCamera, slug: 'photography-club' },
+  { name: 'Chess Club', Icon: FaChess, slug: 'chess-club' },
+  { name: 'First Aid Club', Icon: FaFirstAid, slug: 'first-aid-club' },
 ];
 
 const EVENTS = [
@@ -160,14 +161,17 @@ const StudentLife = () => {
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
               {CLUBS.map((club, index) => (
                 <AnimateOnScroll key={club.name} animation="zoom-in" delay={index * 60}>
-                  <div className="group flex flex-col items-center text-center p-6 bg-white rounded-2xl shadow-sm border border-neutral-200 hover:border-primary hover:shadow-md transition-all duration-300 hover:-translate-y-1 cursor-pointer">
+                  <Link
+                    to={`/student-life/clubs/${club.slug}`}
+                    className="group flex flex-col items-center text-center p-6 bg-white rounded-2xl shadow-sm border border-neutral-200 hover:border-primary hover:shadow-md transition-all duration-300 hover:-translate-y-1 cursor-pointer"
+                  >
                     <div className="w-14 h-14 bg-primary/10 group-hover:bg-primary rounded-full flex items-center justify-center mb-4 transition-colors duration-300">
                       <club.Icon className="text-xl text-primary group-hover:text-white transition-colors duration-300" />
                     </div>
                     <h4 className="text-sm font-semibold text-neutral-700 group-hover:text-primary transition-colors duration-200">
                       {club.name}
                     </h4>
-                  </div>
+                  </Link>
                 </AnimateOnScroll>
               ))}
             </div>

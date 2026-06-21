@@ -14,6 +14,15 @@ const StudentLife = lazy(() => import('./pages/StudentLife'));
 const Gallery = lazy(() => import('./pages/Gallery'));
 const Contact = lazy(() => import('./pages/Contact'));
 const PastPapersPortal = lazy(() => import('./pages/PastPapersPortal'));
+const ClubPage = lazy(() => import('./pages/ClubPage'));
+const ParentPortal = lazy(() => import('./pages/ParentPortal'));
+const StudentPortal = lazy(() => import('./pages/StudentPortal'));
+const StaffPortal = lazy(() => import('./pages/StaffPortal'));
+const SchoolCalendar = lazy(() => import('./pages/SchoolCalendar'));
+const Policies = lazy(() => import('./pages/Policies'));
+const CareerOpportunities = lazy(() => import('./pages/CareerOpportunities'));
+const PrivacyPolicy = lazy(() => import('./pages/PrivacyPolicy'));
+const TermsOfUse = lazy(() => import('./pages/TermsOfUse'));
 const NotFound = lazy(() => import('./pages/NotFound'));
 
 /**
@@ -57,10 +66,19 @@ const AppRouter = () => {
               <Route path="/academics" element={<Academics />} />
               <Route path="/admissions" element={<Admissions />} />
               <Route path="/student-life" element={<StudentLife />} />
+              <Route path="/student-life/clubs/:clubSlug" element={<ClubPage />} />
               <Route path="/gallery" element={<Gallery />} />
               <Route path="/contact" element={<Contact />} />
               <Route path="/past-papers" element={<PastPapersPortal />} />
-              
+              <Route path="/parent-portal" element={<ParentPortal />} />
+              <Route path="/student-portal" element={<StudentPortal />} />
+              <Route path="/staff-portal" element={<StaffPortal />} />
+              <Route path="/school-calendar" element={<SchoolCalendar />} />
+              <Route path="/policies" element={<Policies />} />
+              <Route path="/careers" element={<CareerOpportunities />} />
+              <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+              <Route path="/terms-of-use" element={<TermsOfUse />} />
+
               {/* 404 page */}
               <Route path="*" element={<NotFound />} />
             </Routes>

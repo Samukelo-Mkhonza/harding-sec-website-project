@@ -19,12 +19,12 @@ const QUICK_LINKS = [
 
 const RESOURCES = [
   { path: '/past-papers', label: 'Past Papers Portal' },
-  { path: '#', label: 'Parent Portal' },
-  { path: '#', label: 'Student Portal' },
-  { path: '#', label: 'Staff Portal' },
-  { path: '#', label: 'School Calendar' },
-  { path: '#', label: 'Policies & Documents' },
-  { path: '#', label: 'Career Opportunities' },
+  { path: '/parent-portal', label: 'Parent Portal' },
+  { path: '/student-portal', label: 'Student Portal' },
+  { path: '/staff-portal', label: 'Staff Portal' },
+  { path: '/school-calendar', label: 'School Calendar' },
+  { path: '/policies', label: 'Policies & Documents' },
+  { path: '/careers', label: 'Career Opportunities' },
 ];
 
 const SOCIALS = [
@@ -242,13 +242,19 @@ const Footer = () => {
           <div className="flex flex-col sm:flex-row justify-between items-center gap-3 text-xs text-white/45">
             <p>© {currentYear} Harding Secondary School. All rights reserved.</p>
             <div className="flex items-center gap-5">
-              <span className="hover:text-white/70 cursor-pointer transition-colors duration-200">
+              <Link
+                to="/privacy-policy"
+                className="hover:text-white/70 transition-colors duration-200"
+              >
                 Privacy Policy
-              </span>
+              </Link>
               <span className="text-white/20">|</span>
-              <span className="hover:text-white/70 cursor-pointer transition-colors duration-200">
+              <Link
+                to="/terms-of-use"
+                className="hover:text-white/70 transition-colors duration-200"
+              >
                 Terms of Use
-              </span>
+              </Link>
               <span className="text-white/20">|</span>
               <Link
                 to="/contact"
