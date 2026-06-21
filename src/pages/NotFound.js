@@ -81,17 +81,17 @@ const NotFound = () => {
           </div>
 
           {/* Help Text */}
-          <div className="bg-blue-50 border-2 border-blue-200 rounded-lg p-6">
+          <div className="bg-primary/5 border-2 border-primary/20 rounded-2xl p-6">
             <div className="flex items-start gap-4">
-              <FaInfoCircle className="text-blue-500 text-2xl flex-shrink-0 mt-1" />
+              <FaInfoCircle className="text-primary text-2xl flex-shrink-0 mt-1" />
               <div className="text-left">
-                <h4 className="font-semibold text-blue-900 mb-2">Need Help?</h4>
-                <p className="text-blue-700 text-sm mb-3">
+                <h4 className="font-semibold text-primary-dark mb-2">Need Help?</h4>
+                <p className="text-neutral-600 text-sm mb-3">
                   If you believe this is an error or you need assistance finding specific information, please contact us.
                 </p>
                 <Link
                   to="/contact"
-                  className="inline-flex items-center gap-2 text-blue-600 hover:text-blue-800 font-semibold text-sm"
+                  className="inline-flex items-center gap-2 text-primary hover:text-primary-dark font-semibold text-sm"
                 >
                   Contact Support
                   <FaArrowRight className="text-sm" />

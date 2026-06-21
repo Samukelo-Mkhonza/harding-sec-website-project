@@ -1,99 +1,118 @@
-// pages/Contact.js
-import { FaMapMarkerAlt, FaPhone, FaEnvelope, FaSchool } from 'react-icons/fa';
+import { FaMapMarkerAlt, FaPhone, FaEnvelope, FaSchool, FaClock } from 'react-icons/fa';
 import ContactForm from '../components/ContactForm';
 import { SEO, SEOConfigs, Breadcrumbs } from '../components';
 import AnimateOnScroll from '../components/AnimateOnScroll';
+import { NEWS_IMAGES } from '../utils/imageConstants';
+
+const CONTACT_ITEMS = [
+  {
+    Icon: FaMapMarkerAlt,
+    title: 'Address',
+    content: (
+      <p className="text-neutral-500 leading-relaxed text-sm">
+        Harding Secondary School<br />
+        Harding, KwaZulu-Natal<br />
+        South Africa
+      </p>
+    ),
+  },
+  {
+    Icon: FaPhone,
+    title: 'Phone',
+    content: (
+      <a
+        href="tel:0394331223"
+        className="text-primary font-semibold hover:text-primary-dark transition-colors text-sm"
+      >
+        039 433 1223
+      </a>
+    ),
+  },
+  {
+    Icon: FaEnvelope,
+    title: 'Email',
+    content: (
+      <a
+        href="mailto:info@hardingsecondary.edu.za"
+        className="text-primary font-semibold hover:text-primary-dark transition-colors text-sm break-all"
+      >
+        info@hardingsecondary.edu.za
+      </a>
+    ),
+  },
+  {
+    Icon: FaSchool,
+    title: 'School Details',
+    content: (
+      <div className="text-neutral-500 text-sm space-y-1">
+        <p><span className="font-semibold text-neutral-700">Exam Number:</span> 5312210</p>
+        <p><span className="font-semibold text-neutral-700">District:</span> Ugu</p>
+        <p><span className="font-semibold text-neutral-700">Sector:</span> Public School</p>
+      </div>
+    ),
+  },
+];
+
+const OFFICE_HOURS = [
+  { day: 'Monday – Thursday', hours: '7:30 AM – 4:00 PM' },
+  { day: 'Friday', hours: '7:30 AM – 3:00 PM' },
+  { day: 'Weekends & Public Holidays', hours: 'Closed' },
+];
 
 const Contact = () => {
   return (
     <>
       <SEO {...SEOConfigs.contact} />
       <div>
-        {/* Breadcrumbs */}
         <div className="bg-white">
           <Breadcrumbs />
         </div>
 
-        {/* Hero Section */}
-        <section className="bg-primary-dark text-white py-16 md:py-20 lg:py-24 text-center">
-          <div className="container-custom">
-            <h1 className="text-3xl md:text-4xl lg:text-5xl font-heading font-bold mb-4 md:mb-6 !text-white text-shadow-strong">
+        {/* Page Hero */}
+        <section className="relative py-28 md:py-36 text-center overflow-hidden">
+          <img
+            src={NEWS_IMAGES.community}
+            alt=""
+            className="absolute inset-0 w-full h-full object-cover"
+            aria-hidden="true"
+          />
+          <div className="absolute inset-0 bg-primary-dark/85" />
+          <div className="relative z-10 container-custom">
+            <p className="text-accent-neon font-semibold text-sm tracking-widest uppercase mb-4">Reach Out</p>
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-heading font-bold !text-white mb-4 text-shadow-strong">
               Contact Us
             </h1>
-            <p className="text-lg md:text-xl max-w-3xl mx-auto !text-white text-shadow-strong">
-              Get in touch with Harding Secondary School
+            <p className="text-lg md:text-xl max-w-3xl mx-auto !text-white/90">
+              Get in touch with Harding Secondary School — we're here to help
             </p>
           </div>
         </section>
 
-        {/* Contact Information & Form */}
-        <section className="py-16 md:py-24 lg:py-28">
+        {/* Contact Info + Form */}
+        <section className="py-16 md:py-24 bg-white">
           <div className="container-custom">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-10">
-              {/* Contact Information */}
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+              {/* Contact Info */}
               <div>
                 <AnimateOnScroll animation="fade-in">
-                  <h2 className="text-xl md:text-2xl lg:text-3xl font-heading font-bold text-primary-dark mb-6 md:mb-8">
-                    Get In Touch
-                  </h2>
+                  <div className="mb-10">
+                    <p className="text-primary font-semibold text-sm tracking-widest uppercase mb-3">Get in Touch</p>
+                    <h2 className="text-3xl md:text-4xl font-heading font-bold text-primary-dark">
+                      We'd Love to Hear From You
+                    </h2>
+                  </div>
                 </AnimateOnScroll>
-                <div className="space-y-5 md:space-y-6">
-                  {[
-                    {
-                      Icon: FaMapMarkerAlt,
-                      title: 'Address',
-                      content: (
-                        <p className="text-sm md:text-base text-neutral-500 leading-relaxed">
-                          Harding Secondary School<br />
-                          Harding<br />
-                          KwaZulu-Natal, South Africa
-                        </p>
-                      )
-                    },
-                    {
-                      Icon: FaPhone,
-                      title: 'Phone',
-                      content: (
-                        <p className="text-sm md:text-base text-neutral-500">
-                          <a href="tel:0394331223" className="hover:text-primary-dark transition-colors font-medium hover:underline" style={{ color: '#0D4E25' }}>
-                            039 433 1223
-                          </a>
-                        </p>
-                      )
-                    },
-                    {
-                      Icon: FaEnvelope,
-                      title: 'Email',
-                      content: (
-                        <p className="text-sm md:text-base text-neutral-500">
-                          <a href="mailto:info@hardingsecondary.edu.za" className="hover:text-primary-dark transition-colors font-medium hover:underline break-all" style={{ color: '#0D4E25' }}>
-                            info@hardingsecondary.edu.za
-                          </a>
-                        </p>
-                      )
-                    },
-                    {
-                      Icon: FaSchool,
-                      title: 'School Details',
-                      content: (
-                        <p className="text-sm md:text-base text-neutral-500 leading-relaxed">
-                          <strong>Exam Number:</strong> 5312210<br />
-                          <strong>Education District:</strong> Ugu<br />
-                          <strong>Sector:</strong> Public School
-                        </p>
-                      )
-                    }
-                  ].map((item, index) => (
-                    <AnimateOnScroll key={item.title} animation="slide-left" delay={index * 100}>
-                      <div className="bg-white p-6 md:p-8 rounded-xl shadow-md border-l-4 border-[#0D4E25] transition-all duration-300 hover:shadow-xl hover:-translate-y-2">
-                        <div className="flex items-start gap-4 md:gap-5">
-                          <div className="w-12 h-12 md:w-14 md:h-14 text-white rounded-full flex items-center justify-center flex-shrink-0 transition-all duration-300 hover:scale-110" style={{ backgroundColor: '#0D4E25' }}>
-                            <item.Icon className="text-xl md:text-2xl" />
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                  {CONTACT_ITEMS.map((item, index) => (
+                    <AnimateOnScroll key={item.title} animation="slide-left" delay={index * 80}>
+                      <div className="group bg-neutral-50 hover:bg-white p-6 rounded-2xl border border-neutral-200 hover:border-primary hover:shadow-md transition-all duration-300">
+                        <div className="flex items-start gap-4">
+                          <div className="w-11 h-11 bg-primary/10 group-hover:bg-primary rounded-full flex items-center justify-center flex-shrink-0 transition-colors duration-300">
+                            <item.Icon className="text-primary group-hover:text-white text-lg transition-colors duration-300" />
                           </div>
-                          <div className="flex-1">
-                            <h3 className="text-lg md:text-xl font-semibold mb-2 md:mb-3 text-primary-dark">
-                              {item.title}
-                            </h3>
+                          <div>
+                            <h3 className="text-base font-bold text-primary-dark mb-2">{item.title}</h3>
                             {item.content}
                           </div>
                         </div>
@@ -101,57 +120,49 @@ const Contact = () => {
                     </AnimateOnScroll>
                   ))}
                 </div>
+
+                {/* Office Hours */}
+                <AnimateOnScroll animation="slide-up" delay={200}>
+                  <div className="mt-6 bg-primary-dark text-white p-6 rounded-2xl">
+                    <div className="flex items-center gap-3 mb-5">
+                      <div className="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center">
+                        <FaClock className="text-accent-neon" />
+                      </div>
+                      <h3 className="text-lg font-bold">Office Hours</h3>
+                    </div>
+                    <div className="space-y-3">
+                      {OFFICE_HOURS.map(({ day, hours }) => (
+                        <div key={day} className="flex justify-between items-center border-b border-white/10 pb-3 last:border-0 last:pb-0">
+                          <span className="text-white/80 text-sm">{day}</span>
+                          <span className="font-semibold text-sm text-accent-neon">{hours}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </AnimateOnScroll>
               </div>
 
               {/* Contact Form */}
-              <AnimateOnScroll animation="slide-right" delay={200}>
+              <AnimateOnScroll animation="slide-right" delay={100}>
                 <div>
                   <ContactForm />
                 </div>
               </AnimateOnScroll>
             </div>
-
-            {/* Office Hours */}
-            <AnimateOnScroll animation="zoom-in">
-              <div className="bg-primary-dark text-white p-8 md:p-12 lg:p-16 rounded-xl text-center mt-12 md:mt-16 shadow-xl">
-                <h2 className="text-2xl md:text-3xl lg:text-4xl font-heading font-bold mb-8 md:mb-10 !text-white">
-                  Office Hours
-                </h2>
-                <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 md:gap-8">
-                  <div className="transition-all duration-300 hover:scale-105">
-                    <h3 className="text-lg md:text-xl lg:text-2xl font-semibold mb-2 md:mb-3 !text-white">
-                      Monday - Thursday
-                    </h3>
-                    <p className="text-base md:text-lg opacity-90 !text-white">7:30 AM - 4:00 PM</p>
-                  </div>
-                  <div className="transition-all duration-300 hover:scale-105">
-                    <h3 className="text-lg md:text-xl lg:text-2xl font-semibold mb-2 md:mb-3 !text-white">
-                      Friday
-                    </h3>
-                    <p className="text-base md:text-lg opacity-90 !text-white">7:30 AM - 3:00 PM</p>
-                  </div>
-                  <div className="transition-all duration-300 hover:scale-105">
-                    <h3 className="text-lg md:text-xl lg:text-2xl font-semibold mb-2 md:mb-3 !text-white">
-                      Weekends
-                    </h3>
-                    <p className="text-base md:text-lg opacity-90 !text-white">Closed</p>
-                  </div>
-                </div>
-              </div>
-            </AnimateOnScroll>
           </div>
         </section>
 
-        {/* Map Section */}
-        <section className="py-16 md:py-24 lg:py-28 bg-neutral-50">
+        {/* Map */}
+        <section className="py-16 md:py-24 bg-neutral-50">
           <div className="container-custom">
             <AnimateOnScroll animation="fade-in">
-              <h2 className="text-2xl md:text-3xl lg:text-4xl font-heading font-bold text-primary-dark mb-10 md:mb-12 text-center">
-                Find Us
-              </h2>
+              <div className="text-center mb-10">
+                <p className="text-primary font-semibold text-sm tracking-widest uppercase mb-3">Location</p>
+                <h2 className="text-3xl md:text-4xl font-heading font-bold text-primary-dark">Find Us</h2>
+              </div>
             </AnimateOnScroll>
             <AnimateOnScroll animation="slide-up">
-              <div className="h-64 md:h-96 lg:h-[450px] rounded-xl overflow-hidden shadow-xl relative transition-all duration-300 hover:shadow-2xl">
+              <div className="h-64 md:h-96 rounded-2xl overflow-hidden shadow-xl">
                 <iframe
                   src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2616.664353518629!2d29.88457517443031!3d-30.571598655920482!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1ef5ee9ecb734163%3A0x51508346adc98662!2sKirk%20St%2C%20Harding%2C%204680!5e0!3m2!1sen!2sza!4v1763674351697!5m2!1sen!2sza"
                   width="100%"
@@ -163,18 +174,12 @@ const Contact = () => {
                   title="Harding Secondary School Location"
                 />
               </div>
-              <div className="text-center mt-6 md:mt-8 p-6 md:p-8 bg-white rounded-xl shadow-md transition-all duration-300 hover:shadow-lg">
-                <p className="text-neutral-500 text-sm md:text-base mb-5 md:mb-6 flex items-center justify-center gap-2">
-                  <span className="inline-flex items-center justify-center w-8 h-8 bg-accent-neon/10 rounded-full">
-                    <FaMapMarkerAlt className="text-accent-neon text-sm" />
-                  </span>
-                  Click on the map to get directions
-                </p>
+              <div className="text-center mt-6">
                 <a
-                  href="https://www.google.com/maps/place/Kirk+St,+Harding,+4680/@-30.5715987,29.8845752,17z/data=!3m1!4b1!4m6!3m5!1s0x1ef5ee9ecb734163:0x51508346adc98662!8m2!3d-30.5715987!4d29.8871501!16s%2Fg%2F11c5q3y3y3"
+                  href="https://www.google.com/maps/place/Kirk+St,+Harding,+4680"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 px-8 md:px-10 py-3 md:py-4 bg-primary-dark text-white rounded-lg text-sm md:text-base font-semibold transition-all duration-300 hover:bg-primary hover:scale-105 shadow-md hover:shadow-lg"
+                  className="inline-flex items-center gap-2 px-8 py-3 bg-primary-dark text-white rounded-lg font-semibold transition-all duration-300 hover:bg-primary hover:scale-105 shadow-md"
                 >
                   <FaMapMarkerAlt />
                   Open in Google Maps
@@ -185,27 +190,27 @@ const Contact = () => {
         </section>
 
         {/* Quick Contact CTA */}
-        <section className="pb-16 md:pb-20">
+        <section className="pb-16 md:pb-20 bg-white">
           <div className="container-custom">
             <AnimateOnScroll animation="zoom-in">
-              <div className="bg-gradient-to-r from-primary-dark to-primary text-white p-8 md:p-12 lg:p-16 rounded-xl text-center shadow-xl">
-                <h2 className="text-2xl md:text-3xl lg:text-4xl font-heading font-bold mb-5 md:mb-6 !text-white">
+              <div className="bg-gradient-to-r from-primary-dark to-primary text-white p-10 md:p-16 rounded-2xl text-center shadow-xl">
+                <h2 className="text-2xl md:text-3xl lg:text-4xl font-heading font-bold !text-white mb-4">
                   Have Questions?
                 </h2>
-                <p className="text-base md:text-lg lg:text-xl mb-8 md:mb-10 max-w-3xl mx-auto !text-white">
-                  Our friendly staff is ready to assist you with admissions, programs, or any other inquiries.
+                <p className="text-white/85 mb-10 max-w-2xl mx-auto">
+                  Our friendly staff is ready to assist with admissions, programs, or any other inquiries.
                 </p>
-                <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+                <div className="flex flex-col sm:flex-row gap-4 justify-center">
                   <a
                     href="tel:0394331223"
-                    className="inline-flex items-center gap-2 px-8 md:px-10 py-3 md:py-4 bg-white text-primary-dark rounded-lg text-base md:text-lg font-semibold transition-all duration-300 hover:bg-neutral-100 hover:scale-105 shadow-md"
+                    className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-white text-primary-dark font-bold rounded-lg transition-all duration-300 hover:bg-neutral-100 hover:scale-105 shadow-md"
                   >
                     <FaPhone />
                     Call: 039 433 1223
                   </a>
                   <a
                     href="mailto:info@hardingsecondary.edu.za"
-                    className="inline-flex items-center gap-2 px-8 md:px-10 py-3 md:py-4 bg-white/10 backdrop-blur-sm text-white border-2 border-white/30 rounded-lg text-base md:text-lg font-semibold transition-all duration-300 hover:bg-white/20 hover:scale-105 shadow-md"
+                    className="inline-flex items-center justify-center gap-2 px-8 py-4 border-2 border-white/50 text-white font-bold rounded-lg transition-all duration-300 hover:bg-white/10 hover:border-white"
                   >
                     <FaEnvelope />
                     Send Email

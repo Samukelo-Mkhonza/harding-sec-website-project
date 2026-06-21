@@ -1,16 +1,69 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { 
+import {
   FaFacebookF, FaTwitter, FaInstagram, FaLinkedinIn, FaYoutube,
-  FaInfoCircle, FaGraduationCap, FaUserPlus, FaUsers, FaImages, FaEnvelope,
-  FaBookOpen, FaUserFriends, FaUserGraduate, FaChalkboardTeacher, FaCalendarAlt,
-  FaFileAlt, FaBriefcase, FaMapMarkerAlt, FaPhone, FaClock, FaPaperPlane, FaCheckCircle
+  FaMapMarkerAlt, FaPhone, FaEnvelope, FaClock,
+  FaArrowRight, FaPaperPlane, FaCheckCircle
 } from 'react-icons/fa';
 import logo from '../images/logo.png';
+
+const QUICK_LINKS = [
+  { path: '/', label: 'Home' },
+  { path: '/about', label: 'About Us' },
+  { path: '/academics', label: 'Academics' },
+  { path: '/admissions', label: 'Admissions' },
+  { path: '/student-life', label: 'Student Life' },
+  { path: '/gallery', label: 'Gallery' },
+  { path: '/contact', label: 'Contact' },
+];
+
+const RESOURCES = [
+  { path: '/past-papers', label: 'Past Papers Portal' },
+  { path: '#', label: 'Parent Portal' },
+  { path: '#', label: 'Student Portal' },
+  { path: '#', label: 'Staff Portal' },
+  { path: '#', label: 'School Calendar' },
+  { path: '#', label: 'Policies & Documents' },
+  { path: '#', label: 'Career Opportunities' },
+];
+
+const SOCIALS = [
+  { Icon: FaFacebookF, label: 'Facebook', href: '#' },
+  { Icon: FaTwitter, label: 'Twitter (X)', href: '#' },
+  { Icon: FaInstagram, label: 'Instagram', href: '#' },
+  { Icon: FaLinkedinIn, label: 'LinkedIn', href: '#' },
+  { Icon: FaYoutube, label: 'YouTube', href: '#' },
+];
+
+const INFO_STRIP = [
+  { Icon: FaPhone, text: '039 433 1223', href: 'tel:0394331223' },
+  { Icon: FaEnvelope, text: 'info@hardingsecondary.edu.za', href: 'mailto:info@hardingsecondary.edu.za' },
+  { Icon: FaMapMarkerAlt, text: 'Harding, KwaZulu-Natal', href: null },
+  { Icon: FaClock, text: 'Mon–Thu: 7:30 AM – 4:00 PM', href: null },
+];
+
+const FooterLink = ({ path, label }) => {
+  const cls =
+    'flex items-center gap-2 text-white/65 hover:text-accent-neon transition-colors duration-200 text-sm group';
+
+  const inner = (
+    <>
+      <FaArrowRight className="text-xs text-accent-neon opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-200 flex-shrink-0" />
+      {label}
+    </>
+  );
+
+  return path.startsWith('/') ? (
+    <Link to={path} className={cls}>{inner}</Link>
+  ) : (
+    <a href={path} className={cls}>{inner}</a>
+  );
+};
 
 const Footer = () => {
   const [email, setEmail] = useState('');
   const [subscribeStatus, setSubscribeStatus] = useState('');
+  const currentYear = new Date().getFullYear();
 
   const handleNewsletterSubmit = (e) => {
     e.preventDefault();
@@ -19,234 +72,195 @@ const Footer = () => {
     setTimeout(() => setSubscribeStatus(''), 3000);
   };
 
-  const quickLinks = [
-    { path: '/about', label: 'About Us', Icon: FaInfoCircle },
-    { path: '/academics', label: 'Academics', Icon: FaGraduationCap },
-    { path: '/admissions', label: 'Admissions', Icon: FaUserPlus },
-    { path: '/student-life', label: 'Student Life', Icon: FaUsers },
-    { path: '/gallery', label: 'Gallery', Icon: FaImages },
-    { path: '/contact', label: 'Contact', Icon: FaEnvelope },
-  ];
-
-  const resources = [
-    { path: '/past-papers', label: 'Past Papers Portal', Icon: FaBookOpen },
-    { path: '#', label: 'Parent Portal', Icon: FaUserFriends },
-    { path: '#', label: 'Student Portal', Icon: FaUserGraduate },
-    { path: '#', label: 'Staff Portal', Icon: FaChalkboardTeacher },
-    { path: '#', label: 'School Calendar', Icon: FaCalendarAlt },
-    { path: '#', label: 'Policies & Documents', Icon: FaFileAlt },
-    { path: '#', label: 'Career Opportunities', Icon: FaBriefcase },
-  ];
-
-  const currentYear = new Date().getFullYear();
-
   return (
-    <footer className="text-white mt-auto" style={{ backgroundColor: '#0D4E25' }}>
-      {/* Main Footer Content */}
-      <div style={{ backgroundColor: '#0D4E25' }}>
-        <div className="container-custom py-16 md:py-20">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 md:gap-12">
-            {/* About Column */}
-            <div className="space-y-6">
-              <div className="flex items-center gap-3">
-                <img
-                  src={logo}
-                  alt="Harding Secondary School Logo"
-                  className="h-12"
-                />
-                <div>
-                  <h3 className="font-heading font-bold text-xl !text-white">Harding Secondary</h3>
-                  <p className="text-white/80 text-sm">Since 1950</p>
-                </div>
-              </div>
-              <p className="text-white/90 leading-relaxed">
-                Excellence in education since 1950. Nurturing tomorrow's leaders in the heart of KwaZulu-Natal with over 1,250 learners and 41 dedicated educators.
-              </p>
-              <div className="flex gap-3">
-                <a
-                  href="#"
-                  className="w-10 h-10 bg-white/10 hover:bg-accent-neon rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110"
-                  aria-label="Facebook"
-                >
-                  <FaFacebookF className="text-xl" />
-                </a>
-                <a
-                  href="#"
-                  className="w-10 h-10 bg-white/10 hover:bg-accent-neon rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110"
-                  aria-label="Twitter"
-                >
-                  <FaTwitter className="text-xl" />
-                </a>
-                <a
-                  href="#"
-                  className="w-10 h-10 bg-white/10 hover:bg-accent-neon rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110"
-                  aria-label="Instagram"
-                >
-                  <FaInstagram className="text-xl" />
-                </a>
-                <a
-                  href="#"
-                  className="w-10 h-10 bg-white/10 hover:bg-accent-neon rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110"
-                  aria-label="LinkedIn"
-                >
-                  <FaLinkedinIn className="text-xl" />
-                </a>
-                <a
-                  href="#"
-                  className="w-10 h-10 bg-white/10 hover:bg-accent-neon rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110"
-                  aria-label="YouTube"
-                >
-                  <FaYoutube className="text-xl" />
-                </a>
-              </div>
-            </div>
+    <footer className="mt-auto text-white">
 
-            {/* Quick Links Column */}
-            <div>
-              <h3 className="font-heading font-bold text-xl mb-6 !text-white">Quick Links</h3>
-              <ul className="space-y-4">
-                {quickLinks.map((link) => {
-                  const IconComponent = link.Icon;
-                  return (
-                    <li key={link.path}>
-                      <Link
-                        to={link.path}
-                        className="text-white/80 hover:text-accent-neon transition-colors duration-200 flex items-center gap-3 group"
-                      >
-                        <IconComponent className="text-base group-hover:translate-x-1 transition-transform" />
-                        <span>{link.label}</span>
-                      </Link>
-                    </li>
-                  );
-                })}
-              </ul>
-            </div>
-
-            {/* Resources Column */}
-            <div>
-              <h3 className="font-heading font-bold text-xl mb-6 !text-white">Resources</h3>
-              <ul className="space-y-4">
-                {resources.map((link) => {
-                  const IconComponent = link.Icon;
-                  return (
-                    <li key={link.label}>
-                      {link.path.startsWith('/') ? (
-                        <Link
-                          to={link.path}
-                          className="text-white/80 hover:text-accent-neon transition-colors duration-200 flex items-center gap-3 group"
-                        >
-                          <IconComponent className="text-base group-hover:translate-x-1 transition-transform" />
-                          <span>{link.label}</span>
-                        </Link>
-                      ) : (
-                        <a
-                          href={link.path}
-                          className="text-white/80 hover:text-accent-neon transition-colors duration-200 flex items-center gap-3 group"
-                        >
-                          <IconComponent className="text-base group-hover:translate-x-1 transition-transform" />
-                          <span>{link.label}</span>
-                        </a>
-                      )}
-                    </li>
-                  );
-                })}
-              </ul>
-            </div>
-
-            {/* Contact & Newsletter Column */}
-            <div>
-              <h3 className="font-heading font-bold text-xl mb-6 !text-white">Contact Us</h3>
-              <div className="space-y-4 mb-6">
-                <div className="flex items-start gap-3">
-                  <FaMapMarkerAlt className="text-base text-accent-neon mt-1" />
-                  <div>
-                    <p className="text-white/90">Harding, KwaZulu-Natal</p>
-                    <p className="text-white/90">South Africa</p>
-                  </div>
-                </div>
-                <div className="flex items-center gap-3">
-                  <FaPhone className="text-base text-accent-neon" />
-                  <a href="tel:0394331223" className="text-white/90 hover:text-accent-neon transition-colors">
-                    039 433 1223
-                  </a>
-                </div>
-                <div className="flex items-center gap-3">
-                  <FaEnvelope className="text-base text-accent-neon" />
-                  <a href="mailto:info@hardingsecondary.edu.za" className="text-white/90 hover:text-accent-neon transition-colors">
-                    info@hardingsecondary.edu.za
-                  </a>
-                </div>
-                <div className="flex items-start gap-3">
-                  <FaClock className="text-base text-accent-neon mt-1" />
-                  <div className="text-white/90 text-sm">
-                    <p>Mon-Thu: 7:30 AM - 4:00 PM</p>
-                    <p>Fri: 7:30 AM - 3:00 PM</p>
-                  </div>
-                </div>
-              </div>
-
-              {/* Newsletter */}
-              <div className="mt-6">
-                <h4 className="font-semibold mb-3 !text-white">Newsletter</h4>
-                <form onSubmit={handleNewsletterSubmit} className="space-y-3">
-                  <div className="relative">
-                    <input
-                      type="email"
-                      value={email}
-                      onChange={(e) => setEmail(e.target.value)}
-                      placeholder="Your email"
-                      required
-                      className="w-full px-4 py-3 rounded-lg bg-white/10 border border-white/20 text-white placeholder-white/60 focus:outline-none focus:ring-2 focus:ring-secondary focus:border-transparent transition-all"
-                    />
-                  </div>
-                  <button
-                    type="submit"
-                    className="w-full btn-secondary"
-                  >
-                    <span className="flex items-center justify-center gap-2">
-                      <FaPaperPlane className="text-base" />
-                      Subscribe
-                    </span>
-                  </button>
-                  {subscribeStatus === 'success' && (
-                    <p className="text-accent-neon text-sm flex items-center gap-2">
-                      <FaCheckCircle className="text-base" />
-                      Thank you for subscribing!
-                    </p>
-                  )}
-                </form>
-              </div>
-            </div>
+      {/* ── Top info strip ─────────────────────────────────── */}
+      <div style={{ backgroundColor: '#1a6b3a' }}>
+        <div className="container-custom">
+          <div className="flex flex-wrap justify-center md:justify-between items-center gap-x-8 gap-y-2 py-3 border-b border-white/10">
+            {INFO_STRIP.map(({ Icon, text, href }) =>
+              href ? (
+                <a
+                  key={text}
+                  href={href}
+                  className="flex items-center gap-2 text-white/80 hover:text-accent-neon transition-colors duration-200 text-xs"
+                >
+                  <Icon className="text-accent-neon flex-shrink-0" />
+                  <span className="hidden sm:inline">{text}</span>
+                </a>
+              ) : (
+                <span key={text} className="hidden md:flex items-center gap-2 text-white/65 text-xs">
+                  <Icon className="text-accent-neon flex-shrink-0" />
+                  {text}
+                </span>
+              )
+            )}
           </div>
         </div>
       </div>
 
-      {/* Bottom Footer */}
-      <div className="bg-white border-t border-gray-200">
-        <div className="container-custom py-6">
-          <div className="flex flex-col md:flex-row justify-between items-center gap-4">
-            <p className="text-gray-700 text-sm text-center md:text-left">
-              © {currentYear} Harding Secondary School. All rights reserved.
-            </p>
-            <div className="flex flex-wrap gap-4 text-sm">
-              <span className="text-gray-500">
+      {/* ── Main footer body ───────────────────────────────── */}
+      <div style={{ backgroundColor: '#0D4E25' }}>
+        <div className="container-custom py-16 md:py-20">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
+
+            {/* Column 1 — Brand */}
+            <div>
+              <Link to="/" className="inline-flex items-center gap-3 mb-5 group">
+                <img
+                  src={logo}
+                  alt="Harding Secondary School"
+                  className="h-14 group-hover:scale-105 transition-transform duration-200"
+                />
+                <div>
+                  <p className="font-heading font-bold text-lg text-white leading-tight">
+                    Harding Secondary
+                  </p>
+                  <p className="text-white/50 text-xs">Est. 1950</p>
+                </div>
+              </Link>
+
+              <p className="text-white/70 text-sm leading-relaxed mb-5">
+                Nurturing excellence and building tomorrow's leaders in the heart of
+                KwaZulu-Natal. Over 70 years of educational achievement.
+              </p>
+
+              <p className="text-accent-neon text-xs font-semibold tracking-widest uppercase mb-6 italic">
+                "Excellence in Education"
+              </p>
+
+              {/* Social icons */}
+              <div className="flex flex-wrap gap-2">
+                {SOCIALS.map(({ Icon, label, href }) => (
+                  <a
+                    key={label}
+                    href={href}
+                    aria-label={label}
+                    className="w-9 h-9 bg-white/10 hover:bg-accent-neon text-white rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110 hover:shadow-lg"
+                  >
+                    <Icon className="text-sm" />
+                  </a>
+                ))}
+              </div>
+            </div>
+
+            {/* Column 2 — Quick Links */}
+            <div>
+              <h3 className="text-white font-bold text-sm tracking-widest uppercase mb-6 pb-3 border-b border-white/10">
+                Quick Links
+              </h3>
+              <ul className="space-y-3">
+                {QUICK_LINKS.map((link) => (
+                  <li key={link.path}>
+                    <FooterLink {...link} />
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            {/* Column 3 — Resources */}
+            <div>
+              <h3 className="text-white font-bold text-sm tracking-widest uppercase mb-6 pb-3 border-b border-white/10">
+                Resources
+              </h3>
+              <ul className="space-y-3">
+                {RESOURCES.map((link) => (
+                  <li key={link.label}>
+                    <FooterLink {...link} />
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            {/* Column 4 — Newsletter + School Details */}
+            <div>
+              <h3 className="text-white font-bold text-sm tracking-widest uppercase mb-6 pb-3 border-b border-white/10">
+                Stay Connected
+              </h3>
+
+              <p className="text-white/65 text-sm leading-relaxed mb-5">
+                Subscribe for the latest news, events, and updates from Harding Secondary School.
+              </p>
+
+              <form onSubmit={handleNewsletterSubmit} className="mb-7">
+                <div className="flex flex-col gap-2">
+                  <input
+                    type="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    placeholder="Your email address"
+                    required
+                    className="w-full px-4 py-3 rounded-xl bg-white/10 border border-white/20 text-white placeholder-white/40 focus:outline-none focus:ring-2 focus:ring-accent-neon focus:border-transparent text-sm transition-all"
+                  />
+                  <button
+                    type="submit"
+                    className="flex items-center justify-center gap-2 px-5 py-3 bg-accent-neon text-white font-semibold rounded-xl hover:bg-accent-neon/85 active:scale-95 transition-all duration-200 text-sm shadow-lg"
+                  >
+                    <FaPaperPlane className="text-sm" />
+                    Subscribe
+                  </button>
+                </div>
+                {subscribeStatus === 'success' && (
+                  <p className="flex items-center gap-2 text-accent-neon text-sm mt-3">
+                    <FaCheckCircle />
+                    Thank you for subscribing!
+                  </p>
+                )}
+              </form>
+
+              {/* School details card */}
+              <div className="bg-white/5 border border-white/10 rounded-xl p-4 space-y-1.5 text-xs">
+                <p className="text-white font-semibold mb-2">School Details</p>
+                <p className="text-white/60">
+                  Exam No: <span className="text-white/90 font-medium">5312210</span>
+                </p>
+                <p className="text-white/60">
+                  District: <span className="text-white/90 font-medium">Ugu, KwaZulu-Natal</span>
+                </p>
+                <p className="text-white/60">
+                  Grades: <span className="text-white/90 font-medium">8 – 12</span>
+                </p>
+                <p className="text-white/60">
+                  Instruction: <span className="text-white/90 font-medium">English</span>
+                </p>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        {/* Thin separator */}
+        <div className="container-custom">
+          <hr className="border-white/10" />
+        </div>
+      </div>
+
+      {/* ── Bottom bar ─────────────────────────────────────── */}
+      <div style={{ backgroundColor: '#072713' }}>
+        <div className="container-custom py-5">
+          <div className="flex flex-col sm:flex-row justify-between items-center gap-3 text-xs text-white/45">
+            <p>© {currentYear} Harding Secondary School. All rights reserved.</p>
+            <div className="flex items-center gap-5">
+              <span className="hover:text-white/70 cursor-pointer transition-colors duration-200">
                 Privacy Policy
               </span>
-              <span className="text-gray-400">|</span>
-              <span className="text-gray-500">
+              <span className="text-white/20">|</span>
+              <span className="hover:text-white/70 cursor-pointer transition-colors duration-200">
                 Terms of Use
               </span>
-              <span className="text-gray-400">|</span>
+              <span className="text-white/20">|</span>
               <Link
                 to="/contact"
-                className="text-gray-700 hover:text-primary transition-colors"
+                className="hover:text-accent-neon transition-colors duration-200"
               >
-                Contact
+                Contact Us
               </Link>
             </div>
           </div>
         </div>
       </div>
+
     </footer>
   );
 };

@@ -1,7 +1,8 @@
-// pages/Admissions.js
 import { useState, useRef, useEffect } from 'react';
+import { FaCheckCircle, FaChevronDown } from 'react-icons/fa';
 import { SEO, SEOConfigs, Breadcrumbs } from '../components';
 import AnimateOnScroll from '../components/AnimateOnScroll';
+import { HERO_IMAGES } from '../utils/imageConstants';
 
 const AccordionItem = ({ item, isOpen, onToggle }) => {
   const contentRef = useRef(null);
@@ -16,26 +17,26 @@ const AccordionItem = ({ item, isOpen, onToggle }) => {
   }, [isOpen]);
 
   return (
-    <div className="bg-white rounded-lg shadow-sm overflow-hidden">
+    <div className="bg-white rounded-2xl shadow-sm overflow-hidden border border-neutral-200 hover:border-primary/30 transition-colors duration-200">
       <button
-        className={`w-full px-6 md:px-8 py-5 md:py-6 flex justify-between items-center text-left transition-all duration-300 ${
-          isOpen
-            ? 'bg-primary-dark text-white'
-            : 'bg-neutral-50 text-black hover:bg-neutral-100'
+        className={`w-full px-6 py-5 flex justify-between items-center text-left transition-all duration-300 ${
+          isOpen ? 'bg-primary-dark text-white' : 'bg-white text-neutral-800 hover:bg-neutral-50'
         }`}
         onClick={onToggle}
         aria-expanded={isOpen}
       >
-        <span className="text-base md:text-lg font-semibold pr-4">{item.question}</span>
-        <span className={`text-2xl md:text-3xl flex-shrink-0 transition-transform duration-300 ${isOpen ? 'rotate-45' : ''}`}>
-          +
-        </span>
+        <span className="text-base font-semibold pr-4">{item.question}</span>
+        <FaChevronDown
+          className={`flex-shrink-0 transition-transform duration-300 text-sm ${
+            isOpen ? 'rotate-180 text-white' : 'text-neutral-400'
+          }`}
+        />
       </button>
       <div
         style={{ maxHeight: `${height}px` }}
         className="overflow-hidden transition-all duration-300 ease-in-out"
       >
-        <div ref={contentRef} className="px-6 md:px-8 py-5 md:py-6 bg-white text-neutral-500 leading-relaxed text-sm md:text-base">
+        <div ref={contentRef} className="px-6 py-5 text-neutral-500 leading-relaxed text-sm border-t border-neutral-100">
           {item.answer}
         </div>
       </div>
@@ -43,106 +44,113 @@ const AccordionItem = ({ item, isOpen, onToggle }) => {
   );
 };
 
+const STEPS = [
+  {
+    number: '01',
+    title: 'Submit Application',
+    description: 'Complete the application form and submit all required documents during the application period (May–September).',
+  },
+  {
+    number: '02',
+    title: 'Document Verification',
+    description: 'Our admissions team will review your application and verify all submitted documents.',
+  },
+  {
+    number: '03',
+    title: 'Assessment',
+    description: 'Qualifying learners may be invited for an assessment or interview to determine academic placement.',
+  },
+  {
+    number: '04',
+    title: 'Notification',
+    description: 'Successful applicants will receive an admission letter with further enrollment instructions.',
+  },
+];
+
+const FAQ_ITEMS = [
+  {
+    question: 'When do applications open?',
+    answer: 'Applications for the following academic year typically open in May and close in September. Late applications may be considered based on available space.',
+  },
+  {
+    question: 'What are the school fees?',
+    answer: 'As a public school, Harding Secondary School charges minimal fees. Fee structures are determined annually by the School Governing Body. Financial assistance and fee exemptions are available for qualifying families.',
+  },
+  {
+    question: 'What documents are required?',
+    answer: 'Required documents include: Birth certificate, latest academic report, transfer letter (if applicable), parent/guardian ID copies, proof of residence, and immunization records.',
+  },
+  {
+    question: 'Is there an entrance exam?',
+    answer: 'We do not have a formal entrance exam. However, learners may be assessed to determine appropriate academic support and subject placement.',
+  },
+  {
+    question: 'Do you provide transport?',
+    answer: 'While the school does not provide transport directly, we work with approved transport providers who service various routes. Contact the school office for more information.',
+  },
+];
+
 const Admissions = () => {
   const [activeAccordion, setActiveAccordion] = useState(null);
-
-  const admissionSteps = [
-    {
-      number: '1',
-      title: 'Submit Application',
-      description: 'Complete the application form and submit all required documents during the application period.'
-    },
-    {
-      number: '2',
-      title: 'Document Verification',
-      description: 'Our admissions team will review your application and verify all submitted documents.'
-    },
-    {
-      number: '3',
-      title: 'Assessment',
-      description: 'Qualifying learners may be invited for an assessment or interview.'
-    },
-    {
-      number: '4',
-      title: 'Notification',
-      description: 'Successful applicants will receive an admission letter with further instructions.'
-    }
-  ];
-
-  const faqItems = [
-    {
-      question: 'When do applications open?',
-      answer: 'Applications for the following academic year typically open in May and close in September. Late applications may be considered based on available space.'
-    },
-    {
-      question: 'What are the school fees?',
-      answer: 'As a public school, Harding Secondary School charges minimal fees. Fee structures are determined annually by the School Governing Body. Financial assistance and fee exemptions are available for qualifying families.'
-    },
-    {
-      question: 'What documents are required?',
-      answer: 'Required documents include: Birth certificate, latest academic report, transfer letter (if applicable), parent/guardian ID copies, proof of residence, and immunization records.'
-    },
-    {
-      question: 'Is there an entrance exam?',
-      answer: 'We do not have a formal entrance exam. However, learners may be assessed to determine appropriate academic support and subject placement.'
-    },
-    {
-      question: 'Do you provide transport?',
-      answer: 'While the school does not provide transport directly, we work with approved transport providers who service various routes. Contact the school office for more information.'
-    }
-  ];
 
   return (
     <>
       <SEO {...SEOConfigs.admissions} />
       <div>
-        {/* Breadcrumbs */}
         <div className="bg-white">
           <Breadcrumbs />
         </div>
 
-        {/* Hero Section */}
-        <section className="bg-primary-dark text-white py-16 md:py-20 lg:py-24 text-center">
-          <div className="container-custom">
-            <h1 className="text-3xl md:text-4xl lg:text-5xl font-heading font-bold mb-4 md:mb-6 !text-white text-shadow-strong">
+        {/* Page Hero */}
+        <section className="relative py-28 md:py-36 text-center overflow-hidden">
+          <img
+            src={HERO_IMAGES.graduation}
+            alt=""
+            className="absolute inset-0 w-full h-full object-cover"
+            aria-hidden="true"
+          />
+          <div className="absolute inset-0 bg-primary-dark/85" />
+          <div className="relative z-10 container-custom">
+            <p className="text-accent-neon font-semibold text-sm tracking-widest uppercase mb-4">Join Our Community</p>
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-heading font-bold !text-white mb-4 text-shadow-strong">
               Admissions
             </h1>
-            <p className="text-lg md:text-xl max-w-3xl mx-auto !text-white text-shadow-strong">
+            <p className="text-lg md:text-xl max-w-3xl mx-auto !text-white/90">
               Join our community of excellence at Harding Secondary School
             </p>
           </div>
         </section>
 
         {/* Application Process */}
-        <section className="py-16 md:py-24 lg:py-28">
+        <section className="py-16 md:py-24 bg-white">
           <div className="container-custom">
             <AnimateOnScroll animation="fade-in">
-              <h2 className="text-2xl md:text-3xl lg:text-4xl font-heading font-bold text-primary-dark mb-6 md:mb-8">
-                Application Process
-              </h2>
-              <p className="text-base md:text-lg leading-relaxed text-neutral-500 mb-10 md:mb-12">
-                We welcome applications from learners who are committed to academic excellence and personal growth.
-                Our streamlined application process ensures a smooth transition into our school community.
-              </p>
+              <div className="mb-12">
+                <p className="text-primary font-semibold text-sm tracking-widest uppercase mb-3">How to Apply</p>
+                <h2 className="text-3xl md:text-4xl font-heading font-bold text-primary-dark mb-4">Application Process</h2>
+                <p className="text-neutral-500 leading-relaxed max-w-2xl">
+                  We welcome applications from learners committed to academic excellence and personal growth.
+                  Our streamlined process ensures a smooth transition into our school community.
+                </p>
+              </div>
             </AnimateOnScroll>
 
-            <div className="space-y-6 md:space-y-8">
-              {admissionSteps.map((step, index) => (
-                <AnimateOnScroll key={index} animation="slide-right" delay={index * 100}>
-                  <div
-                    className="flex flex-col sm:flex-row items-start gap-4 sm:gap-6 bg-neutral-50 p-6 md:p-8 rounded-xl transition-all duration-300 hover:translate-x-2 hover:shadow-md"
-                  >
-                    <div className="w-14 h-14 md:w-16 md:h-16 bg-primary-dark text-white rounded-full flex items-center justify-center text-xl md:text-2xl font-bold flex-shrink-0">
+            {/* Steps — horizontal on desktop */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 relative">
+              {/* Connecting line on desktop */}
+              <div
+                className="absolute top-10 left-0 right-0 h-0.5 bg-primary/20 hidden lg:block"
+                style={{ top: '2.5rem', left: '12.5%', right: '12.5%' }}
+                aria-hidden="true"
+              />
+              {STEPS.map((step, index) => (
+                <AnimateOnScroll key={step.number} animation="slide-up" delay={index * 100}>
+                  <div className="relative flex flex-col items-center text-center p-6 bg-white rounded-2xl border border-neutral-200 hover:border-primary hover:shadow-lg transition-all duration-300">
+                    <div className="w-16 h-16 bg-primary-dark text-white rounded-full flex items-center justify-center text-xl font-bold mb-5 shadow-lg relative z-10">
                       {step.number}
                     </div>
-                    <div className="flex-1">
-                      <h3 className="text-lg md:text-xl lg:text-2xl font-semibold mb-2 md:mb-3 text-primary-dark">
-                        {step.title}
-                      </h3>
-                      <p className="text-sm md:text-base text-neutral-500 leading-relaxed">
-                        {step.description}
-                      </p>
-                    </div>
+                    <h3 className="text-lg font-bold text-primary-dark mb-3">{step.title}</h3>
+                    <p className="text-neutral-500 text-sm leading-relaxed">{step.description}</p>
                   </div>
                 </AnimateOnScroll>
               ))}
@@ -151,39 +159,50 @@ const Admissions = () => {
         </section>
 
         {/* Admission Requirements */}
-        <section className="py-16 md:py-24 lg:py-28 bg-neutral-50">
+        <section className="py-16 md:py-24 bg-neutral-50">
           <div className="container-custom">
             <AnimateOnScroll animation="fade-in">
-              <h2 className="text-2xl md:text-3xl lg:text-4xl font-heading font-bold text-primary-dark mb-10 md:mb-12">
-                Admission Requirements
-              </h2>
+              <div className="text-center mb-12">
+                <p className="text-primary font-semibold text-sm tracking-widest uppercase mb-3">Eligibility</p>
+                <h2 className="text-3xl md:text-4xl font-heading font-bold text-primary-dark">Admission Requirements</h2>
+              </div>
             </AnimateOnScroll>
 
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-8">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
               <AnimateOnScroll animation="slide-left">
-                <div className="bg-white p-6 md:p-8 rounded-xl shadow-md border-l-4 border-primary-dark transition-all duration-300 hover:shadow-xl hover:-translate-y-2">
-                  <h3 className="text-xl md:text-2xl font-semibold mb-5 text-primary-dark">
-                    Academic Requirements
-                  </h3>
-                  <ul className="space-y-3 text-neutral-500 leading-relaxed">
-                    <li>Satisfactory academic record from previous school</li>
-                    <li>Pass mark in core subjects (50% minimum)</li>
-                    <li>Good conduct report</li>
-                    <li>Age-appropriate grade placement</li>
+                <div className="bg-white p-8 rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-2 border-t-4 border-primary">
+                  <h3 className="text-xl font-bold text-primary-dark mb-6">Academic Requirements</h3>
+                  <ul className="space-y-4">
+                    {[
+                      'Satisfactory academic record from previous school',
+                      'Pass mark in core subjects (50% minimum)',
+                      'Good conduct report',
+                      'Age-appropriate grade placement',
+                    ].map((req) => (
+                      <li key={req} className="flex items-start gap-3 text-neutral-600">
+                        <FaCheckCircle className="text-primary text-lg flex-shrink-0 mt-0.5" />
+                        <span>{req}</span>
+                      </li>
+                    ))}
                   </ul>
                 </div>
               </AnimateOnScroll>
 
               <AnimateOnScroll animation="slide-right">
-                <div className="bg-white p-6 md:p-8 rounded-xl shadow-md border-l-4 border-primary-dark transition-all duration-300 hover:shadow-xl hover:-translate-y-2">
-                  <h3 className="text-xl md:text-2xl font-semibold mb-5 text-primary-dark">
-                    General Requirements
-                  </h3>
-                  <ul className="space-y-3 text-neutral-500 leading-relaxed">
-                    <li>Completed application form</li>
-                    <li>All required documentation</li>
-                    <li>Application fee payment (if applicable)</li>
-                    <li>Commitment to school values and code of conduct</li>
+                <div className="bg-white p-8 rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-2 border-t-4 border-primary-dark">
+                  <h3 className="text-xl font-bold text-primary-dark mb-6">General Requirements</h3>
+                  <ul className="space-y-4">
+                    {[
+                      'Completed application form',
+                      'All required documentation (birth certificate, ID, etc.)',
+                      'Application fee payment (if applicable)',
+                      'Commitment to school values and code of conduct',
+                    ].map((req) => (
+                      <li key={req} className="flex items-start gap-3 text-neutral-600">
+                        <FaCheckCircle className="text-primary text-lg flex-shrink-0 mt-0.5" />
+                        <span>{req}</span>
+                      </li>
+                    ))}
                   </ul>
                 </div>
               </AnimateOnScroll>
@@ -192,56 +211,52 @@ const Admissions = () => {
         </section>
 
         {/* Important Information */}
-        <section className="py-16 md:py-24 lg:py-28">
+        <section className="py-16 md:py-24 bg-white">
           <div className="container-custom">
             <AnimateOnScroll animation="fade-in">
-              <h2 className="text-2xl md:text-3xl lg:text-4xl font-heading font-bold text-primary-dark mb-8 md:mb-10">
-                Important Information
-              </h2>
+              <div className="mb-10">
+                <p className="text-primary font-semibold text-sm tracking-widest uppercase mb-3">Key Details</p>
+                <h2 className="text-3xl md:text-4xl font-heading font-bold text-primary-dark">Important Information</h2>
+              </div>
             </AnimateOnScroll>
 
             <AnimateOnScroll animation="slide-up">
-              <div className="bg-yellow-50 p-6 md:p-8 rounded-xl mb-10 md:mb-12">
-                <h3 className="text-xl md:text-2xl font-semibold mb-4 md:mb-5 text-primary-dark">
-                  School Details
-                </h3>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
-                  <div className="space-y-3">
-                    <p className="text-sm md:text-base text-neutral-600">
-                      <strong>Exam Number:</strong> 5312210
-                    </p>
-                    <p className="text-sm md:text-base text-neutral-600">
-                      <strong>Education District:</strong> Ugu
-                    </p>
-                    <p className="text-sm md:text-base text-neutral-600">
-                      <strong>Province:</strong> KwaZulu-Natal
-                    </p>
-                  </div>
-                  <div className="space-y-3">
-                    <p className="text-sm md:text-base text-neutral-600">
-                      <strong>Contact:</strong> 039 433 1223
-                    </p>
-                    <p className="text-sm md:text-base text-neutral-600">
-                      <strong>Grades Offered:</strong> 8-12
-                    </p>
-                    <p className="text-sm md:text-base text-neutral-600">
-                      <strong>Medium of Instruction:</strong> English
-                    </p>
-                  </div>
+              <div className="bg-neutral-50 border border-neutral-200 p-8 rounded-2xl mb-10">
+                <h3 className="text-xl font-bold text-primary-dark mb-6">School Details</h3>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-y-4 gap-x-8">
+                  {[
+                    { label: 'Exam Number', value: '5312210' },
+                    { label: 'Contact', value: '039 433 1223' },
+                    { label: 'Education District', value: 'Ugu' },
+                    { label: 'Grades Offered', value: '8–12' },
+                    { label: 'Province', value: 'KwaZulu-Natal' },
+                    { label: 'Medium of Instruction', value: 'English' },
+                  ].map(({ label, value }) => (
+                    <div key={label} className="flex items-center gap-3">
+                      <FaCheckCircle className="text-primary flex-shrink-0" />
+                      <p className="text-neutral-600">
+                        <span className="font-semibold text-neutral-800">{label}:</span>{' '}
+                        {value}
+                      </p>
+                    </div>
+                  ))}
                 </div>
               </div>
             </AnimateOnScroll>
 
-            {/* FAQ Section */}
+            {/* FAQ */}
             <AnimateOnScroll animation="fade-in">
-              <h3 className="text-xl md:text-2xl lg:text-3xl font-heading font-bold text-primary-dark mb-6 md:mb-8">
-                Frequently Asked Questions
-              </h3>
+              <div className="mb-8">
+                <p className="text-primary font-semibold text-sm tracking-widest uppercase mb-3">Common Questions</p>
+                <h3 className="text-2xl md:text-3xl font-heading font-bold text-primary-dark">
+                  Frequently Asked Questions
+                </h3>
+              </div>
             </AnimateOnScroll>
 
-            <div className="space-y-4 md:space-y-5">
-              {faqItems.map((item, index) => (
-                <AnimateOnScroll key={index} animation="slide-up" delay={index * 80}>
+            <div className="space-y-3">
+              {FAQ_ITEMS.map((item, index) => (
+                <AnimateOnScroll key={index} animation="slide-up" delay={index * 60}>
                   <AccordionItem
                     item={item}
                     isOpen={activeAccordion === index}
@@ -254,22 +269,36 @@ const Admissions = () => {
         </section>
 
         {/* CTA Section */}
-        <section className="pb-16 md:pb-20">
-          <div className="container-custom">
-            <AnimateOnScroll animation="zoom-in">
-              <div className="bg-primary-dark text-white p-8 md:p-12 lg:p-16 rounded-xl text-center">
-                <h2 className="text-2xl md:text-3xl lg:text-4xl font-heading font-bold mb-5 md:mb-6 !text-white">
-                  Ready to Apply?
-                </h2>
-                <p className="text-base md:text-lg lg:text-xl mb-8 md:mb-10 max-w-3xl mx-auto !text-white">
-                  Take the first step towards joining Harding Secondary School.
-                  Contact our admissions office for application forms and guidance.
-                </p>
+        <section className="relative py-24 md:py-32 overflow-hidden">
+          <img
+            src={HERO_IMAGES.students}
+            alt=""
+            className="absolute inset-0 w-full h-full object-cover"
+            aria-hidden="true"
+          />
+          <div className="absolute inset-0 bg-primary-dark/85" />
+          <div className="relative z-10 container-custom text-center text-white">
+            <AnimateOnScroll animation="fade-in">
+              <p className="text-accent-neon font-semibold text-sm tracking-widest uppercase mb-4">Take the First Step</p>
+              <h2 className="text-3xl md:text-5xl font-heading font-bold !text-white mb-6">
+                Ready to Apply?
+              </h2>
+              <p className="text-lg text-white/85 mb-10 max-w-2xl mx-auto">
+                Take the first step towards joining Harding Secondary School.
+                Contact our admissions office for application forms and guidance.
+              </p>
+              <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <a
                   href="tel:0394331223"
-                  className="inline-block px-8 md:px-10 py-3 md:py-4 bg-white text-primary-dark rounded-lg text-base md:text-lg font-semibold transition-all duration-300 hover:bg-neutral-100 hover:scale-105"
+                  className="bg-white text-primary-dark font-bold px-10 py-4 rounded-lg hover:bg-accent-neon hover:text-white transition-all duration-300 shadow-xl"
                 >
-                  Call Us: 039 433 1223
+                  Call: 039 433 1223
+                </a>
+                <a
+                  href="mailto:info@hardingsecondary.edu.za"
+                  className="border-2 border-white text-white font-bold px-10 py-4 rounded-lg hover:bg-white/10 transition-all duration-300"
+                >
+                  Send an Email
                 </a>
               </div>
             </AnimateOnScroll>

@@ -133,6 +133,21 @@
   .hover-border-effect {
     @apply relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-1 after:bg-primary after:transition-all after:duration-300 hover:after:w-full;
   }
+
+  /* Section label - small uppercase eyebrow text above headings */
+  .section-label {
+    @apply text-primary font-semibold text-sm tracking-widest uppercase mb-3;
+  }
+
+  /* Pillar card - image-background card with hover reveal */
+  .pillar-card {
+    @apply relative block rounded-2xl overflow-hidden shadow-lg;
+  }
+
+  /* News category pill */
+  .news-category {
+    @apply bg-primary text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider;
+  }
 }
 
 @layer utilities {

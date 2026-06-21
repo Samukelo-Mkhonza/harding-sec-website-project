@@ -1,187 +1,220 @@
-// pages/Academics.js
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { FaBook, FaBookOpen, FaUniversity, FaGraduationCap } from 'react-icons/fa';
+import { FaBook, FaBookOpen, FaUniversity, FaGraduationCap, FaCheckCircle, FaArrowRight } from 'react-icons/fa';
 import { SEO, SEOConfigs, Breadcrumbs } from '../components';
 import AnimateOnScroll from '../components/AnimateOnScroll';
 import CounterAnimation from '../components/CounterAnimation';
+import { HERO_IMAGES } from '../utils/imageConstants';
+
+const TABS = [
+  { key: 'sciences', label: 'Sciences' },
+  { key: 'commerce', label: 'Commerce' },
+  { key: 'humanities', label: 'Humanities' },
+  { key: 'technical', label: 'Technical' },
+];
+
+const SUBJECTS = {
+  sciences: {
+    title: 'Physical, Mathematical & Life Sciences',
+    items: [
+      'Mathematics',
+      'Mathematical Literacy',
+      'Physical Sciences (Physics & Chemistry)',
+      'Life Sciences (Biology)',
+      'Computer Applications Technology',
+      'Information Technology',
+      'Agricultural Sciences',
+    ],
+  },
+  commerce: {
+    title: 'Business, Commerce & Management',
+    items: ['Business Studies', 'Economics', 'Accounting', 'Consumer Studies', 'Tourism'],
+  },
+  humanities: {
+    title: 'Humanities & Languages',
+    items: [
+      'History',
+      'Geography',
+      'Religion Studies',
+      'Music',
+      'Visual Arts',
+      'Dramatic Arts',
+      'Additional Languages',
+    ],
+  },
+  technical: {
+    title: 'Technical & Vocational',
+    items: [
+      'Engineering Graphics & Design',
+      'Civil Technology',
+      'Electrical Technology',
+      'Mechanical Technology',
+      'Hospitality Studies',
+      'Agricultural Technology',
+    ],
+  },
+};
+
+const ACHIEVEMENTS = [
+  { end: 95, suffix: '%', label: 'Matric Pass Rate' },
+  { end: 67, suffix: '%', label: "Bachelor's Pass" },
+  { end: 150, suffix: '+', label: 'Distinctions Annually' },
+  { end: 12, suffix: '', label: 'Top Achiever Awards' },
+];
+
+const SUPPORT = [
+  {
+    Icon: FaBookOpen,
+    title: 'Extra Classes',
+    desc: 'Additional support in Mathematics, Sciences, and Languages for Grade 10–12 learners.',
+  },
+  {
+    Icon: FaUniversity,
+    title: 'Modern Facilities',
+    desc: 'Well-equipped science laboratories, computer labs, and a comprehensive library.',
+  },
+  {
+    Icon: FaGraduationCap,
+    title: 'Career Guidance',
+    desc: 'Comprehensive career counseling and university application support for matric learners.',
+  },
+];
 
 const Academics = () => {
   const [activeTab, setActiveTab] = useState('sciences');
-
-  const subjects = {
-    sciences: {
-      title: 'Physical, Mathematical & Life Sciences',
-      items: [
-        'Mathematics',
-        'Mathematical Literacy',
-        'Physical Sciences (Physics & Chemistry)',
-        'Life Sciences (Biology)',
-        'Computer Applications Technology',
-        'Information Technology',
-        'Agricultural Sciences'
-      ]
-    },
-    commerce: {
-      title: 'Business, Commerce & Management',
-      items: [
-        'Business Studies',
-        'Economics',
-        'Accounting',
-        'Consumer Studies',
-        'Tourism'
-      ]
-    },
-    humanities: {
-      title: 'Humanities & Languages',
-      items: [
-        'History',
-        'Geography',
-        'Religion Studies',
-        'Music',
-        'Visual Arts',
-        'Dramatic Arts',
-        'Additional Languages'
-      ]
-    },
-    technical: {
-      title: 'Technical & Vocational',
-      items: [
-        'Engineering Graphics & Design',
-        'Civil Technology',
-        'Electrical Technology',
-        'Mechanical Technology',
-        'Hospitality Studies',
-        'Agricultural Technology'
-      ]
-    }
-  };
 
   return (
     <>
       <SEO {...SEOConfigs.academics} />
       <div>
-        {/* Breadcrumbs */}
         <div className="bg-white">
           <Breadcrumbs />
         </div>
 
-        {/* Hero Section */}
-        <section className="bg-primary-dark text-white py-16 md:py-20 lg:py-24 text-center">
-          <div className="container-custom">
-            <h1 className="text-3xl md:text-4xl lg:text-5xl font-heading font-bold mb-4 md:mb-6 !text-white text-shadow-strong">
+        {/* Page Hero */}
+        <section className="relative py-28 md:py-36 text-center overflow-hidden">
+          <img
+            src={HERO_IMAGES.classroom}
+            alt=""
+            className="absolute inset-0 w-full h-full object-cover"
+            aria-hidden="true"
+          />
+          <div className="absolute inset-0 bg-primary-dark/85" />
+          <div className="relative z-10 container-custom">
+            <p className="text-accent-neon font-semibold text-sm tracking-widest uppercase mb-4">CAPS Curriculum</p>
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-heading font-bold !text-white mb-4 text-shadow-strong">
               Academic Excellence
             </h1>
-            <p className="text-lg md:text-xl max-w-3xl mx-auto !text-white text-shadow-strong">
+            <p className="text-lg md:text-xl max-w-3xl mx-auto !text-white/90">
               Comprehensive curriculum designed to unlock every learner's potential
             </p>
           </div>
         </section>
 
         {/* Curriculum Overview */}
-        <section id="subjects" className="py-16 md:py-24 lg:py-28">
+        <section id="subjects" className="py-16 md:py-24 bg-white">
           <div className="container-custom">
             <AnimateOnScroll animation="fade-in">
-              <h2 className="text-2xl md:text-3xl lg:text-4xl font-heading font-bold text-primary-dark mb-8 md:mb-12">
-                Our Curriculum
-              </h2>
+              <div className="mb-10">
+                <p className="text-primary font-semibold text-sm tracking-widest uppercase mb-3">What We Teach</p>
+                <h2 className="text-3xl md:text-4xl font-heading font-bold text-primary-dark mb-6">Our Curriculum</h2>
+              </div>
             </AnimateOnScroll>
+
             <AnimateOnScroll animation="slide-up" delay={100}>
-              <div className="bg-white p-8 md:p-10 rounded-xl shadow-md mb-10 md:mb-12">
-                <h3 className="text-xl md:text-2xl font-semibold mb-5 text-primary-dark">
-                  National Senior Certificate (NSC)
-                </h3>
-                <p className="text-base md:text-lg leading-relaxed text-neutral-500">
-                  Harding Secondary School follows the South African National Curriculum (CAPS) for Grades 8-12.
+              <div className="bg-gradient-to-r from-primary/5 to-primary-dark/5 border border-primary/20 p-8 rounded-2xl mb-12">
+                <h3 className="text-xl font-bold text-primary-dark mb-3">National Senior Certificate (NSC)</h3>
+                <p className="text-neutral-500 leading-relaxed">
+                  Harding Secondary School follows the South African National Curriculum (CAPS) for Grades 8–12.
                   Our comprehensive academic program prepares learners for the National Senior Certificate examination
                   and equips them with the knowledge and skills needed for tertiary education and future careers.
                 </p>
               </div>
             </AnimateOnScroll>
 
-            {/* Subject Streams */}
+            {/* Subject Stream Tabs */}
             <AnimateOnScroll animation="fade-in">
-              <h3 className="text-xl md:text-2xl lg:text-3xl font-heading font-bold text-primary-dark mb-6 md:mb-8">
-                Subject Streams
-              </h3>
-            </AnimateOnScroll>
-            <div className="flex flex-wrap gap-3 mb-10 md:mb-12 justify-center">
-              {Object.keys(subjects).map((key) => (
-                <button
-                  key={key}
-                  className={`px-6 py-3 rounded-lg text-base font-semibold transition-all duration-300 ${
-                    activeTab === key
-                      ? 'bg-primary-dark text-white'
-                      : 'bg-neutral-100 text-neutral-600 hover:bg-neutral-200'
-                  }`}
-                  onClick={() => setActiveTab(key)}
-                >
-                  {key.charAt(0).toUpperCase() + key.slice(1)}
-                </button>
-              ))}
-            </div>
-
-            <div>
-              <h4 className="text-lg md:text-xl lg:text-2xl font-semibold mb-6 text-black">
-                {subjects[activeTab].title}
-              </h4>
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-                {subjects[activeTab].items.map((subject, index) => (
-                  <AnimateOnScroll key={subject} animation="slide-up" delay={index * 50}>
-                    <div
-                      className="bg-neutral-50 p-6 rounded-lg border-l-4 border-primary-dark transition-all duration-300 hover:translate-x-2 hover:shadow-md"
-                    >
-                      <h5 className="text-base md:text-lg font-medium text-primary-dark">{subject}</h5>
-                    </div>
-                  </AnimateOnScroll>
+              <p className="text-primary font-semibold text-sm tracking-widest uppercase mb-6">Subject Streams</p>
+              <div className="flex flex-wrap gap-2 mb-8">
+                {TABS.map(({ key, label }) => (
+                  <button
+                    key={key}
+                    onClick={() => setActiveTab(key)}
+                    className={`px-6 py-3 rounded-full text-sm font-semibold transition-all duration-300 ${
+                      activeTab === key
+                        ? 'bg-primary-dark text-white shadow-lg shadow-primary-dark/20'
+                        : 'bg-neutral-100 text-neutral-600 hover:bg-neutral-200'
+                    }`}
+                  >
+                    {label}
+                  </button>
                 ))}
               </div>
-            </div>
+            </AnimateOnScroll>
+
+            <AnimateOnScroll animation="fade-in">
+              <h4 className="text-xl font-bold text-primary-dark mb-6">{SUBJECTS[activeTab].title}</h4>
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+                {SUBJECTS[activeTab].items.map((subject) => (
+                  <div
+                    key={subject}
+                    className="flex items-center gap-3 bg-neutral-50 hover:bg-primary/5 p-4 rounded-xl border border-neutral-200 hover:border-primary/30 transition-all duration-200"
+                  >
+                    <FaCheckCircle className="text-primary text-lg flex-shrink-0" />
+                    <span className="text-neutral-700 font-medium text-sm">{subject}</span>
+                  </div>
+                ))}
+              </div>
+            </AnimateOnScroll>
           </div>
         </section>
 
-        {/* Academic Features */}
-        <section className="py-16 md:py-24 lg:py-28 bg-neutral-50">
+        {/* Academic Support */}
+        <section className="py-16 md:py-24 bg-neutral-50">
           <div className="container-custom">
             <AnimateOnScroll animation="fade-in">
-              <h2 className="text-2xl md:text-3xl lg:text-4xl font-heading font-bold text-primary-dark mb-8 md:mb-12 text-center">
-                Academic Support & Resources
-              </h2>
-            </AnimateOnScroll>
-
-            {/* Past Papers Portal Highlight */}
-            <AnimateOnScroll animation="zoom-in">
-              <div className="bg-primary-dark text-white p-8 md:p-10 lg:p-12 rounded-xl mb-10 md:mb-12 text-center">
-                <div className="mb-6">
-                  <FaBook className="text-4xl md:text-5xl mx-auto" />
-                </div>
-                <h3 className="text-2xl md:text-3xl font-bold mb-4 md:mb-5">Past Papers Portal</h3>
-                <p className="text-base md:text-lg leading-relaxed mb-6 md:mb-8 max-w-3xl mx-auto">
-                  Access our comprehensive collection of past examination papers across all subjects and grades.
-                  Perfect for exam preparation and practice.
-                </p>
-                <Link
-                  to="/past-papers"
-                  className="btn-secondary inline-block"
-                >
-                  Access Past Papers
-                </Link>
+              <div className="text-center mb-12">
+                <p className="text-primary font-semibold text-sm tracking-widest uppercase mb-3">Resources</p>
+                <h2 className="text-3xl md:text-4xl font-heading font-bold text-primary-dark">Academic Support</h2>
               </div>
             </AnimateOnScroll>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
-              {[
-                { Icon: FaBookOpen, title: 'Extra Classes', desc: 'Additional support in Mathematics, Sciences, and Languages for Grade 10-12 learners' },
-                { Icon: FaUniversity, title: 'Modern Facilities', desc: 'Well-equipped science laboratories, computer labs, and a comprehensive library' },
-                { Icon: FaGraduationCap, title: 'Career Guidance', desc: 'Comprehensive career counseling and university application support' },
-              ].map((item, index) => (
+            {/* Past Papers Portal Feature Banner */}
+            <AnimateOnScroll animation="zoom-in">
+              <div className="relative overflow-hidden rounded-2xl mb-10">
+                <img
+                  src={HERO_IMAGES.library}
+                  alt=""
+                  className="absolute inset-0 w-full h-full object-cover"
+                  aria-hidden="true"
+                />
+                <div className="absolute inset-0 bg-primary-dark/88" />
+                <div className="relative z-10 p-10 md:p-16 text-center text-white">
+                  <FaBook className="text-5xl mx-auto mb-5 text-accent-neon" />
+                  <h3 className="text-2xl md:text-3xl font-bold mb-4">Past Papers Portal</h3>
+                  <p className="text-white/90 mb-8 max-w-2xl mx-auto">
+                    Access our comprehensive collection of past examination papers across all subjects and grades.
+                    Perfect for exam preparation and practice.
+                  </p>
+                  <Link
+                    to="/past-papers"
+                    className="inline-flex items-center gap-2 bg-white text-primary-dark font-bold px-8 py-4 rounded-lg hover:bg-accent-neon hover:text-white transition-all duration-300 shadow-xl"
+                  >
+                    Access Past Papers <FaArrowRight />
+                  </Link>
+                </div>
+              </div>
+            </AnimateOnScroll>
+
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              {SUPPORT.map((item, index) => (
                 <AnimateOnScroll key={item.title} animation="slide-up" delay={index * 100}>
-                  <div className="bg-primary-dark text-white p-8 md:p-10 rounded-xl text-center transition-all duration-300 hover:-translate-y-2 hover:shadow-xl">
-                    <div className="mb-5 md:mb-6">
-                      <item.Icon className="text-4xl md:text-5xl mx-auto" />
+                  <div className="group bg-white p-8 rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-2">
+                    <div className="w-14 h-14 bg-primary/10 group-hover:bg-primary rounded-full flex items-center justify-center mb-5 transition-colors duration-300">
+                      <item.Icon className="text-2xl text-primary group-hover:text-white transition-colors duration-300" />
                     </div>
-                    <h3 className="text-xl md:text-2xl font-semibold mb-4">{item.title}</h3>
-                    <p className="leading-relaxed">{item.desc}</p>
+                    <h3 className="text-lg font-bold text-primary-dark mb-3">{item.title}</h3>
+                    <p className="text-neutral-500 text-sm leading-relaxed">{item.desc}</p>
                   </div>
                 </AnimateOnScroll>
               ))}
@@ -190,26 +223,22 @@ const Academics = () => {
         </section>
 
         {/* Academic Achievements */}
-        <section id="achievements" className="py-16 md:py-24 lg:py-28">
+        <section id="achievements" className="py-16 md:py-24 bg-white">
           <div className="container-custom">
             <AnimateOnScroll animation="fade-in">
-              <h2 className="text-2xl md:text-3xl lg:text-4xl font-heading font-bold text-primary-dark mb-8 md:mb-12 text-center">
-                Academic Achievements
-              </h2>
+              <div className="text-center mb-12">
+                <p className="text-primary font-semibold text-sm tracking-widest uppercase mb-3">Track Record</p>
+                <h2 className="text-3xl md:text-4xl font-heading font-bold text-primary-dark">Academic Achievements</h2>
+              </div>
             </AnimateOnScroll>
-            <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
-              {[
-                { end: 95, suffix: '%', label: 'Matric Pass Rate' },
-                { end: 67, suffix: '%', label: "Bachelor's Pass" },
-                { end: 150, suffix: '+', label: 'Distinctions Annually' },
-                { end: 12, suffix: '', label: 'Top Achievers Awards' },
-              ].map((stat, index) => (
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
+              {ACHIEVEMENTS.map((stat, index) => (
                 <AnimateOnScroll key={stat.label} animation="slide-up" delay={index * 100}>
-                  <div className="text-center">
-                    <div className="text-4xl md:text-5xl font-bold text-primary-dark mb-3">
+                  <div className="text-center p-8 bg-neutral-50 rounded-2xl border border-neutral-200 hover:border-primary hover:bg-primary/5 transition-all duration-300">
+                    <div className="text-4xl md:text-5xl font-bold text-primary mb-3">
                       <CounterAnimation end={stat.end} suffix={stat.suffix} />
                     </div>
-                    <p className="text-base md:text-lg text-neutral-500">{stat.label}</p>
+                    <p className="text-neutral-500 text-sm font-medium uppercase tracking-wider">{stat.label}</p>
                   </div>
                 </AnimateOnScroll>
               ))}
@@ -218,33 +247,36 @@ const Academics = () => {
         </section>
 
         {/* Grade Structure */}
-        <section className="py-16 md:py-24 lg:py-28 bg-neutral-50">
+        <section className="py-16 md:py-24 bg-neutral-50">
           <div className="container-custom">
             <AnimateOnScroll animation="fade-in">
-              <h2 className="text-2xl md:text-3xl lg:text-4xl font-heading font-bold text-primary-dark mb-8 md:mb-12 text-center">
-                Grade Structure
-              </h2>
+              <div className="text-center mb-12">
+                <p className="text-primary font-semibold text-sm tracking-widest uppercase mb-3">Structure</p>
+                <h2 className="text-3xl md:text-4xl font-heading font-bold text-primary-dark">Grade Structure</h2>
+              </div>
             </AnimateOnScroll>
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-8">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
               <AnimateOnScroll animation="slide-left">
-                <div className="bg-white p-8 md:p-10 rounded-xl shadow-md transition-all duration-300 hover:shadow-xl hover:-translate-y-2">
-                  <h3 className="text-xl md:text-2xl font-semibold mb-5 text-primary-dark">
-                    Junior Phase (Grades 8-9)
-                  </h3>
-                  <p className="text-base md:text-lg leading-relaxed text-neutral-500">
+                <div className="bg-white p-8 rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-2 border-t-4 border-primary">
+                  <span className="inline-block bg-primary text-white font-bold px-4 py-1.5 rounded-full text-sm mb-5">
+                    Grades 8 – 9
+                  </span>
+                  <h3 className="text-xl font-bold text-primary-dark mb-4">Junior Phase</h3>
+                  <p className="text-neutral-500 leading-relaxed">
                     Foundation years focusing on core subjects with exposure to various learning areas
-                    to help learners make informed subject choices.
+                    to help learners make informed subject choices for senior phase.
                   </p>
                 </div>
               </AnimateOnScroll>
               <AnimateOnScroll animation="slide-right">
-                <div className="bg-white p-8 md:p-10 rounded-xl shadow-md transition-all duration-300 hover:shadow-xl hover:-translate-y-2">
-                  <h3 className="text-xl md:text-2xl font-semibold mb-5 text-primary-dark">
-                    Senior Phase (Grades 10-12)
-                  </h3>
-                  <p className="text-base md:text-lg leading-relaxed text-neutral-500">
+                <div className="bg-white p-8 rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-2 border-t-4 border-primary-dark">
+                  <span className="inline-block bg-primary-dark text-white font-bold px-4 py-1.5 rounded-full text-sm mb-5">
+                    Grades 10 – 12
+                  </span>
+                  <h3 className="text-xl font-bold text-primary-dark mb-4">Senior Phase</h3>
+                  <p className="text-neutral-500 leading-relaxed">
                     Specialized subject selection preparing learners for the National Senior Certificate
-                    and post-school opportunities.
+                    and post-school opportunities, including university and vocational training.
                   </p>
                 </div>
               </AnimateOnScroll>
