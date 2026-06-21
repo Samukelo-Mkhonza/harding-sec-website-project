@@ -91,6 +91,9 @@ const SearchOverlay = ({ isOpen, onClose }) => {
             initial={{ opacity: 0, y: -50 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -50 }}
+            role="dialog"
+            aria-modal="true"
+            aria-label="Search"
             className="max-w-3xl mx-auto mt-20 bg-white rounded-2xl shadow-2xl overflow-hidden"
             onClick={(e) => e.stopPropagation()}
           >
@@ -106,8 +109,8 @@ const SearchOverlay = ({ isOpen, onClose }) => {
                   placeholder="Search..."
                   className="flex-1 text-2xl outline-none"
                 />
-                <button onClick={onClose} className="text-neutral-400 hover:text-neutral-600">
-                  <FaTimes className="text-xl" />
+                <button onClick={onClose} aria-label="Close search" className="text-neutral-400 hover:text-neutral-600">
+                  <FaTimes className="text-xl" aria-hidden="true" />
                 </button>
               </div>
 

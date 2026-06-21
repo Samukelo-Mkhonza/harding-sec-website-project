@@ -7,7 +7,7 @@ import FilterPanel from '../components/portal/FilterPanel';
 import SearchBar from '../components/portal/SearchBar';
 import PapersList from '../components/portal/PapersList';
 import { applyFilters, clearFilters } from '../utils/filterUtils';
-import { getPreferences, isAuthenticated, isBookmarked, addBookmark, removeBookmark, updateViewMode } from '../utils/portalStorage';
+import { getPreferences, isAuthenticated, isBookmarked as getIsBookmarked, addBookmark, removeBookmark, updateViewMode } from '../utils/portalStorage';
 import { downloadPDF, downloadBoth, formatFilename } from '../utils/downloadUtils';
 
 const PastPapersPortal = () => {
@@ -24,6 +24,13 @@ const PastPapersPortal = () => {
   const [loading, setLoading] = useState(true);
   const [viewMode, setViewMode] = useState('grid');
   const [error, setError] = useState(null);
+  const [bookmarkedIds, setBookmarkedIds] = useState(() => {
+    try {
+      return JSON.parse(localStorage.getItem('hss_portal_bookmarks') || '[]');
+    } catch {
+      return [];
+    }
+  });
 
   // Load papers data on mount
   useEffect(() => {
@@ -162,7 +169,7 @@ const PastPapersPortal = () => {
                   setViewMode(mode);
                   updateViewMode(mode);
                 }}
-                isBookmarked={(paperId) => isBookmarked(paperId)}
+                isBookmarked={(paperId) => bookmarkedIds.includes(paperId)}
                 onDownload={async (paper) => {
                   const filename = formatFilename(paper, 'paper');
                   const success = await downloadPDF(paper.pdfUrl, filename);
@@ -172,10 +179,12 @@ const PastPapersPortal = () => {
                 }}
                 onPreview={(paper) => console.log('Preview:', paper)}
                 onBookmark={(paperId) => {
-                  if (isBookmarked(paperId)) {
+                  if (getIsBookmarked(paperId)) {
                     removeBookmark(paperId);
+                    setBookmarkedIds(prev => prev.filter(id => id !== paperId));
                   } else {
                     addBookmark(paperId);
+                    setBookmarkedIds(prev => [...prev, paperId]);
                   }
                 }}
                 onDownloadMemo={async (paper) => {

@@ -45,16 +45,14 @@ const Navigation = ({ isScrolled = false }) => {
     setOpenDropdown(index);
   };
 
-  const handleMouseLeave = () => {
-    setOpenDropdown(null);
+  const handleMouseLeave = (e) => {
+    if (!e.currentTarget.contains(document.activeElement)) {
+      setOpenDropdown(null);
+    }
   };
 
-  const handleKeyDown = (e, index) => {
-    if (e.key === 'Enter' || e.key === ' ') {
-      e.preventDefault();
-      setOpenDropdown(openDropdown === index ? null : index);
-    }
-    if (e.key === 'Escape') {
+  const handleContainerBlur = (e) => {
+    if (!e.currentTarget.contains(e.relatedTarget)) {
       setOpenDropdown(null);
     }
   };
@@ -68,34 +66,52 @@ const Navigation = ({ isScrolled = false }) => {
             className="relative"
             onMouseEnter={() => handleMouseEnter(index)}
             onMouseLeave={handleMouseLeave}
-            onKeyDown={(e) => handleKeyDown(e, index)}
+            onBlur={handleContainerBlur}
           >
             {/* Main Nav Link */}
-            <NavLink
-              to={item.path}
-              end={item.path === '/'}
-              className={({ isActive }) =>
-                `flex items-center gap-1.5 px-5 py-2 text-base font-medium text-neutral-700 hover:text-neutral-900 hover:bg-neutral-50 rounded-lg transition-all duration-200 ${
-                  isActive ? 'text-primary bg-primary/5' : ''
-                }`
-              }
-            >
-              {item.label}
+            <div className="flex items-center">
+              <NavLink
+                to={item.path}
+                end={item.path === '/'}
+                className={({ isActive }) =>
+                  `flex items-center px-4 py-2 text-base font-medium text-neutral-700 hover:text-neutral-900 hover:bg-neutral-50 rounded-lg transition-all duration-200 ${
+                    isActive ? 'text-primary bg-primary/5' : ''
+                  }`
+                }
+              >
+                {item.label}
+              </NavLink>
               {item.dropdown && (
-                <FaChevronDown className={`text-xs transition-transform duration-200 ${
-                  openDropdown === index ? 'rotate-180' : ''
-                }`} />
+                <button
+                  aria-expanded={openDropdown === index}
+                  aria-haspopup="true"
+                  aria-label={`Open ${item.label} submenu`}
+                  className="p-2 text-neutral-500 hover:text-neutral-900 hover:bg-neutral-50 rounded-lg transition-all duration-200"
+                  onClick={() => setOpenDropdown(openDropdown === index ? null : index)}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Escape') {
+                      e.preventDefault();
+                      setOpenDropdown(null);
+                    }
+                  }}
+                >
+                  <FaChevronDown className={`text-xs transition-transform duration-200 ${
+                    openDropdown === index ? 'rotate-180' : ''
+                  }`} aria-hidden="true" />
+                </button>
               )}
-            </NavLink>
+            </div>
 
             {/* Dropdown Menu */}
             {item.dropdown && (
               <div
+                aria-hidden={openDropdown !== index}
                 className={`absolute top-full left-0 mt-2 w-56 bg-white rounded-lg shadow-xl border border-neutral-100 overflow-hidden transition-all duration-200 origin-top ${
                   openDropdown === index
                     ? 'opacity-100 scale-100 translate-y-0 pointer-events-auto'
                     : 'opacity-0 scale-95 -translate-y-2 pointer-events-none'
                 }`}
+                onKeyDown={(e) => { if (e.key === 'Escape') setOpenDropdown(null); }}
               >
                 <div className="py-2">
                   {item.dropdown.map((dropdownItem, dropdownIndex) => (

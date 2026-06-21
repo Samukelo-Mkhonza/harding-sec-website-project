@@ -135,13 +135,13 @@ const NewsCarousel = ({ news = [] }) => {
                   <p className="text-neutral-600 mb-4 line-clamp-3">
                     {item.excerpt}
                   </p>
-                  <Link
-                    to={item.link}
+                  <a
+                    href={item.link}
                     className="inline-flex items-center gap-2 text-primary font-semibold hover:gap-3 transition-all"
                   >
                     <span>Read More</span>
                     <i className="fas fa-arrow-right text-sm"></i>
-                  </Link>
+                  </a>
                 </div>
               </div>
             </SwiperSlide>
@@ -151,7 +151,7 @@ const NewsCarousel = ({ news = [] }) => {
         {/* View All Button */}
         <div className="text-center mt-8">
           <Link
-            to="/news"
+            to="/"
             className="btn-outline inline-flex items-center gap-2"
           >
             <span>View All News</span>
@@ -161,7 +161,7 @@ const NewsCarousel = ({ news = [] }) => {
       </div>
 
       {/* Custom Swiper Styles */}
-      <style jsx>{`
+      <style>{`
         .news-carousel :global(.swiper-button-next),
         .news-carousel :global(.swiper-button-prev) {
           color: #19467E;

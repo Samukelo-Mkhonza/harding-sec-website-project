@@ -111,6 +111,8 @@ const MobileMenu = ({ isOpen, onClose }) => {
               {item.dropdown ? (
                 <button
                   onClick={() => toggleExpanded(index)}
+                  aria-expanded={expandedMenu === index}
+                  aria-controls={`mobile-submenu-${index}`}
                   className="w-full flex items-center justify-between px-6 py-4 text-neutral-700 hover:bg-neutral-50 transition-colors"
                 >
                   <div className="flex items-center gap-3">
@@ -142,6 +144,8 @@ const MobileMenu = ({ isOpen, onClose }) => {
               {/* Dropdown Items */}
               {item.dropdown && (
                 <div
+                  id={`mobile-submenu-${index}`}
+                  aria-hidden={expandedMenu !== index}
                   className={`bg-neutral-50 overflow-hidden transition-all duration-300 ${
                     expandedMenu === index ? 'max-h-96' : 'max-h-0'
                   }`}
