@@ -1,222 +1,206 @@
 import React from 'react';
-import { motion } from 'framer-motion';
-import { FiDownload, FiEye, FiBookmark, FiFileText, FiCalendar, FiLayers } from 'react-icons/fi';
+import { FaDownload, FaEye, FaBookmark, FaRegBookmark, FaFileAlt, FaCalendarAlt, FaLayerGroup, FaCheckCircle } from 'react-icons/fa';
 import { getSubjectById, getExamTypeById, NEW_BADGE_DAYS } from '../../utils/portalConstants';
 import { isNewPaper } from '../../utils/filterUtils';
 
-const PaperCard = ({
-  paper,
-  viewMode = 'grid',
-  isBookmarked = false,
-  onDownload,
-  onPreview,
-  onBookmark,
-  onDownloadMemo
-}) => {
+const formatSize = (bytes) => {
+  if (bytes < 1024) return bytes + ' B';
+  if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(1) + ' KB';
+  return (bytes / (1024 * 1024)).toFixed(1) + ' MB';
+};
+
+const PaperCard = ({ paper, viewMode = 'grid', isBookmarked = false, onDownload, onPreview, onBookmark, onDownloadMemo }) => {
   const subject = getSubjectById(paper.subject);
   const examType = getExamTypeById(paper.examType);
   const isNew = isNewPaper(paper.uploadDate, NEW_BADGE_DAYS);
-  const hasMemo = paper.memoUrl !== null;
+  const hasMemo = Boolean(paper.memoUrl);
 
-  const formatFileSize = (bytes) => {
-    if (bytes < 1024) return bytes + ' B';
-    if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(1) + ' KB';
-    return (bytes / (1024 * 1024)).toFixed(1) + ' MB';
-  };
-
+  /* ── List view ─────────────────────────────────────────── */
   if (viewMode === 'list') {
     return (
-      <motion.div
-        initial={{ opacity: 0, y: 10 }}
-        animate={{ opacity: 1, y: 0 }}
-        className="bg-white border border-gray-200 rounded-lg p-4 hover:shadow-md transition-shadow"
-      >
-        <div className="flex items-center justify-between gap-4">
-          {/* Paper Info */}
+      <div className="bg-white border border-neutral-100 rounded-2xl px-5 py-4 hover:shadow-md hover:border-primary/20 transition-all">
+        <div className="flex items-center gap-4">
+          {/* Subject colour dot */}
+          <div
+            className="w-2.5 h-2.5 rounded-full flex-shrink-0"
+            style={{ backgroundColor: subject?.color ?? '#0D4E25' }}
+            aria-hidden="true"
+          />
+
+          {/* Info */}
           <div className="flex-1 min-w-0">
-            <div className="flex items-center gap-2 mb-2">
-              <div
-                className="w-3 h-3 rounded-full flex-shrink-0"
-                style={{ backgroundColor: subject?.color }}
-                aria-label={`${subject?.name} indicator`}
-              />
-              <h3 className="font-semibold text-gray-800 truncate">{paper.title}</h3>
+            <div className="flex items-center gap-2 flex-wrap">
+              <h3 className="font-semibold text-neutral-800 text-sm truncate">{paper.title}</h3>
               {isNew && (
-                <span className="bg-green-100 text-green-800 text-xs px-2 py-1 rounded-full flex-shrink-0">
-                  New
+                <span className="bg-accent-neon/15 text-primary text-[10px] font-bold px-2 py-0.5 rounded-full flex-shrink-0">
+                  NEW
                 </span>
               )}
             </div>
-            <div className="flex flex-wrap items-center gap-4 text-sm text-gray-600">
+            <div className="flex flex-wrap items-center gap-x-4 gap-y-1 mt-1 text-xs text-neutral-500">
               <span className="flex items-center gap-1">
-                <FiLayers className="w-4 h-4" />
-                Grade {paper.grade}
+                <FaLayerGroup className="text-[10px]" /> Grade {paper.grade}
               </span>
               <span className="flex items-center gap-1">
-                <FiCalendar className="w-4 h-4" />
-                {paper.year} - {examType?.shortName}
+                <FaCalendarAlt className="text-[10px]" /> {paper.year} · {examType?.shortName}
               </span>
               <span className="flex items-center gap-1">
-                <FiFileText className="w-4 h-4" />
-                {formatFileSize(paper.fileSize)}
+                <FaFileAlt className="text-[10px]" /> {formatSize(paper.fileSize)}
               </span>
-              {hasMemo ? (
-                <span className="text-primary flex items-center gap-1">
-                  <FiFileText className="w-4 h-4" />
-                  Memo available
+              {hasMemo && (
+                <span className="flex items-center gap-1 text-primary font-medium">
+                  <FaCheckCircle className="text-[10px]" /> Memo
                 </span>
-              ) : (
-                <span className="text-gray-400">Memo not available</span>
               )}
             </div>
           </div>
 
           {/* Actions */}
-          <div className="flex items-center gap-2 flex-shrink-0">
+          <div className="flex items-center gap-1 flex-shrink-0">
             <button
               onClick={() => onPreview(paper)}
-              className="p-2 text-gray-600 hover:text-primary hover:bg-primary/10 rounded-lg transition-colors"
-              aria-label={`Preview ${paper.title}`}
               title="Preview"
+              aria-label={`Preview ${paper.title}`}
+              className="w-8 h-8 rounded-xl text-neutral-500 hover:text-primary hover:bg-primary/10 flex items-center justify-center transition-all"
             >
-              <FiEye className="w-5 h-5" />
+              <FaEye className="text-sm" />
             </button>
             <button
               onClick={() => onDownload(paper)}
-              className="p-2 text-gray-600 hover:text-primary hover:bg-primary/10 rounded-lg transition-colors"
+              title="Download paper"
               aria-label={`Download ${paper.title}`}
-              title="Download"
+              className="w-8 h-8 rounded-xl text-neutral-500 hover:text-primary hover:bg-primary/10 flex items-center justify-center transition-all"
             >
-              <FiDownload className="w-5 h-5" />
+              <FaDownload className="text-sm" />
             </button>
             {hasMemo && (
               <button
                 onClick={() => onDownloadMemo(paper)}
-                className="p-2 text-gray-600 hover:text-primary hover:bg-primary/10 rounded-lg transition-colors"
+                title="Download memo"
                 aria-label={`Download memo for ${paper.title}`}
-                title="Download Memo"
+                className="w-8 h-8 rounded-xl text-neutral-500 hover:text-primary hover:bg-primary/10 flex items-center justify-center transition-all"
               >
-                <FiFileText className="w-5 h-5" />
+                <FaFileAlt className="text-sm" />
               </button>
             )}
             <button
               onClick={() => onBookmark(paper.id)}
-              className={`p-2 rounded-lg transition-colors ${
-                isBookmarked
-                  ? 'text-primary bg-primary/10'
-                  : 'text-gray-600 hover:text-primary hover:bg-primary/10'
+              aria-label={isBookmarked ? 'Remove bookmark' : 'Bookmark'}
+              className={`w-8 h-8 rounded-xl flex items-center justify-center transition-all ${
+                isBookmarked ? 'text-primary bg-primary/10' : 'text-neutral-500 hover:text-primary hover:bg-primary/10'
               }`}
-              aria-label={isBookmarked ? `Remove ${paper.title} from bookmarks` : `Bookmark ${paper.title}`}
-              title={isBookmarked ? 'Remove bookmark' : 'Bookmark'}
             >
-              <FiBookmark className={`w-5 h-5 ${isBookmarked ? 'fill-current' : ''}`} />
+              {isBookmarked ? <FaBookmark className="text-sm" /> : <FaRegBookmark className="text-sm" />}
             </button>
           </div>
         </div>
-      </motion.div>
+      </div>
     );
   }
 
-  // Grid view
+  /* ── Grid view ──────────────────────────────────────────── */
   return (
-    <motion.div
-      initial={{ opacity: 0, scale: 0.95 }}
-      animate={{ opacity: 1, scale: 1 }}
-      className="bg-white border border-gray-200 rounded-lg overflow-hidden hover:shadow-lg transition-shadow"
-    >
-      {/* Header with subject color */}
+    <div className="bg-white border border-neutral-100 rounded-2xl overflow-hidden hover:shadow-lg hover:border-primary/20 transition-all group flex flex-col">
+      {/* Coloured subject header */}
       <div
-        className="h-2"
-        style={{ backgroundColor: subject?.color }}
-        aria-label={`${subject?.name} indicator`}
+        className="h-1.5 w-full"
+        style={{ backgroundColor: subject?.color ?? '#0D4E25' }}
+        aria-hidden="true"
       />
 
-      <div className="p-4">
-        {/* Title and badges */}
-        <div className="flex items-start justify-between gap-2 mb-3">
-          <h3 className="font-semibold text-gray-800 line-clamp-2 flex-1">{paper.title}</h3>
-          {isNew && (
-            <span className="bg-green-100 text-green-800 text-xs px-2 py-1 rounded-full flex-shrink-0">
-              New
+      <div className="p-5 flex flex-col flex-1">
+        {/* Title + badges */}
+        <div className="flex items-start justify-between gap-2 mb-4">
+          <h3 className="font-heading font-semibold text-neutral-800 text-sm leading-snug line-clamp-2 flex-1">
+            {paper.title}
+          </h3>
+          <div className="flex flex-col items-end gap-1 flex-shrink-0">
+            {isNew && (
+              <span className="bg-accent-neon/15 text-primary text-[10px] font-bold px-2 py-0.5 rounded-full">
+                NEW
+              </span>
+            )}
+          </div>
+        </div>
+
+        {/* Meta grid */}
+        <div className="grid grid-cols-2 gap-x-3 gap-y-2 mb-4 text-xs text-neutral-500">
+          <span className="flex items-center gap-1.5">
+            <FaLayerGroup className="text-primary/60 flex-shrink-0" /> Grade {paper.grade}
+          </span>
+          <span className="flex items-center gap-1.5">
+            <FaCalendarAlt className="text-primary/60 flex-shrink-0" /> {paper.year}
+          </span>
+          <span className="flex items-center gap-1.5">
+            <FaFileAlt className="text-primary/60 flex-shrink-0" /> {formatSize(paper.fileSize)}
+          </span>
+          <span className="flex items-center gap-1.5">
+            <FaFileAlt className="text-primary/60 flex-shrink-0" /> {paper.pageCount} pages
+          </span>
+        </div>
+
+        {/* Exam type + subject tags */}
+        <div className="flex flex-wrap gap-1.5 mb-4">
+          <span className="text-[11px] font-semibold px-2.5 py-1 bg-primary/10 text-primary rounded-lg">
+            {examType?.shortName}
+          </span>
+          <span className="text-[11px] font-semibold px-2.5 py-1 bg-neutral-100 text-neutral-600 rounded-lg truncate max-w-[120px]">
+            {subject?.name}
+          </span>
+          {hasMemo && (
+            <span className="text-[11px] font-semibold px-2.5 py-1 bg-green-50 text-green-700 rounded-lg flex items-center gap-1">
+              <FaCheckCircle className="text-[9px]" /> Memo
             </span>
           )}
         </div>
 
-        {/* Paper details */}
-        <div className="space-y-2 mb-4 text-sm text-gray-600">
-          <div className="flex items-center gap-2">
-            <FiLayers className="w-4 h-4 flex-shrink-0" />
-            <span>Grade {paper.grade}</span>
-          </div>
-          <div className="flex items-center gap-2">
-            <FiCalendar className="w-4 h-4 flex-shrink-0" />
-            <span>{paper.year} - {examType?.shortName}</span>
-          </div>
-          <div className="flex items-center gap-2">
-            <FiFileText className="w-4 h-4 flex-shrink-0" />
-            <span>{formatFileSize(paper.fileSize)} • {paper.pageCount} pages</span>
-          </div>
-        </div>
-
-        {/* Memo status */}
-        <div className="mb-4 pb-4 border-b border-gray-200">
-          {hasMemo ? (
-            <span className="text-sm text-primary flex items-center gap-1">
-              <FiFileText className="w-4 h-4" />
-              Marking Memo available
-            </span>
-          ) : (
-            <span className="text-sm text-gray-400">Memo not available</span>
-          )}
-        </div>
+        {/* Spacer */}
+        <div className="flex-1" />
 
         {/* Action buttons */}
-        <div className="space-y-2">
+        <div className="space-y-2 pt-4 border-t border-neutral-100">
           <div className="grid grid-cols-2 gap-2">
             <button
               onClick={() => onPreview(paper)}
-              className="flex items-center justify-center gap-2 px-3 py-2 text-sm border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors"
               aria-label={`Preview ${paper.title}`}
+              className="flex items-center justify-center gap-1.5 px-3 py-2.5 text-xs font-semibold border border-neutral-200 rounded-xl text-neutral-600 hover:border-primary/30 hover:text-primary hover:bg-primary/5 transition-all"
             >
-              <FiEye className="w-4 h-4" />
-              Preview
+              <FaEye /> Preview
             </button>
             <button
               onClick={() => onDownload(paper)}
-              className="flex items-center justify-center gap-2 px-3 py-2 text-sm bg-primary text-white rounded-lg hover:bg-primary-dark transition-colors"
               aria-label={`Download ${paper.title}`}
+              className="flex items-center justify-center gap-1.5 px-3 py-2.5 text-xs font-semibold bg-primary text-white rounded-xl hover:bg-primary-dark transition-colors shadow-sm"
             >
-              <FiDownload className="w-4 h-4" />
-              Download
+              <FaDownload /> Download
             </button>
           </div>
 
           {hasMemo && (
             <button
               onClick={() => onDownloadMemo(paper)}
-              className="w-full flex items-center justify-center gap-2 px-3 py-2 text-sm border border-primary text-primary rounded-lg hover:bg-primary/10 transition-colors"
               aria-label={`Download memo for ${paper.title}`}
+              className="w-full flex items-center justify-center gap-1.5 px-3 py-2.5 text-xs font-semibold border border-primary/30 text-primary rounded-xl hover:bg-primary/10 transition-all"
             >
-              <FiFileText className="w-4 h-4" />
-              Download Memo
+              <FaFileAlt /> Download Memo
             </button>
           )}
 
           <button
             onClick={() => onBookmark(paper.id)}
-            className={`w-full flex items-center justify-center gap-2 px-3 py-2 text-sm rounded-lg transition-colors ${
-              isBookmarked
-                ? 'bg-primary/10 text-primary border border-primary'
-                : 'border border-gray-300 text-gray-700 hover:bg-gray-50'
-            }`}
             aria-label={isBookmarked ? `Remove ${paper.title} from bookmarks` : `Bookmark ${paper.title}`}
+            className={`w-full flex items-center justify-center gap-1.5 px-3 py-2 text-xs font-semibold rounded-xl transition-all ${
+              isBookmarked
+                ? 'bg-primary/10 text-primary border border-primary/30'
+                : 'border border-neutral-200 text-neutral-500 hover:bg-neutral-50'
+            }`}
           >
-            <FiBookmark className={`w-4 h-4 ${isBookmarked ? 'fill-current' : ''}`} />
+            {isBookmarked ? <FaBookmark /> : <FaRegBookmark />}
             {isBookmarked ? 'Bookmarked' : 'Bookmark'}
           </button>
         </div>
       </div>
-    </motion.div>
+    </div>
   );
 };
 

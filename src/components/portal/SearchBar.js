@@ -1,80 +1,71 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { FiSearch, FiX } from 'react-icons/fi';
+import { FaSearch, FaTimes } from 'react-icons/fa';
 import { SEARCH_DEBOUNCE_MS } from '../../utils/portalConstants';
 
-const SearchBar = ({ value, onChange, placeholder = 'Search papers...', resultCount }) => {
-  const [localValue, setLocalValue] = useState(value);
+const SearchBar = ({ value, onChange, placeholder = 'Search by subject, grade, year or exam type…', resultCount }) => {
+  const [local, setLocal] = useState(value);
 
-  // Debounced search
   useEffect(() => {
-    const timer = setTimeout(() => {
-      onChange(localValue);
-    }, SEARCH_DEBOUNCE_MS);
-
+    const timer = setTimeout(() => onChange(local), SEARCH_DEBOUNCE_MS);
     return () => clearTimeout(timer);
-  }, [localValue, onChange]);
+  }, [local, onChange]);
 
-  // Sync with external value changes
+  useEffect(() => { setLocal(value); }, [value]);
+
+  const clear = useCallback(() => { setLocal(''); onChange(''); }, [onChange]);
+
   useEffect(() => {
-    setLocalValue(value);
-  }, [value]);
-
-  const handleClear = useCallback(() => {
-    setLocalValue('');
-    onChange('');
-  }, [onChange]);
-
-  // Keyboard shortcut (Ctrl/Cmd + K)
-  useEffect(() => {
-    const handleKeyDown = (e) => {
+    const onKey = (e) => {
       if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
         e.preventDefault();
-        document.getElementById('search-input')?.focus();
+        document.getElementById('portal-search')?.focus();
       }
     };
-
-    window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
   }, []);
 
   return (
-    <div className="relative">
+    <div>
       <div className="relative">
-        <FiSearch className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+        <FaSearch className="absolute left-4 top-1/2 -translate-y-1/2 text-neutral-400 text-sm pointer-events-none" />
         <input
-          id="search-input"
+          id="portal-search"
           type="text"
-          value={localValue}
-          onChange={(e) => setLocalValue(e.target.value)}
+          value={local}
+          onChange={e => setLocal(e.target.value)}
           placeholder={placeholder}
-          className="w-full pl-12 pr-12 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-all"
+          className="w-full pl-11 pr-12 py-3.5 bg-white border border-neutral-200 rounded-2xl text-sm text-neutral-700 placeholder-neutral-400 shadow-sm focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary transition-all"
           aria-label="Search past papers"
-          aria-describedby="search-results-count"
+          aria-describedby="search-hint"
         />
-        {localValue && (
+        {local ? (
           <button
-            onClick={handleClear}
-            className="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600 transition-colors"
+            onClick={clear}
+            className="absolute right-4 top-1/2 -translate-y-1/2 w-6 h-6 rounded-full bg-neutral-200 hover:bg-neutral-300 flex items-center justify-center transition-colors"
             aria-label="Clear search"
           >
-            <FiX className="w-5 h-5" />
+            <FaTimes className="text-neutral-500 text-xs" />
           </button>
+        ) : (
+          <span className="absolute right-4 top-1/2 -translate-y-1/2 hidden sm:flex items-center gap-0.5 pointer-events-none">
+            <kbd className="text-[10px] px-1.5 py-0.5 bg-neutral-100 border border-neutral-200 rounded text-neutral-400 font-mono">⌃K</kbd>
+          </span>
         )}
       </div>
-      {localValue && (
-        <div
-          id="search-results-count"
-          className="mt-2 text-sm text-gray-600"
+
+      {local && (
+        <p
+          id="search-hint"
+          className="mt-2 text-xs text-neutral-500 pl-1"
           role="status"
           aria-live="polite"
         >
-          {resultCount} {resultCount === 1 ? 'result' : 'results'} found
-        </div>
+          {resultCount === 0
+            ? 'No papers match your search.'
+            : `${resultCount} ${resultCount === 1 ? 'paper' : 'papers'} found`}
+        </p>
       )}
-      <div className="mt-1 text-xs text-gray-500">
-        Press <kbd className="px-2 py-1 bg-gray-100 border border-gray-300 rounded">Ctrl</kbd> +{' '}
-        <kbd className="px-2 py-1 bg-gray-100 border border-gray-300 rounded">K</kbd> to focus
-      </div>
     </div>
   );
 };

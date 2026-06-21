@@ -1,246 +1,189 @@
 import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { FiFilter, FiX, FiChevronDown } from 'react-icons/fi';
+import { FaFilter, FaTimes, FaChevronDown, FaChevronUp } from 'react-icons/fa';
 import { SUBJECTS, EXAM_TYPES, GRADES, MIN_YEAR, MAX_YEAR } from '../../utils/portalConstants';
 import { hasActiveFilters } from '../../utils/filterUtils';
 
-const FilterPanel = ({ filters, onFilterChange, resultCount, isMobile = false }) => {
-  const [isOpen, setIsOpen] = useState(!isMobile);
+const years = [];
+for (let y = MAX_YEAR; y >= MIN_YEAR; y--) years.push(y);
 
-  const handleFilterUpdate = (key, value) => {
-    onFilterChange({
-      ...filters,
-      [key]: value
-    });
-  };
+const SectionHeading = ({ children }) => (
+  <p className="text-xs font-bold text-neutral-400 uppercase tracking-widest mb-2.5">{children}</p>
+);
 
-  const handleClearFilters = () => {
-    onFilterChange({
-      grade: null,
-      subject: null,
-      year: null,
-      examType: null,
-      searchQuery: ''
-    });
-  };
+const PillButton = ({ active, onClick, children }) => (
+  <button
+    onClick={onClick}
+    className={`px-3 py-1.5 rounded-xl text-xs font-semibold transition-all duration-150 ${
+      active
+        ? 'bg-primary text-white shadow-sm'
+        : 'bg-neutral-100 text-neutral-600 hover:bg-neutral-200'
+    }`}
+  >
+    {children}
+  </button>
+);
 
-  const activeFiltersCount = [
-    filters.grade,
-    filters.subject,
-    filters.year,
-    filters.examType
-  ].filter(f => f !== null && f !== undefined).length;
+const FilterSelect = ({ id, label, value, onChange, options, placeholder }) => (
+  <div>
+    <label htmlFor={id} className="block text-xs font-semibold text-neutral-600 mb-1.5">{label}</label>
+    <div className="relative">
+      <select
+        id={id}
+        value={value || ''}
+        onChange={onChange}
+        className="w-full appearance-none px-3 py-2.5 border border-neutral-200 rounded-xl text-sm text-neutral-700 bg-white focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary transition-all pr-8"
+      >
+        <option value="">{placeholder}</option>
+        {options.map(o => (
+          <option key={o.value} value={o.value}>{o.label}</option>
+        ))}
+      </select>
+      <FaChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 text-neutral-400 text-xs pointer-events-none" />
+    </div>
+  </div>
+);
 
-  const years = [];
-  for (let year = MAX_YEAR; year >= MIN_YEAR; year--) {
-    years.push(year);
-  }
+const FilterPanel = ({ filters, onFilterChange, onClearFilters, resultCount }) => {
+  const [collapsed, setCollapsed] = useState(false);
+
+  const set = (key, value) => onFilterChange({ ...filters, [key]: value });
+
+  const activeCount = [filters.grade, filters.subject, filters.year, filters.examType]
+    .filter(Boolean).length;
 
   return (
-    <div className="bg-white rounded-lg shadow-md overflow-hidden">
-      {/* Filter Header */}
-      <button
-        onClick={() => setIsOpen(!isOpen)}
-        className="w-full flex items-center justify-between p-4 hover:bg-gray-50 transition-colors"
-        aria-expanded={isOpen}
-        aria-label="Toggle filters"
-      >
-        <div className="flex items-center gap-3">
-          <FiFilter className="w-5 h-5 text-primary" />
-          <h3 className="font-semibold text-gray-800">Filters</h3>
-          {activeFiltersCount > 0 && (
-            <span className="bg-primary text-white text-xs px-2 py-1 rounded-full">
-              {activeFiltersCount}
+    <div className="bg-white rounded-2xl border border-neutral-100 shadow-sm overflow-hidden sticky top-[130px]">
+      {/* Header */}
+      <div className="flex items-center justify-between px-5 py-4 border-b border-neutral-100">
+        <div className="flex items-center gap-2">
+          <FaFilter className="text-primary text-sm" />
+          <span className="font-heading font-bold text-neutral-800 text-sm">Filters</span>
+          {activeCount > 0 && (
+            <span className="bg-primary text-white text-xs font-bold px-2 py-0.5 rounded-full">
+              {activeCount}
             </span>
           )}
         </div>
-        <div className="flex items-center gap-2">
-          <span className="text-sm text-gray-600">{resultCount} results</span>
-          <FiChevronDown
-            className={`w-5 h-5 text-gray-400 transition-transform ${
-              isOpen ? 'rotate-180' : ''
-            }`}
+        <button
+          onClick={() => setCollapsed(c => !c)}
+          className="text-neutral-400 hover:text-neutral-600 transition-colors lg:hidden"
+          aria-label="Toggle filters"
+        >
+          {collapsed ? <FaChevronDown /> : <FaChevronUp />}
+        </button>
+      </div>
+
+      <div className={`${collapsed ? 'hidden' : 'block'} lg:block`}>
+        <div className="px-5 py-5 space-y-6">
+
+          {/* Grade */}
+          <div>
+            <SectionHeading>Grade</SectionHeading>
+            <div className="flex flex-wrap gap-2">
+              {GRADES.map(g => (
+                <PillButton
+                  key={g}
+                  active={filters.grade === g}
+                  onClick={() => set('grade', filters.grade === g ? null : g)}
+                >
+                  Gr {g}
+                </PillButton>
+              ))}
+            </div>
+          </div>
+
+          {/* Exam Type */}
+          <div>
+            <SectionHeading>Exam Type</SectionHeading>
+            <div className="flex flex-wrap gap-2">
+              {EXAM_TYPES.map(t => (
+                <PillButton
+                  key={t.id}
+                  active={filters.examType === t.id}
+                  onClick={() => set('examType', filters.examType === t.id ? null : t.id)}
+                >
+                  {t.shortName}
+                </PillButton>
+              ))}
+            </div>
+          </div>
+
+          {/* Subject */}
+          <FilterSelect
+            id="filter-subject"
+            label="Subject"
+            value={filters.subject}
+            onChange={e => set('subject', e.target.value || null)}
+            placeholder="All Subjects"
+            options={SUBJECTS.map(s => ({ value: s.id, label: s.name }))}
+          />
+
+          {/* Year */}
+          <FilterSelect
+            id="filter-year"
+            label="Year"
+            value={filters.year}
+            onChange={e => set('year', e.target.value ? parseInt(e.target.value) : null)}
+            placeholder="All Years"
+            options={years.map(y => ({ value: y, label: y }))}
           />
         </div>
-      </button>
 
-      {/* Filter Content */}
-      <AnimatePresence>
-        {isOpen && (
-          <motion.div
-            initial={{ height: 0, opacity: 0 }}
-            animate={{ height: 'auto', opacity: 1 }}
-            exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: 0.3 }}
-            className="border-t border-gray-200"
-          >
-            <div className="p-4 space-y-4">
-              {/* Grade Filter */}
-              <div>
-                <label
-                  htmlFor="grade-filter"
-                  className="block text-sm font-medium text-gray-700 mb-2"
-                >
-                  Grade
-                </label>
-                <select
-                  id="grade-filter"
-                  value={filters.grade || ''}
-                  onChange={(e) =>
-                    handleFilterUpdate('grade', e.target.value ? parseInt(e.target.value) : null)
-                  }
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"
-                  aria-label="Filter by grade"
-                >
-                  <option value="">All Grades</option>
-                  {GRADES.map((grade) => (
-                    <option key={grade} value={grade}>
-                      Grade {grade}
-                    </option>
-                  ))}
-                </select>
-              </div>
-
-              {/* Subject Filter */}
-              <div>
-                <label
-                  htmlFor="subject-filter"
-                  className="block text-sm font-medium text-gray-700 mb-2"
-                >
-                  Subject
-                </label>
-                <select
-                  id="subject-filter"
-                  value={filters.subject || ''}
-                  onChange={(e) => handleFilterUpdate('subject', e.target.value || null)}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"
-                  aria-label="Filter by subject"
-                >
-                  <option value="">All Subjects</option>
-                  {SUBJECTS.map((subject) => (
-                    <option key={subject.id} value={subject.id}>
-                      {subject.name}
-                    </option>
-                  ))}
-                </select>
-              </div>
-
-              {/* Year Filter */}
-              <div>
-                <label
-                  htmlFor="year-filter"
-                  className="block text-sm font-medium text-gray-700 mb-2"
-                >
-                  Year
-                </label>
-                <select
-                  id="year-filter"
-                  value={filters.year || ''}
-                  onChange={(e) =>
-                    handleFilterUpdate('year', e.target.value ? parseInt(e.target.value) : null)
-                  }
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"
-                  aria-label="Filter by year"
-                >
-                  <option value="">All Years</option>
-                  {years.map((year) => (
-                    <option key={year} value={year}>
-                      {year}
-                    </option>
-                  ))}
-                </select>
-              </div>
-
-              {/* Exam Type Filter */}
-              <div>
-                <label
-                  htmlFor="examtype-filter"
-                  className="block text-sm font-medium text-gray-700 mb-2"
-                >
-                  Exam Type
-                </label>
-                <select
-                  id="examtype-filter"
-                  value={filters.examType || ''}
-                  onChange={(e) => handleFilterUpdate('examType', e.target.value || null)}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"
-                  aria-label="Filter by exam type"
-                >
-                  <option value="">All Types</option>
-                  {EXAM_TYPES.map((type) => (
-                    <option key={type.id} value={type.id}>
-                      {type.name}
-                    </option>
-                  ))}
-                </select>
-              </div>
-
-              {/* Active Filter Chips */}
-              {hasActiveFilters(filters) && (
-                <div className="pt-4 border-t border-gray-200">
-                  <div className="flex flex-wrap gap-2 mb-3">
-                    {filters.grade && (
-                      <span className="inline-flex items-center gap-1 bg-primary/10 text-primary px-3 py-1 rounded-full text-sm">
-                        Grade {filters.grade}
-                        <button
-                          onClick={() => handleFilterUpdate('grade', null)}
-                          className="hover:bg-primary/20 rounded-full p-0.5"
-                          aria-label="Remove grade filter"
-                        >
-                          <FiX className="w-4 h-4" />
-                        </button>
-                      </span>
-                    )}
-                    {filters.subject && (
-                      <span className="inline-flex items-center gap-1 bg-primary/10 text-primary px-3 py-1 rounded-full text-sm">
-                        {SUBJECTS.find((s) => s.id === filters.subject)?.name}
-                        <button
-                          onClick={() => handleFilterUpdate('subject', null)}
-                          className="hover:bg-primary/20 rounded-full p-0.5"
-                          aria-label="Remove subject filter"
-                        >
-                          <FiX className="w-4 h-4" />
-                        </button>
-                      </span>
-                    )}
-                    {filters.year && (
-                      <span className="inline-flex items-center gap-1 bg-primary/10 text-primary px-3 py-1 rounded-full text-sm">
-                        {filters.year}
-                        <button
-                          onClick={() => handleFilterUpdate('year', null)}
-                          className="hover:bg-primary/20 rounded-full p-0.5"
-                          aria-label="Remove year filter"
-                        >
-                          <FiX className="w-4 h-4" />
-                        </button>
-                      </span>
-                    )}
-                    {filters.examType && (
-                      <span className="inline-flex items-center gap-1 bg-primary/10 text-primary px-3 py-1 rounded-full text-sm">
-                        {EXAM_TYPES.find((t) => t.id === filters.examType)?.shortName}
-                        <button
-                          onClick={() => handleFilterUpdate('examType', null)}
-                          className="hover:bg-primary/20 rounded-full p-0.5"
-                          aria-label="Remove exam type filter"
-                        >
-                          <FiX className="w-4 h-4" />
-                        </button>
-                      </span>
-                    )}
-                  </div>
-                  <button
-                    onClick={handleClearFilters}
-                    className="text-sm text-primary hover:text-primary-dark underline"
-                    aria-label="Clear all filters"
-                  >
-                    Clear all filters
+        {/* Active chips + clear */}
+        {hasActiveFilters(filters) && (
+          <div className="px-5 pb-5 border-t border-neutral-100 pt-4">
+            <div className="flex flex-wrap gap-2 mb-3">
+              {filters.grade && (
+                <span className="inline-flex items-center gap-1.5 bg-primary/10 text-primary px-3 py-1 rounded-full text-xs font-semibold">
+                  Grade {filters.grade}
+                  <button onClick={() => set('grade', null)} aria-label="Remove grade filter">
+                    <FaTimes className="text-[10px]" />
                   </button>
-                </div>
+                </span>
+              )}
+              {filters.examType && (
+                <span className="inline-flex items-center gap-1.5 bg-primary/10 text-primary px-3 py-1 rounded-full text-xs font-semibold">
+                  {EXAM_TYPES.find(t => t.id === filters.examType)?.shortName}
+                  <button onClick={() => set('examType', null)} aria-label="Remove exam type filter">
+                    <FaTimes className="text-[10px]" />
+                  </button>
+                </span>
+              )}
+              {filters.subject && (
+                <span className="inline-flex items-center gap-1.5 bg-primary/10 text-primary px-3 py-1 rounded-full text-xs font-semibold">
+                  {SUBJECTS.find(s => s.id === filters.subject)?.name}
+                  <button onClick={() => set('subject', null)} aria-label="Remove subject filter">
+                    <FaTimes className="text-[10px]" />
+                  </button>
+                </span>
+              )}
+              {filters.year && (
+                <span className="inline-flex items-center gap-1.5 bg-primary/10 text-primary px-3 py-1 rounded-full text-xs font-semibold">
+                  {filters.year}
+                  <button onClick={() => set('year', null)} aria-label="Remove year filter">
+                    <FaTimes className="text-[10px]" />
+                  </button>
+                </span>
               )}
             </div>
-          </motion.div>
+            <button
+              onClick={onClearFilters}
+              className="text-xs text-neutral-400 hover:text-primary transition-colors flex items-center gap-1"
+            >
+              <FaTimes className="text-[10px]" />
+              Clear all filters
+            </button>
+          </div>
         )}
-      </AnimatePresence>
+
+        {/* Result count footer */}
+        <div className="px-5 pb-5">
+          <p className="text-xs text-neutral-400 text-center">
+            <span className="font-semibold text-primary">{resultCount}</span>{' '}
+            {resultCount === 1 ? 'paper' : 'papers'} found
+          </p>
+        </div>
+      </div>
     </div>
   );
 };

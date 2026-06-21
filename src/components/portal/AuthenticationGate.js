@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
-import { motion } from 'framer-motion';
-import { FiLock, FiAlertCircle } from 'react-icons/fi';
+import { FaLock, FaExclamationCircle, FaKey } from 'react-icons/fa';
+import { Link } from 'react-router-dom';
 import { setAuthToken } from '../../utils/portalStorage';
 
-// Simple access code for demo (in production, this would be server-side validation)
 const VALID_ACCESS_CODE = 'HSS2024';
 
 const AuthenticationGate = ({ onAuthenticate }) => {
@@ -15,12 +14,8 @@ const AuthenticationGate = ({ onAuthenticate }) => {
     e.preventDefault();
     setError('');
     setLoading(true);
-
-    // Simulate API call delay
     await new Promise(resolve => setTimeout(resolve, 500));
-
     if (accessCode.trim().toUpperCase() === VALID_ACCESS_CODE) {
-      // Set authentication token with 30-day expiry
       setAuthToken(accessCode.trim());
       setLoading(false);
       onAuthenticate(true);
@@ -31,93 +26,82 @@ const AuthenticationGate = ({ onAuthenticate }) => {
   };
 
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5 }}
-      className="max-w-md mx-auto"
-    >
-      <div className="bg-white rounded-lg shadow-lg p-8">
-        <div className="flex items-center justify-center mb-6">
-          <div className="bg-primary/10 p-4 rounded-full">
-            <FiLock className="w-8 h-8 text-primary" />
+    <div className="max-w-md mx-auto">
+      <div className="bg-white rounded-2xl shadow-lg border border-neutral-100 overflow-hidden">
+
+        {/* Card header band */}
+        <div className="bg-primary-dark px-8 py-7 text-center">
+          <div className="w-14 h-14 rounded-2xl bg-white/15 border border-white/20 flex items-center justify-center mx-auto mb-4">
+            <FaLock className="text-white text-xl" />
           </div>
+          <h2 className="text-xl font-heading font-bold text-white mb-1">Access Required</h2>
+          <p className="text-white/65 text-sm">Enter your school-issued access code to continue</p>
         </div>
 
-        <h2 className="text-2xl font-bold mb-2 text-gray-800 text-center">
-          Authentication Required
-        </h2>
-        <p className="text-gray-600 mb-6 text-center">
-          Please enter your access code to view past papers.
-        </p>
+        {/* Form body */}
+        <div className="px-8 py-7">
+          <form onSubmit={handleSubmit} className="space-y-4">
+            <div>
+              <label htmlFor="accessCode" className="block text-sm font-semibold text-neutral-700 mb-1.5">
+                Access Code
+              </label>
+              <div className="relative">
+                <FaKey className="absolute left-4 top-1/2 -translate-y-1/2 text-neutral-400 text-sm" />
+                <input
+                  type="text"
+                  id="accessCode"
+                  value={accessCode}
+                  onChange={(e) => setAccessCode(e.target.value)}
+                  className="w-full pl-10 pr-4 py-3 border border-neutral-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary transition-all placeholder-neutral-400"
+                  placeholder="e.g. HSS2024"
+                  required
+                  aria-describedby={error ? 'error-message' : undefined}
+                  autoComplete="off"
+                />
+              </div>
+            </div>
 
-        <form onSubmit={handleSubmit} className="space-y-4">
-          <div>
-            <label
-              htmlFor="accessCode"
-              className="block text-sm font-medium text-gray-700 mb-2"
-            >
-              Access Code
-            </label>
-            <input
-              type="text"
-              id="accessCode"
-              value={accessCode}
-              onChange={(e) => setAccessCode(e.target.value)}
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-all"
-              placeholder="Enter access code"
-              required
-              aria-label="Access code input"
-              aria-describedby={error ? 'error-message' : undefined}
-            />
-          </div>
-
-          {error && (
-            <motion.div
-              initial={{ opacity: 0, y: -10 }}
-              animate={{ opacity: 1, y: 0 }}
-              className="flex items-start gap-2 p-4 bg-red-50 border border-red-200 rounded-lg"
-              role="alert"
-              id="error-message"
-            >
-              <FiAlertCircle className="w-5 h-5 text-red-600 flex-shrink-0 mt-0.5" />
-              <p className="text-sm text-red-800">{error}</p>
-            </motion.div>
-          )}
-
-          <button
-            type="submit"
-            disabled={loading || !accessCode.trim()}
-            className="w-full bg-primary text-white py-3 px-6 rounded-lg font-medium hover:bg-primary-dark transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-            aria-label="Submit access code"
-          >
-            {loading ? (
-              <span className="flex items-center justify-center gap-2">
-                <span className="animate-spin rounded-full h-5 w-5 border-b-2 border-white"></span>
-                Verifying...
-              </span>
-            ) : (
-              'Access Portal'
+            {error && (
+              <div
+                role="alert"
+                id="error-message"
+                className="flex items-start gap-3 p-4 bg-red-50 border border-red-200 rounded-xl text-sm text-red-700"
+              >
+                <FaExclamationCircle className="flex-shrink-0 mt-0.5" />
+                <p>{error}</p>
+              </div>
             )}
-          </button>
-        </form>
 
-        <div className="mt-6 pt-6 border-t border-gray-200">
-          <p className="text-sm text-gray-600 text-center">
-            Don't have an access code?{' '}
-            <a
-              href="/contact"
-              className="text-primary hover:text-primary-dark underline"
+            <button
+              type="submit"
+              disabled={loading || !accessCode.trim()}
+              className="w-full py-3 bg-primary text-white font-semibold rounded-xl hover:bg-primary-dark transition-colors duration-200 text-sm shadow disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              Contact Administration
-            </a>
-          </p>
-          <p className="text-xs text-gray-500 text-center mt-2">
-            Demo code: HSS2024
-          </p>
+              {loading ? (
+                <span className="flex items-center justify-center gap-2">
+                  <span className="w-4 h-4 rounded-full border-2 border-white/30 border-t-white animate-spin" />
+                  Verifying…
+                </span>
+              ) : (
+                'Access Portal'
+              )}
+            </button>
+          </form>
+
+          <div className="mt-6 pt-5 border-t border-neutral-100 space-y-2 text-center">
+            <p className="text-sm text-neutral-500">
+              Don't have a code?{' '}
+              <Link to="/contact" className="text-primary font-medium hover:underline">
+                Contact the school office
+              </Link>
+            </p>
+            <p className="text-xs text-neutral-400">
+              Demo code: <span className="font-mono font-semibold text-neutral-600">HSS2024</span>
+            </p>
+          </div>
         </div>
       </div>
-    </motion.div>
+    </div>
   );
 };
 
