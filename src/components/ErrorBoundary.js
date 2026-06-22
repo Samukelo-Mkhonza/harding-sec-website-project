@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 
 /**
  * ErrorBoundary Component
@@ -119,8 +118,8 @@ class ErrorBoundary extends Component {
                 Reload Page
               </button>
 
-              <Link
-                to="/"
+              <a
+                href="/"
                 className="btn-outline flex items-center justify-center gap-2"
               >
                 <svg
@@ -137,16 +136,16 @@ class ErrorBoundary extends Component {
                   />
                 </svg>
                 Go Home
-              </Link>
+              </a>
             </div>
 
             {/* Contact Support */}
             <div className="mt-8 pt-8 border-t border-neutral-200 text-center">
               <p className="text-sm text-neutral-500">
                 If the problem persists, please{' '}
-                <Link to="/contact" className="text-primary hover:underline font-semibold">
+                <a href="/contact" className="text-primary hover:underline font-semibold">
                   contact our support team
-                </Link>
+                </a>
               </p>
             </div>
           </div>

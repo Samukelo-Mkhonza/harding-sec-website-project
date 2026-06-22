@@ -38,7 +38,7 @@ const PapersList = ({ papers, viewMode, onViewModeChange, isBookmarked, onDownlo
     );
   }
 
-  const useVirtual = sorted.length > PAPERS_PER_PAGE;
+  const useVirtual = sorted.length > 500;
 
   const Row = ({ index, style }) => {
     const paper = sorted[index];
