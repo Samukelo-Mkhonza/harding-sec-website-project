@@ -10,17 +10,21 @@
  */
 export const downloadPDF = async (url, filename) => {
   try {
-    const link = document.createElement('a');
-    link.href = url;
-    link.download = filename;
-    link.style.display = 'none';
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-    
-    // Log analytics (without PII)
+    const isExternal = /^https?:\/\//i.test(url);
+
+    if (isExternal) {
+      window.open(url, '_blank', 'noopener,noreferrer');
+    } else {
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = filename;
+      link.style.display = 'none';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    }
+
     logDownload({ filename, type: 'paper' });
-    
     return true;
   } catch (error) {
     console.error('Download error:', error);

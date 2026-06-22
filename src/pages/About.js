@@ -29,14 +29,13 @@ const About = () => {
         </div>
 
         {/* Page Hero */}
-        <section className="relative py-28 md:py-36 text-center overflow-hidden">
+        <section className="relative py-28 md:py-36 text-center overflow-hidden bg-primary-dark">
           <img
             src={ABOUT_IMAGES.history}
             alt=""
-            className="absolute inset-0 w-full h-full object-cover"
+            className="absolute inset-0 w-full h-full object-cover opacity-15"
             aria-hidden="true"
           />
-          <div className="absolute inset-0 bg-primary-dark/85" />
           <div className="relative z-10 container-custom">
             <p className="text-accent-neon font-semibold text-sm tracking-widest uppercase mb-4">Our School</p>
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-heading font-bold !text-white mb-4 text-shadow-strong">
@@ -197,14 +196,13 @@ const About = () => {
         </section>
 
         {/* Stats — Image Background */}
-        <section className="relative py-24 md:py-32 overflow-hidden">
+        <section className="relative py-24 md:py-32 overflow-hidden bg-primary-dark">
           <img
             src={ABOUT_IMAGES.mission}
             alt=""
-            className="absolute inset-0 w-full h-full object-cover"
+            className="absolute inset-0 w-full h-full object-cover opacity-15"
             aria-hidden="true"
           />
-          <div className="absolute inset-0 bg-primary-dark/88" />
           <div className="relative z-10 container-custom text-center text-white">
             <AnimateOnScroll animation="zoom-in">
               <p className="text-accent-neon font-semibold text-sm tracking-widest uppercase mb-4">By the Numbers</p>

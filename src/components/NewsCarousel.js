@@ -151,7 +151,7 @@ const NewsCarousel = ({ news = [] }) => {
         {/* View All Button */}
         <div className="text-center mt-8">
           <Link
-            to="/"
+            to="/news"
             className="btn-outline inline-flex items-center gap-2"
           >
             <span>View All News</span>

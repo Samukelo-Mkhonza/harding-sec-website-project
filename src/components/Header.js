@@ -195,11 +195,13 @@ const Header = () => {
               <div className="hidden lg:flex items-center gap-3 shrink-0 pl-4">
                 <button
                   onClick={() => setIsSearchOpen(true)}
-                  className="p-2 text-neutral-400 hover:text-neutral-600 hover:bg-neutral-100 rounded-lg transition-all duration-200"
-                  aria-label="Search"
+                  className="flex items-center gap-2 px-3 py-2 text-neutral-400 hover:text-neutral-600 hover:bg-neutral-100 rounded-xl border border-neutral-200 transition-all duration-200 group"
+                  aria-label="Search (Ctrl+K)"
                   title="Search (Ctrl+K)"
                 >
-                  <FaSearch className="text-base" />
+                  <FaSearch className="text-sm group-hover:text-primary transition-colors" />
+                  <span className="hidden xl:inline text-xs text-neutral-400 group-hover:text-neutral-500 transition-colors">Search…</span>
+                  <kbd className="hidden xl:inline text-[10px] px-1.5 py-0.5 bg-neutral-100 border border-neutral-200 rounded font-mono leading-none">⌃K</kbd>
                 </button>
                 <Link
                   to="/admissions"

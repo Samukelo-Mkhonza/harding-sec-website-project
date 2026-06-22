@@ -167,6 +167,18 @@ export const SEOConfigs = {
     keywords: 'contact school, school location, phone number, email address, office hours, school address Harding',
     url: 'https://hardingsecondary.edu.za/contact',
   },
+  onlineApplication: {
+    title: 'Apply Online — Harding Secondary School',
+    description: 'Submit your online application for admission to Harding Secondary School for Grades 8 to 12. Complete the form to begin your enrolment journey.',
+    keywords: 'online application, apply for admission, enrol Grade 8, Grade 12 application, Harding Secondary School admissions form',
+    url: 'https://hardingsecondary.edu.za/admissions/apply',
+  },
+  news: {
+    title: 'News & Events — Harding Secondary School',
+    description: 'Stay up to date with the latest news, announcements, and events from Harding Secondary School in KwaZulu-Natal. Academic achievements, sports, community, and more.',
+    keywords: 'Harding Secondary news, school events, matric results, sports news, school announcements, KwaZulu-Natal school news',
+    url: 'https://hardingsecondary.edu.za/news',
+  },
 };
 
 export default SEO;

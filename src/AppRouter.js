@@ -23,6 +23,8 @@ const Policies = lazy(() => import('./pages/Policies'));
 const CareerOpportunities = lazy(() => import('./pages/CareerOpportunities'));
 const PrivacyPolicy = lazy(() => import('./pages/PrivacyPolicy'));
 const TermsOfUse = lazy(() => import('./pages/TermsOfUse'));
+const OnlineApplication = lazy(() => import('./pages/OnlineApplication'));
+const News = lazy(() => import('./pages/News'));
 const NotFound = lazy(() => import('./pages/NotFound'));
 
 /**
@@ -65,6 +67,7 @@ const AppRouter = () => {
               <Route path="/about" element={<About />} />
               <Route path="/academics" element={<Academics />} />
               <Route path="/admissions" element={<Admissions />} />
+              <Route path="/admissions/apply" element={<OnlineApplication />} />
               <Route path="/student-life" element={<StudentLife />} />
               <Route path="/student-life/clubs/:clubSlug" element={<ClubPage />} />
               <Route path="/gallery" element={<Gallery />} />
@@ -78,6 +81,7 @@ const AppRouter = () => {
               <Route path="/careers" element={<CareerOpportunities />} />
               <Route path="/privacy-policy" element={<PrivacyPolicy />} />
               <Route path="/terms-of-use" element={<TermsOfUse />} />
+              <Route path="/news" element={<News />} />
 
               {/* 404 page */}
               <Route path="*" element={<NotFound />} />

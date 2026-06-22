@@ -48,7 +48,31 @@ export const NAV_DATA = [
       },
     ],
   },
-  { path: '/admissions', label: 'Admissions' },
+  {
+    label: 'Admissions',
+    path: '/admissions',
+    megaMenu: [
+      {
+        heading: 'Join Our School',
+        links: [
+          { path: '/admissions',       label: 'Admissions Overview' },
+          { path: '/admissions/apply', label: 'Apply Online' },
+          { path: '/admissions',       label: 'Requirements' },
+          { path: '/admissions',       label: 'Fees & Support' },
+        ],
+      },
+      {
+        heading: 'Grades Offered',
+        links: [
+          { path: '/admissions/apply', label: 'Grade 8 — New Intake' },
+          { path: '/admissions/apply', label: 'Grade 9' },
+          { path: '/admissions/apply', label: 'Grade 10' },
+          { path: '/admissions/apply', label: 'Grade 11' },
+          { path: '/admissions/apply', label: 'Grade 12 (Matric)' },
+        ],
+      },
+    ],
+  },
   {
     label: 'School Life',
     path: '/student-life',
@@ -86,7 +110,30 @@ export const NAV_DATA = [
       },
     ],
   },
-  { path: '/contact', label: 'News & Events' },
+  {
+    label: 'News & Events',
+    path: '/news',
+    megaMenu: [
+      {
+        heading: 'Latest News',
+        links: [
+          { path: '/news', label: 'All News & Announcements' },
+          { path: '/news', label: 'Academic News' },
+          { path: '/news', label: 'Sports News' },
+          { path: '/news', label: 'Community Stories' },
+        ],
+      },
+      {
+        heading: 'Events & Updates',
+        links: [
+          { path: '/news', label: 'Upcoming Events' },
+          { path: '/school-calendar', label: 'School Calendar' },
+          { path: '/news', label: 'Matric Results' },
+          { path: '/contact', label: 'Media Enquiries' },
+        ],
+      },
+    ],
+  },
   { path: '/contact', label: 'Contact' },
 ];
 

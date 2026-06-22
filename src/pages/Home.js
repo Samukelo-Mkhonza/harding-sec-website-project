@@ -284,7 +284,7 @@ const Home = () => {
                 </h2>
               </div>
               <Link
-                to="/contact"
+                to="/news"
                 className="text-primary font-semibold flex items-center gap-2 hover:gap-3 transition-all duration-200 shrink-0 whitespace-nowrap"
               >
                 All News <FaArrowRight className="text-sm" />

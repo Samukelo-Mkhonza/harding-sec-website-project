@@ -20,6 +20,8 @@ const AnimateOnScroll = ({
   const { ref, inView } = useInView({
     threshold,
     triggerOnce,
+    initialInView: false,
+    rootMargin: '0px 0px -50px 0px',
   });
 
   const animationClass = inView ? `animate-${animation}` : 'opacity-0';

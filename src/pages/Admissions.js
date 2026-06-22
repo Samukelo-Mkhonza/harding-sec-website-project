@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { FaCheckCircle, FaChevronDown } from 'react-icons/fa';
 import { SEO, SEOConfigs, Breadcrumbs } from '../components';
 import AnimateOnScroll from '../components/AnimateOnScroll';
@@ -285,12 +286,18 @@ const Admissions = () => {
               </h2>
               <p className="text-lg text-white/85 mb-10 max-w-2xl mx-auto">
                 Take the first step towards joining Harding Secondary School.
-                Contact our admissions office for application forms and guidance.
+                Apply online now or contact our admissions office for guidance.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                <Link
+                  to="/admissions/apply"
+                  className="bg-accent-neon text-primary-dark font-bold px-10 py-4 rounded-lg hover:bg-white transition-all duration-300 shadow-xl"
+                >
+                  Apply Online Now
+                </Link>
                 <a
                   href="tel:0394331223"
-                  className="bg-white text-primary-dark font-bold px-10 py-4 rounded-lg hover:bg-accent-neon hover:text-white transition-all duration-300 shadow-xl"
+                  className="bg-white text-primary-dark font-bold px-10 py-4 rounded-lg hover:bg-white/90 transition-all duration-300 shadow-xl"
                 >
                   Call: 039 433 1223
                 </a>
