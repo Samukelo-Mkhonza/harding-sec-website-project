@@ -18,10 +18,10 @@ import { NEWS_IMAGES, HERO_IMAGES } from '../utils/imageConstants';
 const NEWS_ARTICLES = [
   {
     id: 1,
-    title: "Class of 2024 Achieves Remarkable 97% Matric Pass Rate",
+    title: "Class of 2024 Earns 87.5% Matric Pass Rate",
     excerpt:
-      "Harding Secondary School celebrates another outstanding year as 97% of matric learners pass their final examinations, with 65% achieving bachelor's passes — a new school record.",
-    date: "January 14, 2025",
+      "Harding Secondary School congratulates its Class of 2024 as 154 of 176 registered learners passed their National Senior Certificate examinations — an 87.5% pass rate officially released on 13 January 2025. The school once again contributes to the Ugu District's reputation as one of KwaZulu-Natal's strongest-performing education districts.",
+    date: "January 13, 2025",
     category: "Academics",
     image: NEWS_IMAGES.matricResults,
     featured: true,
@@ -59,22 +59,22 @@ const NEWS_ARTICLES = [
   },
   {
     id: 5,
-    title: "Academic Excellence Awards Ceremony 2025",
+    title: "2023 Class Achieves 91.3% Matric Pass Rate",
     excerpt:
-      "Top-performing learners across all grades were recognized at our annual awards evening, with special trophies for academic achievement, leadership, and sportsmanship.",
-    date: "March 28, 2025",
-    category: "Events",
+      "Harding Secondary School's Class of 2023 recorded an impressive 91.3% pass rate in the National Senior Certificate examinations — one of the school's strongest results in recent years and a proud contribution to Ugu District's runner-up finish in KwaZulu-Natal.",
+    date: "January 17, 2024",
+    category: "Academics",
     image: NEWS_IMAGES.academicAwards,
     author: "School Administration",
   },
   {
     id: 6,
-    title: "Harding Secondary Launches Digital Library Platform",
+    title: "Ugu District Ranks Second in KwaZulu-Natal Matric Results",
     excerpt:
-      "Learners now have 24/7 access to over 10,000 digital books and study resources through our new online library, available on any device.",
-    date: "February 15, 2025",
+      "The Ugu Education District — home to Harding Secondary School — achieved an outstanding 89.5% matric pass rate in the 2023 NSC examinations, placing second in KwaZulu-Natal and further cementing the district's standing as a benchmark for academic achievement in the province.",
+    date: "January 15, 2024",
     category: "Academics",
-    image: HERO_IMAGES.library,
+    image: NEWS_IMAGES.academicAwards,
     author: "School Administration",
   },
   {

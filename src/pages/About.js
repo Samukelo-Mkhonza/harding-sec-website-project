@@ -9,8 +9,8 @@ const About = () => {
     { year: '1950', text: 'Harding Secondary School founded to serve the educational needs of the local community.' },
     { year: '1975', text: 'Major expansion with new science laboratories and sports facilities.' },
     { year: '1994', text: 'Integration and transformation to serve all learners in the new South Africa.' },
-    { year: '2010', text: 'Achieved consistent 90%+ matric pass rates and recognition for academic excellence.' },
-    { year: '2025', text: 'Continuing our legacy with 1,252 learners and expanding digital learning initiatives.' },
+    { year: '2023', text: 'Recorded a 91.3% matric pass rate, contributing to Ugu District\'s runner-up finish in KwaZulu-Natal.' },
+    { year: '2025', text: 'Continuing our legacy with 1,252 learners and 41 dedicated educators serving the Ugu District community.' },
   ];
 
   const values = [
@@ -60,17 +60,21 @@ const About = () => {
                   <div className="space-y-4 text-neutral-500 leading-relaxed">
                     <p>
                       Harding Secondary School stands as a beacon of educational excellence in KwaZulu-Natal.
-                      As a distinguished public secondary school operating under the Ugu Education District,
-                      we have been committed to nurturing young minds and building future leaders for over seven decades.
+                      As a public secondary school operating under the Ugu Education District — one of KZN's
+                      highest-performing districts — we have committed to nurturing young minds and building
+                      future leaders for over seven decades.
                     </p>
                     <p>
-                      With our current enrollment of 1,252 learners supported by 41 dedicated educators,
-                      we maintain an optimal learning environment that balances academic rigor with personal attention.
+                      With a current enrolment of 1,252 learners supported by 41 dedicated educators,
+                      we maintain a learning environment that balances academic rigour with personal attention.
+                      Our 2023 matric cohort achieved a 91.3% pass rate, reflecting the hard work of our learners
+                      and the dedication of our staff.
                     </p>
                     <p>
-                      Located in the vibrant community of Harding, our school serves as more than just an educational
-                      institution — we are a cornerstone of the community, fostering growth, development, and opportunity
-                      for generations of learners.
+                      Located in the historic town of Harding — named after Sir Walter Harding, Natal's first
+                      Chief Justice — nestled at the foot of the Ingeli Mountain Range in the Mzimkulwana River
+                      Valley, our school is a cornerstone of this close-knit community and a gateway to opportunity
+                      for generations of learners from across the Ugu District.
                     </p>
                   </div>
                 </div>
@@ -213,12 +217,12 @@ const About = () => {
                 {[
                   { end: 1252, suffix: '', label: 'Students' },
                   { end: 41, suffix: '', label: 'Educators' },
-                  { end: 95, suffix: '%', label: 'Pass Rate' },
+                  { end: 91.3, suffix: '%', label: '2023 Pass Rate', decimals: 1 },
                   { end: 70, suffix: '+', label: 'Years' },
                 ].map((stat) => (
                   <div key={stat.label}>
                     <div className="text-5xl md:text-6xl font-bold mb-2 !text-white">
-                      <CounterAnimation end={stat.end} suffix={stat.suffix} className="!text-white" />
+                      <CounterAnimation end={stat.end} suffix={stat.suffix} decimals={stat.decimals || 0} className="!text-white" />
                     </div>
                     <p className="text-white/80 text-sm uppercase tracking-wider font-medium">{stat.label}</p>
                   </div>

@@ -11,8 +11,8 @@ const CONTACT_ITEMS = [
     content: (
       <p className="text-neutral-500 leading-relaxed text-sm">
         Harding Secondary School<br />
-        Harding, KwaZulu-Natal<br />
-        South Africa
+        Kirk Street, Harding, 4680<br />
+        KwaZulu-Natal, South Africa
       </p>
     ),
   },
@@ -33,10 +33,10 @@ const CONTACT_ITEMS = [
     title: 'Email',
     content: (
       <a
-        href="mailto:info@hardingsecondary.edu.za"
+        href="mailto:hardingsec@telkomsa.net"
         className="text-primary font-semibold hover:text-primary-dark transition-colors text-sm break-all"
       >
-        info@hardingsecondary.edu.za
+        hardingsec@telkomsa.net
       </a>
     ),
   },

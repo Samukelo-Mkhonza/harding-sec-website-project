@@ -71,10 +71,10 @@ const NEWS_ITEMS = [
   {
     image: NEWS_IMAGES.matricResults,
     category: 'Results',
-    title: 'Outstanding Matric Results',
+    title: '2024 Matric Results Released',
     excerpt:
-      'Celebrating our Class of 2024 with a 95% pass rate and numerous distinctions across all faculties.',
-    date: 'January 10, 2025',
+      'Congratulations to our Class of 2024 — 154 of 176 learners earned their National Senior Certificate, achieving an 87.5% pass rate in the official results released on 13 January 2025.',
+    date: 'January 13, 2025',
   },
   {
     image: NEWS_IMAGES.sportsDay,
@@ -104,7 +104,7 @@ const QUICK_LINKS = [
 const STATS = [
   { end: 1252, suffix: '', label: 'Students Enrolled' },
   { end: 41, suffix: '', label: 'Qualified Teachers' },
-  { end: 95, suffix: '%', label: 'Matric Pass Rate' },
+  { end: 87.5, suffix: '%', label: '2024 Pass Rate', decimals: 1 },
   { end: 70, suffix: '+', label: 'Years of Excellence' },
 ];
 
@@ -214,7 +214,7 @@ const Home = () => {
               <AnimateOnScroll key={stat.label} animation="slide-up" delay={index * 100}>
                 <div className="text-center p-8 border-r border-neutral-200 last:border-r-0 bg-white hover:bg-neutral-50 transition-colors duration-200">
                   <div className="text-4xl md:text-5xl font-bold text-primary mb-2">
-                    <CounterAnimation end={stat.end} suffix={stat.suffix} />
+                    <CounterAnimation end={stat.end} suffix={stat.suffix} decimals={stat.decimals || 0} />
                   </div>
                   <div className="text-neutral-500 text-sm font-medium uppercase tracking-wider">
                     {stat.label}
@@ -294,8 +294,7 @@ const Home = () => {
 
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
             {/* Featured article */}
-            <AnimateOnScroll animation="slide-right">
-              <div className="lg:col-span-2">
+            <AnimateOnScroll animation="slide-right" className="lg:col-span-2">
                 <article className="group bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 h-full flex flex-col">
                   <div className="relative overflow-hidden h-64 md:h-80">
                     <img
@@ -325,7 +324,6 @@ const Home = () => {
                     </span>
                   </div>
                 </article>
-              </div>
             </AnimateOnScroll>
 
             {/* Two smaller articles */}
