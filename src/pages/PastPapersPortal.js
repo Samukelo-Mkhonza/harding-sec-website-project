@@ -265,7 +265,7 @@ const PastPapersPortal = () => {
             ) : (
               <div className="flex flex-col lg:flex-row gap-8 items-start">
                 {/* Sidebar Filters */}
-                <aside className="w-full lg:w-72 flex-shrink-0">
+                <aside className="w-full lg:w-72 flex-shrink-0 lg:sticky lg:top-[120px] lg:max-h-[calc(100vh-136px)] lg:overflow-y-auto">
                   <FilterPanel
                     filters={filters}
                     onFilterChange={setFilters}
