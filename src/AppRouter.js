@@ -14,6 +14,7 @@ const StudentLife = lazy(() => import('./pages/StudentLife'));
 const Gallery = lazy(() => import('./pages/Gallery'));
 const Contact = lazy(() => import('./pages/Contact'));
 const PastPapersPortal = lazy(() => import('./pages/PastPapersPortal'));
+const BooksPortal = lazy(() => import('./pages/BooksPortal'));
 const ClubPage = lazy(() => import('./pages/ClubPage'));
 const ParentPortal = lazy(() => import('./pages/ParentPortal'));
 const StudentPortal = lazy(() => import('./pages/StudentPortal'));
@@ -73,6 +74,7 @@ const AppRouter = () => {
               <Route path="/gallery" element={<Gallery />} />
               <Route path="/contact" element={<Contact />} />
               <Route path="/past-papers" element={<PastPapersPortal />} />
+              <Route path="/books" element={<BooksPortal />} />
               <Route path="/parent-portal" element={<ParentPortal />} />
               <Route path="/student-portal" element={<StudentPortal />} />
               <Route path="/staff-portal" element={<StaffPortal />} />
