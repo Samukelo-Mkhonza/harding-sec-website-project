@@ -89,7 +89,7 @@ const Contact = () => {
         </section>
 
         {/* Contact Info + Form */}
-        <section className="py-16 md:py-24 bg-white">
+        <section className="py-16 md:py-24 bg-white overflow-x-hidden">
           <div className="container-custom">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
               {/* Contact Info */}
@@ -105,8 +105,8 @@ const Contact = () => {
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                   {CONTACT_ITEMS.map((item, index) => (
-                    <AnimateOnScroll key={item.title} animation="slide-left" delay={index * 80}>
-                      <div className="group bg-neutral-50 hover:bg-white p-6 rounded-2xl border border-neutral-200 hover:border-primary hover:shadow-md transition-all duration-300">
+                    <AnimateOnScroll key={item.title} animation="slide-left" delay={index * 80} className="h-full">
+                      <div className="group h-full bg-neutral-50 hover:bg-white p-6 rounded-2xl border border-neutral-200 hover:border-primary hover:shadow-md transition-all duration-300">
                         <div className="flex items-start gap-4">
                           <div className="w-11 h-11 bg-primary/10 group-hover:bg-primary rounded-full flex items-center justify-center flex-shrink-0 transition-colors duration-300">
                             <item.Icon className="text-primary group-hover:text-white text-lg transition-colors duration-300" />
