@@ -26,6 +26,7 @@ const PrivacyPolicy = lazy(() => import('./pages/PrivacyPolicy'));
 const TermsOfUse = lazy(() => import('./pages/TermsOfUse'));
 const OnlineApplication = lazy(() => import('./pages/OnlineApplication'));
 const News = lazy(() => import('./pages/News'));
+const UniversityApplicationsPortal = lazy(() => import('./pages/UniversityApplicationsPortal'));
 const NotFound = lazy(() => import('./pages/NotFound'));
 
 /**
@@ -84,6 +85,7 @@ const AppRouter = () => {
               <Route path="/privacy-policy" element={<PrivacyPolicy />} />
               <Route path="/terms-of-use" element={<TermsOfUse />} />
               <Route path="/news" element={<News />} />
+              <Route path="/university-applications" element={<UniversityApplicationsPortal />} />
 
               {/* 404 page */}
               <Route path="*" element={<NotFound />} />

@@ -42,9 +42,9 @@ export const NAV_DATA = [
         links: [
           { path: '/past-papers', label: 'Past Papers Portal' },
           { path: '/books', label: 'Books & Textbooks Library' },
+          { path: '/university-applications', label: 'University Applications' },
           { path: '/academics', label: 'Extra Classes' },
           { path: '/academics', label: 'Career Guidance' },
-          { path: '/academics', label: 'Library & Facilities' },
         ],
       },
     ],
@@ -147,5 +147,6 @@ export const PORTAL_BUTTONS = [
 export const TOP_BAR_LINKS = [
   { label: 'Past Papers', path: '/past-papers' },
   { label: 'Books & Textbooks', path: '/books' },
+  { label: 'University Applications', path: '/university-applications' },
   { label: 'School Calendar', path: '#' },
 ];
