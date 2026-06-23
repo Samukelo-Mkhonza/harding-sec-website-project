@@ -60,28 +60,34 @@ const ParentPortal = () => (
                   </div>
                 </div>
 
-                <div className="space-y-4 mb-6">
-                  <div>
-                    <label className="block text-sm font-semibold text-neutral-700 mb-1.5">Username / ID Number</label>
-                    <input
-                      type="text"
-                      placeholder="Enter your username"
-                      className="w-full px-4 py-3 border border-neutral-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary transition-all"
-                    />
+                <form onSubmit={e => e.preventDefault()} noValidate>
+                  <div className="space-y-4 mb-6">
+                    <div>
+                      <label htmlFor="parent-username" className="block text-sm font-semibold text-neutral-700 mb-1.5">Username / ID Number</label>
+                      <input
+                        id="parent-username"
+                        type="text"
+                        placeholder="Enter your username"
+                        autoComplete="username"
+                        className="w-full px-4 py-3 border border-neutral-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary transition-all"
+                      />
+                    </div>
+                    <div>
+                      <label htmlFor="parent-password" className="block text-sm font-semibold text-neutral-700 mb-1.5">Password</label>
+                      <input
+                        id="parent-password"
+                        type="password"
+                        placeholder="Enter your password"
+                        autoComplete="current-password"
+                        className="w-full px-4 py-3 border border-neutral-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary transition-all"
+                      />
+                    </div>
                   </div>
-                  <div>
-                    <label className="block text-sm font-semibold text-neutral-700 mb-1.5">Password</label>
-                    <input
-                      type="password"
-                      placeholder="Enter your password"
-                      className="w-full px-4 py-3 border border-neutral-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary transition-all"
-                    />
-                  </div>
-                </div>
 
-                <button className="w-full py-3 bg-primary text-white font-semibold rounded-xl hover:bg-primary-dark transition-colors duration-200 text-sm shadow">
-                  Sign In to Portal
-                </button>
+                  <button type="submit" className="w-full py-3 bg-primary text-white font-semibold rounded-xl hover:bg-primary-dark transition-colors duration-200 text-sm shadow">
+                    Sign In to Portal
+                  </button>
+                </form>
 
                 <p className="text-center text-xs text-neutral-400 mt-4">
                   Forgot your password?{' '}
