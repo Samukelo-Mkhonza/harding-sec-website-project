@@ -2,6 +2,7 @@
   "name": "harding-sec-website-project",
   "version": "0.1.0",
   "private": true,
+  "homepage": "/harding-sec-website-project",
   "dependencies": {
     "cra-template": "1.2.0",
     "framer-motion": "^12.12.1",

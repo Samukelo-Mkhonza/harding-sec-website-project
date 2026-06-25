@@ -20,7 +20,7 @@ const AppProviders = ({ children }) => {
   return (
     <ErrorBoundary>
       <HelmetProvider>
-        <BrowserRouter>
+        <BrowserRouter basename={process.env.PUBLIC_URL}>
           <ToastProvider>
             <LoadingProvider>
               <UIProvider>
