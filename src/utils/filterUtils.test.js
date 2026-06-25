@@ -168,6 +168,11 @@ describe('Filter Utils - Property Tests', () => {
         fc.array(paperGenerator, { minLength: 1, maxLength: 100 }),
         fc.string({ minLength: 1, maxLength: 10 }),
         (papers, searchQuery) => {
+          // applyFilters treats a whitespace-only query as "no search" and
+          // returns every paper, so the containment property only applies to
+          // non-blank queries.
+          if (searchQuery.trim() === '') return true;
+
           const filters = {
             grade: null,
             subject: null,
@@ -175,7 +180,7 @@ describe('Filter Utils - Property Tests', () => {
             examType: null,
             searchQuery: searchQuery
           };
-          
+
           const filtered = applyFilters(papers, filters);
           
           // All filtered papers must contain the search query in at least one searchable field
