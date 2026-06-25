@@ -2,6 +2,30 @@ import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
 import BackToTop from './BackToTop';
 
+// Mock framer-motion so AnimatePresence mounts/unmounts synchronously in jsdom
+// (real exit animations never complete without a browser animation loop).
+jest.mock('framer-motion', () => {
+  const React = require('react');
+  const ANIM_PROPS = ['initial', 'animate', 'exit', 'transition', 'whileHover', 'whileTap', 'whileInView', 'viewport', 'variants', 'layout', 'layoutId', 'drag'];
+  const strip = (props) => {
+    const rest = { ...props };
+    ANIM_PROPS.forEach((p) => delete rest[p]);
+    return rest;
+  };
+  const motion = new Proxy({}, {
+    get: (_target, tag) => {
+      if (typeof tag !== 'string') return undefined;
+      return React.forwardRef((props, ref) =>
+        React.createElement(tag, { ...strip(props), ref }, props.children));
+    },
+  });
+  return {
+    __esModule: true,
+    motion,
+    AnimatePresence: ({ children }) => React.createElement(React.Fragment, null, children),
+  };
+});
+
 /**
  * Feature: website-premium-enhancement, Property 10: Back-to-top button appears at threshold
  * Validates: Requirements 2.5
@@ -191,8 +215,9 @@ describe('BackToTop Component', () => {
       useScrollPosition.mockReturnValue(600);
       
       const { container } = render(<BackToTop />);
-      const icon = container.querySelector('.fa-arrow-up');
-      
+      // react-icons renders an inline <svg>, not a FontAwesome class name.
+      const icon = container.querySelector('button[aria-label="Back to top"] svg');
+
       expect(icon).toBeInTheDocument();
     });
   });

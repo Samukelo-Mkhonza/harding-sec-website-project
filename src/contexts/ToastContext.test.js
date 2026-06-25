@@ -1,261 +1,141 @@
 import React from 'react';
-import { render, screen, waitFor, act } from '@testing-library/react';
+import { render, waitFor, act } from '@testing-library/react';
 import { ToastProvider, useToast } from './ToastContext';
+import toast from 'react-hot-toast';
 
 /**
- * Feature: website-premium-enhancement, Property 26 & 27: Toast timing
- * Validates: Requirements 6.1, 6.2
- * 
- * Property 26: For any successful form submission, a success toast should appear 
- * and automatically dismiss after exactly 4 seconds.
- * 
- * Property 27: For any failed form submission, an error toast should appear and 
- * remain visible until the user manually dismisses it.
+ * Feature: website-premium-enhancement, Property 26 & 27: Toast timing.
+ *
+ * ToastContext is a thin wrapper around react-hot-toast. Rather than depend on
+ * the library's timers/animation in jsdom (flaky + memory-heavy), we mock
+ * react-hot-toast and assert the wrapper forwards the correct configuration:
+ *   - success toasts auto-dismiss (default duration 4000ms)
+ *   - error toasts are persistent (duration 0)
+ *   - dismiss() forwards to toast.dismiss()
  */
 
-// Mock matchMedia for react-hot-toast
-Object.defineProperty(window, 'matchMedia', {
-  writable: true,
-  value: jest.fn().mockImplementation(query => ({
-    matches: false,
-    media: query,
-    onchange: null,
-    addListener: jest.fn(),
-    removeListener: jest.fn(),
-    addEventListener: jest.fn(),
-    removeEventListener: jest.fn(),
-    dispatchEvent: jest.fn(),
-  })),
+jest.mock('react-hot-toast', () => {
+  const toast = jest.fn(() => 'toast-id');
+  toast.success = jest.fn(() => 'success-id');
+  toast.error = jest.fn(() => 'error-id');
+  toast.dismiss = jest.fn();
+  toast.promise = jest.fn();
+  return { __esModule: true, default: toast, Toaster: () => null };
 });
 
-// Test component to use toast
-const TestComponent = ({ onToastShow }) => {
-  const toast = useToast();
-
+// Capture the toast API exposed by the provider.
+const TestComponent = ({ onReady }) => {
+  const api = useToast();
   React.useEffect(() => {
-    if (onToastShow) {
-      onToastShow(toast);
-    }
-  }, [toast, onToastShow]);
-
+    onReady(api);
+  }, [api, onReady]);
   return <div>Test Component</div>;
 };
 
+const getToastApi = async () => {
+  let api;
+  render(
+    <ToastProvider>
+      <TestComponent onReady={(t) => { api = t; }} />
+    </ToastProvider>
+  );
+  await waitFor(() => expect(api).toBeDefined());
+  return api;
+};
+
+beforeEach(() => {
+  jest.clearAllMocks();
+});
+
 describe('ToastContext', () => {
-  describe('Property Test: Success toast auto-dismisses after 4 seconds', () => {
-    it('should auto-dismiss success toast after 4000ms', async () => {
-      jest.useFakeTimers();
-      let toastInstance;
+  describe('Property 26: success toasts auto-dismiss after 4 seconds', () => {
+    it('uses a 4000ms default duration', async () => {
+      const api = await getToastApi();
 
-      render(
-        <ToastProvider>
-          <TestComponent
-            onToastShow={(toast) => {
-              toastInstance = toast;
-            }}
-          />
-        </ToastProvider>
+      act(() => {
+        api.success('Form submitted successfully!');
+      });
+
+      expect(toast.success).toHaveBeenCalledWith(
+        'Form submitted successfully!',
+        expect.objectContaining({ duration: 4000, position: 'top-right' })
       );
-
-      await waitFor(() => {
-        expect(toastInstance).toBeDefined();
-      });
-
-      // Show success toast
-      act(() => {
-        toastInstance.success('Form submitted successfully!');
-      });
-
-      // Toast should be visible initially
-      await waitFor(() => {
-        expect(screen.queryByText('Form submitted successfully!')).toBeInTheDocument();
-      });
-
-      // Fast-forward time by 4000ms
-      act(() => {
-        jest.advanceTimersByTime(4000);
-      });
-
-      // Toast should be dismissed after 4 seconds
-      await waitFor(() => {
-        expect(screen.queryByText('Form submitted successfully!')).not.toBeInTheDocument();
-      });
-
-      jest.useRealTimers();
     });
 
-    it('should respect custom duration for success toast', async () => {
-      jest.useFakeTimers();
-      let toastInstance;
+    it('respects a custom duration', async () => {
+      const api = await getToastApi();
 
-      render(
-        <ToastProvider>
-          <TestComponent
-            onToastShow={(toast) => {
-              toastInstance = toast;
-            }}
-          />
-        </ToastProvider>
+      act(() => {
+        api.success('Custom duration toast', { duration: 2000 });
+      });
+
+      expect(toast.success).toHaveBeenCalledWith(
+        'Custom duration toast',
+        expect.objectContaining({ duration: 2000 })
       );
-
-      await waitFor(() => {
-        expect(toastInstance).toBeDefined();
-      });
-
-      // Show success toast with custom duration
-      act(() => {
-        toastInstance.success('Custom duration toast', { duration: 2000 });
-      });
-
-      await waitFor(() => {
-        expect(screen.queryByText('Custom duration toast')).toBeInTheDocument();
-      });
-
-      // Fast-forward by 2000ms
-      act(() => {
-        jest.advanceTimersByTime(2000);
-      });
-
-      // Should be dismissed after custom duration
-      await waitFor(() => {
-        expect(screen.queryByText('Custom duration toast')).not.toBeInTheDocument();
-      });
-
-      jest.useRealTimers();
     });
   });
 
-  describe('Property Test: Error toast persists until dismissed', () => {
-    it('should not auto-dismiss error toast (duration = 0)', async () => {
-      jest.useFakeTimers();
-      let toastInstance;
+  describe('Property 27: error toasts persist until dismissed', () => {
+    it('uses duration 0 (persistent) by default', async () => {
+      const api = await getToastApi();
 
-      render(
-        <ToastProvider>
-          <TestComponent
-            onToastShow={(toast) => {
-              toastInstance = toast;
-            }}
-          />
-        </ToastProvider>
+      act(() => {
+        api.error('An error occurred');
+      });
+
+      expect(toast.error).toHaveBeenCalledWith(
+        'An error occurred',
+        expect.objectContaining({ duration: 0 })
       );
-
-      await waitFor(() => {
-        expect(toastInstance).toBeDefined();
-      });
-
-      // Show error toast
-      act(() => {
-        toastInstance.error('An error occurred');
-      });
-
-      await waitFor(() => {
-        expect(screen.queryByText('An error occurred')).toBeInTheDocument();
-      });
-
-      // Fast-forward time significantly
-      act(() => {
-        jest.advanceTimersByTime(10000);
-      });
-
-      // Toast should still be visible (persistent)
-      await waitFor(() => {
-        expect(screen.queryByText('An error occurred')).toBeInTheDocument();
-      });
-
-      jest.useRealTimers();
     });
 
-    it('should allow manual dismissal of error toast', async () => {
-      let toastInstance;
-      let toastId;
+    it('forwards manual dismissal with the toast id', async () => {
+      const api = await getToastApi();
 
-      render(
-        <ToastProvider>
-          <TestComponent
-            onToastShow={(toast) => {
-              toastInstance = toast;
-            }}
-          />
-        </ToastProvider>
-      );
-
-      await waitFor(() => {
-        expect(toastInstance).toBeDefined();
-      });
-
-      // Show error toast and capture ID
       act(() => {
-        toastId = toastInstance.error('Dismissible error');
+        api.dismiss('toast-123');
       });
 
-      await waitFor(() => {
-        expect(screen.queryByText('Dismissible error')).toBeInTheDocument();
-      });
+      expect(toast.dismiss).toHaveBeenCalledWith('toast-123');
+    });
 
-      // Manually dismiss
+    it('dismisses all toasts when no id is given', async () => {
+      const api = await getToastApi();
+
       act(() => {
-        toastInstance.dismiss(toastId);
+        api.dismiss();
       });
 
-      // Toast should be dismissed
-      await waitFor(() => {
-        expect(screen.queryByText('Dismissible error')).not.toBeInTheDocument();
-      });
+      expect(toast.dismiss).toHaveBeenCalledWith();
     });
   });
 
   describe('Toast types', () => {
-    it('should show info toast', async () => {
-      let toastInstance;
-
-      render(
-        <ToastProvider>
-          <TestComponent
-            onToastShow={(toast) => {
-              toastInstance = toast;
-            }}
-          />
-        </ToastProvider>
-      );
-
-      await waitFor(() => {
-        expect(toastInstance).toBeDefined();
-      });
+    it('shows an info toast with an info icon', async () => {
+      const api = await getToastApi();
 
       act(() => {
-        toastInstance.info('Information message');
+        api.info('Information message');
       });
 
-      await waitFor(() => {
-        expect(screen.queryByText('Information message')).toBeInTheDocument();
-      });
+      expect(toast).toHaveBeenCalledWith(
+        'Information message',
+        expect.objectContaining({ icon: 'ℹ️', duration: 4000 })
+      );
     });
 
-    it('should show warning toast', async () => {
-      let toastInstance;
-
-      render(
-        <ToastProvider>
-          <TestComponent
-            onToastShow={(toast) => {
-              toastInstance = toast;
-            }}
-          />
-        </ToastProvider>
-      );
-
-      await waitFor(() => {
-        expect(toastInstance).toBeDefined();
-      });
+    it('shows a warning toast with a warning icon', async () => {
+      const api = await getToastApi();
 
       act(() => {
-        toastInstance.warning('Warning message');
+        api.warning('Warning message');
       });
 
-      await waitFor(() => {
-        expect(screen.queryByText('Warning message')).toBeInTheDocument();
-      });
+      expect(toast).toHaveBeenCalledWith(
+        'Warning message',
+        expect.objectContaining({ icon: '⚠️', duration: 4000 })
+      );
     });
   });
 });

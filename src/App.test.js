@@ -3,6 +3,8 @@ import App from './App';
 
 test('renders Harding Secondary School website', () => {
   render(<App />);
-  const heading = screen.getByText(/Harding Secondary/i);
-  expect(heading).toBeInTheDocument();
+  // The name appears in multiple places (header, hero, footer), so assert
+  // that at least one instance is rendered.
+  const headings = screen.getAllByText(/Harding Secondary/i);
+  expect(headings.length).toBeGreaterThan(0);
 });

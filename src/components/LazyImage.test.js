@@ -7,14 +7,7 @@ import LazyImage from './LazyImage';
  * Validates: Requirements 3.4, 14.2
  */
 
-// Mock intersection observer
-const mockIntersectionObserver = jest.fn();
-mockIntersectionObserver.mockReturnValue({
-  observe: () => null,
-  unobserve: () => null,
-  disconnect: () => null
-});
-window.IntersectionObserver = mockIntersectionObserver;
+// IntersectionObserver is mocked globally in src/setupTests.js.
 
 describe('LazyImage Component', () => {
   describe('Property Test: Lazy loading shows blur-up effect', () => {

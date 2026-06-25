@@ -20,14 +20,8 @@ const ProgressBar = ({
 
   useEffect(() => {
     if (isLoading) {
-      setProgress(0);
-      
-      // Animate to 90% over 2 seconds
-      const timer1 = setTimeout(() => {
-        setProgress(90);
-      }, 100);
-
-      return () => clearTimeout(timer1);
+      // Mount immediately; the inner bar animates its width from 0 to 90%.
+      setProgress(90);
     } else if (progress > 0) {
       // Jump to 100% when loading completes
       setProgress(100);

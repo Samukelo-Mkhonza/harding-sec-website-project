@@ -18,7 +18,7 @@ const paperGenerator = fc.record({
   pdfUrl: fc.webUrl(),
   memoUrl: fc.option(fc.webUrl(), { nil: null }),
   fileSize: fc.integer({ min: 100000, max: 10000000 }),
-  uploadDate: fc.date({ min: new Date('2020-01-01'), max: new Date() }).map(d => d.toISOString()),
+  uploadDate: fc.date({ min: new Date('2020-01-01'), max: new Date(), noInvalidDate: true }).map(d => d.toISOString()),
   pageCount: fc.integer({ min: 1, max: 50 }),
   tags: fc.array(fc.string({ minLength: 3, maxLength: 15 }), { maxLength: 5 })
 });
