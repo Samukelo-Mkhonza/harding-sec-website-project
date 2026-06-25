@@ -27,6 +27,14 @@ const TermsOfUse = lazy(() => import('./pages/TermsOfUse'));
 const OnlineApplication = lazy(() => import('./pages/OnlineApplication'));
 const News = lazy(() => import('./pages/News'));
 const UniversityApplicationsPortal = lazy(() => import('./pages/UniversityApplicationsPortal'));
+const BursaryFinder = lazy(() => import('./pages/BursaryFinder'));
+const StudyTimetable = lazy(() => import('./pages/StudyTimetable'));
+const CommunityNoticeboard = lazy(() => import('./pages/CommunityNoticeboard'));
+const SubjectExplorer = lazy(() => import('./pages/SubjectExplorer'));
+const AlumniHallOfFame = lazy(() => import('./pages/AlumniHallOfFame'));
+const MatricResults = lazy(() => import('./pages/MatricResults'));
+const StudentCouncil = lazy(() => import('./pages/StudentCouncil'));
+const SportsTracker = lazy(() => import('./pages/SportsTracker'));
 const NotFound = lazy(() => import('./pages/NotFound'));
 
 /**
@@ -86,6 +94,14 @@ const AppRouter = () => {
               <Route path="/terms-of-use" element={<TermsOfUse />} />
               <Route path="/news" element={<News />} />
               <Route path="/university-applications" element={<UniversityApplicationsPortal />} />
+              <Route path="/student-portal/bursaries" element={<BursaryFinder />} />
+              <Route path="/student-portal/timetable" element={<StudyTimetable />} />
+              <Route path="/student-portal/noticeboard" element={<CommunityNoticeboard />} />
+              <Route path="/student-portal/subjects" element={<SubjectExplorer />} />
+              <Route path="/alumni" element={<AlumniHallOfFame />} />
+              <Route path="/matric-results" element={<MatricResults />} />
+              <Route path="/student-council" element={<StudentCouncil />} />
+              <Route path="/sports" element={<SportsTracker />} />
 
               {/* 404 page */}
               <Route path="*" element={<NotFound />} />

@@ -18,7 +18,7 @@ export const NAV_DATA = [
         links: [
           { path: '/about', label: "Principal's Message" },
           { path: '/about', label: 'School Governing Body' },
-          { path: '/about', label: 'Meet Our Educators' },
+          { path: '/alumni', label: 'Old Hardingian Hall of Fame' },
           { path: '/contact', label: 'Contact the Office' },
         ],
       },
@@ -33,7 +33,7 @@ export const NAV_DATA = [
         links: [
           { path: '/academics', label: 'Curriculum Overview' },
           { path: '/academics', label: 'Subject Streams' },
-          { path: '/academics', label: 'Achievements' },
+          { path: '/matric-results', label: 'Matric Results Dashboard' },
           { path: '/academics', label: 'Grade Structure (8–12)' },
         ],
       },
@@ -43,8 +43,8 @@ export const NAV_DATA = [
           { path: '/past-papers', label: 'Past Papers Portal' },
           { path: '/books', label: 'Books & Textbooks Library' },
           { path: '/university-applications', label: 'University Applications' },
+          { path: '/student-portal/subjects', label: 'Subject Explorer' },
           { path: '/academics', label: 'Extra Classes' },
-          { path: '/academics', label: 'Career Guidance' },
         ],
       },
     ],
@@ -81,8 +81,8 @@ export const NAV_DATA = [
       {
         heading: 'Activities',
         links: [
-          { path: '/student-life', label: 'Sports Programs' },
-          { path: '/student-life', label: 'Cultural Activities' },
+          { path: '/sports', label: 'Sports Fixtures & Results' },
+          { path: '/student-council', label: 'Student Council (SRC)' },
           { path: '/student-life#clubs', label: 'Clubs & Societies' },
           { path: '/gallery', label: 'Photo Gallery' },
         ],
@@ -129,7 +129,7 @@ export const NAV_DATA = [
         links: [
           { path: '/news', label: 'Upcoming Events' },
           { path: '/school-calendar', label: 'School Calendar' },
-          { path: '/news', label: 'Matric Results' },
+          { path: '/matric-results', label: 'Matric Results Dashboard' },
           { path: '/contact', label: 'Media Enquiries' },
         ],
       },
@@ -139,14 +139,22 @@ export const NAV_DATA = [
 ];
 
 export const PORTAL_BUTTONS = [
-  { label: 'Old Hardingian', path: '#' },
-  { label: 'Parent Portal', path: '#' },
-  { label: 'School Connect', path: '#' },
+  { label: 'Old Hardingian', path: '/alumni' },
+  { label: 'Student Portal', path: '/student-portal' },
+  { label: 'Parent Portal', path: '/parent-portal' },
+];
+
+export const STUDENT_TOOLS = [
+  { label: 'Bursary Finder', path: '/student-portal/bursaries' },
+  { label: 'Study Timetable', path: '/student-portal/timetable' },
+  { label: 'Noticeboard', path: '/student-portal/noticeboard' },
+  { label: 'Subject Explorer', path: '/student-portal/subjects' },
 ];
 
 export const TOP_BAR_LINKS = [
   { label: 'Past Papers', path: '/past-papers' },
   { label: 'Books & Textbooks', path: '/books' },
   { label: 'University Applications', path: '/university-applications' },
-  { label: 'School Calendar', path: '#' },
+  { label: 'Bursary Finder', path: '/student-portal/bursaries' },
+  { label: 'School Calendar', path: '/school-calendar' },
 ];
