@@ -2,7 +2,9 @@
 # Served at: https://<owner>.github.io/harding-sec-website-project/
 # (matches "homepage" in package.json and the router basename).
 #
-# One-time setup: repo Settings > Pages > Build and deployment > Source = "GitHub Actions".
+# The "Setup Pages" step below uses enablement: true to turn on GitHub Pages
+# automatically on first run. If your org/account blocks that, enable it once
+# manually: repo Settings > Pages > Build and deployment > Source = "GitHub Actions".
 # https://docs.github.com/pages/getting-started-with-github-pages/configuring-a-publishing-source-for-your-github-pages-site
 
 name: Deploy to GitHub Pages
@@ -32,8 +34,14 @@ jobs:
       - name: Use Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 20.x
+          node-version: 22.x
           cache: 'npm'
+
+      # Turns on GitHub Pages (Source = GitHub Actions) if it isn't already.
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+        with:
+          enablement: true
 
       - name: Install dependencies
         run: npm ci
