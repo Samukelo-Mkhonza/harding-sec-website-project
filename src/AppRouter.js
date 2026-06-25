@@ -1,9 +1,9 @@
-import React, { Suspense, lazy } from 'react';
+import React, { lazy } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import { SkeletonLoader } from './components';
 import Header from './components/Header';
 import Footer from './components/Footer';
-import ScrollToTop from './components/ScrollToTop';
+import AnimatedLayout from './components/AnimatedLayout';
 
 // Lazy load page components for code splitting
 const Home = lazy(() => import('./pages/Home'));
@@ -60,7 +60,6 @@ const PageLoader = () => (
 const AppRouter = () => {
   return (
     <>
-      <ScrollToTop />
       {/* Skip to content link for accessibility */}
       <a
         href="#main-content"
@@ -71,8 +70,10 @@ const AppRouter = () => {
       <div className="flex flex-col min-h-screen">
         <Header />
         <main id="main-content" className="flex-grow pt-[116px]">
-          <Suspense fallback={<PageLoader />}>
-            <Routes>
+          <Routes>
+            {/* All pages render through AnimatedLayout, which animates page
+                exit/entrance, handles Suspense, and resets scroll on navigation. */}
+            <Route element={<AnimatedLayout fallback={<PageLoader />} />}>
               <Route path="/" element={<Home />} />
               <Route path="/about" element={<About />} />
               <Route path="/academics" element={<Academics />} />
@@ -105,8 +106,8 @@ const AppRouter = () => {
 
               {/* 404 page */}
               <Route path="*" element={<NotFound />} />
-            </Routes>
-          </Suspense>
+            </Route>
+          </Routes>
         </main>
         <Footer />
       </div>
