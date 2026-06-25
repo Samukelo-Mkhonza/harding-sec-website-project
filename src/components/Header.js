@@ -37,7 +37,7 @@ const MegaMenuPanel = ({ megaMenuData, onClose }) => (
     {/* Brand panel */}
     <div className="border-l border-neutral-200 pl-8 flex flex-col justify-start pt-0.5">
       <img
-        src="/harding-sec-logo-2.png"
+        src={`${process.env.PUBLIC_URL}/harding-sec-logo-2.png`}
         alt="Harding Secondary School"
         width="64"
         height="60"
@@ -166,7 +166,7 @@ const Header = () => {
                 onClick={() => setActiveMenu(null)}
               >
                 <img
-                  src="/harding-sec-logo-2.png"
+                  src={`${process.env.PUBLIC_URL}/harding-sec-logo-2.png`}
                   alt="Harding Secondary School"
                   width="60"
                   height="56"

@@ -32,7 +32,7 @@ const MobileMenu = ({ isOpen, onClose }) => {
         <div className="bg-primary p-6 flex justify-between items-center">
           <div className="flex items-center gap-3">
             <img
-              src="/harding-sec-logo-2.png"
+              src={`${process.env.PUBLIC_URL}/harding-sec-logo-2.png`}
               alt="Harding Secondary School Logo"
               className="w-10 h-10 object-contain"
             />

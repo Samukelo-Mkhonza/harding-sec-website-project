@@ -158,7 +158,7 @@ const PastPapersPortal = () => {
     const load = async () => {
       try {
         setLoading(true);
-        const response = await fetch('/data/papers-metadata.json');
+        const response = await fetch(`${process.env.PUBLIC_URL}/data/papers-metadata.json`);
         if (!response.ok) throw new Error('Failed to load papers data');
         const data = await response.json();
         setPapers(data);

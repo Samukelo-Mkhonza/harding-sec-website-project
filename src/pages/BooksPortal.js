@@ -324,7 +324,7 @@ const BooksPortal = () => {
     const load = async () => {
       try {
         setLoading(true);
-        const res = await fetch('/data/books-metadata.json');
+        const res = await fetch(`${process.env.PUBLIC_URL}/data/books-metadata.json`);
         if (!res.ok) throw new Error('Failed to load books data');
         const data = await res.json();
         setBooks(data);

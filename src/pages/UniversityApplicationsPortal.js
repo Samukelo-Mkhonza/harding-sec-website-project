@@ -924,7 +924,7 @@ const UniversityApplicationsPortal = () => {
   useEffect(() => {
     (async () => {
       try {
-        const res = await fetch('/data/university-applications-data.json');
+        const res = await fetch(`${process.env.PUBLIC_URL}/data/university-applications-data.json`);
         if (!res.ok) throw new Error('Failed to load data');
         setUniversities(await res.json());
       } catch {

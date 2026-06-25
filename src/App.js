@@ -58,8 +58,8 @@ const App = () => {
     message: ''
   });
 
-  // School logo from public folder
-  const logoImageUrl = "/harding-sec-logo-2.png";
+  // School logo from public folder (PUBLIC_URL keeps it valid under the Pages subpath)
+  const logoImageUrl = `${process.env.PUBLIC_URL}/harding-sec-logo-2.png`;
 
   useEffect(() => {
     const handleScroll = () => {
