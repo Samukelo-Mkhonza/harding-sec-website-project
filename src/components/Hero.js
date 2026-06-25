@@ -68,6 +68,9 @@ const Hero = ({
                 src={image}
                 alt={`Slide ${index + 1}`}
                 className="w-full h-full object-cover"
+                fetchPriority={index === 0 ? 'high' : 'low'}
+                loading={index === 0 ? 'eager' : 'lazy'}
+                decoding="async"
               />
             </div>
           ))}
