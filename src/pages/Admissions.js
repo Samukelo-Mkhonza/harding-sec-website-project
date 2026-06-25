@@ -103,7 +103,7 @@ const Admissions = () => {
         </div>
 
         {/* Page Hero */}
-        <section className="relative py-28 md:py-36 text-center overflow-hidden">
+        <section className="relative py-28 md:py-36 text-center overflow-hidden bg-primary-dark">
           <img
             src={HERO_IMAGES.graduation}
             alt=""
@@ -270,7 +270,7 @@ const Admissions = () => {
         </section>
 
         {/* CTA Section */}
-        <section className="relative py-24 md:py-32 overflow-hidden">
+        <section className="relative py-24 md:py-32 overflow-hidden bg-primary-dark">
           <img
             src={HERO_IMAGES.students}
             alt=""

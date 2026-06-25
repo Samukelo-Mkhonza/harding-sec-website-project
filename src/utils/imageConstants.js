@@ -10,12 +10,15 @@
  */
 
 // Hero/Banner Images - High resolution for hero sections
+// Heroes display full-bleed but are darkened by an 87% overlay, so a smaller
+// source at lower quality is visually indistinguishable. `auto=format` lets
+// Unsplash serve WebP/AVIF, roughly halving the bytes of the LCP image.
 export const HERO_IMAGES = {
-  students: 'https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=1600&q=80&fit=crop',
-  classroom: 'https://images.unsplash.com/photo-1580582932707-520aed937b7b?w=1600&q=80&fit=crop',
-  graduation: 'https://images.unsplash.com/photo-1509062522246-3755977927d7?w=1600&q=80&fit=crop',
-  library: 'https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=1600&q=80&fit=crop',
-  campus: 'https://images.unsplash.com/photo-1562774053-701939374585?w=1600&q=80&fit=crop',
+  students: 'https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=1200&q=70&fit=crop&auto=format',
+  classroom: 'https://images.unsplash.com/photo-1580582932707-520aed937b7b?w=1200&q=70&fit=crop&auto=format',
+  graduation: 'https://images.unsplash.com/photo-1509062522246-3755977927d7?w=1200&q=70&fit=crop&auto=format',
+  library: 'https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=1200&q=70&fit=crop&auto=format',
+  campus: 'https://images.unsplash.com/photo-1562774053-701939374585?w=1200&q=70&fit=crop&auto=format',
 };
 
 // News & Events Images

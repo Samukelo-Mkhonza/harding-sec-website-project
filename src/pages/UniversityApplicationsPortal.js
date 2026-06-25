@@ -1014,7 +1014,7 @@ const UniversityApplicationsPortal = () => {
         <div className="bg-white"><Breadcrumbs /></div>
 
         {/* Hero */}
-        <section className="relative py-24 md:py-32 text-center overflow-hidden">
+        <section className="relative py-24 md:py-32 text-center overflow-hidden bg-primary-dark">
           <img src={HERO_IMAGES.campus} alt="" className="absolute inset-0 w-full h-full object-cover" aria-hidden="true" />
           <div className="absolute inset-0 bg-primary-dark/88" />
           <div className="relative z-10 container-custom">

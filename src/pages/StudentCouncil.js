@@ -495,7 +495,7 @@ const StudentCouncil = () => {
         </div>
 
         {/* Hero */}
-        <section className="relative py-28 md:py-36 text-center overflow-hidden">
+        <section className="relative py-28 md:py-36 text-center overflow-hidden bg-primary-dark">
           <img
             src={HERO_IMAGES.students}
             alt=""

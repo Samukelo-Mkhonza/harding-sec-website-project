@@ -79,7 +79,7 @@ const StudentLife = () => {
         </div>
 
         {/* Page Hero */}
-        <section className="relative py-28 md:py-36 text-center overflow-hidden">
+        <section className="relative py-28 md:py-36 text-center overflow-hidden bg-primary-dark">
           <img
             src={ACTIVITY_IMAGES.sports}
             alt=""
@@ -237,7 +237,7 @@ const StudentLife = () => {
         </section>
 
         {/* Student Leadership — image bg */}
-        <section className="relative py-24 md:py-32 overflow-hidden">
+        <section className="relative py-24 md:py-32 overflow-hidden bg-primary-dark">
           <img
             src={HERO_IMAGES.graduation}
             alt=""

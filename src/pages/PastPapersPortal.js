@@ -206,12 +206,17 @@ const PastPapersPortal = () => {
         </div>
 
         {/* Hero */}
-        <section className="relative py-28 md:py-36 text-center overflow-hidden">
+        <section className="relative py-28 md:py-36 text-center overflow-hidden bg-primary-dark">
           <img
             src={HERO_IMAGES.library}
             alt=""
+            width="1200"
+            height="900"
             className="absolute inset-0 w-full h-full object-cover"
             aria-hidden="true"
+            fetchPriority="high"
+            loading="eager"
+            decoding="async"
           />
           <div className="absolute inset-0 bg-primary-dark/87" />
           <div className="relative z-10 container-custom">

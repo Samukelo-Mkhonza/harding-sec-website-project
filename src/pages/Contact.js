@@ -69,7 +69,7 @@ const Contact = () => {
         </div>
 
         {/* Page Hero */}
-        <section className="relative py-28 md:py-36 text-center overflow-hidden">
+        <section className="relative py-28 md:py-36 text-center overflow-hidden bg-primary-dark">
           <img
             src={NEWS_IMAGES.community}
             alt=""

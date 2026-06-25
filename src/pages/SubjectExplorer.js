@@ -464,7 +464,7 @@ const SubjectExplorer = () => {
         </div>
 
         {/* Hero */}
-        <section className="relative py-24 md:py-32 text-center overflow-hidden">
+        <section className="relative py-24 md:py-32 text-center overflow-hidden bg-primary-dark">
           <img
             src={HERO_IMAGES.students}
             alt=""

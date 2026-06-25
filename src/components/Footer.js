@@ -111,6 +111,9 @@ const Footer = () => {
                 <img
                   src={logo}
                   alt="Harding Secondary School"
+                  width="60"
+                  height="56"
+                  loading="lazy"
                   className="h-14 group-hover:scale-105 transition-transform duration-200"
                 />
                 <div>

@@ -472,7 +472,7 @@ const StudyTimetable = () => {
         </div>
 
         {/* Hero */}
-        <section className="relative py-24 md:py-32 text-center overflow-hidden print:hidden">
+        <section className="relative py-24 md:py-32 text-center overflow-hidden bg-primary-dark print:hidden">
           <img
             src={HERO_IMAGES.classroom}
             alt=""

@@ -444,7 +444,7 @@ const Home = () => {
       </section>
 
       {/* CTA Section */}
-      <section className="relative py-24 md:py-36 overflow-hidden">
+      <section className="relative py-24 md:py-36 overflow-hidden bg-primary-dark">
         <img
           src={HERO_IMAGES.graduation}
           alt="Graduation ceremony at Harding Secondary School"

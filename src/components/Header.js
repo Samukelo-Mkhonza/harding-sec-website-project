@@ -39,6 +39,8 @@ const MegaMenuPanel = ({ megaMenuData, onClose }) => (
       <img
         src="/harding-sec-logo-2.png"
         alt="Harding Secondary School"
+        width="64"
+        height="60"
         className="h-12 mb-4 object-contain object-left"
       />
       <p className="font-heading font-bold text-neutral-700 text-sm mb-2 uppercase tracking-wide">
@@ -166,6 +168,8 @@ const Header = () => {
                 <img
                   src="/harding-sec-logo-2.png"
                   alt="Harding Secondary School"
+                  width="60"
+                  height="56"
                   className={`transition-all duration-300 object-contain ${
                     isScrolled ? 'h-10' : 'h-14'
                   }`}

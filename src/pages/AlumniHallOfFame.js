@@ -456,7 +456,7 @@ const AlumniHallOfFame = () => {
         </div>
 
         {/* Hero */}
-        <section className="relative py-28 md:py-40 text-center overflow-hidden">
+        <section className="relative py-28 md:py-40 text-center overflow-hidden bg-primary-dark">
           <img
             src={HERO_IMAGES.graduation}
             alt=""
