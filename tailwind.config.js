@@ -51,9 +51,9 @@ module.exports = {
         },
       },
       fontFamily: {
-        heading: ['Carlito', 'sans-serif'],
-        body: ['Carlito', 'sans-serif'],
-        display: ['Carlito', 'sans-serif'],
+        heading: ['PT Sans', 'Arial', 'Helvetica', 'sans-serif'],
+        body: ['PT Sans', 'Arial', 'Helvetica', 'sans-serif'],
+        display: ['PT Sans', 'Arial', 'Helvetica', 'sans-serif'],
       },
       fontSize: {
         'xs': '0.75rem',

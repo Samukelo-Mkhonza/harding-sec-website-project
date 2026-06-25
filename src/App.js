@@ -162,7 +162,7 @@ const App = () => {
               fontWeight: '700', 
               color: colors.white,
               letterSpacing: '-0.5px',
-              fontFamily: "'Rubik', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif"
+              fontFamily: "'PT Sans', Arial, Helvetica, sans-serif"
             }}>
               Harding Secondary
             </h1>
@@ -171,7 +171,7 @@ const App = () => {
               fontSize: window.innerWidth < 768 ? '10px' : '12px', 
               color: colors.secondary,
               letterSpacing: '0.5px',
-              fontFamily: "'Rubik', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif",
+              fontFamily: "'PT Sans', Arial, Helvetica, sans-serif",
               display: window.innerWidth < 480 ? 'none' : 'block'
             }}>
               Excellence in Education
@@ -198,7 +198,7 @@ const App = () => {
                   position: 'relative',
                   transition: 'all 0.3s ease',
                   padding: '5px 0',
-                  fontFamily: "'Rubik', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif"
+                  fontFamily: "'PT Sans', Arial, Helvetica, sans-serif"
                 }}
                 onMouseEnter={e => e.target.style.color = colors.primary}
                 onMouseLeave={e => e.target.style.color = currentPage === nav.id ? colors.primary : colors.white}
@@ -305,7 +305,7 @@ const App = () => {
                   alignItems: 'center',
                   gap: '10px',
                   transition: 'all 0.3s ease',
-                  fontFamily: "'Rubik', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif"
+                  fontFamily: "'PT Sans', Arial, Helvetica, sans-serif"
                 }}
               >
                 {nav.icon}
@@ -3978,7 +3978,7 @@ const App = () => {
     }
 
     body {
-      font-family: 'Rubik', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+      font-family: 'PT Sans', Arial, Helvetica, sans-serif;
       overflow-x: hidden;
     }
 

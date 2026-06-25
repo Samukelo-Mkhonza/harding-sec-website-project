@@ -15,7 +15,7 @@ export const theme = {
     info: '#147538'
   },
   fonts: {
-    primary: "'Outfit', sans-serif"
+    primary: "'PT Sans', Arial, Helvetica, sans-serif"
   },
   fontSizes: {
     xs: '12px',
