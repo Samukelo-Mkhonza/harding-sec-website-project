@@ -89,7 +89,7 @@ export const SEO = {
   SITE_URL: 'https://hardingsec.co.za', // Update with actual URL
 };
 
-export default {
+const constants = {
   SCROLL_THRESHOLDS,
   ANIMATION_DURATIONS,
   INTERSECTION_THRESHOLDS,
@@ -102,3 +102,5 @@ export default {
   A11Y,
   SEO,
 };
+
+export default constants;

@@ -873,7 +873,6 @@ const APSCalculator = ({ universities }) => {
                 <p className="text-sm text-neutral-400 text-center py-6">No universities offer {FACULTY_LABELS[targetFaculty]}</p>
               ) : (
                 eligible.map((u) => {
-                  const typeColor = TYPE_COLORS[u.type] || '#0D4E25';
                   const resultStyles = {
                     eligible: 'bg-green-50 border-green-200 text-green-700',
                     close: 'bg-amber-50 border-amber-200 text-amber-700',

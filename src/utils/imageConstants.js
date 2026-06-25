@@ -213,7 +213,7 @@ export const getImageWithFallback = (imageUrl, fallbackUrl = PLACEHOLDER_IMAGES.
   return imageUrl || fallbackUrl;
 };
 
-export default {
+const imageConstants = {
   HERO_IMAGES,
   NEWS_IMAGES,
   ACTIVITY_IMAGES,
@@ -225,3 +225,5 @@ export default {
   getRandomImage,
   getImageWithFallback,
 };
+
+export default imageConstants;

@@ -2,7 +2,6 @@ import React, { useMemo, useState } from 'react';
 import { List as VirtualList } from 'react-window';
 import { FaThLarge, FaList, FaSortAmountDown, FaSortAmountUp } from 'react-icons/fa';
 import PaperCard from './PaperCard';
-import { PAPERS_PER_PAGE } from '../../utils/portalConstants';
 
 const SORT_OPTIONS = [
   { value: 'date', label: 'Upload Date' },
