@@ -16,6 +16,13 @@ updates:
         update-types:
           - "minor"
           - "patch"
+    ignore:
+      # Tailwind v4 moved its PostCSS plugin to @tailwindcss/postcss and
+      # dropped the @tailwind directives; react-scripts 5 hardcodes the
+      # `tailwindcss` package as the PostCSS plugin, so v4 cannot build
+      # under CRA. Stay on v3 until we migrate off react-scripts.
+      - dependency-name: "tailwindcss"
+        update-types: ["version-update:semver-major"]
 
   # GitHub Actions used in .github/workflows/*.
   - package-ecosystem: "github-actions"
