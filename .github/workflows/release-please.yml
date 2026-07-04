@@ -1,0 +1,29 @@
+# Automated releases via release-please.
+# Watches main, maintains a "release PR" that bumps the version in package.json
+# and updates CHANGELOG.md from Conventional Commit messages (feat/fix/...).
+# Merging that release PR tags the version and publishes a GitHub Release.
+# https://github.com/googleapis/release-please
+#
+# NOTE: the release PR is opened with the built-in GITHUB_TOKEN, so CI workflows
+# do NOT run on it (GitHub blocks token-triggered workflow runs). Merge it as the
+# repo admin. For fully-gated release PRs, swap `token` below for a fine-grained
+# PAT secret (contents + pull-requests: write) so downstream CI is triggered.
+name: Release Please
+
+on:
+  push:
+    branches: [ "main" ]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  release-please:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: googleapis/release-please-action@5c625bfb5d1ff62eadeeb3772007f7f66fdcf071 # v4.4.1
+        with:
+          release-type: node
+          token: ${{ secrets.GITHUB_TOKEN }}
