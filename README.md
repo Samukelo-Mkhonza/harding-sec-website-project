@@ -146,17 +146,11 @@ To add a new page: create the component in `src/pages/`, register a lazy import 
 
 ## Contributing
 
-This is a private project for Harding Secondary School. For internal development:
-
-1. Branch from `main`.
-2. Make changes with clear, conventional commit messages.
-3. Add or update tests for new behavior (`npm test`).
-4. Ensure tests pass and the production build succeeds (`npm run build`).
-5. Open a pull request for review.
+This is a private project for Harding Secondary School. See [CONTRIBUTING.md](CONTRIBUTING.md) for the full workflow (branching, commit conventions, testing) and [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md) for expected conduct. Found a security issue? See [SECURITY.md](SECURITY.md) instead of opening a public issue.
 
 ## License
 
-Private — all rights reserved by Harding Secondary School.
+Private — all rights reserved by Harding Secondary School. See [LICENSE](LICENSE).
 
 ---
 
