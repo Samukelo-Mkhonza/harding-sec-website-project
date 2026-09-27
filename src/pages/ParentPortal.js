@@ -1,6 +1,6 @@
 import { FaUserCircle, FaFileAlt, FaCalendarAlt, FaComments, FaPhoneAlt, FaEnvelope, FaLock } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
-import { SEO, Breadcrumbs } from '../components';
+import { SEO, PageHero } from '../components';
 import AnimateOnScroll from '../components/AnimateOnScroll';
 import { HERO_IMAGES } from '../utils/imageConstants';
 
@@ -18,29 +18,12 @@ const ParentPortal = () => (
       description="Access your child's academic reports, communicate with teachers, and stay connected with Harding Secondary School."
     />
     <div>
-      <div className="bg-white">
-        <Breadcrumbs />
-      </div>
-
-      {/* Hero */}
-      <section className="relative py-28 md:py-36 text-center overflow-hidden bg-primary-dark">
-        <img
-          src={HERO_IMAGES.campus}
-          alt=""
-          className="absolute inset-0 w-full h-full object-cover"
-          aria-hidden="true"
-        />
-        <div className="absolute inset-0 bg-primary-dark/85" />
-        <div className="relative z-10 container-custom">
-          <p className="text-accent-neon font-semibold text-sm tracking-widest uppercase mb-4">Harding Secondary</p>
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-heading font-bold !text-white mb-4">
-            Parent Portal
-          </h1>
-          <p className="text-lg md:text-xl max-w-2xl mx-auto !text-white/90">
-            Stay connected with your child's education journey
-          </p>
-        </div>
-      </section>
+      <PageHero
+        eyebrow="Harding Secondary"
+        title="Parent Portal"
+        description="Stay connected with your child's education journey"
+        image={HERO_IMAGES.campus}
+      />
 
       {/* Portal Access Card */}
       <section className="py-16 md:py-24 bg-neutral-50">

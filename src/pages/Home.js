@@ -7,7 +7,7 @@ import {
 import Hero from '../components/Hero';
 import AnimateOnScroll from '../components/AnimateOnScroll';
 import CounterAnimation from '../components/CounterAnimation';
-import { SEO, SEOConfigs } from '../components';
+import { SEO, SEOConfigs, SectionHeader } from '../components';
 import {
   HERO_IMAGES,
   NEWS_IMAGES,
@@ -414,14 +414,7 @@ const Home = () => {
       <section className="py-16 md:py-24 bg-neutral-50">
         <div className="container-custom">
           <AnimateOnScroll animation="fade-in">
-            <div className="text-center mb-12">
-              <p className="text-primary font-semibold text-sm tracking-widest uppercase mb-3">
-                Quick Access
-              </p>
-              <h2 className="text-3xl md:text-4xl font-heading font-bold text-primary-dark">
-                School Portals
-              </h2>
-            </div>
+            <SectionHeader eyebrow="Quick Access" title="School Portals" />
           </AnimateOnScroll>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">

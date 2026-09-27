@@ -1,4 +1,4 @@
-import { SEO, Breadcrumbs } from '../components';
+import { SEO, PageHero } from '../components';
 import { Link } from 'react-router-dom';
 
 const SECTIONS = [
@@ -64,20 +64,12 @@ const TermsOfUse = () => (
       description="Read the Terms of Use governing your access to and use of the Harding Secondary School website."
     />
     <div>
-      <div className="bg-white">
-        <Breadcrumbs />
-      </div>
-
-      {/* Hero */}
-      <section className="py-16 md:py-20 bg-primary-dark text-center">
-        <div className="container-custom">
-          <p className="text-accent-neon font-semibold text-sm tracking-widest uppercase mb-3">Legal</p>
-          <h1 className="text-4xl md:text-5xl font-heading font-bold !text-white mb-3">
-            Terms of Use
-          </h1>
-          <p className="text-white/70 text-sm">Effective date: 1 January 2025</p>
-        </div>
-      </section>
+      <PageHero
+        eyebrow="Legal"
+        title="Terms of Use"
+        description="Effective date: 1 January 2025"
+        size="sm"
+      />
 
       {/* Content */}
       <section className="py-16 md:py-24 bg-white">

@@ -58,15 +58,14 @@ describe('Card / Badge / Section', () => {
   });
 
   it('Section wraps content in the shared container', () => {
-    const { container } = render(<Section tone="muted">X</Section>);
-    const section = container.querySelector('section');
-    expect(section.className).toMatch(/bg-neutral-50/);
-    expect(section.firstChild.className).toMatch(/container-custom/);
+    render(<Section tone="muted" data-testid="s">X</Section>);
+    expect(screen.getByTestId('s').className).toMatch(/bg-neutral-50/);
+    expect(screen.getByText('X').className).toMatch(/container-custom/);
   });
 
   it('Container supports a narrow width', () => {
-    const { container } = render(<Container narrow>X</Container>);
-    expect(container.firstChild.className).toMatch(/max-w-4xl/);
+    render(<Container narrow>X</Container>);
+    expect(screen.getByText('X').className).toMatch(/max-w-4xl/);
   });
 });
 
@@ -107,8 +106,8 @@ describe('PageHero', () => {
   });
 
   it('uses a decorative background image', () => {
-    const { container } = withRouter(<PageHero title="T" image="/x.jpg" />, '/about');
-    const img = container.querySelector('img');
+    withRouter(<PageHero title="T" image="/x.jpg" />, '/about');
+    const img = screen.getByRole('presentation', { hidden: true });
     expect(img).toHaveAttribute('alt', '');
     expect(img).toHaveAttribute('aria-hidden', 'true');
   });

@@ -1,6 +1,6 @@
 import { FaBriefcase, FaMapMarkerAlt, FaClock, FaEnvelope, FaChevronDown, FaChevronUp, FaUserTie, FaChalkboardTeacher, FaWrench } from 'react-icons/fa';
 import { useState } from 'react';
-import { SEO, Breadcrumbs } from '../components';
+import { SEO, PageHero } from '../components';
 import AnimateOnScroll from '../components/AnimateOnScroll';
 import { HERO_IMAGES } from '../utils/imageConstants';
 
@@ -148,29 +148,12 @@ const CareerOpportunities = () => (
       description="Explore career opportunities and job vacancies at Harding Secondary School. Join our dedicated team of educators and staff."
     />
     <div>
-      <div className="bg-white">
-        <Breadcrumbs />
-      </div>
-
-      {/* Hero */}
-      <section className="relative py-28 md:py-36 text-center overflow-hidden bg-primary-dark">
-        <img
-          src={HERO_IMAGES.graduation}
-          alt=""
-          className="absolute inset-0 w-full h-full object-cover"
-          aria-hidden="true"
-        />
-        <div className="absolute inset-0 bg-primary-dark/85" />
-        <div className="relative z-10 container-custom">
-          <p className="text-accent-neon font-semibold text-sm tracking-widest uppercase mb-4">Join Our Team</p>
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-heading font-bold !text-white mb-4">
-            Career Opportunities
-          </h1>
-          <p className="text-lg md:text-xl max-w-2xl mx-auto !text-white/90">
-            Shape the next generation — join the Harding Secondary School family
-          </p>
-        </div>
-      </section>
+      <PageHero
+        eyebrow="Join Our Team"
+        title="Career Opportunities"
+        description="Shape the next generation — join the Harding Secondary School family"
+        image={HERO_IMAGES.graduation}
+      />
 
       {/* Why Join */}
       <section className="py-14 bg-white border-b border-neutral-100">

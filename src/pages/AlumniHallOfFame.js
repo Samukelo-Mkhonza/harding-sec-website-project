@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import SEO from '../components/SEO';
-import Breadcrumbs from '../components/Breadcrumbs';
+import { PageHero } from '../components';
 import AnimateOnScroll from '../components/AnimateOnScroll';
 import {
   FaGraduationCap, FaMapMarkerAlt, FaSearch,
@@ -451,41 +451,17 @@ const AlumniHallOfFame = () => {
         description="Meet the alumni of Harding Secondary School — doctors, engineers, teachers, entrepreneurs, and more. Discover where former learners are today and be inspired."
       />
       <div>
-        <div className="bg-white">
-          <Breadcrumbs />
-        </div>
-
-        {/* Hero */}
-        <section className="relative py-28 md:py-40 text-center overflow-hidden bg-primary-dark">
-          <img
-            src={HERO_IMAGES.graduation}
-            alt=""
-            className="absolute inset-0 w-full h-full object-cover"
-            aria-hidden="true"
-          />
-          <div className="absolute inset-0 bg-primary-dark/88" />
-          <div className="relative z-10 container-custom">
-            <p className="text-accent-neon font-semibold text-sm tracking-widest uppercase mb-4">Old Hardingian</p>
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-heading font-bold !text-white mb-4">
-              Hall of Fame
-            </h1>
-            <p className="text-lg md:text-xl max-w-2xl mx-auto !text-white/85">
-              From the classrooms of Harding Secondary to the world. Meet the graduates who are making a difference — and discover what's possible for you.
-            </p>
-            <div className="flex flex-wrap justify-center gap-6 mt-10">
-              {[
-                { label: 'Featured Alumni', value: ALUMNI.length },
-                { label: 'Fields Represented', value: new Set(ALUMNI.map((a) => a.field)).size },
-                { label: 'Years Represented', value: '1998–2016' },
-              ].map(({ label, value }) => (
-                <div key={label} className="text-center">
-                  <p className="text-2xl font-heading font-bold text-accent-neon">{value}</p>
-                  <p className="text-white/60 text-xs uppercase tracking-wider mt-0.5">{label}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
+        <PageHero
+          eyebrow="Old Hardingian"
+          title="Hall of Fame"
+          description="From the classrooms of Harding Secondary to the world. Meet the graduates who are making a difference — and discover what's possible for you."
+          image={HERO_IMAGES.graduation}
+          stats={[
+            { label: 'Featured Alumni', value: ALUMNI.length },
+            { label: 'Fields Represented', value: new Set(ALUMNI.map((a) => a.field)).size },
+            { label: 'Years Represented', value: '1998–2016' },
+          ]}
+        />
 
         {/* Main */}
         <div className="bg-neutral-50 min-h-screen py-16 md:py-24">

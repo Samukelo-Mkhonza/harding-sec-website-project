@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import SEO from '../components/SEO';
-import Breadcrumbs from '../components/Breadcrumbs';
+import { PageHero } from '../components';
 import AnimateOnScroll from '../components/AnimateOnScroll';
 import {
   FaBullhorn, FaSearch, FaTimes, FaPlus, FaFilter,
@@ -160,7 +160,7 @@ const PostCard = ({ post, onLike, onDelete }) => {
     }`}>
       {/* Pinned indicator */}
       {post.pinned && (
-        <div className="bg-primary/8 border-b border-primary/20 px-4 py-1.5 flex items-center gap-1.5">
+        <div className="bg-primary/10 border-b border-primary/20 px-4 py-1.5 flex items-center gap-1.5">
           <FaThumbtack className="text-primary text-xs rotate-45" />
           <span className="text-xs font-semibold text-primary">Pinned by Admin</span>
         </div>
@@ -466,45 +466,18 @@ const CommunityNoticeboard = () => {
         description="The Harding Secondary School community noticeboard — post announcements, find lost items, arrange rides, sell items, and connect with the school community."
       />
       <div>
-        <div className="bg-white">
-          <Breadcrumbs />
-        </div>
-
-        {/* Hero */}
-        <section className="relative py-24 md:py-32 text-center overflow-hidden bg-primary-dark">
-          <img
-            src={HERO_IMAGES.campus}
-            alt=""
-            className="absolute inset-0 w-full h-full object-cover"
-            aria-hidden="true"
-          />
-          <div className="absolute inset-0 bg-primary-dark/87" />
-          <div className="relative z-10 container-custom">
-            <div className="inline-flex items-center gap-2 bg-white/10 border border-white/20 rounded-full px-4 py-1.5 text-accent-neon text-sm font-semibold tracking-widest uppercase mb-5">
-              <FaBullhorn className="text-xs" />
-              Student Portal — Community
-            </div>
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-heading font-bold !text-white mb-4">
-              Community Noticeboard
-            </h1>
-            <p className="text-lg md:text-xl max-w-2xl mx-auto !text-white/85">
-              Connect with the Harding Secondary community — post announcements, find lost items, arrange transport, and more.
-            </p>
-
-            <div className="flex flex-wrap justify-center gap-6 mt-10">
-              {[
-                { label: 'Active Posts', value: posts.length },
-                { label: 'Categories', value: CATEGORIES.length - 1 },
-                { label: 'Community Members', value: '700+' },
-              ].map(({ label, value }) => (
-                <div key={label} className="text-center">
-                  <p className="text-2xl font-heading font-bold text-accent-neon">{value}</p>
-                  <p className="text-white/60 text-xs uppercase tracking-wider mt-0.5">{label}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
+        <PageHero
+          eyebrow="Community"
+          eyebrowIcon={FaBullhorn}
+          title="Community Noticeboard"
+          description="Connect with the Harding Secondary community — post announcements, find lost items, arrange transport, and more."
+          image={HERO_IMAGES.campus}
+          stats={[
+            { label: 'Active Posts', value: posts.length },
+            { label: 'Categories', value: CATEGORIES.length - 1 },
+            { label: 'Community Members', value: '700+' },
+          ]}
+        />
 
         {/* Main */}
         <div className="bg-neutral-50 min-h-screen">
@@ -556,7 +529,7 @@ const CommunityNoticeboard = () => {
                           onClick={() => setActiveCategory(cat.id)}
                           className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-colors text-left ${
                             activeCategory === cat.id
-                              ? 'bg-primary/8 text-primary font-semibold'
+                              ? 'bg-primary/10 text-primary font-semibold'
                               : 'text-neutral-600 hover:bg-neutral-50'
                           }`}
                         >

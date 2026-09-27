@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { SEO, Breadcrumbs } from '../components';
+import { SEO, PageHero, SectionHeader } from '../components';
 import AnimateOnScroll from '../components/AnimateOnScroll';
 import {
   FaBook, FaClock, FaDownload, FaPhoneAlt, FaEnvelope,
@@ -70,56 +70,23 @@ const StudentPortal = () => (
       description="Your digital hub for study tools, bursaries, timetables, and community resources at Harding Secondary School."
     />
     <div>
-      <div className="bg-white">
-        <Breadcrumbs />
-      </div>
-
-      {/* Hero */}
-      <section className="relative py-28 md:py-36 text-center overflow-hidden bg-primary-dark">
-        <img
-          src={HERO_IMAGES.classroom}
-          alt=""
-          className="absolute inset-0 w-full h-full object-cover"
-          aria-hidden="true"
-        />
-        <div className="absolute inset-0 bg-primary-dark/85" />
-        <div className="relative z-10 container-custom">
-          <p className="text-accent-neon font-semibold text-sm tracking-widest uppercase mb-4">Harding Secondary</p>
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-heading font-bold !text-white mb-4">
-            Student Portal
-          </h1>
-          <p className="text-lg md:text-xl max-w-2xl mx-auto !text-white/90">
-            Your digital hub for study tools, bursary funding, career guidance, and community resources.
-          </p>
-
-          <div className="flex flex-wrap justify-center gap-6 mt-10">
-            {[
-              { label: 'Study Tools', value: '4' },
-              { label: 'Bursaries Listed', value: '20+' },
-              { label: 'Subjects Mapped', value: '13' },
-            ].map(({ label, value }) => (
-              <div key={label} className="text-center">
-                <p className="text-3xl font-heading font-bold text-accent-neon">{value}</p>
-                <p className="text-white/60 text-xs uppercase tracking-wider mt-0.5">{label}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+      <PageHero
+        eyebrow="Harding Secondary"
+        title="Student Portal"
+        description="Your digital hub for study tools, bursary funding, career guidance, and community resources."
+        image={HERO_IMAGES.classroom}
+        stats={[
+          { label: 'Study Tools', value: '4' },
+          { label: 'Bursaries Listed', value: '20+' },
+          { label: 'Subjects Mapped', value: '13' },
+        ]}
+      />
 
       {/* Portal Tools Grid */}
       <section className="py-16 md:py-24 bg-neutral-50">
         <div className="container-custom">
           <AnimateOnScroll animation="fade">
-            <div className="text-center mb-12">
-              <p className="text-primary font-semibold text-sm tracking-widest uppercase mb-3">Student Tools</p>
-              <h2 className="text-3xl md:text-4xl font-heading font-bold text-primary-dark mb-4">
-                What would you like to do?
-              </h2>
-              <p className="text-neutral-500 max-w-xl mx-auto">
-                Select a tool below to get started. All tools are free and available to all Harding Secondary learners, parents, and staff.
-              </p>
-            </div>
+            <SectionHeader eyebrow="Student Tools" title="What would you like to do?" description="Select a tool below to get started. All tools are free and available to all Harding Secondary learners, parents, and staff." />
           </AnimateOnScroll>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">

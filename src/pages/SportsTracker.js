@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import SEO from '../components/SEO';
-import Breadcrumbs from '../components/Breadcrumbs';
+import { PageHero } from '../components';
 import AnimateOnScroll from '../components/AnimateOnScroll';
 import {
   FaTrophy, FaCalendarAlt,
@@ -484,45 +484,18 @@ const SportsTracker = () => {
         description="Live sports results, upcoming fixtures, team rosters, and standings for Harding Secondary School — soccer, netball, athletics, and cricket."
       />
       <div>
-        <div className="bg-white">
-          <Breadcrumbs />
-        </div>
-
-        {/* Hero */}
-        <section className="relative py-24 md:py-32 text-center overflow-hidden bg-primary-dark">
-          <img
-            src={HERO_IMAGES.campus}
-            alt=""
-            className="absolute inset-0 w-full h-full object-cover object-center"
-            aria-hidden="true"
-          />
-          <div className="absolute inset-0 bg-primary-dark/88" />
-          <div className="relative z-10 container-custom">
-            <div className="inline-flex items-center gap-2 bg-white/10 border border-white/20 rounded-full px-4 py-1.5 text-accent-neon text-sm font-semibold tracking-widest uppercase mb-5">
-              <FaTrophy className="text-xs" />
-              School Life — Sports
-            </div>
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-heading font-bold !text-white mb-4">
-              Sports Fixtures &amp; Results
-            </h1>
-            <p className="text-lg md:text-xl max-w-2xl mx-auto !text-white/85">
-              Follow Harding Secondary's teams — results, fixtures, rosters, and league standings all in one place.
-            </p>
-
-            <div className="flex flex-wrap justify-center gap-6 mt-10">
-              {[
-                { label: 'Sports Codes', value: SPORTS.length },
-                { label: 'U19 Soccer Wins', value: `${winsU19}/${soccerU19.results.length}` },
-                { label: 'District Medals (Athletics)', value: '12' },
-              ].map(({ label, value }) => (
-                <div key={label} className="text-center">
-                  <p className="text-2xl font-heading font-bold text-accent-neon">{value}</p>
-                  <p className="text-white/60 text-xs uppercase tracking-wider mt-0.5">{label}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
+        <PageHero
+          eyebrow="Sports"
+          eyebrowIcon={FaTrophy}
+          title="Sports Fixtures & Results"
+          description="Follow Harding Secondary's teams — results, fixtures, rosters, and league standings all in one place."
+          image={HERO_IMAGES.campus}
+          stats={[
+            { label: 'Sports Codes', value: SPORTS.length },
+            { label: 'U19 Soccer Wins', value: `${winsU19}/${soccerU19.results.length}` },
+            { label: 'District Medals (Athletics)', value: '12' },
+          ]}
+        />
 
         {/* Main */}
         <div className="bg-neutral-50 min-h-screen py-10 md:py-16">

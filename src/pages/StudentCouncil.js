@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import SEO from '../components/SEO';
-import Breadcrumbs from '../components/Breadcrumbs';
+import { PageHero } from '../components';
 import AnimateOnScroll from '../components/AnimateOnScroll';
 import {
   FaUsers, FaLightbulb, FaCalendarAlt, FaCheckCircle,
@@ -490,44 +490,18 @@ const StudentCouncil = () => {
         description="Meet the 2026 Student Representative Council at Harding Secondary School. Explore active campaigns, meeting highlights, and submit suggestions to your student council."
       />
       <div>
-        <div className="bg-white">
-          <Breadcrumbs />
-        </div>
-
-        {/* Hero */}
-        <section className="relative py-28 md:py-36 text-center overflow-hidden bg-primary-dark">
-          <img
-            src={HERO_IMAGES.students}
-            alt=""
-            className="absolute inset-0 w-full h-full object-cover"
-            aria-hidden="true"
-          />
-          <div className="absolute inset-0 bg-primary-dark/88" />
-          <div className="relative z-10 container-custom">
-            <div className="inline-flex items-center gap-2 bg-white/10 border border-white/20 rounded-full px-4 py-1.5 text-accent-neon text-sm font-semibold tracking-widest uppercase mb-5">
-              <FaUsers className="text-xs" />
-              Student Life — Governance
-            </div>
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-heading font-bold !text-white mb-4">
-              Student Representative Council
-            </h1>
-            <p className="text-lg md:text-xl max-w-2xl mx-auto !text-white/85">
-              The voice of Harding Secondary School learners. Meet the 2026 SRC — their campaigns, meetings, and how to reach them.
-            </p>
-            <div className="flex flex-wrap justify-center gap-6 mt-10">
-              {[
-                { label: 'SRC Members', value: SRC_MEMBERS.length },
-                { label: 'Active Campaigns', value: CAMPAIGNS.filter((c) => c.status === 'active').length },
-                { label: 'Meetings This Year', value: MEETINGS.length },
-              ].map(({ label, value }) => (
-                <div key={label} className="text-center">
-                  <p className="text-2xl font-heading font-bold text-accent-neon">{value}</p>
-                  <p className="text-white/60 text-xs uppercase tracking-wider mt-0.5">{label}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
+        <PageHero
+          eyebrow="Governance"
+          eyebrowIcon={FaUsers}
+          title="Student Representative Council"
+          description="The voice of Harding Secondary School learners. Meet the 2026 SRC — their campaigns, meetings, and how to reach them."
+          image={HERO_IMAGES.students}
+          stats={[
+            { label: 'SRC Members', value: SRC_MEMBERS.length },
+            { label: 'Active Campaigns', value: CAMPAIGNS.filter((c) => c.status === 'active').length },
+            { label: 'Meetings This Year', value: MEETINGS.length },
+          ]}
+        />
 
         {/* Main */}
         <div className="bg-neutral-50 min-h-screen py-12 md:py-20">

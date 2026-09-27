@@ -28,6 +28,7 @@ const AnimateOnScroll = ({
   triggerOnce = true,
   className = '',
   as: Component = 'div',
+  ...rest
 }) => {
   const canObserve = typeof window !== 'undefined' && 'IntersectionObserver' in window;
   const skip = !canObserve || prefersReducedMotion();
@@ -41,7 +42,7 @@ const AnimateOnScroll = ({
   });
 
   if (skip) {
-    return <Component className={className}>{children}</Component>;
+    return <Component className={className} {...rest}>{children}</Component>;
   }
 
   const name = ALIASES[animation] || animation;
@@ -49,6 +50,7 @@ const AnimateOnScroll = ({
 
   return (
     <Component
+      {...rest}
       ref={ref}
       className={`${inView ? animationClass : 'opacity-0 print:opacity-100'} ${className}`}
       style={inView ? { animationDelay: delay ? `${Math.min(delay, 400)}ms` : undefined, animationFillMode: 'both' } : undefined}

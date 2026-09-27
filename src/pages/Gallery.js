@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback } from 'react';
 import { FaPlay } from 'react-icons/fa';
-import { SEO, SEOConfigs, Breadcrumbs } from '../components';
+import { SEO, SEOConfigs, PageHero, SectionHeader } from '../components';
 import AnimateOnScroll from '../components/AnimateOnScroll';
 import { ALL_GALLERY_IMAGES, PLACEHOLDER_IMAGES, HERO_IMAGES } from '../utils/imageConstants';
 
@@ -43,29 +43,12 @@ const Gallery = () => {
     <>
       <SEO {...SEOConfigs.gallery} />
       <div>
-        <div className="bg-white">
-          <Breadcrumbs />
-        </div>
-
-        {/* Page Hero */}
-        <section className="relative py-28 md:py-36 text-center overflow-hidden bg-primary-dark">
-          <img
-            src={HERO_IMAGES.graduation}
-            alt=""
-            className="absolute inset-0 w-full h-full object-cover"
-            aria-hidden="true"
-          />
-          <div className="absolute inset-0 bg-primary-dark/85" />
-          <div className="relative z-10 container-custom">
-            <p className="text-accent-neon font-semibold text-sm tracking-widest uppercase mb-4">Visual Stories</p>
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-heading font-bold !text-white mb-4 text-shadow-strong">
-              Gallery
-            </h1>
-            <p className="text-lg md:text-xl max-w-3xl mx-auto !text-white/90">
-              Capturing moments and memories at Harding Secondary School
-            </p>
-          </div>
-        </section>
+        <PageHero
+          eyebrow="Visual Stories"
+          title="Gallery"
+          description="Capturing moments and memories at Harding Secondary School"
+          image={HERO_IMAGES.graduation}
+        />
 
         {/* Gallery Section */}
         <section className="py-16 md:py-24 bg-white">
@@ -132,10 +115,7 @@ const Gallery = () => {
         <section className="py-16 md:py-24 bg-neutral-50">
           <div className="container-custom">
             <AnimateOnScroll animation="fade-in">
-              <div className="text-center mb-12">
-                <p className="text-primary font-semibold text-sm tracking-widest uppercase mb-3">Media</p>
-                <h2 className="text-3xl md:text-4xl font-heading font-bold text-primary-dark">Video Highlights</h2>
-              </div>
+              <SectionHeader eyebrow="Media" title="Video Highlights" />
             </AnimateOnScroll>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {[

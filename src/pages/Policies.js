@@ -1,6 +1,6 @@
 import { FaFileAlt, FaDownload, FaSearch, FaShieldAlt, FaUserGraduate, FaChalkboardTeacher, FaRunning } from 'react-icons/fa';
 import { useState } from 'react';
-import { SEO, Breadcrumbs } from '../components';
+import { SEO, PageHero } from '../components';
 import AnimateOnScroll from '../components/AnimateOnScroll';
 import { HERO_IMAGES } from '../utils/imageConstants';
 
@@ -67,29 +67,12 @@ const Policies = () => {
         description="Access official school policies and documents for Harding Secondary School including code of conduct, assessment policies, and safety guidelines."
       />
       <div>
-        <div className="bg-white">
-          <Breadcrumbs />
-        </div>
-
-        {/* Hero */}
-        <section className="relative py-28 md:py-36 text-center overflow-hidden bg-primary-dark">
-          <img
-            src={HERO_IMAGES.library}
-            alt=""
-            className="absolute inset-0 w-full h-full object-cover"
-            aria-hidden="true"
-          />
-          <div className="absolute inset-0 bg-primary-dark/85" />
-          <div className="relative z-10 container-custom">
-            <p className="text-accent-neon font-semibold text-sm tracking-widest uppercase mb-4">Official Documents</p>
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-heading font-bold !text-white mb-4">
-              Policies & Documents
-            </h1>
-            <p className="text-lg md:text-xl max-w-2xl mx-auto !text-white/90">
-              Official school policies, guidelines, and downloadable documents
-            </p>
-          </div>
-        </section>
+        <PageHero
+          eyebrow="Official Documents"
+          title="Policies & Documents"
+          description="Official school policies, guidelines, and downloadable documents"
+          image={HERO_IMAGES.library}
+        />
 
         {/* Search */}
         <section className="py-8 bg-white border-b border-neutral-100">

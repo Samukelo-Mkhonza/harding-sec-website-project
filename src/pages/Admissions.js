@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { FaCheckCircle, FaChevronDown } from 'react-icons/fa';
-import { SEO, SEOConfigs, Breadcrumbs } from '../components';
+import { SEO, SEOConfigs, PageHero, SectionHeader } from '../components';
 import AnimateOnScroll from '../components/AnimateOnScroll';
 import { HERO_IMAGES } from '../utils/imageConstants';
 
@@ -98,42 +98,18 @@ const Admissions = () => {
     <>
       <SEO {...SEOConfigs.admissions} />
       <div>
-        <div className="bg-white">
-          <Breadcrumbs />
-        </div>
-
-        {/* Page Hero */}
-        <section className="relative py-28 md:py-36 text-center overflow-hidden bg-primary-dark">
-          <img
-            src={HERO_IMAGES.graduation}
-            alt=""
-            className="absolute inset-0 w-full h-full object-cover"
-            aria-hidden="true"
-          />
-          <div className="absolute inset-0 bg-primary-dark/85" />
-          <div className="relative z-10 container-custom">
-            <p className="text-accent-neon font-semibold text-sm tracking-widest uppercase mb-4">Join Our Community</p>
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-heading font-bold !text-white mb-4 text-shadow-strong">
-              Admissions
-            </h1>
-            <p className="text-lg md:text-xl max-w-3xl mx-auto !text-white/90">
-              Join our community of excellence at Harding Secondary School
-            </p>
-          </div>
-        </section>
+        <PageHero
+          eyebrow="Join Our Community"
+          title="Admissions"
+          description="Join our community of excellence at Harding Secondary School"
+          image={HERO_IMAGES.graduation}
+        />
 
         {/* Application Process */}
         <section className="py-16 md:py-24 bg-white">
           <div className="container-custom">
             <AnimateOnScroll animation="fade-in">
-              <div className="mb-12">
-                <p className="text-primary font-semibold text-sm tracking-widest uppercase mb-3">How to Apply</p>
-                <h2 className="text-3xl md:text-4xl font-heading font-bold text-primary-dark mb-4">Application Process</h2>
-                <p className="text-neutral-500 leading-relaxed max-w-2xl">
-                  We welcome applications from learners committed to academic excellence and personal growth.
-                  Our streamlined process ensures a smooth transition into our school community.
-                </p>
-              </div>
+              <SectionHeader eyebrow="How to Apply" title="Application Process" description="We welcome applications from learners committed to academic excellence and personal growth. Our streamlined process ensures a smooth transition into our school community." align="left" />
             </AnimateOnScroll>
 
             {/* Steps — horizontal on desktop */}
@@ -163,10 +139,7 @@ const Admissions = () => {
         <section className="py-16 md:py-24 bg-neutral-50">
           <div className="container-custom">
             <AnimateOnScroll animation="fade-in">
-              <div className="text-center mb-12">
-                <p className="text-primary font-semibold text-sm tracking-widest uppercase mb-3">Eligibility</p>
-                <h2 className="text-3xl md:text-4xl font-heading font-bold text-primary-dark">Admission Requirements</h2>
-              </div>
+              <SectionHeader eyebrow="Eligibility" title="Admission Requirements" />
             </AnimateOnScroll>
 
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
@@ -215,10 +188,7 @@ const Admissions = () => {
         <section className="py-16 md:py-24 bg-white">
           <div className="container-custom">
             <AnimateOnScroll animation="fade-in">
-              <div className="mb-10">
-                <p className="text-primary font-semibold text-sm tracking-widest uppercase mb-3">Key Details</p>
-                <h2 className="text-3xl md:text-4xl font-heading font-bold text-primary-dark">Important Information</h2>
-              </div>
+              <SectionHeader eyebrow="Key Details" title="Important Information" align="left" />
             </AnimateOnScroll>
 
             <AnimateOnScroll animation="slide-up">
@@ -247,12 +217,7 @@ const Admissions = () => {
 
             {/* FAQ */}
             <AnimateOnScroll animation="fade-in">
-              <div className="mb-8">
-                <p className="text-primary font-semibold text-sm tracking-widest uppercase mb-3">Common Questions</p>
-                <h3 className="text-2xl md:text-3xl font-heading font-bold text-primary-dark">
-                  Frequently Asked Questions
-                </h3>
-              </div>
+              <SectionHeader eyebrow="Common Questions" title="Frequently Asked Questions" align="left" as="h3" />
             </AnimateOnScroll>
 
             <div className="space-y-3">

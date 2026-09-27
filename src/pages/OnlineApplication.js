@@ -4,7 +4,7 @@ import {
   FaUser, FaUsers, FaGraduationCap, FaClipboardCheck,
   FaCheckCircle, FaArrowRight, FaArrowLeft, FaPrint,
 } from 'react-icons/fa';
-import { SEO, SEOConfigs, Breadcrumbs } from '../components';
+import { SEO, SEOConfigs, PageHero } from '../components';
 import AnimateOnScroll from '../components/AnimateOnScroll';
 
 // ─── Constants ────────────────────────────────────────────────────────────────
@@ -602,24 +602,12 @@ const OnlineApplication = () => {
     <>
       <SEO {...SEOConfigs.onlineApplication} />
       <div>
-        <div className="bg-white">
-          <Breadcrumbs />
-        </div>
-
-        {/* Hero */}
-        <section className="py-16 md:py-20 bg-primary-dark text-center">
-          <div className="container-custom">
-            <p className="text-accent-neon font-semibold text-sm tracking-widest uppercase mb-3">
-              {CURRENT_YEAR + 1} Intake Now Open
-            </p>
-            <h1 className="text-3xl md:text-5xl font-heading font-bold text-white mb-3">
-              Online Application
-            </h1>
-            <p className="text-white/80 text-lg">
-              Grades 8 – 12 &nbsp;·&nbsp; Harding Secondary School
-            </p>
-          </div>
-        </section>
+        <PageHero
+          eyebrow={<>{CURRENT_YEAR + 1} Intake Now Open</>}
+          title="Online Application"
+          description="Grades 8 – 12  ·  Harding Secondary School"
+          size="sm"
+        />
 
         <section className="py-12 md:py-16 bg-neutral-50 min-h-screen">
           <div className="container-custom max-w-3xl mx-auto">

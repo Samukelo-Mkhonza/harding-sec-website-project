@@ -3,7 +3,7 @@ import {
   FaComments, FaFlask, FaTheaterMasks, FaMusic, FaSeedling, FaCamera,
   FaChess, FaFirstAid, FaBullseye, FaBook, FaHospital, FaArrowRight
 } from 'react-icons/fa';
-import { SEO, SEOConfigs, Breadcrumbs } from '../components';
+import { SEO, SEOConfigs, PageHero, SectionHeader } from '../components';
 import AnimateOnScroll from '../components/AnimateOnScroll';
 import CounterAnimation from '../components/CounterAnimation';
 import { ACTIVITY_IMAGES, HERO_IMAGES, PLACEHOLDER_IMAGES } from '../utils/imageConstants';
@@ -74,45 +74,18 @@ const StudentLife = () => {
     <>
       <SEO {...SEOConfigs.studentLife} />
       <div>
-        <div className="bg-white">
-          <Breadcrumbs />
-        </div>
-
-        {/* Page Hero */}
-        <section className="relative py-28 md:py-36 text-center overflow-hidden bg-primary-dark">
-          <img
-            src={ACTIVITY_IMAGES.sports}
-            alt=""
-            className="absolute inset-0 w-full h-full object-cover"
-            aria-hidden="true"
-          />
-          <div className="absolute inset-0 bg-primary-dark/85" />
-          <div className="relative z-10 container-custom">
-            <p className="text-accent-neon font-semibold text-sm tracking-widest uppercase mb-4">Beyond the Classroom</p>
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-heading font-bold !text-white mb-4 text-shadow-strong">
-              Student Life
-            </h1>
-            <p className="text-lg md:text-xl max-w-3xl mx-auto !text-white/90">
-              Building character, friendships, and memories that last a lifetime
-            </p>
-          </div>
-        </section>
+        <PageHero
+          eyebrow="Beyond the Classroom"
+          title="Student Life"
+          description="Building character, friendships, and memories that last a lifetime"
+          image={ACTIVITY_IMAGES.sports}
+        />
 
         {/* Activities Overview — image-pillar cards */}
         <section id="sports" className="py-16 md:py-24 bg-white">
           <div className="container-custom">
             <AnimateOnScroll animation="fade-in">
-              <div className="mb-12">
-                <p className="text-primary font-semibold text-sm tracking-widest uppercase mb-3">School Community</p>
-                <h2 className="text-3xl md:text-4xl font-heading font-bold text-primary-dark mb-4">
-                  A Vibrant School Community
-                </h2>
-                <p className="text-neutral-500 leading-relaxed max-w-2xl">
-                  At Harding Secondary School, we believe in developing well-rounded individuals.
-                  Our diverse range of extracurricular activities ensures every learner finds their passion
-                  and develops skills beyond academics.
-                </p>
-              </div>
+              <SectionHeader eyebrow="School Community" title="A Vibrant School Community" description="At Harding Secondary School, we believe in developing well-rounded individuals. Our diverse range of extracurricular activities ensures every learner finds their passion and develops skills beyond academics." align="left" />
             </AnimateOnScroll>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
@@ -147,15 +120,7 @@ const StudentLife = () => {
         <section id="clubs" className="py-16 md:py-24 bg-neutral-50">
           <div className="container-custom">
             <AnimateOnScroll animation="fade-in">
-              <div className="text-center mb-12">
-                <p className="text-primary font-semibold text-sm tracking-widest uppercase mb-3">Get Involved</p>
-                <h2 className="text-3xl md:text-4xl font-heading font-bold text-primary-dark mb-4">
-                  Clubs & Societies
-                </h2>
-                <p className="text-neutral-500 max-w-xl mx-auto">
-                  Join our vibrant clubs and societies to explore your interests and develop new skills.
-                </p>
-              </div>
+              <SectionHeader eyebrow="Get Involved" title="Clubs & Societies" description="Join our vibrant clubs and societies to explore your interests and develop new skills." />
             </AnimateOnScroll>
 
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
@@ -182,12 +147,7 @@ const StudentLife = () => {
         <section id="events" className="py-16 md:py-24 bg-white">
           <div className="container-custom">
             <AnimateOnScroll animation="fade-in">
-              <div className="text-center mb-12">
-                <p className="text-primary font-semibold text-sm tracking-widest uppercase mb-3">Calendar</p>
-                <h2 className="text-3xl md:text-4xl font-heading font-bold text-primary-dark">
-                  Annual Events
-                </h2>
-              </div>
+              <SectionHeader eyebrow="Calendar" title="Annual Events" />
             </AnimateOnScroll>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
@@ -213,12 +173,7 @@ const StudentLife = () => {
         <section className="py-16 md:py-24 bg-neutral-50">
           <div className="container-custom">
             <AnimateOnScroll animation="fade-in">
-              <div className="text-center mb-12">
-                <p className="text-primary font-semibold text-sm tracking-widest uppercase mb-3">We're Here for You</p>
-                <h2 className="text-3xl md:text-4xl font-heading font-bold text-primary-dark">
-                  Student Support Services
-                </h2>
-              </div>
+              <SectionHeader eyebrow="We're Here for You" title="Student Support Services" />
             </AnimateOnScroll>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               {SUPPORT_SERVICES.map((service, index) => (

@@ -1,6 +1,6 @@
 import { FaCalendarAlt, FaGraduationCap, FaFlask, FaTrophy, FaUsers, FaChevronDown, FaChevronUp } from 'react-icons/fa';
 import { useState } from 'react';
-import { SEO, Breadcrumbs } from '../components';
+import { SEO, PageHero } from '../components';
 import AnimateOnScroll from '../components/AnimateOnScroll';
 import { HERO_IMAGES } from '../utils/imageConstants';
 
@@ -119,29 +119,12 @@ const SchoolCalendar = () => (
       description="View the Harding Secondary School academic calendar for 2025 including term dates, examinations, public holidays, and school events."
     />
     <div>
-      <div className="bg-white">
-        <Breadcrumbs />
-      </div>
-
-      {/* Hero */}
-      <section className="relative py-28 md:py-36 text-center overflow-hidden bg-primary-dark">
-        <img
-          src={HERO_IMAGES.students}
-          alt=""
-          className="absolute inset-0 w-full h-full object-cover"
-          aria-hidden="true"
-        />
-        <div className="absolute inset-0 bg-primary-dark/85" />
-        <div className="relative z-10 container-custom">
-          <p className="text-accent-neon font-semibold text-sm tracking-widest uppercase mb-4">Academic Year 2025</p>
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-heading font-bold !text-white mb-4">
-            School Calendar
-          </h1>
-          <p className="text-lg md:text-xl max-w-2xl mx-auto !text-white/90">
-            Term dates, examinations, public holidays, and school events
-          </p>
-        </div>
-      </section>
+      <PageHero
+        eyebrow="Academic Year 2025"
+        title="School Calendar"
+        description="Term dates, examinations, public holidays, and school events"
+        image={HERO_IMAGES.students}
+      />
 
       {/* Key Dates */}
       <section className="py-12 bg-white border-b border-neutral-100">

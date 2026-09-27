@@ -1,7 +1,7 @@
 import React, { useState, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import SEO from '../components/SEO';
-import Breadcrumbs from '../components/Breadcrumbs';
+import { PageHero, EmptyState } from '../components';
 import AnimateOnScroll from '../components/AnimateOnScroll';
 import {
   FaSearch, FaTimes, FaFilter, FaExternalLinkAlt, FaGraduationCap,
@@ -647,7 +647,7 @@ const BursaryCard = ({ bursary, onOpen }) => {
         </div>
 
         <button
-          className="w-full mt-1 py-2 bg-primary/8 hover:bg-primary text-primary hover:text-white rounded-xl text-xs font-semibold transition-all duration-200 border border-primary/20 hover:border-primary"
+          className="w-full mt-1 py-2 bg-primary/10 hover:bg-primary text-primary hover:text-white rounded-xl text-xs font-semibold transition-all duration-200 border border-primary/20 hover:border-primary"
           onClick={(e) => { e.stopPropagation(); onOpen(bursary); }}
         >
           View Details & Apply
@@ -783,45 +783,18 @@ const BursaryFinder = () => {
         description="Find bursaries and scholarships available to KZN and Harding-area students. Search by field of study, bursary type, and more."
       />
       <div>
-        <div className="bg-white">
-          <Breadcrumbs />
-        </div>
-
-        {/* Hero */}
-        <section className="relative py-28 md:py-36 text-center overflow-hidden bg-primary-dark">
-          <img
-            src={HERO_IMAGES.graduation}
-            alt=""
-            className="absolute inset-0 w-full h-full object-cover"
-            aria-hidden="true"
-          />
-          <div className="absolute inset-0 bg-primary-dark/87" />
-          <div className="relative z-10 container-custom">
-            <div className="inline-flex items-center gap-2 bg-white/10 border border-white/20 rounded-full px-4 py-1.5 text-accent-neon text-sm font-semibold tracking-widest uppercase mb-5">
-              <FaGraduationCap className="text-xs" />
-              Student Portal — Bursary Finder
-            </div>
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-heading font-bold !text-white mb-4">
-              Bursary &amp; Scholarship Finder
-            </h1>
-            <p className="text-lg md:text-xl max-w-2xl mx-auto !text-white/85">
-              Discover funding opportunities available to KZN and Harding-area students — from government bursaries to corporate scholarships.
-            </p>
-
-            <div className="flex flex-wrap justify-center gap-6 mt-10">
-              {[
-                { label: 'Bursaries Listed', value: stats.total },
-                { label: 'Government Funded', value: stats.government },
-                { label: 'Corporate Sponsors', value: stats.corporate },
-              ].map(({ label, value }) => (
-                <div key={label} className="text-center">
-                  <p className="text-2xl font-heading font-bold text-accent-neon">{value}</p>
-                  <p className="text-white/60 text-xs uppercase tracking-wider mt-0.5">{label}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
+        <PageHero
+          eyebrow="Bursary Finder"
+          eyebrowIcon={FaGraduationCap}
+          title="Bursary & Scholarship Finder"
+          description="Discover funding opportunities available to KZN and Harding-area students — from government bursaries to corporate scholarships."
+          image={HERO_IMAGES.graduation}
+          stats={[
+            { label: 'Bursaries Listed', value: stats.total },
+            { label: 'Government Funded', value: stats.government },
+            { label: 'Corporate Sponsors', value: stats.corporate },
+          ]}
+        />
 
         {/* Main */}
         <div className="bg-neutral-50 min-h-screen">
@@ -921,11 +894,7 @@ const BursaryFinder = () => {
 
                 {/* Grid */}
                 {filtered.length === 0 ? (
-                  <div className="bg-white rounded-2xl border border-neutral-100 p-12 text-center">
-                    <FaGraduationCap className="text-4xl text-neutral-300 mx-auto mb-4" />
-                    <h3 className="font-heading font-bold text-neutral-700 mb-2">No bursaries found</h3>
-                    <p className="text-neutral-400 text-sm">Try adjusting your filters or search terms.</p>
-                  </div>
+                  <EmptyState icon={FaGraduationCap} title="No bursaries found" message="Try adjusting your filters or search terms." />
                 ) : (
                   <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4">
                     {(filters.search || filters.type !== 'all' || filters.field !== 'all' || filters.kznOnly

@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useMemo, useCallback } from 'react';
 import SEO from '../components/SEO';
-import Breadcrumbs from '../components/Breadcrumbs';
+import { PageHero, EmptyState, LoadingState, ErrorState } from '../components';
 import {
   FaUniversity, FaClipboardList, FaCalendarAlt, FaCalculator,
   FaExternalLinkAlt, FaFilter, FaTimes, FaCheck, FaArrowRight,
@@ -465,13 +465,7 @@ const TrackerTab = ({ universities, tracker, onUpdate, onRemove }) => {
 
   if (tracked.length === 0) {
     return (
-      <div className="bg-white rounded-2xl border border-neutral-100 p-12 text-center">
-        <FaClipboardList className="text-4xl text-neutral-300 mx-auto mb-4" />
-        <h3 className="font-heading font-bold text-neutral-700 mb-2">No applications tracked yet</h3>
-        <p className="text-neutral-400 text-sm max-w-xs mx-auto">
-          Go to the University Directory tab and click "Track" on any university to start tracking your applications.
-        </p>
-      </div>
+      <EmptyState icon={FaClipboardList} title="No applications tracked yet" message={'Go to the University Directory tab and click "Track" on any university to start tracking your applications.'} />
     );
   }
 
@@ -1010,55 +1004,27 @@ const UniversityApplicationsPortal = () => {
         keywords="South African universities, university applications, APS calculator, DHET, UCT, Wits, Stellenbosch, university application deadlines"
       />
       <div>
-        <div className="bg-white"><Breadcrumbs /></div>
-
-        {/* Hero */}
-        <section className="relative py-24 md:py-32 text-center overflow-hidden bg-primary-dark">
-          <img src={HERO_IMAGES.campus} alt="" className="absolute inset-0 w-full h-full object-cover" aria-hidden="true" />
-          <div className="absolute inset-0 bg-primary-dark/88" />
-          <div className="relative z-10 container-custom">
-            <div className="inline-flex items-center gap-2 bg-white/10 border border-white/20 rounded-full px-4 py-1.5 text-accent-neon text-sm font-semibold tracking-widest uppercase mb-5">
-              <FaGraduationCap className="text-xs" /> University Applications
-            </div>
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-heading font-bold !text-white mb-4">
-              SA University Portal
-            </h1>
-            <p className="text-lg md:text-xl max-w-2xl mx-auto !text-white/85">
-              All 26 DHET-accredited public universities in one place. Browse, track your applications, check deadlines and calculate your APS score.
-            </p>
-            {!loading && !error && (
-              <div className="flex flex-wrap justify-center gap-8 mt-10">
-                {[
-                  { label: 'Universities', value: stats.total },
-                  { label: 'Provinces', value: stats.provinces },
-                  { label: 'Currently Open', value: stats.open },
-                  { label: 'Tracked', value: stats.tracked },
-                ].map(({ label, value }) => (
-                  <div key={label} className="text-center">
-                    <p className="text-3xl font-heading font-bold text-accent-neon">{value}</p>
-                    <p className="text-white/60 text-xs uppercase tracking-wider mt-0.5">{label}</p>
-                  </div>
-                ))}
-              </div>
-            )}
-          </div>
-        </section>
+        <PageHero
+          eyebrow="University Applications"
+          eyebrowIcon={FaGraduationCap}
+          title="SA University Portal"
+          description="All 26 DHET-accredited public universities in one place. Browse, track your applications, check deadlines and calculate your APS score."
+          image={HERO_IMAGES.campus}
+          stats={!loading && !error ? [
+            { label: 'Universities', value: stats.total },
+            { label: 'Provinces', value: stats.provinces },
+            { label: 'Currently Open', value: stats.open },
+            { label: 'Tracked', value: stats.tracked },
+          ] : undefined}
+        />
 
         {/* Main Content */}
         <div className="bg-neutral-50 min-h-screen">
           <div className="container-custom py-10 md:py-14">
             {loading ? (
-              <div className="flex flex-col items-center justify-center py-24 gap-4">
-                <div className="w-14 h-14 rounded-full border-4 border-primary/20 border-t-primary animate-spin" />
-                <p className="text-neutral-500 text-sm">Loading universities…</p>
-              </div>
+              <LoadingState label="Loading universities…" />
             ) : error ? (
-              <div className="max-w-md mx-auto bg-white border border-red-200 rounded-2xl p-8 text-center shadow-sm">
-                <p className="text-red-700 mb-5 text-sm">{error}</p>
-                <button onClick={() => window.location.reload()} className="px-6 py-2.5 bg-red-600 text-white rounded-xl text-sm font-semibold hover:bg-red-700 transition-colors">
-                  Try Again
-                </button>
-              </div>
+              <ErrorState message={error} />
             ) : (
               <div className="flex flex-col lg:flex-row gap-8 items-start">
                 {/* Sidebar */}
@@ -1140,11 +1106,7 @@ const UniversityApplicationsPortal = () => {
                       </div>
 
                       {filteredUniversities.length === 0 ? (
-                        <div className="bg-white rounded-2xl border border-neutral-100 p-12 text-center">
-                          <FaUniversity className="text-4xl text-neutral-300 mx-auto mb-4" />
-                          <h3 className="font-heading font-bold text-neutral-700 mb-2">No universities found</h3>
-                          <p className="text-neutral-400 text-sm">Try adjusting your filters or search terms.</p>
-                        </div>
+                        <EmptyState icon={FaUniversity} title="No universities found" message="Try adjusting your filters or search terms." />
                       ) : (
                         provinceGroups.map(([province, unis]) => (
                           <div key={province}>

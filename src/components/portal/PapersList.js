@@ -1,6 +1,7 @@
 import React, { useMemo, useState } from 'react';
 import { List as VirtualList } from 'react-window';
-import { FaThLarge, FaList, FaSortAmountDown, FaSortAmountUp } from 'react-icons/fa';
+import { FaThLarge, FaList, FaSortAmountDown, FaSortAmountUp, FaFileAlt } from 'react-icons/fa';
+import { EmptyState } from '../ui';
 import PaperCard from './PaperCard';
 
 const SORT_OPTIONS = [
@@ -29,11 +30,11 @@ const PapersList = ({ papers, viewMode, onViewModeChange, isBookmarked, onDownlo
 
   if (papers.length === 0) {
     return (
-      <div className="bg-white border border-neutral-100 rounded-2xl p-14 text-center shadow-sm">
-        <div className="text-5xl mb-4">📄</div>
-        <h3 className="text-lg font-heading font-bold text-neutral-700 mb-2">No papers found</h3>
-        <p className="text-sm text-neutral-400">Adjust your filters or search to find what you need.</p>
-      </div>
+      <EmptyState
+        icon={FaFileAlt}
+        title="No papers found"
+        message="Adjust your filters or search to find what you need."
+      />
     );
   }
 

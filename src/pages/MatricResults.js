@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import SEO from '../components/SEO';
-import Breadcrumbs from '../components/Breadcrumbs';
+import { PageHero } from '../components';
 import AnimateOnScroll from '../components/AnimateOnScroll';
 import {
   FaGraduationCap, FaStar, FaArrowUp, FaArrowDown, FaMinus,
@@ -324,47 +324,18 @@ const MatricResults = () => {
         description="Track Harding Secondary School's matric pass rates, distinctions, and subject performance from 2015 to 2024. Interactive results dashboard."
       />
       <div>
-        <div className="bg-white">
-          <Breadcrumbs />
-        </div>
-
-        {/* Hero */}
-        <section className="relative py-28 md:py-36 text-center overflow-hidden bg-primary-dark">
-          <img
-            src={HERO_IMAGES.graduation}
-            alt=""
-            className="absolute inset-0 w-full h-full object-cover"
-            aria-hidden="true"
-          />
-          <div className="absolute inset-0 bg-primary-dark/88" />
-          <div className="relative z-10 container-custom">
-            <div className="inline-flex items-center gap-2 bg-white/10 border border-white/20 rounded-full px-4 py-1.5 text-accent-neon text-sm font-semibold tracking-widest uppercase mb-5">
-              <FaChartBar className="text-xs" />
-              Academics — Matric Results
-            </div>
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-heading font-bold !text-white mb-4">
-              Matric Results Dashboard
-            </h1>
-            <p className="text-lg md:text-xl max-w-2xl mx-auto !text-white/85">
-              Ten years of National Senior Certificate results at Harding Secondary — interactive, transparent, and updated every year.
-            </p>
-
-            {/* 2024 hero stats */}
-            <div className="flex flex-wrap justify-center gap-8 mt-12">
-              {[
-                { label: '2024 Pass Rate', value: `${LATEST.pass}%`, note: `${LATEST.passed} of ${LATEST.enrolled}` },
-                { label: "Bachelor's Passes", value: `${LATEST.bachelors}%`, note: 'University entry passes' },
-                { label: 'Distinctions', value: LATEST.distinctions, note: 'Individual distinctions earned' },
-              ].map(({ label, value, note }) => (
-                <div key={label} className="text-center">
-                  <p className="text-3xl md:text-4xl font-heading font-bold text-accent-neon">{value}</p>
-                  <p className="text-white/80 text-sm font-semibold mt-1">{label}</p>
-                  <p className="text-white/50 text-xs mt-0.5">{note}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
+        <PageHero
+          eyebrow="Matric Results"
+          eyebrowIcon={FaChartBar}
+          title="Matric Results Dashboard"
+          description="Ten years of National Senior Certificate results at Harding Secondary — interactive, transparent, and updated every year."
+          image={HERO_IMAGES.graduation}
+          stats={[
+            { label: '2024 Pass Rate', value: `${LATEST.pass}%`, note: `${LATEST.passed} of ${LATEST.enrolled}` },
+            { label: "Bachelor's Passes", value: `${LATEST.bachelors}%`, note: 'University entry passes' },
+            { label: 'Distinctions', value: LATEST.distinctions, note: 'Individual distinctions earned' },
+          ]}
+        />
 
         {/* Dashboard */}
         <div className="bg-neutral-50 min-h-screen py-12 md:py-20">

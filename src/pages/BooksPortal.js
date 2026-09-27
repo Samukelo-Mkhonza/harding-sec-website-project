@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import SEO from '../components/SEO';
-import Breadcrumbs from '../components/Breadcrumbs';
+import { PageHero, EmptyState, LoadingState, ErrorState } from '../components';
 import SearchBar from '../components/portal/SearchBar';
 import { HERO_IMAGES } from '../utils/imageConstants';
 import { SUBJECTS, GRADES, getSubjectById } from '../utils/portalConstants';
@@ -375,66 +375,26 @@ const BooksPortal = () => {
         keywords="textbooks, study guides, CAPS, Siyavula, Mind the Gap, free books, secondary school, Harding"
       />
       <div>
-        <div className="bg-white">
-          <Breadcrumbs />
-        </div>
-
-        {/* Hero */}
-        <section className="relative py-28 md:py-36 text-center overflow-hidden bg-primary-dark">
-          <img
-            src={HERO_IMAGES.library}
-            alt=""
-            className="absolute inset-0 w-full h-full object-cover"
-            aria-hidden="true"
-          />
-          <div className="absolute inset-0 bg-primary-dark/87" />
-          <div className="relative z-10 container-custom">
-            <div className="inline-flex items-center gap-2 bg-white/10 border border-white/20 rounded-full px-4 py-1.5 text-accent-neon text-sm font-semibold tracking-widest uppercase mb-5">
-              <FaBook className="text-xs" />
-              Digital Library
-            </div>
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-heading font-bold !text-white mb-4">
-              Books &amp; Textbooks
-            </h1>
-            <p className="text-lg md:text-xl max-w-2xl mx-auto !text-white/85">
-              Free, CAPS-aligned textbooks and study guides for Grades 10–12. Access official resources anytime, anywhere.
-            </p>
-
-            {!loading && !error && (
-              <div className="flex flex-wrap justify-center gap-6 mt-10">
-                {[
-                  { label: 'Books Available', value: stats.total },
-                  { label: 'Subjects Covered', value: stats.subjects },
-                  { label: 'Free to Access', value: stats.openAccess },
-                ].map(({ label, value }) => (
-                  <div key={label} className="text-center">
-                    <p className="text-2xl font-heading font-bold text-accent-neon">{value}</p>
-                    <p className="text-white/60 text-xs uppercase tracking-wider mt-0.5">{label}</p>
-                  </div>
-                ))}
-              </div>
-            )}
-          </div>
-        </section>
+        <PageHero
+          eyebrow="Digital Library"
+          eyebrowIcon={FaBook}
+          title="Books & Textbooks"
+          description="Free, CAPS-aligned textbooks and study guides for Grades 10–12. Access official resources anytime, anywhere."
+          image={HERO_IMAGES.library}
+          stats={!loading && !error ? [
+            { label: 'Books Available', value: stats.total },
+            { label: 'Subjects Covered', value: stats.subjects },
+            { label: 'Free to Access', value: stats.openAccess },
+          ] : undefined}
+        />
 
         {/* Main Content */}
         <div className="bg-neutral-50 min-h-screen">
           <div className="container-custom py-10 md:py-16">
             {loading ? (
-              <div className="flex flex-col items-center justify-center py-24 gap-4">
-                <div className="w-14 h-14 rounded-full border-4 border-primary/20 border-t-primary animate-spin" />
-                <p className="text-neutral-500 text-sm">Loading library…</p>
-              </div>
+              <LoadingState label="Loading library…" />
             ) : error ? (
-              <div className="max-w-md mx-auto bg-white border border-red-200 rounded-2xl p-8 text-center shadow-sm">
-                <p className="text-red-700 mb-5 text-sm">{error}</p>
-                <button
-                  onClick={() => window.location.reload()}
-                  className="px-6 py-2.5 bg-red-600 text-white rounded-xl text-sm font-semibold hover:bg-red-700 transition-colors"
-                >
-                  Try Again
-                </button>
-              </div>
+              <ErrorState message={error} />
             ) : (
               <div className="flex flex-col lg:flex-row gap-8 items-start">
                 {/* Sidebar */}
@@ -456,13 +416,7 @@ const BooksPortal = () => {
                   />
 
                   {filteredBooks.length === 0 ? (
-                    <div className="bg-white rounded-2xl border border-neutral-100 p-12 text-center">
-                      <FaBook className="text-4xl text-neutral-300 mx-auto mb-4" />
-                      <h3 className="font-heading font-bold text-neutral-700 mb-2">No books found</h3>
-                      <p className="text-neutral-400 text-sm">
-                        Try adjusting your filters or search terms.
-                      </p>
-                    </div>
+                    <EmptyState icon={FaBook} title="No books found" message="Try adjusting your filters or search terms." />
                   ) : (
                     <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4">
                       {filteredBooks.map((book) => (
