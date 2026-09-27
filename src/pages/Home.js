@@ -460,7 +460,7 @@ const Home = () => {
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link
                 to="/admissions"
-                className="bg-white text-primary-dark font-bold px-10 py-4 rounded-lg hover:bg-accent-neon hover:text-white transition-all duration-300 shadow-xl hover:shadow-2xl transform hover:scale-105"
+                className="bg-white text-primary-dark font-bold px-10 py-4 rounded-lg hover:bg-accent-neon hover:text-secondary-dark transition-all duration-300 shadow-xl hover:shadow-2xl transform hover:scale-105"
               >
                 Apply Now
               </Link>

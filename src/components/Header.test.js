@@ -55,7 +55,7 @@ describe('Header Component', () => {
     it('should render the mobile menu button', () => {
       const { container } = renderHeader();
       expect(
-        container.querySelector('button[aria-label="Toggle mobile menu"]')
+        container.querySelector('button[aria-label="Open menu"]')
       ).toBeInTheDocument();
     });
 

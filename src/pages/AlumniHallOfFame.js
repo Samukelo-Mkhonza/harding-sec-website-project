@@ -98,7 +98,7 @@ const ALUMNI = [
     id: 6,
     name: 'Sandile Buthelezi',
     initials: 'SB',
-    avatarColor: '#E65100',
+    avatarColor: '#C2410C',
     year: '2006',
     field: 'Business & Entrepreneurship',
     role: 'Founder & CEO',
@@ -279,8 +279,8 @@ const AlumniModal = ({ alumni, onClose }) => {
               </p>
               <h2 className="text-2xl md:text-3xl font-heading font-bold text-white leading-tight">{alumni.name}</h2>
               <p className="text-white/80 text-sm mt-1">{alumni.role}</p>
-              <p className="text-white/60 text-sm">{alumni.employer}</p>
-              <div className="flex items-center gap-1.5 mt-2 text-white/60 text-xs">
+              <p className="text-white/75 text-sm">{alumni.employer}</p>
+              <div className="flex items-center gap-1.5 mt-2 text-white/75 text-xs">
                 <FaMapMarkerAlt className="text-[10px]" />
                 {alumni.location}
               </div>
@@ -486,12 +486,12 @@ const AlumniHallOfFame = () => {
                           <div className="p-6 pb-5">
                             <Avatar initials={alumni.initials} color="white" size="lg" />
                             <div className="mt-4">
-                              <span className="text-[10px] font-bold text-white/60 uppercase tracking-widest">
+                              <span className="text-[10px] font-bold text-white/75 uppercase tracking-widest">
                                 Class of {alumni.year}
                               </span>
                               <h3 className="text-lg font-heading font-bold text-white mt-1 leading-tight">{alumni.name}</h3>
                               <p className="text-white/75 text-xs">{alumni.role}</p>
-                              <p className="text-white/55 text-xs">{alumni.employer}</p>
+                              <p className="text-white/75 text-xs">{alumni.employer}</p>
                             </div>
                           </div>
                           <div className="bg-black/20 px-6 py-3">
@@ -540,6 +540,7 @@ const AlumniHallOfFame = () => {
 
                   {/* Field filter */}
                   <select
+                    aria-label="Filter by field"
                     value={field}
                     onChange={(e) => setField(e.target.value)}
                     className="px-4 py-3 border border-neutral-200 bg-white rounded-2xl text-sm text-neutral-700 focus:outline-none focus:ring-2 focus:ring-primary/30 shadow-sm"

@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { FaUserGraduate, FaArrowRight, FaInfoCircle, FaAward, FaUsers, FaGraduationCap, FaChevronLeft, FaChevronRight, FaChevronDown } from 'react-icons/fa';
+import { FaUserGraduate, FaArrowRight, FaInfoCircle, FaChevronLeft, FaChevronRight, FaChevronDown } from 'react-icons/fa';
 import useScrollPosition from '../hooks/useScrollPosition';
 import { calculateParallax } from '../utils/animations';
 
@@ -8,7 +8,7 @@ const Hero = ({
   title = "Excellence in Education",
   subtitle = "Nurturing Tomorrow's Leaders in the Heart of KwaZulu-Natal",
   primaryCTA = { text: "Apply Now", link: "/admissions" },
-  secondaryCTA = { text: "Learn More", link: "/about" },
+  secondaryCTA = { text: "About our school", link: "/about" },
   images = [],
   autoplay = true,
   interval = 5000,
@@ -49,7 +49,7 @@ const Hero = ({
   };
 
   return (
-    <section className="relative h-[700px] md:h-[700px] lg:h-[800px] overflow-hidden bg-primary">
+    <section className="relative h-[560px] md:h-[640px] lg:h-[720px] overflow-hidden bg-primary">
       {/* Background Images Slideshow with Parallax */}
       {images.length > 0 && (
         <div className="absolute inset-0">
@@ -66,7 +66,8 @@ const Hero = ({
             >
               <img
                 src={image}
-                alt={`Slide ${index + 1}`}
+                alt=""
+                aria-hidden="true"
                 className="w-full h-full object-cover"
                 fetchPriority={index === 0 ? 'high' : 'low'}
                 loading={index === 0 ? 'eager' : 'lazy'}
@@ -94,7 +95,7 @@ const Hero = ({
             </p>
 
             {/* CTA Buttons */}
-            <div className="flex flex-col sm:flex-row gap-4 md:gap-6 justify-center items-center animate-slide-up mb-10 md:mb-12" style={{ animationDelay: '400ms', animationFillMode: 'both' }}>
+            <div className="flex flex-col sm:flex-row gap-4 md:gap-6 justify-center items-center animate-slide-up " style={{ animationDelay: '400ms', animationFillMode: 'both' }}>
               <Link
                 to={primaryCTA.link}
                 className="btn-primary group w-full sm:w-auto"
@@ -108,40 +109,13 @@ const Hero = ({
 
               <Link
                 to={secondaryCTA.link}
-                className="btn-outline bg-white/10 backdrop-blur-sm w-full sm:w-auto"
+                className="px-8 py-4 border-2 border-white/80 text-white font-semibold bg-white/10 backdrop-blur-sm hover:bg-white hover:text-primary-dark transition-colors duration-300 w-full sm:w-auto"
               >
                 <span className="flex items-center justify-center gap-2">
                   <FaInfoCircle className="text-base" />
                   {secondaryCTA.text}
                 </span>
               </Link>
-            </div>
-
-            {/* Features/Quick Info */}
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 md:gap-6 animate-slide-up" style={{ animationDelay: '600ms', animationFillMode: 'both' }}>
-              <div className="bg-white/10 backdrop-blur-md rounded-xl p-6 md:p-8 border border-white/20 transform hover:scale-105 transition-all duration-300 hover:bg-white/20 hover:border-accent-neon/50">
-                <div className="mb-3 md:mb-4">
-                  <FaAward className="text-3xl md:text-4xl lg:text-5xl text-accent-neon mx-auto" />
-                </div>
-                <h3 className="text-lg md:text-xl font-bold text-white mb-1 md:mb-2">70+ Years</h3>
-                <p className="text-white/90 text-xs md:text-sm">Of Educational Excellence</p>
-              </div>
-
-              <div className="bg-white/10 backdrop-blur-md rounded-xl p-6 md:p-8 border border-white/20 transform hover:scale-105 transition-all duration-300 hover:bg-white/20 hover:border-accent-neon/50">
-                <div className="mb-3 md:mb-4">
-                  <FaUsers className="text-3xl md:text-4xl lg:text-5xl text-accent-neon mx-auto" />
-                </div>
-                <h3 className="text-lg md:text-xl font-bold text-white mb-1 md:mb-2">1000+</h3>
-                <p className="text-white/90 text-xs md:text-sm">Students Enrolled</p>
-              </div>
-
-              <div className="bg-white/10 backdrop-blur-md rounded-xl p-6 md:p-8 border border-white/20 transform hover:scale-105 transition-all duration-300 hover:bg-white/20 hover:border-accent-neon/50">
-                <div className="mb-3 md:mb-4">
-                  <FaGraduationCap className="text-3xl md:text-4xl lg:text-5xl text-accent-neon mx-auto" />
-                </div>
-                <h3 className="text-lg md:text-xl font-bold text-white mb-1 md:mb-2">95%</h3>
-                <p className="text-white/90 text-xs md:text-sm">University Acceptance Rate</p>
-              </div>
             </div>
           </div>
         </div>

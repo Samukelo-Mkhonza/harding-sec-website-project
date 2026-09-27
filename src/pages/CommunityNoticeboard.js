@@ -221,9 +221,10 @@ const PostCard = ({ post, onLike, onDelete }) => {
           </div>
           <button
             onClick={() => onLike(post.id)}
-            className="flex items-center gap-1.5 text-xs text-neutral-400 hover:text-primary transition-colors px-2 py-1 rounded-lg hover:bg-primary/5"
+            className="flex items-center gap-1.5 text-xs text-neutral-500 hover:text-primary transition-colors px-2 py-1 rounded-lg hover:bg-primary/5"
+            aria-label={`Like this post${post.likes ? ` (${post.likes} likes)` : ''}`}
           >
-            <FaThumbsUp className="text-[10px]" />
+            <FaThumbsUp className="text-[10px]" aria-hidden="true" />
             {post.likes > 0 && <span>{post.likes}</span>}
           </button>
         </div>
@@ -289,7 +290,7 @@ const CreatePostModal = ({ onClose, onSubmit }) => {
         <div className="bg-primary-dark p-6 rounded-t-2xl flex items-center justify-between">
           <div>
             <h2 className="text-lg font-heading font-bold text-white">Create a Post</h2>
-            <p className="text-white/60 text-xs mt-0.5">Share with the Harding Secondary community</p>
+            <p className="text-white/75 text-xs mt-0.5">Share with the Harding Secondary community</p>
           </div>
           <button
             onClick={onClose}

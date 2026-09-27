@@ -31,14 +31,14 @@ const ALL_SUBJECTS = [
   { id: 'economics', name: 'Economics', stream: 'Commerce', color: '#0277BD' },
   { id: 'history', name: 'History', stream: 'Humanities', color: '#B71C1C' },
   { id: 'geography', name: 'Geography', stream: 'Humanities', color: '#00695C' },
-  { id: 'life-orientation', name: 'Life Orientation', stream: 'General', color: '#E65100' },
+  { id: 'life-orientation', name: 'Life Orientation', stream: 'General', color: '#C2410C' },
   { id: 'information-technology', name: 'Information Technology', stream: 'Technology', color: '#00838F' },
   { id: 'computer-applications', name: 'Computer Applications Technology', stream: 'Technology', color: '#006064' },
   { id: 'engineering-graphics', name: 'Engineering Graphics & Design', stream: 'Technology', color: '#37474F' },
   { id: 'visual-arts', name: 'Visual Arts', stream: 'Arts', color: '#AD1457' },
   { id: 'music', name: 'Music', stream: 'Arts', color: '#880E4F' },
   { id: 'tourism', name: 'Tourism', stream: 'Commerce', color: '#F57F17' },
-  { id: 'consumer-studies', name: 'Consumer Studies', stream: 'General', color: '#E65100' },
+  { id: 'consumer-studies', name: 'Consumer Studies', stream: 'General', color: '#C2410C' },
   { id: 'hospitality-studies', name: 'Hospitality Studies', stream: 'General', color: '#BF360C' },
 ];
 

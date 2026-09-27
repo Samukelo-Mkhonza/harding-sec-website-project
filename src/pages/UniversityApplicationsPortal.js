@@ -35,7 +35,7 @@ const INST_TYPES = [
 const TYPE_COLORS = {
   'Traditional University': '#0D4E25',
   'Comprehensive University': '#0277BD',
-  'University of Technology': '#E65100',
+  'University of Technology': '#C2410C',
   'Health Sciences University': '#6A1B9A',
 };
 
@@ -393,7 +393,7 @@ const FilterSidebar = ({ filters, onChange, resultCount }) => {
 
       <div>
         <p className="text-xs font-bold text-neutral-500 uppercase tracking-wider mb-2">Province</p>
-        <select
+        <select aria-label="Province"
           value={filters.province}
           onChange={(e) => onChange({ ...filters, province: e.target.value })}
           className="w-full text-sm border border-neutral-200 rounded-xl px-3 py-2 text-neutral-700 bg-white focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary"
@@ -506,6 +506,7 @@ const TrackerTab = ({ universities, tracker, onUpdate, onRemove }) => {
 
                   <div className="flex items-center gap-2 flex-shrink-0">
                     <select
+                      aria-label={`Application status for ${uni.shortName || uni.name}`}
                       value={entry.status}
                       onChange={(e) => onUpdate(uni.id, { ...entry, status: e.target.value })}
                       className={`text-xs font-semibold px-3 py-1.5 rounded-xl border-0 cursor-pointer focus:outline-none focus:ring-2 focus:ring-primary/30 ${statusDef.colorClass}`}
@@ -774,7 +775,7 @@ const APSCalculator = ({ universities }) => {
             {subjects.map((s, i) => (
               <div key={i} className="grid grid-cols-12 gap-2 items-center">
                 <div className="col-span-7">
-                  <select
+                  <select aria-label="Rating"
                     value={s.subject}
                     onChange={(e) => updateSubject(i, 'subject', e.target.value)}
                     className="w-full text-xs border border-neutral-200 rounded-lg px-2 py-1.5 text-neutral-700 bg-white focus:outline-none focus:ring-1 focus:ring-primary/40"
@@ -837,6 +838,7 @@ const APSCalculator = ({ universities }) => {
           <div className="flex items-center justify-between flex-wrap gap-2">
             <h3 className="font-heading font-bold text-neutral-800">University Eligibility</h3>
             <select
+              aria-label="Target faculty"
               value={targetFaculty}
               onChange={(e) => setTargetFaculty(e.target.value)}
               className="text-xs border border-neutral-200 rounded-lg px-2 py-1.5 text-neutral-700 bg-white focus:outline-none focus:ring-1 focus:ring-primary/40"

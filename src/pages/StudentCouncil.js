@@ -69,7 +69,7 @@ const SRC_MEMBERS = [
     id: 5,
     name: 'Thandi Cele',
     initials: 'TC',
-    color: '#E65100',
+    color: '#C2410C',
     role: 'Academic Representative',
     grade: 'Grade 11',
     goal: 'Organise peer tutoring sessions and advocate for additional resources in the library.',
@@ -536,7 +536,7 @@ const StudentCouncil = () => {
                 <div className="flex-1">
                   <p className="text-accent-neon text-xs font-bold uppercase tracking-widest mb-1">2026 SRC Chairperson</p>
                   <h2 className="text-2xl font-heading font-bold text-white mb-1">{chair.name}</h2>
-                  <p className="text-white/60 text-sm mb-3">{chair.grade}</p>
+                  <p className="text-white/75 text-sm mb-3">{chair.grade}</p>
                   <p className="text-white/80 text-sm italic leading-relaxed mb-4">
                     {chair.vision}
                   </p>

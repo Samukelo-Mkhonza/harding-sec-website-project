@@ -133,7 +133,7 @@ const SPORTS = [
     id: 'athletics',
     label: 'Athletics',
     emoji: '🏃',
-    color: '#E65100',
+    color: '#C2410C',
     season: 'Term 1 (January–March)',
     description: 'Harding Secondary\'s athletics programme covers track and field events from 100m to 4×400m relay, shot put, long jump, and high jump. Learners compete at district, regional, and provincial levels.',
     coach: 'Mr. S. Hadebe',

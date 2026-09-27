@@ -150,7 +150,7 @@ const SubjectBar = ({ subject, index }) => {
     return () => observer.disconnect();
   }, []);
 
-  const color = subject.pass >= 90 ? '#0D4E25' : subject.pass >= 80 ? '#1565C0' : subject.pass >= 70 ? '#E65100' : '#B71C1C';
+  const color = subject.pass >= 90 ? '#0D4E25' : subject.pass >= 80 ? '#1565C0' : subject.pass >= 70 ? '#C2410C' : '#B71C1C';
 
   return (
     <div ref={ref} className="flex items-center gap-4">
@@ -381,6 +381,7 @@ const MatricResults = () => {
                         <p className="text-xs text-neutral-400 mt-0.5">How learners qualified across entry levels</p>
                       </div>
                       <select
+                        aria-label="Year"
                         value={selectedYear}
                         onChange={(e) => setSelectedYear(e.target.value)}
                         className="text-sm border border-neutral-200 rounded-xl px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary/30"

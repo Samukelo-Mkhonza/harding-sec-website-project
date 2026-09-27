@@ -80,7 +80,7 @@ const PageHero = ({
               <div key={label} className="flex flex-col text-center min-w-[6rem]">
                 <dt className="text-white/70 text-xs uppercase tracking-wider mt-1">{label}</dt>
                 <dd className="text-2xl md:text-3xl font-heading font-bold text-accent-neon order-first">{value}</dd>
-                {note && <dd className="text-white/60 text-xs mt-0.5">{note}</dd>}
+                {note && <dd className="text-white/75 text-xs mt-0.5">{note}</dd>}
               </div>
             ))}
           </dl>

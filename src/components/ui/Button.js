@@ -8,7 +8,7 @@ const VARIANTS = {
   outline: 'border-2 border-primary text-primary hover:bg-primary hover:text-white',
   ghost: 'text-primary hover:bg-primary/10',
   // For use on dark (green) backgrounds
-  inverse: 'bg-white text-primary-dark hover:bg-accent-neon hover:text-white',
+  inverse: 'bg-white text-primary-dark hover:bg-accent-neon hover:text-secondary-dark',
   'outline-inverse': 'border-2 border-white/70 text-white hover:bg-white hover:text-primary-dark',
   danger: 'bg-red-600 text-white hover:bg-red-700',
 };

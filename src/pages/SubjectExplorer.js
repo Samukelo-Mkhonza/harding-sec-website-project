@@ -188,7 +188,7 @@ const SUBJECTS = [
     id: 'life-orientation',
     name: 'Life Orientation',
     stream: 'General',
-    color: '#E65100',
+    color: '#C2410C',
     Icon: FaHeartbeat,
     apsWeight: 'Low (excluded from APS at some universities)',
     description: 'Life Orientation covers personal wellness, career guidance, citizenship, and physical education. While it has a lower APS weighting, it is a compulsory subject and provides essential life skills for all learners.',
@@ -338,7 +338,7 @@ const SubjectDetail = ({ subject, onClose }) => {
             <subject.Icon className="text-white text-xl" />
           </div>
           <div>
-            <p className="text-white/60 text-xs font-semibold uppercase tracking-widest">{subject.stream}</p>
+            <p className="text-white/75 text-xs font-semibold uppercase tracking-widest">{subject.stream}</p>
             <h2 className="text-2xl font-heading font-bold text-white">{subject.name}</h2>
           </div>
         </div>

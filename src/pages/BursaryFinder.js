@@ -724,8 +724,9 @@ const FilterSidebar = ({ filters, onChange, resultCount }) => {
 
       {/* Field */}
       <div>
-        <p className="text-xs font-bold text-neutral-500 uppercase tracking-wider mb-2">Field of Study</p>
+        <label htmlFor="bursary-field" className="block text-xs font-bold text-neutral-500 uppercase tracking-wider mb-2">Field of Study</label>
         <select
+          id="bursary-field"
           value={filters.field}
           onChange={(e) => onChange({ ...filters, field: e.target.value })}
           className="w-full text-sm border border-neutral-200 rounded-xl px-3 py-2 text-neutral-700 bg-white focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary"
@@ -812,7 +813,7 @@ const BursaryFinder = () => {
                       Start with NSFAS if your household income is under R350,000/year — it covers the most costs. KZN provincial bursaries give preference to rural learners from areas like Harding. Apply to multiple bursaries at once since deadlines often fall in Aug–Nov.
                     </p>
                   </div>
-                  <button onClick={() => setShowTip(false)} className="text-amber-400 hover:text-amber-600 flex-shrink-0">
+                  <button onClick={() => setShowTip(false)} aria-label="Dismiss tip" className="text-amber-700 hover:text-amber-900 flex-shrink-0">
                     <FaTimes className="text-sm" />
                   </button>
                 </div>
@@ -880,16 +881,16 @@ const BursaryFinder = () => {
                 {/* Featured */}
                 {!filters.search && filters.type === 'all' && filters.field === 'all' && (
                   <div>
-                    <p className="text-xs font-bold text-neutral-500 uppercase tracking-wider mb-3">
+                    <h2 className="!text-xs font-bold !text-neutral-500 uppercase tracking-wider mb-3">
                       Recommended for Harding / KZN Students
-                    </p>
+                    </h2>
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
                       {BURSARIES.filter((b) => b.featured).map((b) => (
                         <BursaryCard key={b.id} bursary={b} onOpen={setSelected} />
                       ))}
                     </div>
                     <div className="border-t border-neutral-200 mb-6" />
-                    <p className="text-xs font-bold text-neutral-500 uppercase tracking-wider mb-3">All Bursaries</p>
+                    <h2 className="!text-xs font-bold !text-neutral-500 uppercase tracking-wider mb-3">All Bursaries</h2>
                   </div>
                 )}
 

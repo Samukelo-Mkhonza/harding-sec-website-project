@@ -133,9 +133,9 @@ const StudentLife = () => {
                     <div className="w-14 h-14 bg-primary/10 group-hover:bg-primary rounded-full flex items-center justify-center mb-4 transition-colors duration-300">
                       <club.Icon className="text-xl text-primary group-hover:text-white transition-colors duration-300" />
                     </div>
-                    <h4 className="text-sm font-semibold text-neutral-700 group-hover:text-primary transition-colors duration-200">
+                    <h3 className="!text-sm font-semibold !text-neutral-700 group-hover:!text-primary transition-colors duration-200">
                       {club.name}
-                    </h4>
+                    </h3>
                   </Link>
                 </AnimateOnScroll>
               ))}

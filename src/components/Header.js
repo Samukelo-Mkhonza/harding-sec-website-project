@@ -1,12 +1,15 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, lazy, Suspense } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { FaPhone, FaEnvelope, FaSearch, FaBars, FaTimes } from 'react-icons/fa';
 import Navigation from './Navigation';
 import MobileMenu from './MobileMenu';
-import SearchOverlay from './SearchOverlay';
 import useScrollDirection from '../hooks/useScrollDirection';
 import { SCROLL_THRESHOLDS } from '../utils/constants';
 import { NAV_DATA, PORTAL_BUTTONS, TOP_BAR_LINKS } from '../utils/navData';
+
+// Search (and the animation library it uses) loads on first use, not on page load
+const loadSearch = () => import('./SearchOverlay');
+const SearchOverlay = lazy(loadSearch);
 
 const MegaMenuPanel = ({ megaMenuData, onClose }) => (
   <div
@@ -37,7 +40,7 @@ const MegaMenuPanel = ({ megaMenuData, onClose }) => (
     {/* Brand panel */}
     <div className="border-l border-neutral-200 pl-8 flex flex-col justify-start pt-0.5">
       <img
-        src={`${process.env.PUBLIC_URL}/harding-sec-logo-2.png`}
+        src={`${process.env.PUBLIC_URL}/harding-sec-logo-sm.png`}
         alt="Harding Secondary School"
         width="64"
         height="60"
@@ -101,14 +104,15 @@ const Header = () => {
               <div className="flex items-center gap-5 text-xs">
                 <a
                   href="tel:0394331223"
-                  className="flex items-center gap-1.5 text-white/65 hover:text-accent-neon transition-colors duration-200"
+                  aria-label="Call the school on 039 433 1223"
+                  className="flex items-center gap-1.5 text-white/75 hover:text-accent-neon transition-colors duration-200"
                 >
                   <FaPhone className="text-accent-neon text-[10px]" />
                   <span className="hidden sm:inline">039 433 1223</span>
                 </a>
                 <a
                   href="mailto:info@hardingsecondary.edu.za"
-                  className="hidden md:flex items-center gap-1.5 text-white/65 hover:text-accent-neon transition-colors duration-200"
+                  className="hidden md:flex items-center gap-1.5 text-white/75 hover:text-accent-neon transition-colors duration-200"
                 >
                   <FaEnvelope className="text-accent-neon text-[10px]" />
                   info@hardingsecondary.edu.za
@@ -132,7 +136,7 @@ const Header = () => {
                   <Link
                     key={link.label}
                     to={link.path}
-                    className="px-3 py-1 text-xs text-white/55 hover:text-white transition-colors duration-200 hidden sm:block"
+                    className="px-3 py-1 text-xs text-white/75 hover:text-white transition-colors duration-200 hidden sm:block"
                   >
                     {link.label}
                   </Link>
@@ -166,7 +170,7 @@ const Header = () => {
                 onClick={() => setActiveMenu(null)}
               >
                 <img
-                  src={`${process.env.PUBLIC_URL}/harding-sec-logo-2.png`}
+                  src={`${process.env.PUBLIC_URL}/harding-sec-logo-sm.png`}
                   alt="Harding Secondary School"
                   width="60"
                   height="56"
@@ -199,6 +203,8 @@ const Header = () => {
               <div className="hidden lg:flex items-center gap-3 shrink-0 pl-4">
                 <button
                   onClick={() => setIsSearchOpen(true)}
+                  onMouseEnter={loadSearch}
+                  onFocus={loadSearch}
                   className="flex items-center gap-2 px-3 py-2 text-neutral-400 hover:text-neutral-600 hover:bg-neutral-100 rounded-xl border border-neutral-200 transition-all duration-200 group"
                   aria-label="Search (Ctrl+K)"
                   title="Search (Ctrl+K)"
@@ -216,11 +222,20 @@ const Header = () => {
                 </Link>
               </div>
 
-              {/* Mobile menu button */}
+              {/* Mobile actions */}
+              <div className="lg:hidden flex items-center gap-1 my-auto">
+              <button
+                onClick={() => setIsSearchOpen(true)}
+                className="p-2.5 text-neutral-500 hover:bg-neutral-100 rounded-lg transition-colors duration-200"
+                aria-label="Search the site"
+              >
+                <FaSearch className="text-xl" />
+              </button>
               <button
                 onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                className="lg:hidden p-2 text-neutral-500 hover:bg-neutral-100 rounded-lg transition-colors duration-200 my-auto"
-                aria-label="Toggle mobile menu"
+                className="p-2 text-neutral-500 hover:bg-neutral-100 rounded-lg transition-colors duration-200"
+                aria-label={isMobileMenuOpen ? 'Close menu' : 'Open menu'}
+                aria-expanded={isMobileMenuOpen}
               >
                 {isMobileMenuOpen ? (
                   <FaTimes className="text-2xl" />
@@ -228,6 +243,7 @@ const Header = () => {
                   <FaBars className="text-2xl" />
                 )}
               </button>
+              </div>
             </div>
           </div>
 
@@ -253,7 +269,11 @@ const Header = () => {
         isOpen={isMobileMenuOpen}
         onClose={() => setIsMobileMenuOpen(false)}
       />
-      <SearchOverlay isOpen={isSearchOpen} onClose={() => setIsSearchOpen(false)} />
+      {isSearchOpen && (
+        <Suspense fallback={null}>
+          <SearchOverlay isOpen onClose={() => setIsSearchOpen(false)} />
+        </Suspense>
+      )}
     </>
   );
 };

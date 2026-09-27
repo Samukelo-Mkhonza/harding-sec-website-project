@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React, { useState, useId } from 'react';
 import { Link } from 'react-router-dom';
 import {
   FaUser, FaUsers, FaGraduationCap, FaClipboardCheck,
@@ -86,16 +86,30 @@ const cls = (hasError) =>
 
 // ─── Small helpers ────────────────────────────────────────────────────────────
 
-const Field = ({ label, required, error, className = '', children }) => (
-  <div className={className}>
-    <label className="block text-sm font-semibold text-neutral-700 mb-1.5">
-      {label}
-      {required && <span className="text-red-500 ml-1" aria-hidden="true">*</span>}
-    </label>
-    {children}
-    {error && <p className="text-red-500 text-xs mt-1.5" role="alert">{error}</p>}
-  </div>
-);
+// Wires the visible label and error message to the single form control inside.
+const Field = ({ label, required, error, className = '', children }) => {
+  const id = useId();
+  const errorId = `${id}-error`;
+  const control = React.isValidElement(children)
+    ? React.cloneElement(children, {
+        id: children.props.id || id,
+        'aria-required': required || undefined,
+        'aria-invalid': error ? true : undefined,
+        'aria-describedby': error ? errorId : undefined,
+      })
+    : children;
+
+  return (
+    <div className={className}>
+      <label htmlFor={children.props?.id || id} className="block text-sm font-semibold text-neutral-700 mb-1.5">
+        {label}
+        {required && <span className="text-red-600 ml-1" aria-hidden="true">*</span>}
+      </label>
+      {control}
+      {error && <p id={errorId} className="text-red-600 text-xs mt-1.5" role="alert">{error}</p>}
+    </div>
+  );
+};
 
 const ReviewCard = ({ title, children }) => (
   <div className="bg-neutral-50 rounded-xl border border-neutral-200 overflow-hidden">
@@ -506,7 +520,7 @@ const SuccessScreen = ({ refNumber, form }) => {
       </div>
 
       <div className="bg-primary-dark text-white px-6 py-5 text-center mb-8">
-        <p className="text-xs font-semibold uppercase tracking-widest text-white/60 mb-1">Application reference</p>
+        <p className="text-xs font-semibold uppercase tracking-widest text-white/75 mb-1">Application reference</p>
         <p className="text-2xl md:text-3xl font-mono font-bold tracking-widest">{refNumber}</p>
       </div>
 

@@ -29,7 +29,7 @@ const COVER_COLORS = {
   'afrikaans': '#283593',
   'history': '#B71C1C',
   'geography': '#00695C',
-  'life-orientation': '#E65100',
+  'life-orientation': '#C2410C',
 };
 
 const getCoverColor = (subject) => COVER_COLORS[subject] || '#0D4E25';
@@ -167,7 +167,7 @@ const BookCard = ({ book, onPreview }) => {
           </div>
         )}
         <FaBook className="text-white/40 text-3xl mb-3" />
-        <p className="text-white/60 text-[10px] font-bold uppercase tracking-widest mb-1">
+        <p className="text-white/75 text-[10px] font-bold uppercase tracking-widest mb-1">
           {book.category.replace('-', ' ')}
         </p>
         <h3 className="text-white font-heading font-bold text-sm leading-snug line-clamp-3">
@@ -242,7 +242,7 @@ const BookFilterSidebar = ({ filters, onFilterChange, resultCount, availableGrad
       {/* Subject */}
       <div>
         <p className="text-xs font-bold text-neutral-500 uppercase tracking-wider mb-2">Subject</p>
-        <select
+        <select aria-label="Subject"
           value={filters.subject || ''}
           onChange={(e) => onFilterChange({ ...filters, subject: e.target.value || null })}
           className="w-full text-sm border border-neutral-200 rounded-xl px-3 py-2 text-neutral-700 bg-white focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary"

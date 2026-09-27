@@ -5,7 +5,6 @@ import {
   FaMapMarkerAlt, FaPhone, FaEnvelope, FaClock,
   FaArrowRight, FaPaperPlane, FaCheckCircle
 } from 'react-icons/fa';
-import logo from '../images/logo.png';
 import { validateEmail, buildMailto } from '../utils/formValidation';
 import { SCHOOL_CONTACT } from '../utils/constants';
 
@@ -47,7 +46,7 @@ const INFO_STRIP = [
 
 const FooterLink = ({ path, label }) => {
   const cls =
-    'flex items-center gap-2 text-white/65 hover:text-accent-neon transition-colors duration-200 text-sm group';
+    'flex items-center gap-2 text-white/75 hover:text-accent-neon transition-colors duration-200 text-sm group';
 
   const inner = (
     <>
@@ -99,11 +98,11 @@ const Footer = () => {
                   href={href}
                   className="flex items-center gap-2 text-white/80 hover:text-accent-neon transition-colors duration-200 text-xs"
                 >
-                  <Icon className="text-accent-neon flex-shrink-0" />
-                  <span className="hidden sm:inline">{text}</span>
+                  <Icon className="text-accent-neon flex-shrink-0" aria-hidden="true" />
+                  <span>{text}</span>
                 </a>
               ) : (
-                <span key={text} className="hidden md:flex items-center gap-2 text-white/65 text-xs">
+                <span key={text} className="hidden md:flex items-center gap-2 text-white/75 text-xs">
                   <Icon className="text-accent-neon flex-shrink-0" />
                   {text}
                 </span>
@@ -122,7 +121,7 @@ const Footer = () => {
             <div>
               <Link to="/" className="inline-flex items-center gap-3 mb-5 group">
                 <img
-                  src={logo}
+                  src={`${process.env.PUBLIC_URL}/harding-sec-logo-sm.png`}
                   alt="Harding Secondary School"
                   width="60"
                   height="56"
@@ -133,7 +132,7 @@ const Footer = () => {
                   <p className="font-heading font-bold text-lg text-white leading-tight">
                     Harding Secondary
                   </p>
-                  <p className="text-white/50 text-xs">Est. 1950</p>
+                  <p className="text-white/75 text-xs">Est. 1950</p>
                 </div>
               </Link>
 
@@ -156,7 +155,7 @@ const Footer = () => {
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label={`Harding Secondary on ${label}`}
-                    className="w-9 h-9 bg-white/10 hover:bg-accent-neon text-white rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110 hover:shadow-lg"
+                    className="w-9 h-9 bg-white/10 hover:bg-accent-neon hover:text-secondary-dark text-white rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110 hover:shadow-lg"
                   >
                     <Icon className="text-sm" />
                   </a>
@@ -199,7 +198,7 @@ const Footer = () => {
                 Stay Connected
               </h3>
 
-              <p className="text-white/65 text-sm leading-relaxed mb-5">
+              <p className="text-white/75 text-sm leading-relaxed mb-5">
                 Subscribe for the latest news, events, and updates from Harding Secondary School.
               </p>
 
@@ -220,7 +219,7 @@ const Footer = () => {
                   />
                   <button
                     type="submit"
-                    className="flex items-center justify-center gap-2 px-5 py-3 bg-accent-neon text-white font-semibold rounded-xl hover:bg-accent-neon/85 active:scale-95 transition-all duration-200 text-sm shadow-lg"
+                    className="flex items-center justify-center gap-2 px-5 py-3 bg-accent-neon text-secondary-dark font-semibold rounded-xl hover:bg-white active:scale-95 transition-all duration-200 text-sm shadow-lg"
                   >
                     <FaPaperPlane className="text-sm" />
                     Subscribe
@@ -240,16 +239,16 @@ const Footer = () => {
               {/* School details card */}
               <div className="bg-white/5 border border-white/10 rounded-xl p-4 space-y-1.5 text-xs">
                 <p className="text-white font-semibold mb-2">School Details</p>
-                <p className="text-white/60">
+                <p className="text-white/75">
                   Exam No: <span className="text-white/90 font-medium">5312210</span>
                 </p>
-                <p className="text-white/60">
+                <p className="text-white/75">
                   District: <span className="text-white/90 font-medium">Ugu, KwaZulu-Natal</span>
                 </p>
-                <p className="text-white/60">
+                <p className="text-white/75">
                   Grades: <span className="text-white/90 font-medium">8 – 12</span>
                 </p>
-                <p className="text-white/60">
+                <p className="text-white/75">
                   Instruction: <span className="text-white/90 font-medium">English</span>
                 </p>
               </div>
@@ -267,19 +266,19 @@ const Footer = () => {
       {/* ── Bottom bar ─────────────────────────────────────── */}
       <div style={{ backgroundColor: '#072713' }}>
         <div className="container-custom py-5">
-          <div className="flex flex-col sm:flex-row justify-between items-center gap-3 text-xs text-white/45">
+          <div className="flex flex-col sm:flex-row justify-between items-center gap-3 text-xs text-white/75">
             <p>© {currentYear} Harding Secondary School. All rights reserved.</p>
             <div className="flex items-center gap-5">
               <Link
                 to="/privacy-policy"
-                className="hover:text-white/70 transition-colors duration-200"
+                className="hover:text-white transition-colors duration-200"
               >
                 Privacy Policy
               </Link>
               <span className="text-white/20">|</span>
               <Link
                 to="/terms-of-use"
-                className="hover:text-white/70 transition-colors duration-200"
+                className="hover:text-white transition-colors duration-200"
               >
                 Terms of Use
               </Link>

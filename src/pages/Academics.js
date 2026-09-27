@@ -175,7 +175,7 @@ const Academics = () => {
                   </p>
                   <Link
                     to="/past-papers"
-                    className="inline-flex items-center gap-2 bg-white text-primary-dark font-bold px-8 py-4 rounded-lg hover:bg-accent-neon hover:text-white transition-all duration-300 shadow-xl"
+                    className="inline-flex items-center gap-2 bg-white text-primary-dark font-bold px-8 py-4 rounded-lg hover:bg-accent-neon hover:text-secondary-dark transition-all duration-300 shadow-xl"
                   >
                     Access Past Papers <FaArrowRight />
                   </Link>
