@@ -6,6 +6,8 @@ import {
   FaArrowRight, FaPaperPlane, FaCheckCircle
 } from 'react-icons/fa';
 import logo from '../images/logo.png';
+import { validateEmail, buildMailto } from '../utils/formValidation';
+import { SCHOOL_CONTACT } from '../utils/constants';
 
 const QUICK_LINKS = [
   { path: '/', label: 'Home' },
@@ -27,13 +29,14 @@ const RESOURCES = [
   { path: '/careers', label: 'Career Opportunities' },
 ];
 
+// Fill in the school's real profile URLs; icons with an empty href are not shown.
 const SOCIALS = [
-  { Icon: FaFacebookF, label: 'Facebook', href: '#' },
-  { Icon: FaTwitter, label: 'Twitter (X)', href: '#' },
-  { Icon: FaInstagram, label: 'Instagram', href: '#' },
-  { Icon: FaLinkedinIn, label: 'LinkedIn', href: '#' },
-  { Icon: FaYoutube, label: 'YouTube', href: '#' },
-];
+  { Icon: FaFacebookF, label: 'Facebook', href: '' },
+  { Icon: FaTwitter, label: 'Twitter (X)', href: '' },
+  { Icon: FaInstagram, label: 'Instagram', href: '' },
+  { Icon: FaLinkedinIn, label: 'LinkedIn', href: '' },
+  { Icon: FaYoutube, label: 'YouTube', href: '' },
+].filter((s) => s.href);
 
 const INFO_STRIP = [
   { Icon: FaPhone, text: '039 433 1223', href: 'tel:0394331223' },
@@ -63,13 +66,23 @@ const FooterLink = ({ path, label }) => {
 const Footer = () => {
   const [email, setEmail] = useState('');
   const [subscribeStatus, setSubscribeStatus] = useState('');
+  const [emailError, setEmailError] = useState('');
   const currentYear = new Date().getFullYear();
 
+  // No mailing-list backend yet: send the school a subscription request
+  // from the visitor's own email app so the request actually arrives.
   const handleNewsletterSubmit = (e) => {
     e.preventDefault();
+    const error = validateEmail(email);
+    setEmailError(error);
+    if (error) return;
+    window.location.href = buildMailto(
+      SCHOOL_CONTACT.EMAIL,
+      'Newsletter subscription',
+      `Please add ${email.trim()} to the Harding Secondary School newsletter.`
+    );
     setSubscribeStatus('success');
     setEmail('');
-    setTimeout(() => setSubscribeStatus(''), 3000);
   };
 
   return (
@@ -134,18 +147,22 @@ const Footer = () => {
               </p>
 
               {/* Social icons */}
+              {SOCIALS.length > 0 && (
               <div className="flex flex-wrap gap-2">
                 {SOCIALS.map(({ Icon, label, href }) => (
                   <a
                     key={label}
                     href={href}
-                    aria-label={label}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={`Harding Secondary on ${label}`}
                     className="w-9 h-9 bg-white/10 hover:bg-accent-neon text-white rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110 hover:shadow-lg"
                   >
                     <Icon className="text-sm" />
                   </a>
                 ))}
               </div>
+              )}
             </div>
 
             {/* Column 2 — Quick Links */}
@@ -186,13 +203,18 @@ const Footer = () => {
                 Subscribe for the latest news, events, and updates from Harding Secondary School.
               </p>
 
-              <form onSubmit={handleNewsletterSubmit} className="mb-7">
+              <form onSubmit={handleNewsletterSubmit} noValidate className="mb-7">
                 <div className="flex flex-col gap-2">
+                  <label htmlFor="newsletter-email" className="sr-only">Email address</label>
                   <input
+                    id="newsletter-email"
                     type="email"
+                    autoComplete="email"
                     value={email}
-                    onChange={(e) => setEmail(e.target.value)}
+                    onChange={(e) => { setEmail(e.target.value); setEmailError(''); }}
                     placeholder="Your email address"
+                    aria-invalid={Boolean(emailError)}
+                    aria-describedby={emailError ? 'newsletter-error' : undefined}
                     required
                     className="w-full px-4 py-3 rounded-xl bg-white/10 border border-white/20 text-white placeholder-white/40 focus:outline-none focus:ring-2 focus:ring-accent-neon focus:border-transparent text-sm transition-all"
                   />
@@ -204,10 +226,13 @@ const Footer = () => {
                     Subscribe
                   </button>
                 </div>
+                {emailError && (
+                  <p id="newsletter-error" className="text-red-300 !text-sm mt-2">{emailError}</p>
+                )}
                 {subscribeStatus === 'success' && (
-                  <p className="flex items-center gap-2 text-accent-neon text-sm mt-3">
-                    <FaCheckCircle />
-                    Thank you for subscribing!
+                  <p role="status" className="flex items-start gap-2 text-accent-neon !text-sm mt-3">
+                    <FaCheckCircle className="mt-1 shrink-0" aria-hidden="true" />
+                    Your email app will open — send the message to confirm your subscription.
                   </p>
                 )}
               </form>

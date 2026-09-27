@@ -9,6 +9,8 @@ import {
   FaPaperPlane, FaClock,
 } from 'react-icons/fa';
 import { HERO_IMAGES } from '../utils/imageConstants';
+import { buildMailto } from '../utils/formValidation';
+import { SCHOOL_CONTACT } from '../utils/constants';
 
 // ─── Data ──────────────────────────────────────────────────────────────────────
 
@@ -372,9 +374,11 @@ const SuggestionBox = () => {
   const [submitted, setSubmitted] = useState(false);
   const [count, setCount] = useState(() => loadSuggestions().length);
 
+  // No backend: log the suggestion on this device and hand it to the
+  // learner's email app so it actually reaches the school.
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (!form.message.trim() || form.message.length < 10) return;
+    if (form.message.trim().length < 10) return;
     const suggestions = loadSuggestions();
     suggestions.push({
       id: Date.now(),
@@ -383,9 +387,15 @@ const SuggestionBox = () => {
     });
     saveSuggestions(suggestions);
     setCount(suggestions.length);
+    window.location.href = buildMailto(
+      SCHOOL_CONTACT.EMAIL,
+      `SRC suggestion — ${form.category || 'general'}`,
+      form.anonymous
+        ? `${form.message.trim()}\n\n(Please keep my name anonymous.)`
+        : form.message.trim()
+    );
     setSubmitted(true);
     setForm(INITIAL_FORM);
-    setTimeout(() => setSubmitted(false), 4000);
   };
 
   const categories = [
@@ -405,15 +415,18 @@ const SuggestionBox = () => {
         </div>
         <div>
           <h3 className="font-heading font-bold text-neutral-800 text-base">Suggestion Box</h3>
-          <p className="text-xs text-neutral-400">{count} suggestion{count !== 1 ? 's' : ''} submitted to the SRC</p>
+          <p className="text-xs text-neutral-400">{count > 0 ? `You have sent ${count} suggestion${count !== 1 ? 's' : ''}` : 'Share an idea with your SRC'}</p>
         </div>
       </div>
 
       {submitted ? (
         <div className="text-center py-8">
           <FaCheckCircle className="text-4xl text-green-500 mx-auto mb-3" />
-          <h4 className="font-heading font-bold text-neutral-800 mb-1">Suggestion Received!</h4>
-          <p className="text-neutral-500 text-sm">The SRC will review your suggestion at the next meeting. Thank you for engaging with your student council.</p>
+          <h4 className="font-heading font-bold text-neutral-800 mb-1">Almost done</h4>
+          <p className="text-neutral-500 text-sm">Your email app should open with your suggestion ready — press send and the SRC will review it at the next meeting.</p>
+          <button type="button" onClick={() => setSubmitted(false)} className="mt-4 text-sm font-semibold text-primary hover:underline">
+            Write another suggestion
+          </button>
         </div>
       ) : (
         <form onSubmit={handleSubmit} className="space-y-4">
@@ -438,8 +451,9 @@ const SuggestionBox = () => {
           </div>
 
           <div>
-            <label className="block text-xs font-bold text-neutral-500 uppercase tracking-wider mb-1.5">Your Suggestion *</label>
+            <label htmlFor="src-suggestion" className="block text-xs font-bold text-neutral-500 uppercase tracking-wider mb-1.5">Your Suggestion *</label>
             <textarea
+              id="src-suggestion"
               value={form.message}
               onChange={(e) => setForm((f) => ({ ...f, message: e.target.value }))}
               placeholder="Write your idea, concern, or suggestion for the SRC here..."
@@ -449,7 +463,10 @@ const SuggestionBox = () => {
               minLength={10}
               className="w-full px-4 py-3 border border-neutral-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary resize-none"
             />
-            <p className="text-[10px] text-neutral-400 text-right">{form.message.length}/500</p>
+            <p className="text-xs text-neutral-400 flex justify-between">
+              <span>{form.message.trim().length < 10 ? 'At least 10 characters' : '\u00a0'}</span>
+              <span>{form.message.length}/500</span>
+            </p>
           </div>
 
           <label className="flex items-center gap-2 cursor-pointer">
@@ -459,12 +476,12 @@ const SuggestionBox = () => {
               onChange={(e) => setForm((f) => ({ ...f, anonymous: e.target.checked }))}
               className="w-4 h-4 rounded accent-primary"
             />
-            <span className="text-xs text-neutral-600">Submit anonymously (name will not be recorded)</span>
+            <span className="text-xs text-neutral-600">Ask the SRC to keep my name anonymous</span>
           </label>
 
           <button
             type="submit"
-            disabled={form.message.length < 10}
+            disabled={form.message.trim().length < 10}
             className="w-full flex items-center justify-center gap-2 py-3 bg-primary text-white rounded-xl text-sm font-semibold disabled:opacity-40 hover:bg-primary-dark transition-colors"
           >
             <FaPaperPlane className="text-xs" />

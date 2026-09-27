@@ -11,6 +11,7 @@ import {
 } from 'react-icons/fa';
 import { HERO_IMAGES } from '../utils/imageConstants';
 import useUrlFilters from '../hooks/useUrlFilters';
+import { SCHOOL_CONTACT } from '../utils/constants';
 
 // ─── Constants ─────────────────────────────────────────────────────────────────
 
@@ -186,6 +187,9 @@ const PostCard = ({ post, onLike, onDelete }) => {
                 <span className="text-[10px] text-neutral-400">by {post.author}</span>
                 <span className="text-[10px] text-neutral-300">·</span>
                 <span className="text-[10px] text-neutral-400">{formatPostDate(post.date)}</span>
+                {post.userPost && (
+                  <span className="text-[10px] font-semibold text-amber-800 bg-amber-100 px-1.5 py-0.5 rounded-full">Only visible to you</span>
+                )}
               </div>
             </div>
           </div>
@@ -388,6 +392,10 @@ const CreatePostModal = ({ onClose, onSubmit }) => {
 
           <p className="text-xs text-neutral-400 bg-neutral-50 rounded-xl p-3">
             By posting, you agree that your content is respectful and appropriate for the school community. Posts may be removed by administration if they violate school guidelines.
+          </p>
+          <p className="text-xs text-amber-800 bg-amber-50 border border-amber-200 px-3 py-2">
+            Posts are currently saved on this device only, so other visitors won&apos;t see them yet.
+            For urgent notices, contact the school office on {SCHOOL_CONTACT.PHONE}.
           </p>
 
           <div className="flex gap-3 pt-2">

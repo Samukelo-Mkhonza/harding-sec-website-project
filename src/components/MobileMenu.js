@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { NavLink, Link } from 'react-router-dom';
 import { FaTimes, FaChevronDown, FaAngleRight, FaUserGraduate } from 'react-icons/fa';
-import { NAV_DATA } from '../utils/navData';
+import { NAV_DATA, PORTAL_BUTTONS } from '../utils/navData';
 
 const getSublinks = (item) =>
   item.megaMenu ? item.megaMenu.flatMap((col) => col.links) : null;
@@ -52,10 +52,10 @@ const MobileMenu = ({ isOpen, onClose }) => {
 
         {/* Portal quick-links strip */}
         <div style={{ backgroundColor: '#072713' }} className="px-4 py-3 flex flex-wrap gap-2">
-          {['Old Hardingian', 'Parent Portal', 'School Connect'].map((label) => (
+          {PORTAL_BUTTONS.map(({ label, path }) => (
             <Link
               key={label}
-              to="#"
+              to={path}
               onClick={onClose}
               className="text-xs text-white/75 bg-primary px-3 py-1 hover:bg-primary-dark transition-colors"
             >

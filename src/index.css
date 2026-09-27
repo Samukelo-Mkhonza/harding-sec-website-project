@@ -192,3 +192,17 @@ code {
     scroll-behavior: auto !important;
   }
 }
+
+/* Print: drop site chrome so forms, timetables and applications print cleanly */
+@media print {
+  #root > div > header,
+  #root > div > footer,
+  nav[aria-label="Breadcrumb"],
+  button[aria-label="Back to top"] {
+    display: none !important;
+  }
+
+  #main-content {
+    padding-top: 0 !important;
+  }
+}
