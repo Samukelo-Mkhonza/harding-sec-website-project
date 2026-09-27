@@ -79,10 +79,10 @@ const ServerError = () => {
                 <div>
                   <p className="text-sm text-neutral-600 mb-1">Email Us</p>
                   <a
-                    href="mailto:info@hardingsecondary.edu.za"
+                    href="mailto:hardingsec@telkomsa.net"
                     className="font-semibold text-primary hover:text-primary-dark text-sm"
                   >
-                    info@hardingsecondary.edu.za
+                    hardingsec@telkomsa.net
                   </a>
                 </div>
               </div>

@@ -413,7 +413,7 @@ const SubmitBanner = () => (
       We would love to add your story to the Hall of Fame. Your journey — wherever it has taken you — inspires the learners sitting in those classrooms today.
     </p>
     <a
-      href="mailto:info@hardingsecondary.edu.za?subject=Alumni%20Hall%20of%20Fame%20Submission"
+      href="mailto:hardingsec@telkomsa.net?subject=Alumni%20Hall%20of%20Fame%20Submission"
       className="inline-flex items-center gap-2 px-6 py-3 bg-accent-neon text-primary-dark rounded-xl text-sm font-bold hover:opacity-90 transition-opacity"
     >
       <FaEnvelope />

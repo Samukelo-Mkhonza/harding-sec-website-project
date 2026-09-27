@@ -267,7 +267,7 @@ const Admissions = () => {
                   Call: 039 433 1223
                 </a>
                 <a
-                  href="mailto:info@hardingsecondary.edu.za"
+                  href="mailto:hardingsec@telkomsa.net"
                   className="border-2 border-white text-white font-bold px-10 py-4 rounded-lg hover:bg-white/10 transition-all duration-300"
                 >
                   Send an Email

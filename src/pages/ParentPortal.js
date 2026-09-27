@@ -127,11 +127,11 @@ const ParentPortal = () => (
                 039 433 1223
               </a>
               <a
-                href="mailto:info@hardingsecondary.edu.za"
+                href="mailto:hardingsec@telkomsa.net"
                 className="flex items-center justify-center gap-2 px-6 py-3 border border-primary text-primary rounded-xl text-sm font-semibold hover:bg-primary hover:text-white transition-all duration-200"
               >
                 <FaEnvelope />
-                info@hardingsecondary.edu.za
+                hardingsec@telkomsa.net
               </a>
             </div>
           </div>

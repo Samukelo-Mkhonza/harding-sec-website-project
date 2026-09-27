@@ -128,8 +128,8 @@ const VacancyCard = ({ title, type, department, Icon, iconColor, posted, closing
             <p className="font-semibold text-neutral-800 mb-1">How to Apply</p>
             <p>
               Send your CV, certified copies of qualifications, and a covering letter to{' '}
-              <a href="mailto:info@hardingsecondary.edu.za" className="text-primary font-medium hover:underline">
-                info@hardingsecondary.edu.za
+              <a href="mailto:hardingsec@telkomsa.net" className="text-primary font-medium hover:underline">
+                hardingsec@telkomsa.net
               </a>{' '}
               before {closing}. Late applications will not be considered.
             </p>
@@ -195,7 +195,7 @@ const CareerOpportunities = () => (
                 <h3 className="font-heading font-bold text-primary-dark mb-2">Don't see a suitable vacancy?</h3>
                 <p className="text-neutral-500 text-sm mb-4">Send us your CV and we'll keep it on file for future opportunities.</p>
                 <a
-                  href="mailto:info@hardingsecondary.edu.za"
+                  href="mailto:hardingsec@telkomsa.net"
                   className="inline-flex items-center gap-2 px-6 py-3 bg-primary text-white rounded-xl text-sm font-semibold hover:bg-primary-dark transition-colors duration-200"
                 >
                   <FaEnvelope />

@@ -53,7 +53,7 @@ const SECTIONS = [
   },
   {
     title: '12. Contact',
-    content: `For questions about these Terms of Use, please contact:\n\nHarding Secondary School\nHarding, KwaZulu-Natal, South Africa\nEmail: info@hardingsecondary.edu.za\nPhone: 039 433 1223`,
+    content: `For questions about these Terms of Use, please contact:\n\nHarding Secondary School\nHarding, KwaZulu-Natal, South Africa\nEmail: hardingsec@telkomsa.net\nPhone: 039 433 1223`,
   },
 ];
 

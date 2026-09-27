@@ -46,7 +46,7 @@ describe('ContactForm', () => {
     fill('Message', 'Please send the 2026 admission form.');
     fireEvent.click(screen.getByRole('button', { name: /send message/i }));
 
-    expect(window.location.href).toMatch(/^mailto:info@hardingsecondary\.edu\.za\?subject=Grade%208%20admission/);
+    expect(window.location.href).toMatch(/^mailto:hardingsec@telkomsa\.net\?subject=Grade%208%20admission/);
     expect(decodeURIComponent(window.location.href)).toMatch(/Name: Thandi Dlamini/);
     expect(screen.getByRole('status')).toHaveTextContent(/email app should now open/i);
   });

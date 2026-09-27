@@ -39,7 +39,7 @@ const SOCIALS = [
 
 const INFO_STRIP = [
   { Icon: FaPhone, text: '039 433 1223', href: 'tel:0394331223' },
-  { Icon: FaEnvelope, text: 'info@hardingsecondary.edu.za', href: 'mailto:info@hardingsecondary.edu.za' },
+  { Icon: FaEnvelope, text: 'hardingsec@telkomsa.net', href: 'mailto:hardingsec@telkomsa.net' },
   { Icon: FaMapMarkerAlt, text: 'Harding, KwaZulu-Natal', href: null },
   { Icon: FaClock, text: 'Mon–Thu: 7:30 AM – 4:00 PM', href: null },
 ];

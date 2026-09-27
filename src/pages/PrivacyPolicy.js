@@ -59,7 +59,7 @@ const SECTIONS = [
   },
   {
     title: '10. Contact & Complaints',
-    content: `If you have questions or concerns about this Privacy Policy, or wish to exercise your POPIA rights, please contact:\n\nHarding Secondary School — Information Officer\nAddress: Harding, KwaZulu-Natal, South Africa\nEmail: info@hardingsecondary.edu.za\nPhone: 039 433 1223`,
+    content: `If you have questions or concerns about this Privacy Policy, or wish to exercise your POPIA rights, please contact:\n\nHarding Secondary School — Information Officer\nAddress: Harding, KwaZulu-Natal, South Africa\nEmail: hardingsec@telkomsa.net\nPhone: 039 433 1223`,
   },
 ];
 

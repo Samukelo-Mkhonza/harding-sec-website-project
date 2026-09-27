@@ -184,7 +184,7 @@ const Contact = () => {
                     Call: 039 433 1223
                   </a>
                   <a
-                    href="mailto:info@hardingsecondary.edu.za"
+                    href="mailto:hardingsec@telkomsa.net"
                     className="inline-flex items-center justify-center gap-2 px-8 py-4 border-2 border-white/50 text-white font-bold rounded-lg transition-all duration-300 hover:bg-white/10 hover:border-white"
                   >
                     <FaEnvelope />

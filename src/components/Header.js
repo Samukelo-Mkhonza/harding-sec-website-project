@@ -111,11 +111,11 @@ const Header = () => {
                   <span className="hidden sm:inline">039 433 1223</span>
                 </a>
                 <a
-                  href="mailto:info@hardingsecondary.edu.za"
+                  href="mailto:hardingsec@telkomsa.net"
                   className="hidden md:flex items-center gap-1.5 text-white/75 hover:text-accent-neon transition-colors duration-200"
                 >
                   <FaEnvelope className="text-accent-neon text-[10px]" />
-                  info@hardingsecondary.edu.za
+                  hardingsec@telkomsa.net
                 </a>
               </div>
 
