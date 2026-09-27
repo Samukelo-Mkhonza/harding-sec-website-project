@@ -1,10 +1,15 @@
 import { render, screen } from '@testing-library/react';
-import App from './App';
+import AppProviders from './AppProviders';
+import AppRouter from './AppRouter';
 
-test('renders Harding Secondary School website', () => {
-  render(<App />);
-  // The name appears in multiple places (header, hero, footer), so assert
-  // that at least one instance is rendered.
-  const headings = screen.getAllByText(/Harding Secondary/i);
-  expect(headings.length).toBeGreaterThan(0);
+test('renders the site shell with header, main landmark and footer', () => {
+  render(
+    <AppProviders>
+      <AppRouter />
+    </AppProviders>
+  );
+  expect(screen.getByRole('banner')).toBeInTheDocument();
+  expect(screen.getByRole('main')).toBeInTheDocument();
+  expect(screen.getByRole('contentinfo')).toBeInTheDocument();
+  expect(screen.getAllByText(/Harding Secondary/i).length).toBeGreaterThan(0);
 });

@@ -1,92 +1,46 @@
-/**
- * Feature: website-premium-enhancement, Property 9: Breadcrumbs reflect current route
- * Validates: Requirements 2.4
- * 
- * Property: For any page navigation, breadcrumb navigation should display the correct 
- * hierarchy based on the current route path.
- * 
- * Note: Due to React Router v7 ESM compatibility issues with Jest in CRA,
- * full integration tests should be run manually in the browser or with a different test setup.
- * 
- * Manual Testing Checklist:
- * - Navigate to /about - should show: Home > About Us
- * - Navigate to /academics - should show: Home > Academics
- * - Navigate to /student-life - should show: Home > Student Life
- * - Navigate to /past-papers - should show: Home > Past Papers Portal
- * - Current page should be non-clickable with aria-current="page"
- * - All previous breadcrumbs should be clickable links
- * - Schema.org structured data should be present
- * - Mobile view should show simplified back button
- * - Desktop view should show full breadcrumb trail
- */
+import { render, screen } from '@testing-library/react';
+import { MemoryRouter } from 'react-router-dom';
+import Breadcrumbs, { buildTrail } from './Breadcrumbs';
 
-describe('Breadcrumbs Component - Documentation', () => {
-  describe('Component Features', () => {
-    it('should support comprehensive breadcrumb navigation', () => {
-      // Component provides:
-      // - Auto-generated breadcrumbs from URL structure
-      // - Custom labels support via customLabels prop
-      // - Multiple separator styles: chevron, slash, arrow
-      // - Responsive design (desktop/tablet/mobile)
-      // - SEO schema.org structured data
-      // - WCAG AA accessibility compliance
-      // - Title truncation for long page names
-      // - Deep hierarchy collapse with ellipsis
-      // - Sticky positioning below header
-      expect(true).toBe(true);
-    });
+const renderAt = (path, props) =>
+  render(
+    <MemoryRouter initialEntries={[path]}>
+      <Breadcrumbs {...props} />
+    </MemoryRouter>
+  );
 
-    it('should have proper SEO and accessibility', () => {
-      // Component includes:
-      // - aria-label="Breadcrumb navigation"
-      // - aria-current="page" on current page
-      // - Schema.org BreadcrumbList and ListItem
-      // - Position metadata for each breadcrumb
-      // - Focus styles for keyboard navigation
-      // - Proper contrast ratios (WCAG AA)
-      expect(true).toBe(true);
-    });
-
-    it('should be responsive across all devices', () => {
-      // Desktop: Full breadcrumb trail visible
-      // Tablet: Up to 4 levels with ellipsis for middle items
-      // Mobile: Simplified "← Parent / Current" view
-      expect(true).toBe(true);
-    });
+describe('buildTrail', () => {
+  it('returns nothing on the home page', () => {
+    expect(buildTrail('/')).toEqual([]);
   });
 
-  describe('Props API', () => {
-    it('should accept customLabels prop', () => {
-      // customLabels: Object mapping paths to custom display names
-      // Example: { '/about': 'About Us', '/academics': 'Academic Programs' }
-      expect(true).toBe(true);
-    });
+  it('uses friendly labels for known routes and title-cases the rest', () => {
+    expect(buildTrail('/student-portal/bursaries').map((c) => c.label)).toEqual([
+      'Student Portal',
+      'Bursary Finder',
+    ]);
+  });
 
-    it('should accept separator prop', () => {
-      // separator: 'chevron' | 'slash' | 'arrow'
-      // Default: 'chevron'
-      expect(true).toBe(true);
-    });
+  it('marks only the final crumb as current', () => {
+    const trail = buildTrail('/student-life/clubs/debate');
+    expect(trail.map((c) => c.isLast)).toEqual([false, false, true]);
+  });
 
-    it('should accept showHome prop', () => {
-      // showHome: boolean
-      // Default: true
-      // Controls whether home icon/link is displayed
-      expect(true).toBe(true);
-    });
+  it('lets custom labels override the defaults', () => {
+    expect(buildTrail('/about', { '/about': 'Our School' })[0].label).toBe('Our School');
+  });
+});
 
-    it('should accept maxLevels prop', () => {
-      // maxLevels: number
-      // Default: 4
-      // Maximum breadcrumb levels before collapsing middle items
-      expect(true).toBe(true);
-    });
+describe('<Breadcrumbs />', () => {
+  it('renders nothing on the home page', () => {
+    const { container } = renderAt('/');
+    expect(container).toBeEmptyDOMElement();
+  });
 
-    it('should accept maxTitleLength prop', () => {
-      // maxTitleLength: number
-      // Default: 25
-      // Maximum characters for page titles before truncation
-      expect(true).toBe(true);
-    });
+  it('links to ancestors and marks the current page', () => {
+    renderAt('/student-portal/timetable');
+    expect(screen.getByRole('navigation', { name: 'Breadcrumb' })).toBeInTheDocument();
+    expect(screen.getByRole('link', { name: 'Student Portal' })).toHaveAttribute('href', '/student-portal');
+    expect(screen.getByText('Study Timetable')).toHaveAttribute('aria-current', 'page');
   });
 });
