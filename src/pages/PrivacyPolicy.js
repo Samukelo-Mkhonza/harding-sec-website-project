@@ -1,4 +1,4 @@
-import { SEO, Breadcrumbs } from '../components';
+import { SEO, PageHero } from '../components';
 import { Link } from 'react-router-dom';
 
 const SECTIONS = [
@@ -59,7 +59,7 @@ const SECTIONS = [
   },
   {
     title: '10. Contact & Complaints',
-    content: `If you have questions or concerns about this Privacy Policy, or wish to exercise your POPIA rights, please contact:\n\nHarding Secondary School — Information Officer\nAddress: Harding, KwaZulu-Natal, South Africa\nEmail: info@hardingsecondary.edu.za\nPhone: 039 433 1223`,
+    content: `If you have questions or concerns about this Privacy Policy, or wish to exercise your POPIA rights, please contact:\n\nHarding Secondary School — Information Officer\nAddress: Harding, KwaZulu-Natal, South Africa\nEmail: hardingsec@telkomsa.net\nPhone: 039 433 1223`,
   },
 ];
 
@@ -70,20 +70,12 @@ const PrivacyPolicy = () => (
       description="Read the Privacy Policy for Harding Secondary School's website, including how we collect, use, and protect your personal information under POPIA."
     />
     <div>
-      <div className="bg-white">
-        <Breadcrumbs />
-      </div>
-
-      {/* Hero */}
-      <section className="py-16 md:py-20 bg-primary-dark text-center">
-        <div className="container-custom">
-          <p className="text-accent-neon font-semibold text-sm tracking-widest uppercase mb-3">Legal</p>
-          <h1 className="text-4xl md:text-5xl font-heading font-bold !text-white mb-3">
-            Privacy Policy
-          </h1>
-          <p className="text-white/70 text-sm">Effective date: 1 January 2025</p>
-        </div>
-      </section>
+      <PageHero
+        eyebrow="Legal"
+        title="Privacy Policy"
+        description="Effective date: 1 January 2025"
+        size="sm"
+      />
 
       {/* Content */}
       <section className="py-16 md:py-24 bg-white">

@@ -1,7 +1,7 @@
 import React, { useState, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import SEO from '../components/SEO';
-import Breadcrumbs from '../components/Breadcrumbs';
+import { PageHero, EmptyState } from '../components';
 import AnimateOnScroll from '../components/AnimateOnScroll';
 import {
   FaSearch, FaTimes, FaFilter, FaExternalLinkAlt, FaGraduationCap,
@@ -10,6 +10,7 @@ import {
   FaArrowRight, FaLightbulb,
 } from 'react-icons/fa';
 import { HERO_IMAGES } from '../utils/imageConstants';
+import useUrlFilters from '../hooks/useUrlFilters';
 
 // ─── Data ─────────────────────────────────────────────────────────────────────
 
@@ -647,7 +648,7 @@ const BursaryCard = ({ bursary, onOpen }) => {
         </div>
 
         <button
-          className="w-full mt-1 py-2 bg-primary/8 hover:bg-primary text-primary hover:text-white rounded-xl text-xs font-semibold transition-all duration-200 border border-primary/20 hover:border-primary"
+          className="w-full mt-1 py-2 bg-primary/10 hover:bg-primary text-primary hover:text-white rounded-xl text-xs font-semibold transition-all duration-200 border border-primary/20 hover:border-primary"
           onClick={(e) => { e.stopPropagation(); onOpen(bursary); }}
         >
           View Details & Apply
@@ -723,8 +724,9 @@ const FilterSidebar = ({ filters, onChange, resultCount }) => {
 
       {/* Field */}
       <div>
-        <p className="text-xs font-bold text-neutral-500 uppercase tracking-wider mb-2">Field of Study</p>
+        <label htmlFor="bursary-field" className="block text-xs font-bold text-neutral-500 uppercase tracking-wider mb-2">Field of Study</label>
         <select
+          id="bursary-field"
           value={filters.field}
           onChange={(e) => onChange({ ...filters, field: e.target.value })}
           className="w-full text-sm border border-neutral-200 rounded-xl px-3 py-2 text-neutral-700 bg-white focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary"
@@ -741,7 +743,7 @@ const FilterSidebar = ({ filters, onChange, resultCount }) => {
 // ─── Main Page ─────────────────────────────────────────────────────────────────
 
 const BursaryFinder = () => {
-  const [filters, setFilters] = useState({ type: 'all', field: 'all', kznOnly: false, search: '' });
+  const [filters, setFilters] = useUrlFilters({ type: 'all', field: 'all', kznOnly: false, search: '' });
   const [selected, setSelected] = useState(null);
   const [showTip, setShowTip] = useState(true);
 
@@ -783,45 +785,18 @@ const BursaryFinder = () => {
         description="Find bursaries and scholarships available to KZN and Harding-area students. Search by field of study, bursary type, and more."
       />
       <div>
-        <div className="bg-white">
-          <Breadcrumbs />
-        </div>
-
-        {/* Hero */}
-        <section className="relative py-28 md:py-36 text-center overflow-hidden bg-primary-dark">
-          <img
-            src={HERO_IMAGES.graduation}
-            alt=""
-            className="absolute inset-0 w-full h-full object-cover"
-            aria-hidden="true"
-          />
-          <div className="absolute inset-0 bg-primary-dark/87" />
-          <div className="relative z-10 container-custom">
-            <div className="inline-flex items-center gap-2 bg-white/10 border border-white/20 rounded-full px-4 py-1.5 text-accent-neon text-sm font-semibold tracking-widest uppercase mb-5">
-              <FaGraduationCap className="text-xs" />
-              Student Portal — Bursary Finder
-            </div>
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-heading font-bold !text-white mb-4">
-              Bursary &amp; Scholarship Finder
-            </h1>
-            <p className="text-lg md:text-xl max-w-2xl mx-auto !text-white/85">
-              Discover funding opportunities available to KZN and Harding-area students — from government bursaries to corporate scholarships.
-            </p>
-
-            <div className="flex flex-wrap justify-center gap-6 mt-10">
-              {[
-                { label: 'Bursaries Listed', value: stats.total },
-                { label: 'Government Funded', value: stats.government },
-                { label: 'Corporate Sponsors', value: stats.corporate },
-              ].map(({ label, value }) => (
-                <div key={label} className="text-center">
-                  <p className="text-2xl font-heading font-bold text-accent-neon">{value}</p>
-                  <p className="text-white/60 text-xs uppercase tracking-wider mt-0.5">{label}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
+        <PageHero
+          eyebrow="Bursary Finder"
+          eyebrowIcon={FaGraduationCap}
+          title="Bursary & Scholarship Finder"
+          description="Discover funding opportunities available to KZN and Harding-area students — from government bursaries to corporate scholarships."
+          image={HERO_IMAGES.graduation}
+          stats={[
+            { label: 'Bursaries Listed', value: stats.total },
+            { label: 'Government Funded', value: stats.government },
+            { label: 'Corporate Sponsors', value: stats.corporate },
+          ]}
+        />
 
         {/* Main */}
         <div className="bg-neutral-50 min-h-screen">
@@ -838,7 +813,7 @@ const BursaryFinder = () => {
                       Start with NSFAS if your household income is under R350,000/year — it covers the most costs. KZN provincial bursaries give preference to rural learners from areas like Harding. Apply to multiple bursaries at once since deadlines often fall in Aug–Nov.
                     </p>
                   </div>
-                  <button onClick={() => setShowTip(false)} className="text-amber-400 hover:text-amber-600 flex-shrink-0">
+                  <button onClick={() => setShowTip(false)} aria-label="Dismiss tip" className="text-amber-700 hover:text-amber-900 flex-shrink-0">
                     <FaTimes className="text-sm" />
                   </button>
                 </div>
@@ -906,26 +881,22 @@ const BursaryFinder = () => {
                 {/* Featured */}
                 {!filters.search && filters.type === 'all' && filters.field === 'all' && (
                   <div>
-                    <p className="text-xs font-bold text-neutral-500 uppercase tracking-wider mb-3">
+                    <h2 className="!text-xs font-bold !text-neutral-500 uppercase tracking-wider mb-3">
                       Recommended for Harding / KZN Students
-                    </p>
+                    </h2>
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
                       {BURSARIES.filter((b) => b.featured).map((b) => (
                         <BursaryCard key={b.id} bursary={b} onOpen={setSelected} />
                       ))}
                     </div>
                     <div className="border-t border-neutral-200 mb-6" />
-                    <p className="text-xs font-bold text-neutral-500 uppercase tracking-wider mb-3">All Bursaries</p>
+                    <h2 className="!text-xs font-bold !text-neutral-500 uppercase tracking-wider mb-3">All Bursaries</h2>
                   </div>
                 )}
 
                 {/* Grid */}
                 {filtered.length === 0 ? (
-                  <div className="bg-white rounded-2xl border border-neutral-100 p-12 text-center">
-                    <FaGraduationCap className="text-4xl text-neutral-300 mx-auto mb-4" />
-                    <h3 className="font-heading font-bold text-neutral-700 mb-2">No bursaries found</h3>
-                    <p className="text-neutral-400 text-sm">Try adjusting your filters or search terms.</p>
-                  </div>
+                  <EmptyState icon={FaGraduationCap} title="No bursaries found" message="Try adjusting your filters or search terms." />
                 ) : (
                   <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4">
                     {(filters.search || filters.type !== 'all' || filters.field !== 'all' || filters.kznOnly

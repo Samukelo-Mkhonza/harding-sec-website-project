@@ -2,30 +2,6 @@ import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
 import BackToTop from './BackToTop';
 
-// Mock framer-motion so AnimatePresence mounts/unmounts synchronously in jsdom
-// (real exit animations never complete without a browser animation loop).
-jest.mock('framer-motion', () => {
-  const React = require('react');
-  const ANIM_PROPS = ['initial', 'animate', 'exit', 'transition', 'whileHover', 'whileTap', 'whileInView', 'viewport', 'variants', 'layout', 'layoutId', 'drag'];
-  const strip = (props) => {
-    const rest = { ...props };
-    ANIM_PROPS.forEach((p) => delete rest[p]);
-    return rest;
-  };
-  const motion = new Proxy({}, {
-    get: (_target, tag) => {
-      if (typeof tag !== 'string') return undefined;
-      return React.forwardRef((props, ref) =>
-        React.createElement(tag, { ...strip(props), ref }, props.children));
-    },
-  });
-  return {
-    __esModule: true,
-    motion,
-    AnimatePresence: ({ children }) => React.createElement(React.Fragment, null, children),
-  };
-});
-
 /**
  * Feature: website-premium-enhancement, Property 10: Back-to-top button appears at threshold
  * Validates: Requirements 2.5
@@ -173,13 +149,13 @@ describe('BackToTop Component', () => {
       expect(button.className).toContain('fixed');
     });
 
-    it('should have high z-index', () => {
+    it('should float above content but below modals (z-40)', () => {
       useScrollPosition.mockReturnValue(600);
       
       const { container } = render(<BackToTop />);
       const button = container.querySelector('button[aria-label="Back to top"]');
       
-      expect(button.className).toContain('z-50');
+      expect(button.className).toContain('z-40');
     });
   });
 
@@ -249,8 +225,8 @@ describe('BackToTop Component', () => {
       const { container } = render(<BackToTop />);
       const button = container.querySelector('button[aria-label="Back to top"]');
       
-      expect(button.className).toContain('transition-all');
-      expect(button.className).toContain('duration-300');
+      expect(button.className).toContain('transition-colors');
+      expect(button.className).toContain('animate-fade-in');
     });
   });
 });

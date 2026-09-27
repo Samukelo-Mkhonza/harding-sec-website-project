@@ -1,6 +1,6 @@
 import { FaClipboardList, FaUsers, FaCalendarCheck, FaFolderOpen, FaPhoneAlt, FaEnvelope, FaUserTie } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
-import { SEO, Breadcrumbs } from '../components';
+import { SEO, PageHero } from '../components';
 import AnimateOnScroll from '../components/AnimateOnScroll';
 import { HERO_IMAGES } from '../utils/imageConstants';
 
@@ -18,29 +18,12 @@ const StaffPortal = () => (
       description="Secure staff portal for educators and administrative staff at Harding Secondary School."
     />
     <div>
-      <div className="bg-white">
-        <Breadcrumbs />
-      </div>
-
-      {/* Hero */}
-      <section className="relative py-28 md:py-36 text-center overflow-hidden bg-primary-dark">
-        <img
-          src={HERO_IMAGES.library}
-          alt=""
-          className="absolute inset-0 w-full h-full object-cover"
-          aria-hidden="true"
-        />
-        <div className="absolute inset-0 bg-primary-dark/88" />
-        <div className="relative z-10 container-custom">
-          <p className="text-accent-neon font-semibold text-sm tracking-widest uppercase mb-4">Staff Access</p>
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-heading font-bold !text-white mb-4">
-            Staff Portal
-          </h1>
-          <p className="text-lg md:text-xl max-w-2xl mx-auto !text-white/90">
-            Secure access for Harding Secondary educators and admin staff
-          </p>
-        </div>
-      </section>
+      <PageHero
+        eyebrow="Staff Access"
+        title="Staff Portal"
+        description="Secure access for Harding Secondary educators and admin staff"
+        image={HERO_IMAGES.library}
+      />
 
       {/* Portal Access */}
       <section className="py-16 md:py-24 bg-neutral-50">
@@ -147,11 +130,11 @@ const StaffPortal = () => (
                 039 433 1223
               </a>
               <a
-                href="mailto:info@hardingsecondary.edu.za"
+                href="mailto:hardingsec@telkomsa.net"
                 className="flex items-center justify-center gap-2 px-6 py-3 border border-primary text-primary rounded-xl text-sm font-semibold hover:bg-primary hover:text-white transition-all duration-200"
               >
                 <FaEnvelope />
-                info@hardingsecondary.edu.za
+                hardingsec@telkomsa.net
               </a>
             </div>
           </div>

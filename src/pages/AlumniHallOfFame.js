@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import SEO from '../components/SEO';
-import Breadcrumbs from '../components/Breadcrumbs';
+import { PageHero } from '../components';
 import AnimateOnScroll from '../components/AnimateOnScroll';
 import {
   FaGraduationCap, FaMapMarkerAlt, FaSearch,
@@ -9,6 +9,7 @@ import {
   FaHeart, FaStar, FaEnvelope,
 } from 'react-icons/fa';
 import { HERO_IMAGES } from '../utils/imageConstants';
+import useUrlFilters from '../hooks/useUrlFilters';
 
 // ─── Data ──────────────────────────────────────────────────────────────────────
 
@@ -97,7 +98,7 @@ const ALUMNI = [
     id: 6,
     name: 'Sandile Buthelezi',
     initials: 'SB',
-    avatarColor: '#E65100',
+    avatarColor: '#C2410C',
     year: '2006',
     field: 'Business & Entrepreneurship',
     role: 'Founder & CEO',
@@ -278,8 +279,8 @@ const AlumniModal = ({ alumni, onClose }) => {
               </p>
               <h2 className="text-2xl md:text-3xl font-heading font-bold text-white leading-tight">{alumni.name}</h2>
               <p className="text-white/80 text-sm mt-1">{alumni.role}</p>
-              <p className="text-white/60 text-sm">{alumni.employer}</p>
-              <div className="flex items-center gap-1.5 mt-2 text-white/60 text-xs">
+              <p className="text-white/75 text-sm">{alumni.employer}</p>
+              <div className="flex items-center gap-1.5 mt-2 text-white/75 text-xs">
                 <FaMapMarkerAlt className="text-[10px]" />
                 {alumni.location}
               </div>
@@ -407,12 +408,12 @@ const AlumniCard = ({ alumni, onOpen }) => (
 const SubmitBanner = () => (
   <div className="bg-primary-dark rounded-2xl p-8 text-center text-white">
     <FaHeart className="text-accent-neon text-2xl mx-auto mb-3" />
-    <h3 className="font-heading font-bold text-xl mb-2">Are You a Former Harding Secondary Learner?</h3>
+    <h3 className="!text-white font-heading font-bold text-xl mb-2">Are You a Former Harding Secondary Learner?</h3>
     <p className="text-white/70 text-sm max-w-lg mx-auto mb-6">
       We would love to add your story to the Hall of Fame. Your journey — wherever it has taken you — inspires the learners sitting in those classrooms today.
     </p>
     <a
-      href="mailto:info@hardingsecondary.edu.za?subject=Alumni%20Hall%20of%20Fame%20Submission"
+      href="mailto:hardingsec@telkomsa.net?subject=Alumni%20Hall%20of%20Fame%20Submission"
       className="inline-flex items-center gap-2 px-6 py-3 bg-accent-neon text-primary-dark rounded-xl text-sm font-bold hover:opacity-90 transition-opacity"
     >
       <FaEnvelope />
@@ -424,9 +425,10 @@ const SubmitBanner = () => (
 // ─── Main Page ─────────────────────────────────────────────────────────────────
 
 const AlumniHallOfFame = () => {
-  const [search, setSearch] = useState('');
-  const [field, setField] = useState('All');
-  const [decade, setDecade] = useState('All');
+  const [{ search, field, decade }, setUrlFilters] = useUrlFilters({ search: '', field: 'All', decade: 'All' });
+  const setSearch = (value) => setUrlFilters((f) => ({ ...f, search: value }));
+  const setField = (value) => setUrlFilters((f) => ({ ...f, field: value }));
+  const setDecade = (value) => setUrlFilters((f) => ({ ...f, decade: value }));
   const [selected, setSelected] = useState(null);
 
   const featured = ALUMNI.filter((a) => a.featured);
@@ -451,41 +453,17 @@ const AlumniHallOfFame = () => {
         description="Meet the alumni of Harding Secondary School — doctors, engineers, teachers, entrepreneurs, and more. Discover where former learners are today and be inspired."
       />
       <div>
-        <div className="bg-white">
-          <Breadcrumbs />
-        </div>
-
-        {/* Hero */}
-        <section className="relative py-28 md:py-40 text-center overflow-hidden bg-primary-dark">
-          <img
-            src={HERO_IMAGES.graduation}
-            alt=""
-            className="absolute inset-0 w-full h-full object-cover"
-            aria-hidden="true"
-          />
-          <div className="absolute inset-0 bg-primary-dark/88" />
-          <div className="relative z-10 container-custom">
-            <p className="text-accent-neon font-semibold text-sm tracking-widest uppercase mb-4">Old Hardingian</p>
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-heading font-bold !text-white mb-4">
-              Hall of Fame
-            </h1>
-            <p className="text-lg md:text-xl max-w-2xl mx-auto !text-white/85">
-              From the classrooms of Harding Secondary to the world. Meet the graduates who are making a difference — and discover what's possible for you.
-            </p>
-            <div className="flex flex-wrap justify-center gap-6 mt-10">
-              {[
-                { label: 'Featured Alumni', value: ALUMNI.length },
-                { label: 'Fields Represented', value: new Set(ALUMNI.map((a) => a.field)).size },
-                { label: 'Years Represented', value: '1998–2016' },
-              ].map(({ label, value }) => (
-                <div key={label} className="text-center">
-                  <p className="text-2xl font-heading font-bold text-accent-neon">{value}</p>
-                  <p className="text-white/60 text-xs uppercase tracking-wider mt-0.5">{label}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
+        <PageHero
+          eyebrow="Old Hardingian"
+          title="Hall of Fame"
+          description="From the classrooms of Harding Secondary to the world. Meet the graduates who are making a difference — and discover what's possible for you."
+          image={HERO_IMAGES.graduation}
+          stats={[
+            { label: 'Featured Alumni', value: ALUMNI.length },
+            { label: 'Fields Represented', value: new Set(ALUMNI.map((a) => a.field)).size },
+            { label: 'Years Represented', value: '1998–2016' },
+          ]}
+        />
 
         {/* Main */}
         <div className="bg-neutral-50 min-h-screen py-16 md:py-24">
@@ -508,12 +486,12 @@ const AlumniHallOfFame = () => {
                           <div className="p-6 pb-5">
                             <Avatar initials={alumni.initials} color="white" size="lg" />
                             <div className="mt-4">
-                              <span className="text-[10px] font-bold text-white/60 uppercase tracking-widest">
+                              <span className="text-[10px] font-bold text-white/75 uppercase tracking-widest">
                                 Class of {alumni.year}
                               </span>
                               <h3 className="text-lg font-heading font-bold text-white mt-1 leading-tight">{alumni.name}</h3>
                               <p className="text-white/75 text-xs">{alumni.role}</p>
-                              <p className="text-white/55 text-xs">{alumni.employer}</p>
+                              <p className="text-white/75 text-xs">{alumni.employer}</p>
                             </div>
                           </div>
                           <div className="bg-black/20 px-6 py-3">
@@ -562,6 +540,7 @@ const AlumniHallOfFame = () => {
 
                   {/* Field filter */}
                   <select
+                    aria-label="Filter by field"
                     value={field}
                     onChange={(e) => setField(e.target.value)}
                     className="px-4 py-3 border border-neutral-200 bg-white rounded-2xl text-sm text-neutral-700 focus:outline-none focus:ring-2 focus:ring-primary/30 shadow-sm"

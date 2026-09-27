@@ -1,6 +1,7 @@
 import React, { lazy } from 'react';
 import { Routes, Route } from 'react-router-dom';
-import { SkeletonLoader } from './components';
+import SkeletonLoader from './components/SkeletonLoader';
+import BackToTop from './components/BackToTop';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import AnimatedLayout from './components/AnimatedLayout';
@@ -110,6 +111,7 @@ const AppRouter = () => {
           </Routes>
         </main>
         <Footer />
+        <BackToTop />
       </div>
     </>
   );

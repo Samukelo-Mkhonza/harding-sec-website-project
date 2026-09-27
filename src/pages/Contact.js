@@ -1,6 +1,6 @@
 import { FaMapMarkerAlt, FaPhone, FaEnvelope, FaSchool, FaClock } from 'react-icons/fa';
 import ContactForm from '../components/ContactForm';
-import { SEO, SEOConfigs, Breadcrumbs } from '../components';
+import { SEO, SEOConfigs, PageHero, SectionHeader } from '../components';
 import AnimateOnScroll from '../components/AnimateOnScroll';
 import { NEWS_IMAGES } from '../utils/imageConstants';
 
@@ -64,29 +64,12 @@ const Contact = () => {
     <>
       <SEO {...SEOConfigs.contact} />
       <div>
-        <div className="bg-white">
-          <Breadcrumbs />
-        </div>
-
-        {/* Page Hero */}
-        <section className="relative py-28 md:py-36 text-center overflow-hidden bg-primary-dark">
-          <img
-            src={NEWS_IMAGES.community}
-            alt=""
-            className="absolute inset-0 w-full h-full object-cover"
-            aria-hidden="true"
-          />
-          <div className="absolute inset-0 bg-primary-dark/85" />
-          <div className="relative z-10 container-custom">
-            <p className="text-accent-neon font-semibold text-sm tracking-widest uppercase mb-4">Reach Out</p>
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-heading font-bold !text-white mb-4 text-shadow-strong">
-              Contact Us
-            </h1>
-            <p className="text-lg md:text-xl max-w-3xl mx-auto !text-white/90">
-              Get in touch with Harding Secondary School — we're here to help
-            </p>
-          </div>
-        </section>
+        <PageHero
+          eyebrow="Reach Out"
+          title="Contact Us"
+          description="Get in touch with Harding Secondary School — we're here to help"
+          image={NEWS_IMAGES.community}
+        />
 
         {/* Contact Info + Form */}
         <section className="py-16 md:py-24 bg-white overflow-x-hidden">
@@ -95,12 +78,7 @@ const Contact = () => {
               {/* Contact Info */}
               <div>
                 <AnimateOnScroll animation="fade-in">
-                  <div className="mb-10">
-                    <p className="text-primary font-semibold text-sm tracking-widest uppercase mb-3">Get in Touch</p>
-                    <h2 className="text-3xl md:text-4xl font-heading font-bold text-primary-dark">
-                      We'd Love to Hear From You
-                    </h2>
-                  </div>
+                  <SectionHeader eyebrow="Get in Touch" title="We'd Love to Hear From You" align="left" />
                 </AnimateOnScroll>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
@@ -128,7 +106,7 @@ const Contact = () => {
                       <div className="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center">
                         <FaClock className="text-accent-neon" />
                       </div>
-                      <h3 className="text-lg font-bold">Office Hours</h3>
+                      <h3 className="!text-white text-lg font-bold">Office Hours</h3>
                     </div>
                     <div className="space-y-3">
                       {OFFICE_HOURS.map(({ day, hours }) => (
@@ -156,10 +134,7 @@ const Contact = () => {
         <section className="py-16 md:py-24 bg-neutral-50">
           <div className="container-custom">
             <AnimateOnScroll animation="fade-in">
-              <div className="text-center mb-10">
-                <p className="text-primary font-semibold text-sm tracking-widest uppercase mb-3">Location</p>
-                <h2 className="text-3xl md:text-4xl font-heading font-bold text-primary-dark">Find Us</h2>
-              </div>
+              <SectionHeader eyebrow="Location" title="Find Us" />
             </AnimateOnScroll>
             <AnimateOnScroll animation="slide-up">
               <div className="h-64 md:h-96 rounded-2xl overflow-hidden shadow-xl">
@@ -209,7 +184,7 @@ const Contact = () => {
                     Call: 039 433 1223
                   </a>
                   <a
-                    href="mailto:info@hardingsecondary.edu.za"
+                    href="mailto:hardingsec@telkomsa.net"
                     className="inline-flex items-center justify-center gap-2 px-8 py-4 border-2 border-white/50 text-white font-bold rounded-lg transition-all duration-300 hover:bg-white/10 hover:border-white"
                   >
                     <FaEnvelope />

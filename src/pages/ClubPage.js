@@ -4,7 +4,7 @@ import {
   FaChess, FaFirstAid, FaArrowLeft, FaCalendarAlt, FaUserFriends,
   FaCheckCircle, FaChalkboardTeacher,
 } from 'react-icons/fa';
-import { SEO, Breadcrumbs } from '../components';
+import { SEO, PageHero, SectionHeader } from '../components';
 import AnimateOnScroll from '../components/AnimateOnScroll';
 import CounterAnimation from '../components/CounterAnimation';
 
@@ -221,32 +221,13 @@ const ClubPage = () => {
       />
 
       <div>
-        <div className="bg-white">
-          <Breadcrumbs />
-        </div>
-
-        {/* Hero */}
-        <section className="relative py-28 md:py-36 text-center overflow-hidden bg-primary-dark">
-          <img
-            src={heroImage}
-            alt=""
-            className="absolute inset-0 w-full h-full object-cover"
-            aria-hidden="true"
-          />
-          <div className="absolute inset-0 bg-primary-dark/85" />
-          <div className="relative z-10 container-custom">
-            <div className="inline-flex items-center justify-center w-20 h-20 bg-white/10 backdrop-blur-sm rounded-full mb-6 ring-2 ring-white/20">
-              <Icon className="text-3xl text-white" aria-hidden="true" />
-            </div>
-            <p className="text-accent-neon font-semibold text-sm tracking-widest uppercase mb-3">
-              Clubs & Societies
-            </p>
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-heading font-bold !text-white mb-4 text-shadow-strong">
-              {name}
-            </h1>
-            <p className="text-lg md:text-xl max-w-2xl mx-auto !text-white/90">{tagline}</p>
-          </div>
-        </section>
+        <PageHero
+          eyebrow="Clubs & Societies"
+          eyebrowIcon={Icon}
+          title={name}
+          description={tagline}
+          image={heroImage}
+        />
 
         {/* Stats bar */}
         <section className="bg-primary-dark py-10">
@@ -318,12 +299,7 @@ const ClubPage = () => {
         <section className="py-16 md:py-24 bg-neutral-50">
           <div className="container-custom">
             <AnimateOnScroll animation="fade-in">
-              <div className="text-center mb-12">
-                <p className="text-primary font-semibold text-sm tracking-widest uppercase mb-3">What We Do</p>
-                <h2 className="text-3xl md:text-4xl font-heading font-bold text-primary-dark">
-                  Our Activities
-                </h2>
-              </div>
+              <SectionHeader eyebrow="What We Do" title="Our Activities" />
             </AnimateOnScroll>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">

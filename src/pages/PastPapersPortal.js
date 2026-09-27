@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useMemo, useCallback } from 'react';
 import SEO from '../components/SEO';
-import Breadcrumbs from '../components/Breadcrumbs';
+import { PageHero, LoadingState, ErrorState } from '../components';
 import AuthenticationGate from '../components/portal/AuthenticationGate';
 import FilterPanel from '../components/portal/FilterPanel';
 import SearchBar from '../components/portal/SearchBar';
@@ -8,6 +8,8 @@ import PapersList from '../components/portal/PapersList';
 import { applyFilters, clearFilters } from '../utils/filterUtils';
 import { getPreferences, isAuthenticated, isBookmarked as getIsBookmarked, addBookmark, removeBookmark, updateViewMode } from '../utils/portalStorage';
 import { downloadPDF, formatFilename } from '../utils/downloadUtils';
+import useUrlFilters from '../hooks/useUrlFilters';
+import { useToast } from '../contexts/ToastContext';
 import { HERO_IMAGES } from '../utils/imageConstants';
 import { getSubjectById, getExamTypeById } from '../utils/portalConstants';
 import { FaBookOpen, FaTimes, FaExternalLinkAlt, FaDownload, FaFileAlt, FaLayerGroup, FaCalendarAlt } from 'react-icons/fa';
@@ -143,7 +145,11 @@ const PreviewModal = ({ paper, onClose, onDownload, onDownloadMemo }) => {
 
 const PastPapersPortal = () => {
   const [papers, setPapers] = useState([]);
-  const [filters, setFilters] = useState({ grade: null, subject: null, year: null, examType: null, searchQuery: '' });
+  const [filters, setFilters] = useUrlFilters(
+    { grade: null, subject: null, year: null, examType: null, searchQuery: '' },
+    { grade: 'number', year: 'number' }
+  );
+  const toast = useToast();
   const [authenticated, setAuthenticated] = useState(false);
   const [loading, setLoading] = useState(true);
   const [viewMode, setViewMode] = useState('grid');
@@ -166,7 +172,9 @@ const PastPapersPortal = () => {
         setAuthenticated(isAuth);
         if (isAuth) {
           const prefs = getPreferences();
-          if (prefs.filters) setFilters(prefs.filters);
+          // A shared/bookmarked link wins over the last-used filters
+          const urlHasFilters = /[?&](grade|subject|year|examType|searchQuery)=/.test(window.location.search);
+          if (prefs.filters && !urlHasFilters) setFilters(prefs.filters);
           if (prefs.viewMode) setViewMode(prefs.viewMode);
         }
         setError(null);
@@ -177,21 +185,22 @@ const PastPapersPortal = () => {
       }
     };
     load();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const filteredPapers = useMemo(() => applyFilters(papers, filters), [papers, filters]);
 
   const handleDownload = useCallback(async (paper) => {
     const ok = await downloadPDF(paper.pdfUrl, formatFilename(paper, 'paper'));
-    if (!ok) alert('Download failed. Please try again.');
-  }, []);
+    if (!ok) toast.error('Download failed. Please try again.');
+  }, [toast]);
 
   const handleDownloadMemo = useCallback(async (paper) => {
     if (paper.memoUrl) {
       const ok = await downloadPDF(paper.memoUrl, formatFilename(paper, 'memo'));
-      if (!ok) alert('Download failed. Please try again.');
+      if (!ok) toast.error('Download failed. Please try again.');
     }
-  }, []);
+  }, [toast]);
 
   return (
     <>
@@ -201,70 +210,26 @@ const PastPapersPortal = () => {
         keywords="past papers, exam papers, study materials, marking memos, Harding Secondary School"
       />
       <div>
-        <div className="bg-white">
-          <Breadcrumbs />
-        </div>
-
-        {/* Hero */}
-        <section className="relative py-28 md:py-36 text-center overflow-hidden bg-primary-dark">
-          <img
-            src={HERO_IMAGES.library}
-            alt=""
-            width="1200"
-            height="900"
-            className="absolute inset-0 w-full h-full object-cover"
-            aria-hidden="true"
-            fetchPriority="high"
-            loading="eager"
-            decoding="async"
-          />
-          <div className="absolute inset-0 bg-primary-dark/87" />
-          <div className="relative z-10 container-custom">
-            <div className="inline-flex items-center gap-2 bg-white/10 border border-white/20 rounded-full px-4 py-1.5 text-accent-neon text-sm font-semibold tracking-widest uppercase mb-5">
-              <FaBookOpen className="text-xs" />
-              Study Resources
-            </div>
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-heading font-bold !text-white mb-4">
-              Past Papers Portal
-            </h1>
-            <p className="text-lg md:text-xl max-w-2xl mx-auto !text-white/85">
-              Browse, preview and download past examination papers and marking memos for Grades 8–12
-            </p>
-
-            {/* Quick stats */}
-            <div className="flex flex-wrap justify-center gap-6 mt-10">
-              {[
-                { label: 'Subjects', value: '11' },
-                { label: 'Grades', value: '8 – 12' },
-                { label: 'Years Available', value: '2015 – 2024' },
-              ].map(({ label, value }) => (
-                <div key={label} className="text-center">
-                  <p className="text-2xl font-heading font-bold text-accent-neon">{value}</p>
-                  <p className="text-white/60 text-xs uppercase tracking-wider mt-0.5">{label}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
+        <PageHero
+          eyebrow="Study Resources"
+          eyebrowIcon={FaBookOpen}
+          title="Past Papers Portal"
+          description="Browse, preview and download past examination papers and marking memos for Grades 8–12"
+          image={HERO_IMAGES.library}
+          stats={[
+            { label: 'Subjects', value: '11' },
+            { label: 'Grades', value: '8 – 12' },
+            { label: 'Years Available', value: '2015 – 2024' },
+          ]}
+        />
 
         {/* Main Content */}
         <div className="bg-neutral-50 min-h-screen">
           <div className="container-custom py-10 md:py-16">
             {loading ? (
-              <div className="flex flex-col items-center justify-center py-24 gap-4">
-                <div className="w-14 h-14 rounded-full border-4 border-primary/20 border-t-primary animate-spin" />
-                <p className="text-neutral-500 text-sm">Loading past papers…</p>
-              </div>
+              <LoadingState label="Loading past papers…" />
             ) : error ? (
-              <div className="max-w-md mx-auto bg-white border border-red-200 rounded-2xl p-8 text-center shadow-sm">
-                <p className="text-red-700 mb-5 text-sm">{error}</p>
-                <button
-                  onClick={() => window.location.reload()}
-                  className="px-6 py-2.5 bg-red-600 text-white rounded-xl text-sm font-semibold hover:bg-red-700 transition-colors"
-                >
-                  Try Again
-                </button>
-              </div>
+              <ErrorState message={error} />
             ) : !authenticated ? (
               <AuthenticationGate onAuthenticate={setAuthenticated} />
             ) : (

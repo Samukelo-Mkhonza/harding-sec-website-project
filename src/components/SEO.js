@@ -56,7 +56,7 @@ const SEO = ({
       '@type': 'ContactPoint',
       telephone: '+27-39-433-1223',
       contactType: 'Admissions',
-      email: 'info@hardingsecondary.edu.za',
+      email: 'hardingsec@telkomsa.net',
     },
     sameAs: [
       'https://www.facebook.com/hardingsecondary',

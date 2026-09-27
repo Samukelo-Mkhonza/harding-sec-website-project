@@ -104,3 +104,10 @@ const constants = {
 };
 
 export default constants;
+
+// School contact details used by forms and links
+export const SCHOOL_CONTACT = {
+  EMAIL: 'hardingsec@telkomsa.net',
+  PHONE: '039 433 1223',
+  PHONE_HREF: 'tel:+27394331223',
+};

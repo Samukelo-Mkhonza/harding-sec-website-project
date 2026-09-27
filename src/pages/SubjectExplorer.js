@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import SEO from '../components/SEO';
-import Breadcrumbs from '../components/Breadcrumbs';
+import { PageHero } from '../components';
 import AnimateOnScroll from '../components/AnimateOnScroll';
 import {
   FaBook, FaSearch, FaTimes, FaArrowRight, FaUniversity,
@@ -11,6 +11,7 @@ import {
   FaBalanceScale, FaChalkboardTeacher, FaHardHat, FaTractor,
 } from 'react-icons/fa';
 import { HERO_IMAGES } from '../utils/imageConstants';
+import useUrlFilters from '../hooks/useUrlFilters';
 
 // ─── Data ──────────────────────────────────────────────────────────────────────
 
@@ -187,7 +188,7 @@ const SUBJECTS = [
     id: 'life-orientation',
     name: 'Life Orientation',
     stream: 'General',
-    color: '#E65100',
+    color: '#C2410C',
     Icon: FaHeartbeat,
     apsWeight: 'Low (excluded from APS at some universities)',
     description: 'Life Orientation covers personal wellness, career guidance, citizenship, and physical education. While it has a lower APS weighting, it is a compulsory subject and provides essential life skills for all learners.',
@@ -337,7 +338,7 @@ const SubjectDetail = ({ subject, onClose }) => {
             <subject.Icon className="text-white text-xl" />
           </div>
           <div>
-            <p className="text-white/60 text-xs font-semibold uppercase tracking-widest">{subject.stream}</p>
+            <p className="text-white/75 text-xs font-semibold uppercase tracking-widest">{subject.stream}</p>
             <h2 className="text-2xl font-heading font-bold text-white">{subject.name}</h2>
           </div>
         </div>
@@ -438,8 +439,9 @@ const SubjectDetail = ({ subject, onClose }) => {
 // ─── Main Page ─────────────────────────────────────────────────────────────────
 
 const SubjectExplorer = () => {
-  const [streamFilter, setStreamFilter] = useState('All');
-  const [search, setSearch] = useState('');
+  const [{ stream: streamFilter, search }, setUrlFilters] = useUrlFilters({ stream: 'All', search: '' });
+  const setStreamFilter = (stream) => setUrlFilters((f) => ({ ...f, stream }));
+  const setSearch = (value) => setUrlFilters((f) => ({ ...f, search: value }));
   const [selected, setSelected] = useState(null);
 
   const filtered = SUBJECTS.filter((s) => {
@@ -459,45 +461,18 @@ const SubjectExplorer = () => {
         description="Explore any NSC subject and discover which careers and universities it leads to. Plan your future by understanding your subject choices at Harding Secondary."
       />
       <div>
-        <div className="bg-white">
-          <Breadcrumbs />
-        </div>
-
-        {/* Hero */}
-        <section className="relative py-24 md:py-32 text-center overflow-hidden bg-primary-dark">
-          <img
-            src={HERO_IMAGES.students}
-            alt=""
-            className="absolute inset-0 w-full h-full object-cover"
-            aria-hidden="true"
-          />
-          <div className="absolute inset-0 bg-primary-dark/87" />
-          <div className="relative z-10 container-custom">
-            <div className="inline-flex items-center gap-2 bg-white/10 border border-white/20 rounded-full px-4 py-1.5 text-accent-neon text-sm font-semibold tracking-widest uppercase mb-5">
-              <FaBook className="text-xs" />
-              Student Portal — Career Guidance
-            </div>
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-heading font-bold !text-white mb-4">
-              Interactive Subject Explorer
-            </h1>
-            <p className="text-lg md:text-xl max-w-2xl mx-auto !text-white/85">
-              Click any subject to discover the careers, university degrees, and opportunities it unlocks. Plan your future today.
-            </p>
-
-            <div className="flex flex-wrap justify-center gap-6 mt-10">
-              {[
-                { label: 'Subjects Covered', value: SUBJECTS.length },
-                { label: 'Career Paths Mapped', value: SUBJECTS.reduce((a, s) => a + s.careers.length, 0) },
-                { label: 'Degrees Listed', value: SUBJECTS.reduce((a, s) => a + s.degrees.length, 0) },
-              ].map(({ label, value }) => (
-                <div key={label} className="text-center">
-                  <p className="text-2xl font-heading font-bold text-accent-neon">{value}</p>
-                  <p className="text-white/60 text-xs uppercase tracking-wider mt-0.5">{label}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
+        <PageHero
+          eyebrow="Career Guidance"
+          eyebrowIcon={FaBook}
+          title="Interactive Subject Explorer"
+          description="Click any subject to discover the careers, university degrees, and opportunities it unlocks. Plan your future today."
+          image={HERO_IMAGES.students}
+          stats={[
+            { label: 'Subjects Covered', value: SUBJECTS.length },
+            { label: 'Career Paths Mapped', value: SUBJECTS.reduce((a, s) => a + s.careers.length, 0) },
+            { label: 'Degrees Listed', value: SUBJECTS.reduce((a, s) => a + s.degrees.length, 0) },
+          ]}
+        />
 
         {/* Main */}
         <div className="bg-neutral-50 min-h-screen py-10 md:py-16">

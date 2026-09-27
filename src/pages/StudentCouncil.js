@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import SEO from '../components/SEO';
-import Breadcrumbs from '../components/Breadcrumbs';
+import { PageHero } from '../components';
 import AnimateOnScroll from '../components/AnimateOnScroll';
 import {
   FaUsers, FaLightbulb, FaCalendarAlt, FaCheckCircle,
@@ -9,6 +9,8 @@ import {
   FaPaperPlane, FaClock,
 } from 'react-icons/fa';
 import { HERO_IMAGES } from '../utils/imageConstants';
+import { buildMailto } from '../utils/formValidation';
+import { SCHOOL_CONTACT } from '../utils/constants';
 
 // ─── Data ──────────────────────────────────────────────────────────────────────
 
@@ -67,7 +69,7 @@ const SRC_MEMBERS = [
     id: 5,
     name: 'Thandi Cele',
     initials: 'TC',
-    color: '#E65100',
+    color: '#C2410C',
     role: 'Academic Representative',
     grade: 'Grade 11',
     goal: 'Organise peer tutoring sessions and advocate for additional resources in the library.',
@@ -372,9 +374,11 @@ const SuggestionBox = () => {
   const [submitted, setSubmitted] = useState(false);
   const [count, setCount] = useState(() => loadSuggestions().length);
 
+  // No backend: log the suggestion on this device and hand it to the
+  // learner's email app so it actually reaches the school.
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (!form.message.trim() || form.message.length < 10) return;
+    if (form.message.trim().length < 10) return;
     const suggestions = loadSuggestions();
     suggestions.push({
       id: Date.now(),
@@ -383,9 +387,15 @@ const SuggestionBox = () => {
     });
     saveSuggestions(suggestions);
     setCount(suggestions.length);
+    window.location.href = buildMailto(
+      SCHOOL_CONTACT.EMAIL,
+      `SRC suggestion — ${form.category || 'general'}`,
+      form.anonymous
+        ? `${form.message.trim()}\n\n(Please keep my name anonymous.)`
+        : form.message.trim()
+    );
     setSubmitted(true);
     setForm(INITIAL_FORM);
-    setTimeout(() => setSubmitted(false), 4000);
   };
 
   const categories = [
@@ -405,15 +415,18 @@ const SuggestionBox = () => {
         </div>
         <div>
           <h3 className="font-heading font-bold text-neutral-800 text-base">Suggestion Box</h3>
-          <p className="text-xs text-neutral-400">{count} suggestion{count !== 1 ? 's' : ''} submitted to the SRC</p>
+          <p className="text-xs text-neutral-400">{count > 0 ? `You have sent ${count} suggestion${count !== 1 ? 's' : ''}` : 'Share an idea with your SRC'}</p>
         </div>
       </div>
 
       {submitted ? (
         <div className="text-center py-8">
           <FaCheckCircle className="text-4xl text-green-500 mx-auto mb-3" />
-          <h4 className="font-heading font-bold text-neutral-800 mb-1">Suggestion Received!</h4>
-          <p className="text-neutral-500 text-sm">The SRC will review your suggestion at the next meeting. Thank you for engaging with your student council.</p>
+          <h4 className="font-heading font-bold text-neutral-800 mb-1">Almost done</h4>
+          <p className="text-neutral-500 text-sm">Your email app should open with your suggestion ready — press send and the SRC will review it at the next meeting.</p>
+          <button type="button" onClick={() => setSubmitted(false)} className="mt-4 text-sm font-semibold text-primary hover:underline">
+            Write another suggestion
+          </button>
         </div>
       ) : (
         <form onSubmit={handleSubmit} className="space-y-4">
@@ -438,8 +451,9 @@ const SuggestionBox = () => {
           </div>
 
           <div>
-            <label className="block text-xs font-bold text-neutral-500 uppercase tracking-wider mb-1.5">Your Suggestion *</label>
+            <label htmlFor="src-suggestion" className="block text-xs font-bold text-neutral-500 uppercase tracking-wider mb-1.5">Your Suggestion *</label>
             <textarea
+              id="src-suggestion"
               value={form.message}
               onChange={(e) => setForm((f) => ({ ...f, message: e.target.value }))}
               placeholder="Write your idea, concern, or suggestion for the SRC here..."
@@ -449,7 +463,10 @@ const SuggestionBox = () => {
               minLength={10}
               className="w-full px-4 py-3 border border-neutral-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary resize-none"
             />
-            <p className="text-[10px] text-neutral-400 text-right">{form.message.length}/500</p>
+            <p className="text-xs text-neutral-400 flex justify-between">
+              <span>{form.message.trim().length < 10 ? 'At least 10 characters' : '\u00a0'}</span>
+              <span>{form.message.length}/500</span>
+            </p>
           </div>
 
           <label className="flex items-center gap-2 cursor-pointer">
@@ -459,12 +476,12 @@ const SuggestionBox = () => {
               onChange={(e) => setForm((f) => ({ ...f, anonymous: e.target.checked }))}
               className="w-4 h-4 rounded accent-primary"
             />
-            <span className="text-xs text-neutral-600">Submit anonymously (name will not be recorded)</span>
+            <span className="text-xs text-neutral-600">Ask the SRC to keep my name anonymous</span>
           </label>
 
           <button
             type="submit"
-            disabled={form.message.length < 10}
+            disabled={form.message.trim().length < 10}
             className="w-full flex items-center justify-center gap-2 py-3 bg-primary text-white rounded-xl text-sm font-semibold disabled:opacity-40 hover:bg-primary-dark transition-colors"
           >
             <FaPaperPlane className="text-xs" />
@@ -490,44 +507,18 @@ const StudentCouncil = () => {
         description="Meet the 2026 Student Representative Council at Harding Secondary School. Explore active campaigns, meeting highlights, and submit suggestions to your student council."
       />
       <div>
-        <div className="bg-white">
-          <Breadcrumbs />
-        </div>
-
-        {/* Hero */}
-        <section className="relative py-28 md:py-36 text-center overflow-hidden bg-primary-dark">
-          <img
-            src={HERO_IMAGES.students}
-            alt=""
-            className="absolute inset-0 w-full h-full object-cover"
-            aria-hidden="true"
-          />
-          <div className="absolute inset-0 bg-primary-dark/88" />
-          <div className="relative z-10 container-custom">
-            <div className="inline-flex items-center gap-2 bg-white/10 border border-white/20 rounded-full px-4 py-1.5 text-accent-neon text-sm font-semibold tracking-widest uppercase mb-5">
-              <FaUsers className="text-xs" />
-              Student Life — Governance
-            </div>
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-heading font-bold !text-white mb-4">
-              Student Representative Council
-            </h1>
-            <p className="text-lg md:text-xl max-w-2xl mx-auto !text-white/85">
-              The voice of Harding Secondary School learners. Meet the 2026 SRC — their campaigns, meetings, and how to reach them.
-            </p>
-            <div className="flex flex-wrap justify-center gap-6 mt-10">
-              {[
-                { label: 'SRC Members', value: SRC_MEMBERS.length },
-                { label: 'Active Campaigns', value: CAMPAIGNS.filter((c) => c.status === 'active').length },
-                { label: 'Meetings This Year', value: MEETINGS.length },
-              ].map(({ label, value }) => (
-                <div key={label} className="text-center">
-                  <p className="text-2xl font-heading font-bold text-accent-neon">{value}</p>
-                  <p className="text-white/60 text-xs uppercase tracking-wider mt-0.5">{label}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
+        <PageHero
+          eyebrow="Governance"
+          eyebrowIcon={FaUsers}
+          title="Student Representative Council"
+          description="The voice of Harding Secondary School learners. Meet the 2026 SRC — their campaigns, meetings, and how to reach them."
+          image={HERO_IMAGES.students}
+          stats={[
+            { label: 'SRC Members', value: SRC_MEMBERS.length },
+            { label: 'Active Campaigns', value: CAMPAIGNS.filter((c) => c.status === 'active').length },
+            { label: 'Meetings This Year', value: MEETINGS.length },
+          ]}
+        />
 
         {/* Main */}
         <div className="bg-neutral-50 min-h-screen py-12 md:py-20">
@@ -545,7 +536,7 @@ const StudentCouncil = () => {
                 <div className="flex-1">
                   <p className="text-accent-neon text-xs font-bold uppercase tracking-widest mb-1">2026 SRC Chairperson</p>
                   <h2 className="text-2xl font-heading font-bold text-white mb-1">{chair.name}</h2>
-                  <p className="text-white/60 text-sm mb-3">{chair.grade}</p>
+                  <p className="text-white/75 text-sm mb-3">{chair.grade}</p>
                   <p className="text-white/80 text-sm italic leading-relaxed mb-4">
                     {chair.vision}
                   </p>

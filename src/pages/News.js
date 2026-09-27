@@ -11,9 +11,10 @@ import {
   FaSearch,
   FaChevronDown,
 } from 'react-icons/fa';
-import { SEO, SEOConfigs, Breadcrumbs } from '../components';
+import { SEO, SEOConfigs, PageHero } from '../components';
 import AnimateOnScroll from '../components/AnimateOnScroll';
 import { NEWS_IMAGES, HERO_IMAGES } from '../utils/imageConstants';
+import useUrlFilters from '../hooks/useUrlFilters';
 
 const NEWS_ARTICLES = [
   {
@@ -215,8 +216,9 @@ const NewsCard = ({ article, large = false }) => (
 );
 
 const News = () => {
-  const [activeCategory, setActiveCategory] = useState('All');
-  const [searchQuery, setSearchQuery] = useState('');
+  const [{ category: activeCategory, q: searchQuery }, setUrlFilters] = useUrlFilters({ category: 'All', q: '' });
+  const setActiveCategory = (category) => setUrlFilters((f) => ({ ...f, category }));
+  const setSearchQuery = (q) => setUrlFilters((f) => ({ ...f, q }));
   const [visibleCount, setVisibleCount] = useState(ARTICLES_PER_PAGE);
 
   const featuredArticle = NEWS_ARTICLES.find((a) => a.featured);
@@ -246,30 +248,12 @@ const News = () => {
     <>
       <SEO {...SEOConfigs.news} />
       <div>
-        <div className="bg-white">
-          <Breadcrumbs />
-        </div>
-
-        {/* Hero */}
-        <section className="relative py-28 md:py-36 text-center overflow-hidden bg-primary-dark">
-          <img
-            src={NEWS_IMAGES.schoolEvent}
-            alt=""
-            className="absolute inset-0 w-full h-full object-cover opacity-15"
-            aria-hidden="true"
-          />
-          <div className="relative z-10 container-custom">
-            <p className="text-accent-neon font-semibold text-sm tracking-widest uppercase mb-4">
-              Stay Informed
-            </p>
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-heading font-bold !text-white mb-4 text-shadow-strong">
-              News &amp; Events
-            </h1>
-            <p className="text-lg md:text-xl max-w-3xl mx-auto !text-white/90">
-              The latest stories, announcements, and highlights from Harding Secondary School
-            </p>
-          </div>
-        </section>
+        <PageHero
+          eyebrow="Stay Informed"
+          title="News & Events"
+          description="The latest stories, announcements, and highlights from Harding Secondary School"
+          image={NEWS_IMAGES.schoolEvent}
+        />
 
         {/* Search + Filters */}
         <section className="bg-white border-b border-neutral-200 sticky top-[116px] z-30 shadow-sm">

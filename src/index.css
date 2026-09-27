@@ -1,4 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=PT+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -190,5 +189,19 @@ code {
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
+  }
+}
+
+/* Print: drop site chrome so forms, timetables and applications print cleanly */
+@media print {
+  #root > div > header,
+  #root > div > footer,
+  nav[aria-label="Breadcrumb"],
+  button[aria-label="Back to top"] {
+    display: none !important;
+  }
+
+  #main-content {
+    padding-top: 0 !important;
   }
 }

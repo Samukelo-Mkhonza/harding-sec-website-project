@@ -1,5 +1,5 @@
 import { FaBullseye, FaHandshake, FaLightbulb, FaGlobeAmericas } from 'react-icons/fa';
-import { SEO, SEOConfigs, Breadcrumbs } from '../components';
+import { SEO, SEOConfigs, PageHero, SectionHeader } from '../components';
 import AnimateOnScroll from '../components/AnimateOnScroll';
 import CounterAnimation from '../components/CounterAnimation';
 import { ABOUT_IMAGES, HERO_IMAGES } from '../utils/imageConstants';
@@ -24,28 +24,12 @@ const About = () => {
     <>
       <SEO {...SEOConfigs.about} />
       <div>
-        <div className="bg-white">
-          <Breadcrumbs />
-        </div>
-
-        {/* Page Hero */}
-        <section className="relative py-28 md:py-36 text-center overflow-hidden bg-primary-dark">
-          <img
-            src={ABOUT_IMAGES.history}
-            alt=""
-            className="absolute inset-0 w-full h-full object-cover opacity-15"
-            aria-hidden="true"
-          />
-          <div className="relative z-10 container-custom">
-            <p className="text-accent-neon font-semibold text-sm tracking-widest uppercase mb-4">Our School</p>
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-heading font-bold !text-white mb-4 text-shadow-strong">
-              About Harding Secondary
-            </h1>
-            <p className="text-lg md:text-xl max-w-3xl mx-auto !text-white/90">
-              A legacy of excellence in education, shaping futures since 1950
-            </p>
-          </div>
-        </section>
+        <PageHero
+          eyebrow="Our School"
+          title="About Harding Secondary"
+          description="A legacy of excellence in education, shaping futures since 1950"
+          image={ABOUT_IMAGES.history}
+        />
 
         {/* Our Story — Split Layout */}
         <section className="py-16 md:py-24 bg-white">
@@ -101,10 +85,7 @@ const About = () => {
         <section id="mission" className="py-16 md:py-24 bg-neutral-50">
           <div className="container-custom">
             <AnimateOnScroll animation="fade-in">
-              <div className="text-center mb-12">
-                <p className="text-primary font-semibold text-sm tracking-widest uppercase mb-3">Purpose & Direction</p>
-                <h2 className="text-3xl md:text-4xl font-heading font-bold text-primary-dark">Mission & Vision</h2>
-              </div>
+              <SectionHeader eyebrow="Purpose & Direction" title="Mission & Vision" />
             </AnimateOnScroll>
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
               <AnimateOnScroll animation="slide-left">
@@ -141,10 +122,7 @@ const About = () => {
         <section id="values" className="py-16 md:py-24 bg-white">
           <div className="container-custom">
             <AnimateOnScroll animation="fade-in">
-              <div className="text-center mb-12">
-                <p className="text-primary font-semibold text-sm tracking-widest uppercase mb-3">What We Stand For</p>
-                <h2 className="text-3xl md:text-4xl font-heading font-bold text-primary-dark">Our Core Values</h2>
-              </div>
+              <SectionHeader eyebrow="What We Stand For" title="Our Core Values" />
             </AnimateOnScroll>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
               {values.map((value, index) => (
@@ -166,10 +144,7 @@ const About = () => {
         <section id="history" className="py-16 md:py-24 bg-neutral-50">
           <div className="container-custom">
             <AnimateOnScroll animation="fade-in">
-              <div className="text-center mb-12">
-                <p className="text-primary font-semibold text-sm tracking-widest uppercase mb-3">Milestones</p>
-                <h2 className="text-3xl md:text-4xl font-heading font-bold text-primary-dark">Our Journey</h2>
-              </div>
+              <SectionHeader eyebrow="Milestones" title="Our Journey" />
             </AnimateOnScroll>
 
             <div className="relative max-w-3xl mx-auto">

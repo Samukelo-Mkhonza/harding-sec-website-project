@@ -1,7 +1,7 @@
 import React, { useState, useMemo, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import SEO from '../components/SEO';
-import Breadcrumbs from '../components/Breadcrumbs';
+import { PageHero } from '../components';
 import AnimateOnScroll from '../components/AnimateOnScroll';
 import {
   FaBook, FaClock, FaPrint, FaChevronRight, FaChevronLeft,
@@ -31,14 +31,14 @@ const ALL_SUBJECTS = [
   { id: 'economics', name: 'Economics', stream: 'Commerce', color: '#0277BD' },
   { id: 'history', name: 'History', stream: 'Humanities', color: '#B71C1C' },
   { id: 'geography', name: 'Geography', stream: 'Humanities', color: '#00695C' },
-  { id: 'life-orientation', name: 'Life Orientation', stream: 'General', color: '#E65100' },
+  { id: 'life-orientation', name: 'Life Orientation', stream: 'General', color: '#C2410C' },
   { id: 'information-technology', name: 'Information Technology', stream: 'Technology', color: '#00838F' },
   { id: 'computer-applications', name: 'Computer Applications Technology', stream: 'Technology', color: '#006064' },
   { id: 'engineering-graphics', name: 'Engineering Graphics & Design', stream: 'Technology', color: '#37474F' },
   { id: 'visual-arts', name: 'Visual Arts', stream: 'Arts', color: '#AD1457' },
   { id: 'music', name: 'Music', stream: 'Arts', color: '#880E4F' },
   { id: 'tourism', name: 'Tourism', stream: 'Commerce', color: '#F57F17' },
-  { id: 'consumer-studies', name: 'Consumer Studies', stream: 'General', color: '#E65100' },
+  { id: 'consumer-studies', name: 'Consumer Studies', stream: 'General', color: '#C2410C' },
   { id: 'hospitality-studies', name: 'Hospitality Studies', stream: 'General', color: '#BF360C' },
 ];
 
@@ -467,32 +467,14 @@ const StudyTimetable = () => {
         description="Generate a personalised study timetable for your subjects. Select your subjects, set your schedule, and get a printable exam study plan."
       />
       <div>
-        <div className="bg-white">
-          <Breadcrumbs />
-        </div>
-
-        {/* Hero */}
-        <section className="relative py-24 md:py-32 text-center overflow-hidden bg-primary-dark print:hidden">
-          <img
-            src={HERO_IMAGES.classroom}
-            alt=""
-            className="absolute inset-0 w-full h-full object-cover"
-            aria-hidden="true"
-          />
-          <div className="absolute inset-0 bg-primary-dark/87" />
-          <div className="relative z-10 container-custom">
-            <div className="inline-flex items-center gap-2 bg-white/10 border border-white/20 rounded-full px-4 py-1.5 text-accent-neon text-sm font-semibold tracking-widest uppercase mb-5">
-              <FaCalendarAlt className="text-xs" />
-              Student Portal — Study Tools
-            </div>
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-heading font-bold !text-white mb-4">
-              Study Timetable Generator
-            </h1>
-            <p className="text-lg md:text-xl max-w-2xl mx-auto !text-white/85">
-              Pick your subjects, set your schedule, and get a personalised exam study plan you can print and follow.
-            </p>
-          </div>
-        </section>
+        <PageHero
+          eyebrow="Study Tools"
+          eyebrowIcon={FaCalendarAlt}
+          title="Study Timetable Generator"
+          description="Pick your subjects, set your schedule, and get a personalised exam study plan you can print and follow."
+          image={HERO_IMAGES.classroom}
+          className="print:hidden"
+        />
 
         {/* Wizard */}
         <div className="bg-neutral-50 min-h-screen py-10 md:py-16 print:py-4">

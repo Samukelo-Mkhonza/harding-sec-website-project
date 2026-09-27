@@ -7,7 +7,7 @@ import {
 import Hero from '../components/Hero';
 import AnimateOnScroll from '../components/AnimateOnScroll';
 import CounterAnimation from '../components/CounterAnimation';
-import { SEO, SEOConfigs } from '../components';
+import { SEO, SEOConfigs, SectionHeader } from '../components';
 import {
   HERO_IMAGES,
   NEWS_IMAGES,
@@ -255,11 +255,11 @@ const Home = () => {
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent transition-all duration-300 group-hover:from-primary-dark/90 group-hover:via-primary-dark/40" />
                   <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
-                    <h3 className="text-2xl font-bold mb-2">{pillar.title}</h3>
-                    <p className="text-white/80 text-sm mb-3 opacity-0 group-hover:opacity-100 transition-all duration-300 -translate-y-2 group-hover:translate-y-0">
+                    <h3 className="!text-white text-2xl font-bold mb-2">{pillar.title}</h3>
+                    <p className="text-white/85 text-sm mb-3 transition-all duration-300 lg:opacity-0 lg:-translate-y-2 lg:group-hover:opacity-100 lg:group-hover:translate-y-0">
                       {pillar.desc}
                     </p>
-                    <span className="inline-flex items-center gap-2 text-accent-neon text-sm font-semibold opacity-0 group-hover:opacity-100 transition-all duration-300">
+                    <span className="inline-flex items-center gap-2 text-accent-neon text-sm font-semibold transition-all duration-300 lg:opacity-0 lg:group-hover:opacity-100">
                       {pillar.cta} <FaArrowRight className="text-xs" />
                     </span>
                   </div>
@@ -414,14 +414,7 @@ const Home = () => {
       <section className="py-16 md:py-24 bg-neutral-50">
         <div className="container-custom">
           <AnimateOnScroll animation="fade-in">
-            <div className="text-center mb-12">
-              <p className="text-primary font-semibold text-sm tracking-widest uppercase mb-3">
-                Quick Access
-              </p>
-              <h2 className="text-3xl md:text-4xl font-heading font-bold text-primary-dark">
-                School Portals
-              </h2>
-            </div>
+            <SectionHeader eyebrow="Quick Access" title="School Portals" />
           </AnimateOnScroll>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -467,7 +460,7 @@ const Home = () => {
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link
                 to="/admissions"
-                className="bg-white text-primary-dark font-bold px-10 py-4 rounded-lg hover:bg-accent-neon hover:text-white transition-all duration-300 shadow-xl hover:shadow-2xl transform hover:scale-105"
+                className="bg-white text-primary-dark font-bold px-10 py-4 rounded-lg hover:bg-accent-neon hover:text-secondary-dark transition-all duration-300 shadow-xl hover:shadow-2xl transform hover:scale-105"
               >
                 Apply Now
               </Link>

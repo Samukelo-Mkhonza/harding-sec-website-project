@@ -1,10 +1,12 @@
-import { useState } from 'react';
+import React, { useState, useId } from 'react';
 import { Link } from 'react-router-dom';
 import {
   FaUser, FaUsers, FaGraduationCap, FaClipboardCheck,
-  FaCheckCircle, FaArrowRight, FaArrowLeft, FaPrint,
+  FaCheckCircle, FaArrowRight, FaArrowLeft, FaPrint, FaEnvelope, FaInfoCircle,
 } from 'react-icons/fa';
-import { SEO, SEOConfigs, Breadcrumbs } from '../components';
+import { buildMailto } from '../utils/formValidation';
+import { SCHOOL_CONTACT } from '../utils/constants';
+import { SEO, SEOConfigs, PageHero } from '../components';
 import AnimateOnScroll from '../components/AnimateOnScroll';
 
 // ─── Constants ────────────────────────────────────────────────────────────────
@@ -84,16 +86,30 @@ const cls = (hasError) =>
 
 // ─── Small helpers ────────────────────────────────────────────────────────────
 
-const Field = ({ label, required, error, className = '', children }) => (
-  <div className={className}>
-    <label className="block text-sm font-semibold text-neutral-700 mb-1.5">
-      {label}
-      {required && <span className="text-red-500 ml-1" aria-hidden="true">*</span>}
-    </label>
-    {children}
-    {error && <p className="text-red-500 text-xs mt-1.5" role="alert">{error}</p>}
-  </div>
-);
+// Wires the visible label and error message to the single form control inside.
+const Field = ({ label, required, error, className = '', children }) => {
+  const id = useId();
+  const errorId = `${id}-error`;
+  const control = React.isValidElement(children)
+    ? React.cloneElement(children, {
+        id: children.props.id || id,
+        'aria-required': required || undefined,
+        'aria-invalid': error ? true : undefined,
+        'aria-describedby': error ? errorId : undefined,
+      })
+    : children;
+
+  return (
+    <div className={className}>
+      <label htmlFor={children.props?.id || id} className="block text-sm font-semibold text-neutral-700 mb-1.5">
+        {label}
+        {required && <span className="text-red-600 ml-1" aria-hidden="true">*</span>}
+      </label>
+      {control}
+      {error && <p id={errorId} className="text-red-600 text-xs mt-1.5" role="alert">{error}</p>}
+    </div>
+  );
+};
 
 const ReviewCard = ({ title, children }) => (
   <div className="bg-neutral-50 rounded-xl border border-neutral-200 overflow-hidden">
@@ -449,60 +465,116 @@ const StepReview = ({ form, onChange, errors }) => (
 
 // ─── Success Screen ───────────────────────────────────────────────────────────
 
-const SuccessScreen = ({ refNumber, form }) => (
-  <div className="text-center py-8 px-4">
-    <div className="w-20 h-20 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-6">
-      <FaCheckCircle className="text-primary text-4xl" />
-    </div>
+const SUMMARY_FIELDS = [
+  ['Grade applying for', 'gradeApplying'],
+  ['Learner', (f) => `${f.firstName} ${f.lastName}`],
+  ['Date of birth', 'dateOfBirth'],
+  ['Gender', 'gender'],
+  ['Home language', 'homeLanguage'],
+  ['ID / birth certificate no.', 'idNumber'],
+  ['Parent / guardian', (f) => `${f.guardianName} (${f.guardianRelationship})`],
+  ['Guardian cell', 'guardianCell'],
+  ['Guardian alt. phone', 'guardianAltPhone'],
+  ['Guardian email', 'guardianEmail'],
+  ['Address', (f) => [f.streetAddress, f.suburb, f.postalCode].filter(Boolean).join(', ')],
+  ['Previous school', 'previousSchool'],
+  ['Previous grade / year', (f) => `${f.previousGrade} (${f.lastYear})`],
+  ['Average mark', (f) => (f.averageMark ? `${f.averageMark}%` : '')],
+  ['Reason for leaving', 'reasonForLeaving'],
+  ['Special needs / notes', 'specialNeeds'],
+];
 
-    <h2 className="text-2xl font-bold text-primary-dark mb-2">Application Received!</h2>
-    <p className="text-neutral-500 mb-8 max-w-md mx-auto">
-      Thank you, <strong className="text-neutral-700">{form.firstName} {form.lastName}</strong>.
-      Your online application for <strong className="text-neutral-700">{form.gradeApplying}</strong> has been submitted.
-    </p>
+const summaryRows = (form) =>
+  SUMMARY_FIELDS
+    .map(([label, get]) => [label, typeof get === 'function' ? get(form) : form[get]])
+    .filter(([, value]) => value && String(value).trim());
 
-    <div className="bg-primary-dark text-white rounded-2xl px-10 py-6 inline-block mb-10 shadow-lg">
-      <p className="text-xs font-semibold uppercase tracking-widest text-white/60 mb-1">Application Reference Number</p>
-      <p className="text-3xl font-mono font-bold tracking-widest">{refNumber}</p>
-      <p className="text-xs text-white/60 mt-1">Please keep this reference for your records</p>
-    </div>
+// The site has no backend, so the application is sent from the parent's own
+// email app (or printed and handed in). Be explicit that it has not arrived yet.
+const SuccessScreen = ({ refNumber, form }) => {
+  const rows = summaryRows(form);
+  const mailto = buildMailto(
+    SCHOOL_CONTACT.EMAIL,
+    `Online application ${refNumber} — ${form.firstName} ${form.lastName} (${form.gradeApplying})`,
+    [`Application reference: ${refNumber}`, '', ...rows.map(([l, v]) => `${l}: ${v}`)].join('\n')
+  );
 
-    <div className="bg-neutral-50 border border-neutral-200 rounded-xl p-6 text-left mb-8 max-w-lg mx-auto">
-      <p className="font-bold text-neutral-800 mb-4">What happens next?</p>
-      <ol className="space-y-3">
-        {[
-          'Save or print your application reference number.',
-          'Gather all the required documents listed above.',
-          'Visit the school admissions office during working hours (Mon–Fri, 07:30–14:30) to submit your documents.',
-          'Our admissions team will review your application within 5–10 working days.',
-          'Successful applicants will receive an official admission letter via post or email.',
-        ].map((step, i) => (
-          <li key={i} className="flex items-start gap-3 text-sm text-neutral-600">
-            <span className="w-5 h-5 rounded-full bg-primary text-white text-xs font-bold flex items-center justify-center flex-shrink-0 mt-0.5">
-              {i + 1}
-            </span>
-            {step}
-          </li>
+  return (
+    <div className="py-4 md:py-8 px-1 md:px-4">
+      <div className="text-center">
+        <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-5">
+          <FaCheckCircle className="text-primary text-3xl" aria-hidden="true" />
+        </div>
+        <h2 className="!text-2xl md:!text-3xl font-bold text-primary-dark mb-2">Your application is ready</h2>
+        <p className="text-neutral-400 !text-base mb-6 max-w-md mx-auto">
+          Thank you, {form.firstName}. One more step: send it to the school.
+        </p>
+      </div>
+
+      <div role="note" className="flex items-start gap-3 bg-amber-50 border border-amber-200 text-amber-900 p-4 mb-8 text-sm print:hidden">
+        <FaInfoCircle className="mt-0.5 shrink-0" aria-hidden="true" />
+        <p className="!text-sm">
+          <strong>The school has not received this application yet.</strong> Email it using the button below,
+          or print it and hand it in at the admissions office with your documents.
+        </p>
+      </div>
+
+      <div className="bg-primary-dark text-white px-6 py-5 text-center mb-8">
+        <p className="text-xs font-semibold uppercase tracking-widest text-white/75 mb-1">Application reference</p>
+        <p className="text-2xl md:text-3xl font-mono font-bold tracking-widest">{refNumber}</p>
+      </div>
+
+      <dl className="border border-neutral-200 divide-y divide-neutral-200 mb-8 text-sm">
+        {rows.map(([label, value]) => (
+          <div key={label} className="grid grid-cols-1 sm:grid-cols-3 gap-1 sm:gap-4 px-4 py-2.5">
+            <dt className="font-semibold text-neutral-500">{label}</dt>
+            <dd className="sm:col-span-2 text-neutral-600 break-words">{value}</dd>
+          </div>
         ))}
-      </ol>
-    </div>
+      </dl>
 
-    <div className="flex flex-col sm:flex-row gap-3 justify-center">
-      <button
-        onClick={() => window.print()}
-        className="flex items-center justify-center gap-2 bg-neutral-100 text-neutral-700 font-semibold px-6 py-3 rounded-lg hover:bg-neutral-200 transition-colors"
-      >
-        <FaPrint /> Print Confirmation
-      </button>
-      <Link
-        to="/admissions"
-        className="flex items-center justify-center gap-2 bg-primary text-white font-semibold px-6 py-3 rounded-lg hover:bg-primary-dark transition-colors"
-      >
-        Back to Admissions
-      </Link>
+      <div className="flex flex-col sm:flex-row gap-3 justify-center mb-10 print:hidden">
+        <a
+          href={mailto}
+          className="flex items-center justify-center gap-2 bg-primary text-white font-semibold px-6 py-3 hover:bg-primary-dark transition-colors"
+        >
+          <FaEnvelope aria-hidden="true" /> Email application to the school
+        </a>
+        <button
+          type="button"
+          onClick={() => window.print()}
+          className="flex items-center justify-center gap-2 border border-neutral-300 text-neutral-600 font-semibold px-6 py-3 hover:border-primary hover:text-primary transition-colors"
+        >
+          <FaPrint aria-hidden="true" /> Print application
+        </button>
+      </div>
+
+      <div className="bg-neutral-50 border border-neutral-200 p-6">
+        <p className="font-bold text-neutral-600 mb-4">What happens next?</p>
+        <ol className="space-y-3">
+          {[
+            'Email or print this application and keep the reference number.',
+            'Gather all the required documents listed on the Admissions page.',
+            'Visit the admissions office (Mon–Fri, 07:30–14:30) to hand in your documents.',
+            'The admissions team reviews applications within 5–10 working days.',
+            'Successful applicants receive an official admission letter by post or email.',
+          ].map((text, i) => (
+            <li key={text} className="flex items-start gap-3 text-sm text-neutral-500">
+              <span className="w-5 h-5 rounded-full bg-primary text-white text-xs font-bold flex items-center justify-center flex-shrink-0 mt-0.5">
+                {i + 1}
+              </span>
+              {text}
+            </li>
+          ))}
+        </ol>
+        <p className="mt-5 !text-sm text-neutral-400 print:hidden">
+          Questions? Call <a className="text-primary font-semibold" href={SCHOOL_CONTACT.PHONE_HREF}>{SCHOOL_CONTACT.PHONE}</a>{' '}
+          or <Link className="text-primary font-semibold" to="/admissions">read the admissions guide</Link>.
+        </p>
+      </div>
     </div>
-  </div>
-);
+  );
+};
 
 // ─── Validation ───────────────────────────────────────────────────────────────
 
@@ -602,24 +674,12 @@ const OnlineApplication = () => {
     <>
       <SEO {...SEOConfigs.onlineApplication} />
       <div>
-        <div className="bg-white">
-          <Breadcrumbs />
-        </div>
-
-        {/* Hero */}
-        <section className="py-16 md:py-20 bg-primary-dark text-center">
-          <div className="container-custom">
-            <p className="text-accent-neon font-semibold text-sm tracking-widest uppercase mb-3">
-              {CURRENT_YEAR + 1} Intake Now Open
-            </p>
-            <h1 className="text-3xl md:text-5xl font-heading font-bold text-white mb-3">
-              Online Application
-            </h1>
-            <p className="text-white/80 text-lg">
-              Grades 8 – 12 &nbsp;·&nbsp; Harding Secondary School
-            </p>
-          </div>
-        </section>
+        <PageHero
+          eyebrow={<>{CURRENT_YEAR + 1} Intake Now Open</>}
+          title="Online Application"
+          description="Grades 8 – 12  ·  Harding Secondary School"
+          size="sm"
+        />
 
         <section className="py-12 md:py-16 bg-neutral-50 min-h-screen">
           <div className="container-custom max-w-3xl mx-auto">

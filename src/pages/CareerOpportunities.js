@@ -1,6 +1,6 @@
 import { FaBriefcase, FaMapMarkerAlt, FaClock, FaEnvelope, FaChevronDown, FaChevronUp, FaUserTie, FaChalkboardTeacher, FaWrench } from 'react-icons/fa';
 import { useState } from 'react';
-import { SEO, Breadcrumbs } from '../components';
+import { SEO, PageHero } from '../components';
 import AnimateOnScroll from '../components/AnimateOnScroll';
 import { HERO_IMAGES } from '../utils/imageConstants';
 
@@ -128,8 +128,8 @@ const VacancyCard = ({ title, type, department, Icon, iconColor, posted, closing
             <p className="font-semibold text-neutral-800 mb-1">How to Apply</p>
             <p>
               Send your CV, certified copies of qualifications, and a covering letter to{' '}
-              <a href="mailto:info@hardingsecondary.edu.za" className="text-primary font-medium hover:underline">
-                info@hardingsecondary.edu.za
+              <a href="mailto:hardingsec@telkomsa.net" className="text-primary font-medium hover:underline">
+                hardingsec@telkomsa.net
               </a>{' '}
               before {closing}. Late applications will not be considered.
             </p>
@@ -148,29 +148,12 @@ const CareerOpportunities = () => (
       description="Explore career opportunities and job vacancies at Harding Secondary School. Join our dedicated team of educators and staff."
     />
     <div>
-      <div className="bg-white">
-        <Breadcrumbs />
-      </div>
-
-      {/* Hero */}
-      <section className="relative py-28 md:py-36 text-center overflow-hidden bg-primary-dark">
-        <img
-          src={HERO_IMAGES.graduation}
-          alt=""
-          className="absolute inset-0 w-full h-full object-cover"
-          aria-hidden="true"
-        />
-        <div className="absolute inset-0 bg-primary-dark/85" />
-        <div className="relative z-10 container-custom">
-          <p className="text-accent-neon font-semibold text-sm tracking-widest uppercase mb-4">Join Our Team</p>
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-heading font-bold !text-white mb-4">
-            Career Opportunities
-          </h1>
-          <p className="text-lg md:text-xl max-w-2xl mx-auto !text-white/90">
-            Shape the next generation — join the Harding Secondary School family
-          </p>
-        </div>
-      </section>
+      <PageHero
+        eyebrow="Join Our Team"
+        title="Career Opportunities"
+        description="Shape the next generation — join the Harding Secondary School family"
+        image={HERO_IMAGES.graduation}
+      />
 
       {/* Why Join */}
       <section className="py-14 bg-white border-b border-neutral-100">
@@ -212,7 +195,7 @@ const CareerOpportunities = () => (
                 <h3 className="font-heading font-bold text-primary-dark mb-2">Don't see a suitable vacancy?</h3>
                 <p className="text-neutral-500 text-sm mb-4">Send us your CV and we'll keep it on file for future opportunities.</p>
                 <a
-                  href="mailto:info@hardingsecondary.edu.za"
+                  href="mailto:hardingsec@telkomsa.net"
                   className="inline-flex items-center gap-2 px-6 py-3 bg-primary text-white rounded-xl text-sm font-semibold hover:bg-primary-dark transition-colors duration-200"
                 >
                   <FaEnvelope />

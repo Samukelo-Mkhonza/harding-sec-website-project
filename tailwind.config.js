@@ -18,7 +18,7 @@ module.exports = {
           dark: '#072713',     // green-900 - Darker green
         },
         accent: {
-          neon: '#22C55E',     // Neon/bright green for highlights and CTAs
+          neon: '#4ADE80',     // Bright green for highlights on dark green (AA contrast on #0D4E25)
           success: '#147538',  // green-700
           error: '#F44336',
           warning: '#FF9800',
@@ -27,7 +27,7 @@ module.exports = {
           darker: '#04160A',   // green-950
         },
         green: {
-          neon: '#22C55E',     // Bright/neon green
+          neon: '#4ADE80',     // Bright green for highlights
           700: '#147538',      // Main green
           800: '#0D4E25',      // Dark green
           900: '#072713',      // Darker green
@@ -107,6 +107,7 @@ module.exports = {
       },
       animation: {
         'fade-in': 'fadeIn 0.6s ease-in-out',
+        'page-in': 'pageIn 0.3s cubic-bezier(0.22, 1, 0.36, 1) both',
         'slide-up': 'slideUp 0.6s ease-out',
         'slide-down': 'slideDown 0.6s ease-out',
         'slide-left': 'slideLeft 0.6s ease-out',
@@ -115,6 +116,10 @@ module.exports = {
         'bounce-soft': 'bounceSoft 2s ease-in-out infinite',
       },
       keyframes: {
+        pageIn: {
+          '0%': { opacity: '0', transform: 'translateY(12px)' },
+          '100%': { opacity: '1', transform: 'translateY(0)' },
+        },
         fadeIn: {
           '0%': { opacity: '0' },
           '100%': { opacity: '1' },

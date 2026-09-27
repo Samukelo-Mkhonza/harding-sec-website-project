@@ -1,8 +1,9 @@
 import { useState, useEffect, useCallback } from 'react';
 import { FaPlay } from 'react-icons/fa';
-import { SEO, SEOConfigs, Breadcrumbs } from '../components';
+import { SEO, SEOConfigs, PageHero, SectionHeader } from '../components';
 import AnimateOnScroll from '../components/AnimateOnScroll';
 import { ALL_GALLERY_IMAGES, PLACEHOLDER_IMAGES, HERO_IMAGES } from '../utils/imageConstants';
+import useUrlFilters from '../hooks/useUrlFilters';
 
 const CATEGORIES = [
   { id: 'all', label: 'All' },
@@ -14,7 +15,8 @@ const CATEGORIES = [
 ];
 
 const Gallery = () => {
-  const [selectedCategory, setSelectedCategory] = useState('all');
+  const [{ category: selectedCategory }, setUrlFilters] = useUrlFilters({ category: 'all' });
+  const setSelectedCategory = (category) => setUrlFilters({ category });
   const [selectedImage, setSelectedImage] = useState(null);
 
   const filteredImages =
@@ -43,29 +45,12 @@ const Gallery = () => {
     <>
       <SEO {...SEOConfigs.gallery} />
       <div>
-        <div className="bg-white">
-          <Breadcrumbs />
-        </div>
-
-        {/* Page Hero */}
-        <section className="relative py-28 md:py-36 text-center overflow-hidden bg-primary-dark">
-          <img
-            src={HERO_IMAGES.graduation}
-            alt=""
-            className="absolute inset-0 w-full h-full object-cover"
-            aria-hidden="true"
-          />
-          <div className="absolute inset-0 bg-primary-dark/85" />
-          <div className="relative z-10 container-custom">
-            <p className="text-accent-neon font-semibold text-sm tracking-widest uppercase mb-4">Visual Stories</p>
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-heading font-bold !text-white mb-4 text-shadow-strong">
-              Gallery
-            </h1>
-            <p className="text-lg md:text-xl max-w-3xl mx-auto !text-white/90">
-              Capturing moments and memories at Harding Secondary School
-            </p>
-          </div>
-        </section>
+        <PageHero
+          eyebrow="Visual Stories"
+          title="Gallery"
+          description="Capturing moments and memories at Harding Secondary School"
+          image={HERO_IMAGES.graduation}
+        />
 
         {/* Gallery Section */}
         <section className="py-16 md:py-24 bg-white">
@@ -112,9 +97,9 @@ const Gallery = () => {
                       loading="lazy"
                       onError={handleImageError}
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/75 to-transparent translate-y-full group-hover:translate-y-0 transition-transform duration-300" />
-                    <div className="absolute bottom-0 left-0 right-0 p-5 text-white translate-y-full group-hover:translate-y-0 transition-transform duration-300">
-                      <h3 className="text-lg font-bold mb-0.5">{image.title}</h3>
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/75 to-transparent transition-transform duration-300 lg:translate-y-full lg:group-hover:translate-y-0" />
+                    <div className="absolute bottom-0 left-0 right-0 p-5 text-white transition-transform duration-300 lg:translate-y-full lg:group-hover:translate-y-0">
+                      <h3 className="!text-white text-lg font-bold mb-0.5">{image.title}</h3>
                       <p className="text-sm text-white/80">{image.description}</p>
                     </div>
                     {/* Category badge */}
@@ -132,10 +117,7 @@ const Gallery = () => {
         <section className="py-16 md:py-24 bg-neutral-50">
           <div className="container-custom">
             <AnimateOnScroll animation="fade-in">
-              <div className="text-center mb-12">
-                <p className="text-primary font-semibold text-sm tracking-widest uppercase mb-3">Media</p>
-                <h2 className="text-3xl md:text-4xl font-heading font-bold text-primary-dark">Video Highlights</h2>
-              </div>
+              <SectionHeader eyebrow="Media" title="Video Highlights" />
             </AnimateOnScroll>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {[
@@ -149,7 +131,7 @@ const Gallery = () => {
                       <div className="w-16 h-16 bg-white/20 group-hover:bg-white/30 rounded-full flex items-center justify-center mx-auto mb-4 transition-colors duration-300">
                         <FaPlay className="text-white text-xl ml-1" />
                       </div>
-                      <h3 className="text-xl font-bold mb-1">{label}</h3>
+                      <h3 className="!text-white text-xl font-bold mb-1">{label}</h3>
                       <p className="text-white/70 text-sm">{desc}</p>
                     </div>
                   </div>
@@ -183,7 +165,7 @@ const Gallery = () => {
                 className="max-w-full max-h-[80vh] object-contain rounded-xl shadow-2xl"
               />
               <div className="mt-4 text-white">
-                <h3 className="text-lg font-bold">{selectedImage.title}</h3>
+                <h3 className="!text-white text-lg font-bold">{selectedImage.title}</h3>
                 <p className="text-white/70 text-sm">{selectedImage.description}</p>
               </div>
             </div>

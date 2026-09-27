@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { FaBook, FaBookOpen, FaUniversity, FaGraduationCap, FaCheckCircle, FaArrowRight } from 'react-icons/fa';
-import { SEO, SEOConfigs, Breadcrumbs } from '../components';
+import { SEO, SEOConfigs, PageHero, SectionHeader } from '../components';
 import AnimateOnScroll from '../components/AnimateOnScroll';
 import CounterAnimation from '../components/CounterAnimation';
 import { HERO_IMAGES } from '../utils/imageConstants';
@@ -87,38 +87,18 @@ const Academics = () => {
     <>
       <SEO {...SEOConfigs.academics} />
       <div>
-        <div className="bg-white">
-          <Breadcrumbs />
-        </div>
-
-        {/* Page Hero */}
-        <section className="relative py-28 md:py-36 text-center overflow-hidden bg-primary-dark">
-          <img
-            src={HERO_IMAGES.classroom}
-            alt=""
-            className="absolute inset-0 w-full h-full object-cover"
-            aria-hidden="true"
-          />
-          <div className="absolute inset-0 bg-primary-dark/85" />
-          <div className="relative z-10 container-custom">
-            <p className="text-accent-neon font-semibold text-sm tracking-widest uppercase mb-4">CAPS Curriculum</p>
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-heading font-bold !text-white mb-4 text-shadow-strong">
-              Academic Excellence
-            </h1>
-            <p className="text-lg md:text-xl max-w-3xl mx-auto !text-white/90">
-              Comprehensive curriculum designed to unlock every learner's potential
-            </p>
-          </div>
-        </section>
+        <PageHero
+          eyebrow="CAPS Curriculum"
+          title="Academic Excellence"
+          description="Comprehensive curriculum designed to unlock every learner's potential"
+          image={HERO_IMAGES.classroom}
+        />
 
         {/* Curriculum Overview */}
         <section id="subjects" className="py-16 md:py-24 bg-white">
           <div className="container-custom">
             <AnimateOnScroll animation="fade-in">
-              <div className="mb-10">
-                <p className="text-primary font-semibold text-sm tracking-widest uppercase mb-3">What We Teach</p>
-                <h2 className="text-3xl md:text-4xl font-heading font-bold text-primary-dark mb-6">Our Curriculum</h2>
-              </div>
+              <SectionHeader eyebrow="What We Teach" title="Our Curriculum" align="left" />
             </AnimateOnScroll>
 
             <AnimateOnScroll animation="slide-up" delay={100}>
@@ -173,10 +153,7 @@ const Academics = () => {
         <section className="py-16 md:py-24 bg-neutral-50">
           <div className="container-custom">
             <AnimateOnScroll animation="fade-in">
-              <div className="text-center mb-12">
-                <p className="text-primary font-semibold text-sm tracking-widest uppercase mb-3">Resources</p>
-                <h2 className="text-3xl md:text-4xl font-heading font-bold text-primary-dark">Academic Support</h2>
-              </div>
+              <SectionHeader eyebrow="Resources" title="Academic Support" />
             </AnimateOnScroll>
 
             {/* Past Papers Portal Feature Banner */}
@@ -188,17 +165,17 @@ const Academics = () => {
                   className="absolute inset-0 w-full h-full object-cover"
                   aria-hidden="true"
                 />
-                <div className="absolute inset-0 bg-primary-dark/88" />
+                <div className="absolute inset-0 bg-primary-dark/90" />
                 <div className="relative z-10 p-10 md:p-16 text-center text-white">
                   <FaBook className="text-5xl mx-auto mb-5 text-accent-neon" />
-                  <h3 className="text-2xl md:text-3xl font-bold mb-4">Past Papers Portal</h3>
+                  <h3 className="!text-white text-2xl md:text-3xl font-bold mb-4">Past Papers Portal</h3>
                   <p className="text-white/90 mb-8 max-w-2xl mx-auto">
                     Access our comprehensive collection of past examination papers across all subjects and grades.
                     Perfect for exam preparation and practice.
                   </p>
                   <Link
                     to="/past-papers"
-                    className="inline-flex items-center gap-2 bg-white text-primary-dark font-bold px-8 py-4 rounded-lg hover:bg-accent-neon hover:text-white transition-all duration-300 shadow-xl"
+                    className="inline-flex items-center gap-2 bg-white text-primary-dark font-bold px-8 py-4 rounded-lg hover:bg-accent-neon hover:text-secondary-dark transition-all duration-300 shadow-xl"
                   >
                     Access Past Papers <FaArrowRight />
                   </Link>
@@ -226,10 +203,7 @@ const Academics = () => {
         <section id="achievements" className="py-16 md:py-24 bg-white">
           <div className="container-custom">
             <AnimateOnScroll animation="fade-in">
-              <div className="text-center mb-12">
-                <p className="text-primary font-semibold text-sm tracking-widest uppercase mb-3">Track Record</p>
-                <h2 className="text-3xl md:text-4xl font-heading font-bold text-primary-dark">Academic Achievements</h2>
-              </div>
+              <SectionHeader eyebrow="Track Record" title="Academic Achievements" />
             </AnimateOnScroll>
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
               {ACHIEVEMENTS.map((stat, index) => (
@@ -250,10 +224,7 @@ const Academics = () => {
         <section className="py-16 md:py-24 bg-neutral-50">
           <div className="container-custom">
             <AnimateOnScroll animation="fade-in">
-              <div className="text-center mb-12">
-                <p className="text-primary font-semibold text-sm tracking-widest uppercase mb-3">Structure</p>
-                <h2 className="text-3xl md:text-4xl font-heading font-bold text-primary-dark">Grade Structure</h2>
-              </div>
+              <SectionHeader eyebrow="Structure" title="Grade Structure" />
             </AnimateOnScroll>
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
               <AnimateOnScroll animation="slide-left">

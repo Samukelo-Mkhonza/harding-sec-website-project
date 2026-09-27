@@ -5,7 +5,8 @@ import {
   FaSearch, FaTimes, FaArrowRight,
   FaHome, FaInfoCircle, FaBook, FaUserGraduate, FaImages, FaEnvelope,
   FaFileAlt, FaUsers, FaUserTie, FaCalendarAlt, FaFolderOpen, FaBriefcase,
-  FaShieldAlt, FaGavel, FaStar,
+  FaShieldAlt, FaGavel, FaStar, FaGraduationCap, FaUniversity, FaHandHoldingUsd,
+  FaClock, FaBullhorn, FaCompass, FaTrophy, FaChartBar, FaNewspaper, FaPenFancy,
 } from 'react-icons/fa';
 import { VALIDATION } from '../utils/constants';
 
@@ -25,6 +26,18 @@ const ALL_PAGES = [
   { id: 'calendar',       title: 'School Calendar',        excerpt: 'Term dates, exams, events and public holidays',    category: 'Information',url: '/school-calendar', Icon: FaCalendarAlt },
   { id: 'policies',       title: 'Policies & Documents',   excerpt: 'Code of conduct, assessment and safety policies',  category: 'Information',url: '/policies',        Icon: FaFolderOpen },
   { id: 'careers',        title: 'Career Opportunities',   excerpt: 'Current vacancies and how to apply',               category: 'Information',url: '/careers',         Icon: FaBriefcase },
+  { id: 'news',           title: 'News & Events',          excerpt: 'Latest stories, announcements and highlights',     category: 'Pages',      url: '/news',            Icon: FaNewspaper },
+  { id: 'apply',          title: 'Apply Online',           excerpt: 'Online application for Grades 8–12',              category: 'Pages',      url: '/admissions/apply', Icon: FaPenFancy },
+  { id: 'books',          title: 'Books & Textbooks',      excerpt: 'Free CAPS-aligned textbooks and study guides',     category: 'Resources',  url: '/books',           Icon: FaBook },
+  { id: 'universities',   title: 'University Applications', excerpt: 'All 26 SA universities, deadlines and APS calculator', category: 'Resources', url: '/university-applications', Icon: FaUniversity },
+  { id: 'bursaries',      title: 'Bursary Finder',         excerpt: 'NSFAS, government and corporate bursaries',       category: 'Resources',  url: '/student-portal/bursaries', Icon: FaHandHoldingUsd },
+  { id: 'timetable',      title: 'Study Timetable',        excerpt: 'Build a printable exam study plan',                category: 'Resources',  url: '/student-portal/timetable', Icon: FaClock },
+  { id: 'noticeboard',    title: 'Community Noticeboard',  excerpt: 'Announcements, lost & found and lift clubs',       category: 'Resources',  url: '/student-portal/noticeboard', Icon: FaBullhorn },
+  { id: 'subjects',       title: 'Subject Explorer',       excerpt: 'Which careers and degrees each subject unlocks',   category: 'Resources',  url: '/student-portal/subjects', Icon: FaCompass },
+  { id: 'matric',         title: 'Matric Results',         excerpt: 'Ten years of NSC pass rates and distinctions',     category: 'Information',url: '/matric-results',  Icon: FaChartBar },
+  { id: 'alumni',         title: 'Old Hardingians',        excerpt: 'Alumni Hall of Fame',                              category: 'Information',url: '/alumni',          Icon: FaGraduationCap },
+  { id: 'src',            title: 'Student Council (SRC)',  excerpt: 'Meet the SRC and send a suggestion',               category: 'Information',url: '/student-council', Icon: FaUsers },
+  { id: 'sports',         title: 'Sports Fixtures & Results', excerpt: 'Soccer, netball, athletics and cricket',        category: 'Information',url: '/sports',          Icon: FaTrophy },
   { id: 'privacy',        title: 'Privacy Policy',         excerpt: 'How we collect and protect your information',      category: 'Legal',      url: '/privacy-policy',  Icon: FaShieldAlt },
   { id: 'terms',          title: 'Terms of Use',           excerpt: 'Terms governing use of this website',             category: 'Legal',      url: '/terms-of-use',    Icon: FaGavel },
 ];

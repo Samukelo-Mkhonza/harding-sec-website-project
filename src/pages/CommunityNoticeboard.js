@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import SEO from '../components/SEO';
-import Breadcrumbs from '../components/Breadcrumbs';
+import { PageHero } from '../components';
 import AnimateOnScroll from '../components/AnimateOnScroll';
 import {
   FaBullhorn, FaSearch, FaTimes, FaPlus, FaFilter,
@@ -10,6 +10,8 @@ import {
   FaTools,
 } from 'react-icons/fa';
 import { HERO_IMAGES } from '../utils/imageConstants';
+import useUrlFilters from '../hooks/useUrlFilters';
+import { SCHOOL_CONTACT } from '../utils/constants';
 
 // ─── Constants ─────────────────────────────────────────────────────────────────
 
@@ -160,7 +162,7 @@ const PostCard = ({ post, onLike, onDelete }) => {
     }`}>
       {/* Pinned indicator */}
       {post.pinned && (
-        <div className="bg-primary/8 border-b border-primary/20 px-4 py-1.5 flex items-center gap-1.5">
+        <div className="bg-primary/10 border-b border-primary/20 px-4 py-1.5 flex items-center gap-1.5">
           <FaThumbtack className="text-primary text-xs rotate-45" />
           <span className="text-xs font-semibold text-primary">Pinned by Admin</span>
         </div>
@@ -185,6 +187,9 @@ const PostCard = ({ post, onLike, onDelete }) => {
                 <span className="text-[10px] text-neutral-400">by {post.author}</span>
                 <span className="text-[10px] text-neutral-300">·</span>
                 <span className="text-[10px] text-neutral-400">{formatPostDate(post.date)}</span>
+                {post.userPost && (
+                  <span className="text-[10px] font-semibold text-amber-800 bg-amber-100 px-1.5 py-0.5 rounded-full">Only visible to you</span>
+                )}
               </div>
             </div>
           </div>
@@ -216,9 +221,10 @@ const PostCard = ({ post, onLike, onDelete }) => {
           </div>
           <button
             onClick={() => onLike(post.id)}
-            className="flex items-center gap-1.5 text-xs text-neutral-400 hover:text-primary transition-colors px-2 py-1 rounded-lg hover:bg-primary/5"
+            className="flex items-center gap-1.5 text-xs text-neutral-500 hover:text-primary transition-colors px-2 py-1 rounded-lg hover:bg-primary/5"
+            aria-label={`Like this post${post.likes ? ` (${post.likes} likes)` : ''}`}
           >
-            <FaThumbsUp className="text-[10px]" />
+            <FaThumbsUp className="text-[10px]" aria-hidden="true" />
             {post.likes > 0 && <span>{post.likes}</span>}
           </button>
         </div>
@@ -284,7 +290,7 @@ const CreatePostModal = ({ onClose, onSubmit }) => {
         <div className="bg-primary-dark p-6 rounded-t-2xl flex items-center justify-between">
           <div>
             <h2 className="text-lg font-heading font-bold text-white">Create a Post</h2>
-            <p className="text-white/60 text-xs mt-0.5">Share with the Harding Secondary community</p>
+            <p className="text-white/75 text-xs mt-0.5">Share with the Harding Secondary community</p>
           </div>
           <button
             onClick={onClose}
@@ -388,6 +394,10 @@ const CreatePostModal = ({ onClose, onSubmit }) => {
           <p className="text-xs text-neutral-400 bg-neutral-50 rounded-xl p-3">
             By posting, you agree that your content is respectful and appropriate for the school community. Posts may be removed by administration if they violate school guidelines.
           </p>
+          <p className="text-xs text-amber-800 bg-amber-50 border border-amber-200 px-3 py-2">
+            Posts are currently saved on this device only, so other visitors won&apos;t see them yet.
+            For urgent notices, contact the school office on {SCHOOL_CONTACT.PHONE}.
+          </p>
 
           <div className="flex gap-3 pt-2">
             <button
@@ -414,8 +424,9 @@ const CreatePostModal = ({ onClose, onSubmit }) => {
 
 const CommunityNoticeboard = () => {
   const [posts, setPosts] = useState(loadPosts);
-  const [activeCategory, setActiveCategory] = useState('all');
-  const [search, setSearch] = useState('');
+  const [{ category: activeCategory, search }, setUrlFilters] = useUrlFilters({ category: 'all', search: '' });
+  const setActiveCategory = (category) => setUrlFilters((f) => ({ ...f, category }));
+  const setSearch = (value) => setUrlFilters((f) => ({ ...f, search: value }));
   const [showModal, setShowModal] = useState(false);
 
   useEffect(() => { savePosts(posts); }, [posts]);
@@ -466,45 +477,18 @@ const CommunityNoticeboard = () => {
         description="The Harding Secondary School community noticeboard — post announcements, find lost items, arrange rides, sell items, and connect with the school community."
       />
       <div>
-        <div className="bg-white">
-          <Breadcrumbs />
-        </div>
-
-        {/* Hero */}
-        <section className="relative py-24 md:py-32 text-center overflow-hidden bg-primary-dark">
-          <img
-            src={HERO_IMAGES.campus}
-            alt=""
-            className="absolute inset-0 w-full h-full object-cover"
-            aria-hidden="true"
-          />
-          <div className="absolute inset-0 bg-primary-dark/87" />
-          <div className="relative z-10 container-custom">
-            <div className="inline-flex items-center gap-2 bg-white/10 border border-white/20 rounded-full px-4 py-1.5 text-accent-neon text-sm font-semibold tracking-widest uppercase mb-5">
-              <FaBullhorn className="text-xs" />
-              Student Portal — Community
-            </div>
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-heading font-bold !text-white mb-4">
-              Community Noticeboard
-            </h1>
-            <p className="text-lg md:text-xl max-w-2xl mx-auto !text-white/85">
-              Connect with the Harding Secondary community — post announcements, find lost items, arrange transport, and more.
-            </p>
-
-            <div className="flex flex-wrap justify-center gap-6 mt-10">
-              {[
-                { label: 'Active Posts', value: posts.length },
-                { label: 'Categories', value: CATEGORIES.length - 1 },
-                { label: 'Community Members', value: '700+' },
-              ].map(({ label, value }) => (
-                <div key={label} className="text-center">
-                  <p className="text-2xl font-heading font-bold text-accent-neon">{value}</p>
-                  <p className="text-white/60 text-xs uppercase tracking-wider mt-0.5">{label}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
+        <PageHero
+          eyebrow="Community"
+          eyebrowIcon={FaBullhorn}
+          title="Community Noticeboard"
+          description="Connect with the Harding Secondary community — post announcements, find lost items, arrange transport, and more."
+          image={HERO_IMAGES.campus}
+          stats={[
+            { label: 'Active Posts', value: posts.length },
+            { label: 'Categories', value: CATEGORIES.length - 1 },
+            { label: 'Community Members', value: '700+' },
+          ]}
+        />
 
         {/* Main */}
         <div className="bg-neutral-50 min-h-screen">
@@ -556,7 +540,7 @@ const CommunityNoticeboard = () => {
                           onClick={() => setActiveCategory(cat.id)}
                           className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-colors text-left ${
                             activeCategory === cat.id
-                              ? 'bg-primary/8 text-primary font-semibold'
+                              ? 'bg-primary/10 text-primary font-semibold'
                               : 'text-neutral-600 hover:bg-neutral-50'
                           }`}
                         >
