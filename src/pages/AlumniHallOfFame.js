@@ -9,6 +9,7 @@ import {
   FaHeart, FaStar, FaEnvelope,
 } from 'react-icons/fa';
 import { HERO_IMAGES } from '../utils/imageConstants';
+import useUrlFilters from '../hooks/useUrlFilters';
 
 // ─── Data ──────────────────────────────────────────────────────────────────────
 
@@ -407,7 +408,7 @@ const AlumniCard = ({ alumni, onOpen }) => (
 const SubmitBanner = () => (
   <div className="bg-primary-dark rounded-2xl p-8 text-center text-white">
     <FaHeart className="text-accent-neon text-2xl mx-auto mb-3" />
-    <h3 className="font-heading font-bold text-xl mb-2">Are You a Former Harding Secondary Learner?</h3>
+    <h3 className="!text-white font-heading font-bold text-xl mb-2">Are You a Former Harding Secondary Learner?</h3>
     <p className="text-white/70 text-sm max-w-lg mx-auto mb-6">
       We would love to add your story to the Hall of Fame. Your journey — wherever it has taken you — inspires the learners sitting in those classrooms today.
     </p>
@@ -424,9 +425,10 @@ const SubmitBanner = () => (
 // ─── Main Page ─────────────────────────────────────────────────────────────────
 
 const AlumniHallOfFame = () => {
-  const [search, setSearch] = useState('');
-  const [field, setField] = useState('All');
-  const [decade, setDecade] = useState('All');
+  const [{ search, field, decade }, setUrlFilters] = useUrlFilters({ search: '', field: 'All', decade: 'All' });
+  const setSearch = (value) => setUrlFilters((f) => ({ ...f, search: value }));
+  const setField = (value) => setUrlFilters((f) => ({ ...f, field: value }));
+  const setDecade = (value) => setUrlFilters((f) => ({ ...f, decade: value }));
   const [selected, setSelected] = useState(null);
 
   const featured = ALUMNI.filter((a) => a.featured);

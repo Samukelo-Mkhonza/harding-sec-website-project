@@ -8,6 +8,8 @@ import PapersList from '../components/portal/PapersList';
 import { applyFilters, clearFilters } from '../utils/filterUtils';
 import { getPreferences, isAuthenticated, isBookmarked as getIsBookmarked, addBookmark, removeBookmark, updateViewMode } from '../utils/portalStorage';
 import { downloadPDF, formatFilename } from '../utils/downloadUtils';
+import useUrlFilters from '../hooks/useUrlFilters';
+import { useToast } from '../contexts/ToastContext';
 import { HERO_IMAGES } from '../utils/imageConstants';
 import { getSubjectById, getExamTypeById } from '../utils/portalConstants';
 import { FaBookOpen, FaTimes, FaExternalLinkAlt, FaDownload, FaFileAlt, FaLayerGroup, FaCalendarAlt } from 'react-icons/fa';
@@ -143,7 +145,11 @@ const PreviewModal = ({ paper, onClose, onDownload, onDownloadMemo }) => {
 
 const PastPapersPortal = () => {
   const [papers, setPapers] = useState([]);
-  const [filters, setFilters] = useState({ grade: null, subject: null, year: null, examType: null, searchQuery: '' });
+  const [filters, setFilters] = useUrlFilters(
+    { grade: null, subject: null, year: null, examType: null, searchQuery: '' },
+    { grade: 'number', year: 'number' }
+  );
+  const toast = useToast();
   const [authenticated, setAuthenticated] = useState(false);
   const [loading, setLoading] = useState(true);
   const [viewMode, setViewMode] = useState('grid');
@@ -166,7 +172,9 @@ const PastPapersPortal = () => {
         setAuthenticated(isAuth);
         if (isAuth) {
           const prefs = getPreferences();
-          if (prefs.filters) setFilters(prefs.filters);
+          // A shared/bookmarked link wins over the last-used filters
+          const urlHasFilters = /[?&](grade|subject|year|examType|searchQuery)=/.test(window.location.search);
+          if (prefs.filters && !urlHasFilters) setFilters(prefs.filters);
           if (prefs.viewMode) setViewMode(prefs.viewMode);
         }
         setError(null);
@@ -177,21 +185,22 @@ const PastPapersPortal = () => {
       }
     };
     load();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const filteredPapers = useMemo(() => applyFilters(papers, filters), [papers, filters]);
 
   const handleDownload = useCallback(async (paper) => {
     const ok = await downloadPDF(paper.pdfUrl, formatFilename(paper, 'paper'));
-    if (!ok) alert('Download failed. Please try again.');
-  }, []);
+    if (!ok) toast.error('Download failed. Please try again.');
+  }, [toast]);
 
   const handleDownloadMemo = useCallback(async (paper) => {
     if (paper.memoUrl) {
       const ok = await downloadPDF(paper.memoUrl, formatFilename(paper, 'memo'));
-      if (!ok) alert('Download failed. Please try again.');
+      if (!ok) toast.error('Download failed. Please try again.');
     }
-  }, []);
+  }, [toast]);
 
   return (
     <>

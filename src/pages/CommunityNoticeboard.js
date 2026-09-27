@@ -10,6 +10,7 @@ import {
   FaTools,
 } from 'react-icons/fa';
 import { HERO_IMAGES } from '../utils/imageConstants';
+import useUrlFilters from '../hooks/useUrlFilters';
 
 // ─── Constants ─────────────────────────────────────────────────────────────────
 
@@ -414,8 +415,9 @@ const CreatePostModal = ({ onClose, onSubmit }) => {
 
 const CommunityNoticeboard = () => {
   const [posts, setPosts] = useState(loadPosts);
-  const [activeCategory, setActiveCategory] = useState('all');
-  const [search, setSearch] = useState('');
+  const [{ category: activeCategory, search }, setUrlFilters] = useUrlFilters({ category: 'all', search: '' });
+  const setActiveCategory = (category) => setUrlFilters((f) => ({ ...f, category }));
+  const setSearch = (value) => setUrlFilters((f) => ({ ...f, search: value }));
   const [showModal, setShowModal] = useState(false);
 
   useEffect(() => { savePosts(posts); }, [posts]);

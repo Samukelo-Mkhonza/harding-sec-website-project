@@ -10,6 +10,7 @@ import {
   FaArrowRight, FaLightbulb,
 } from 'react-icons/fa';
 import { HERO_IMAGES } from '../utils/imageConstants';
+import useUrlFilters from '../hooks/useUrlFilters';
 
 // ─── Data ─────────────────────────────────────────────────────────────────────
 
@@ -741,7 +742,7 @@ const FilterSidebar = ({ filters, onChange, resultCount }) => {
 // ─── Main Page ─────────────────────────────────────────────────────────────────
 
 const BursaryFinder = () => {
-  const [filters, setFilters] = useState({ type: 'all', field: 'all', kznOnly: false, search: '' });
+  const [filters, setFilters] = useUrlFilters({ type: 'all', field: 'all', kznOnly: false, search: '' });
   const [selected, setSelected] = useState(null);
   const [showTip, setShowTip] = useState(true);
 

@@ -14,6 +14,7 @@ import {
 import { SEO, SEOConfigs, PageHero } from '../components';
 import AnimateOnScroll from '../components/AnimateOnScroll';
 import { NEWS_IMAGES, HERO_IMAGES } from '../utils/imageConstants';
+import useUrlFilters from '../hooks/useUrlFilters';
 
 const NEWS_ARTICLES = [
   {
@@ -215,8 +216,9 @@ const NewsCard = ({ article, large = false }) => (
 );
 
 const News = () => {
-  const [activeCategory, setActiveCategory] = useState('All');
-  const [searchQuery, setSearchQuery] = useState('');
+  const [{ category: activeCategory, q: searchQuery }, setUrlFilters] = useUrlFilters({ category: 'All', q: '' });
+  const setActiveCategory = (category) => setUrlFilters((f) => ({ ...f, category }));
+  const setSearchQuery = (q) => setUrlFilters((f) => ({ ...f, q }));
   const [visibleCount, setVisibleCount] = useState(ARTICLES_PER_PAGE);
 
   const featuredArticle = NEWS_ARTICLES.find((a) => a.featured);

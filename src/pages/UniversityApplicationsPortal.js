@@ -10,6 +10,7 @@ import {
   FaHospital, FaBalanceScale, FaBriefcase, FaBook, FaUsers, FaGlobe
 } from 'react-icons/fa';
 import { HERO_IMAGES } from '../utils/imageConstants';
+import useUrlFilters from '../hooks/useUrlFilters';
 
 // ─── LocalStorage ─────────────────────────────────────────────────────────────
 const TRACKER_KEY = 'hss_uni_applications';
@@ -910,8 +911,9 @@ const UniversityApplicationsPortal = () => {
   const [universities, setUniversities] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [activeTab, setActiveTab] = useState('directory');
-  const [filters, setFilters] = useState({ province: '', type: '', status: '', search: '' });
+  const [{ tab: activeTab }, setTabState] = useUrlFilters({ tab: 'directory' });
+  const setActiveTab = (tab) => setTabState({ tab });
+  const [filters, setFilters] = useUrlFilters({ province: '', type: '', status: '', search: '' });
   const [tracker, setTracker] = useState(loadTracker);
   const [selectedUni, setSelectedUni] = useState(null);
 

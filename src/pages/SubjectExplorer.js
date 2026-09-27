@@ -11,6 +11,7 @@ import {
   FaBalanceScale, FaChalkboardTeacher, FaHardHat, FaTractor,
 } from 'react-icons/fa';
 import { HERO_IMAGES } from '../utils/imageConstants';
+import useUrlFilters from '../hooks/useUrlFilters';
 
 // ─── Data ──────────────────────────────────────────────────────────────────────
 
@@ -438,8 +439,9 @@ const SubjectDetail = ({ subject, onClose }) => {
 // ─── Main Page ─────────────────────────────────────────────────────────────────
 
 const SubjectExplorer = () => {
-  const [streamFilter, setStreamFilter] = useState('All');
-  const [search, setSearch] = useState('');
+  const [{ stream: streamFilter, search }, setUrlFilters] = useUrlFilters({ stream: 'All', search: '' });
+  const setStreamFilter = (stream) => setUrlFilters((f) => ({ ...f, stream }));
+  const setSearch = (value) => setUrlFilters((f) => ({ ...f, search: value }));
   const [selected, setSelected] = useState(null);
 
   const filtered = SUBJECTS.filter((s) => {

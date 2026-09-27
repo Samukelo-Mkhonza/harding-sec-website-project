@@ -8,6 +8,7 @@ import {
   FaBook, FaBookOpen, FaTimes, FaDownload,
   FaGlobe, FaFilter, FaExternalLinkAlt
 } from 'react-icons/fa';
+import useUrlFilters from '../hooks/useUrlFilters';
 
 // ─── Constants ───────────────────────────────────────────────────────────────
 
@@ -313,9 +314,10 @@ const BookFilterSidebar = ({ filters, onFilterChange, resultCount, availableGrad
 
 const BooksPortal = () => {
   const [books, setBooks] = useState([]);
-  const [filters, setFilters] = useState({
-    subject: null, grade: null, category: null, openAccessOnly: false, searchQuery: ''
-  });
+  const [filters, setFilters] = useUrlFilters(
+    { subject: null, grade: null, category: null, openAccessOnly: false, searchQuery: '' },
+    { grade: 'number' }
+  );
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [previewBook, setPreviewBook] = useState(null);

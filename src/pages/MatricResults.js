@@ -425,7 +425,7 @@ const MatricResults = () => {
                     <div className="bg-primary-dark rounded-2xl p-6 text-white">
                       <div className="flex items-center gap-2 mb-4">
                         <FaTrophy className="text-accent-neon" />
-                        <h2 className="font-heading font-bold text-base">Class of 2024 Highlights</h2>
+                        <h2 className="!text-white font-heading font-bold text-base">Class of 2024 Highlights</h2>
                       </div>
                       <ul className="space-y-3">
                         {[
@@ -591,7 +591,7 @@ const MatricResults = () => {
 
                   <div className="bg-primary-dark rounded-2xl p-6 text-white text-center">
                     <FaTrophy className="text-accent-neon text-3xl mx-auto mb-3" />
-                    <h3 className="font-heading font-bold text-xl mb-2">
+                    <h3 className="!text-white font-heading font-bold text-xl mb-2">
                       {LATEST.distinctions} Distinctions in 2024
                     </h3>
                     <p className="text-white/70 text-sm max-w-md mx-auto">

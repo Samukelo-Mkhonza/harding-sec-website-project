@@ -101,11 +101,11 @@ const StudentLife = () => {
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent transition-all duration-300 group-hover:from-primary-dark/90 group-hover:via-primary-dark/40" />
                     <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
-                      <h3 className="text-xl font-bold mb-2">{activity.title}</h3>
-                      <p className="text-white/80 text-sm mb-3 opacity-0 group-hover:opacity-100 transition-all duration-300 -translate-y-2 group-hover:translate-y-0">
+                      <h3 className="!text-white text-xl font-bold mb-2">{activity.title}</h3>
+                      <p className="text-white/85 text-sm mb-3 transition-all duration-300 lg:opacity-0 lg:-translate-y-2 lg:group-hover:opacity-100 lg:group-hover:translate-y-0">
                         {activity.description}
                       </p>
-                      <span className="inline-flex items-center gap-2 text-accent-neon text-sm font-semibold opacity-0 group-hover:opacity-100 transition-all duration-300">
+                      <span className="inline-flex items-center gap-2 text-accent-neon text-sm font-semibold transition-all duration-300 lg:opacity-0 lg:group-hover:opacity-100">
                         Explore <FaArrowRight className="text-xs" />
                       </span>
                     </div>

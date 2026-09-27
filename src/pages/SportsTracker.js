@@ -528,7 +528,7 @@ const SportsTracker = () => {
             {/* Footer callout */}
             <div className="mt-10 bg-primary-dark rounded-2xl p-6 flex flex-col md:flex-row items-center justify-between gap-4 text-white">
               <div>
-                <h3 className="font-heading font-bold text-lg mb-1">Want to join a team?</h3>
+                <h3 className="!text-white font-heading font-bold text-lg mb-1">Want to join a team?</h3>
                 <p className="text-white/70 text-sm">Tryouts are held at the start of each season. Speak to the relevant coach or contact the Sports Department for more information.</p>
               </div>
               <Link

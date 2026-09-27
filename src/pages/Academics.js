@@ -168,7 +168,7 @@ const Academics = () => {
                 <div className="absolute inset-0 bg-primary-dark/90" />
                 <div className="relative z-10 p-10 md:p-16 text-center text-white">
                   <FaBook className="text-5xl mx-auto mb-5 text-accent-neon" />
-                  <h3 className="text-2xl md:text-3xl font-bold mb-4">Past Papers Portal</h3>
+                  <h3 className="!text-white text-2xl md:text-3xl font-bold mb-4">Past Papers Portal</h3>
                   <p className="text-white/90 mb-8 max-w-2xl mx-auto">
                     Access our comprehensive collection of past examination papers across all subjects and grades.
                     Perfect for exam preparation and practice.
