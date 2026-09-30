@@ -4,6 +4,7 @@ import { SEO, SEOConfigs, PageHero, SectionHeader } from '../components';
 import AnimateOnScroll from '../components/AnimateOnScroll';
 import { ALL_GALLERY_IMAGES, HERO_IMAGES, handleImageFallback } from '../utils/imageConstants';
 import useUrlFilters from '../hooks/useUrlFilters';
+import useScrollLock from '../hooks/useScrollLock';
 
 const CATEGORIES = [
   { id: 'all', label: 'All' },
@@ -26,15 +27,13 @@ const Gallery = () => {
 
   const closeModal = useCallback(() => setSelectedImage(null), []);
 
+  useScrollLock(Boolean(selectedImage));
+
   useEffect(() => {
-    if (!selectedImage) return;
+    if (!selectedImage) return undefined;
     const handleKeyDown = (e) => { if (e.key === 'Escape') closeModal(); };
-    document.body.style.overflow = 'hidden';
     window.addEventListener('keydown', handleKeyDown);
-    return () => {
-      document.body.style.overflow = '';
-      window.removeEventListener('keydown', handleKeyDown);
-    };
+    return () => window.removeEventListener('keydown', handleKeyDown);
   }, [selectedImage, closeModal]);
 
   return (

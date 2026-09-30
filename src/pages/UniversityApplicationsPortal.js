@@ -11,6 +11,7 @@ import {
 } from 'react-icons/fa';
 import { HERO_IMAGES } from '../utils/imageConstants';
 import useUrlFilters from '../hooks/useUrlFilters';
+import useScrollLock from '../hooks/useScrollLock';
 
 // ─── LocalStorage ─────────────────────────────────────────────────────────────
 const TRACKER_KEY = 'hss_uni_applications';
@@ -223,6 +224,8 @@ const UniDetailModal = ({ uni, onClose, isTracked, onTrack, status }) => {
   const typeColor = TYPE_COLORS[uni.type] || '#0D4E25';
   const st = STATUS_STYLES[status];
   const days = daysUntil(uni.applicationClose);
+
+  useScrollLock();
 
   useEffect(() => {
     const onKey = (e) => { if (e.key === 'Escape') onClose(); };

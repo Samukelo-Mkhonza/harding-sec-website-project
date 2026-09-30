@@ -6,3 +6,4 @@ export { default as useScrollDirection } from './useScrollDirection';
 export { default as useScrollPosition } from './useScrollPosition';
 export { default as useIntersectionObserver } from './useIntersectionObserver';
 export { default as useUrlFilters } from './useUrlFilters';
+export { default as useScrollLock } from './useScrollLock';

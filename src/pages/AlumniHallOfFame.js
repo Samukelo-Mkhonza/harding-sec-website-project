@@ -10,6 +10,7 @@ import {
 } from 'react-icons/fa';
 import { HERO_IMAGES } from '../utils/imageConstants';
 import useUrlFilters from '../hooks/useUrlFilters';
+import useScrollLock from '../hooks/useScrollLock';
 
 // ─── Data ──────────────────────────────────────────────────────────────────────
 
@@ -244,6 +245,8 @@ const Avatar = ({ initials, color, size = 'md' }) => {
 // ─── Alumni Detail Modal ────────────────────────────────────────────────────────
 
 const AlumniModal = ({ alumni, onClose }) => {
+  useScrollLock();
+
   React.useEffect(() => {
     const fn = (e) => { if (e.key === 'Escape') onClose(); };
     window.addEventListener('keydown', fn);

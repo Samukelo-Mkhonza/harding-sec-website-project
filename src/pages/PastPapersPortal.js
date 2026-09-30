@@ -13,11 +13,14 @@ import { useToast } from '../contexts/ToastContext';
 import { HERO_IMAGES } from '../utils/imageConstants';
 import { getSubjectById, getExamTypeById } from '../utils/portalConstants';
 import { FaBookOpen, FaTimes, FaExternalLinkAlt, FaDownload, FaFileAlt, FaLayerGroup, FaCalendarAlt } from 'react-icons/fa';
+import useScrollLock from '../hooks/useScrollLock';
 
 const PreviewModal = ({ paper, onClose, onDownload, onDownloadMemo }) => {
   const subject = getSubjectById(paper.subject);
   const examType = getExamTypeById(paper.examType);
   const isExternal = paper.isExternal || /^https?:\/\//i.test(paper.pdfUrl);
+
+  useScrollLock();
 
   useEffect(() => {
     const handleKey = (e) => { if (e.key === 'Escape') onClose(); };

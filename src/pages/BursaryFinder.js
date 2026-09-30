@@ -11,6 +11,7 @@ import {
 } from 'react-icons/fa';
 import { HERO_IMAGES } from '../utils/imageConstants';
 import useUrlFilters from '../hooks/useUrlFilters';
+import useScrollLock from '../hooks/useScrollLock';
 
 // ─── Data ─────────────────────────────────────────────────────────────────────
 
@@ -488,6 +489,8 @@ const TYPE_CONFIG = {
 
 const BursaryModal = ({ bursary, onClose }) => {
   const type = TYPE_CONFIG[bursary.type];
+
+  useScrollLock();
 
   React.useEffect(() => {
     const handleKey = (e) => { if (e.key === 'Escape') onClose(); };

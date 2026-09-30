@@ -107,7 +107,10 @@ module.exports = {
       },
       animation: {
         'fade-in': 'fadeIn 0.6s ease-in-out',
-        'page-in': 'pageIn 0.3s cubic-bezier(0.22, 1, 0.36, 1) both',
+        // "backwards", not "both": a transform left on the page wrapper after the
+        // animation makes it the containing block for position:fixed, so page
+        // modals would be placed against the whole page instead of the viewport.
+        'page-in': 'pageIn 0.3s cubic-bezier(0.22, 1, 0.36, 1) backwards',
         'slide-up': 'slideUp 0.6s ease-out',
         'slide-down': 'slideDown 0.6s ease-out',
         'slide-left': 'slideLeft 0.6s ease-out',

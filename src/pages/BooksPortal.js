@@ -9,6 +9,7 @@ import {
   FaGlobe, FaFilter, FaExternalLinkAlt
 } from 'react-icons/fa';
 import useUrlFilters from '../hooks/useUrlFilters';
+import useScrollLock from '../hooks/useScrollLock';
 
 // ─── Constants ───────────────────────────────────────────────────────────────
 
@@ -44,6 +45,8 @@ const getHostname = (url) => {
 const BookPreviewModal = ({ book, onClose }) => {
   const subject = getSubjectById(book.subject);
   const coverColor = getCoverColor(book.subject);
+
+  useScrollLock();
 
   useEffect(() => {
     const handleKey = (e) => { if (e.key === 'Escape') onClose(); };
