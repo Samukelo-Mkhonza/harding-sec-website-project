@@ -1,5 +1,14 @@
 # Changelog
 
+## [1.0.1](https://github.com/Samukelo-Mkhonza/harding-sec-website-project/compare/v1.0.0...v1.0.1) (2026-09-30)
+
+
+### Bug Fixes
+
+* **footer:** keep bottom-bar links clear of the back-to-top button ([a7d0c8d](https://github.com/Samukelo-Mkhonza/harding-sec-website-project/commit/a7d0c8d63feec79fe5eb1bc9fac44c418623feb1))
+* **images:** stop infinite onError retry loop when placeholder fails ([f56890e](https://github.com/Samukelo-Mkhonza/harding-sec-website-project/commit/f56890edf3e41e1168d33bb8160f7695ed16b214))
+* **nav:** make mobile drawer an accessible dialog, inert when closed ([02f43e0](https://github.com/Samukelo-Mkhonza/harding-sec-website-project/commit/02f43e0587a43aa989e6c267409052ee07e6a574))
+
 ## 1.0.0 (2026-07-04)
 
 
