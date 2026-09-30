@@ -2,7 +2,7 @@ import { useState, useEffect, useCallback } from 'react';
 import { FaPlay } from 'react-icons/fa';
 import { SEO, SEOConfigs, PageHero, SectionHeader } from '../components';
 import AnimateOnScroll from '../components/AnimateOnScroll';
-import { ALL_GALLERY_IMAGES, PLACEHOLDER_IMAGES, HERO_IMAGES } from '../utils/imageConstants';
+import { ALL_GALLERY_IMAGES, HERO_IMAGES, handleImageFallback } from '../utils/imageConstants';
 import useUrlFilters from '../hooks/useUrlFilters';
 
 const CATEGORIES = [
@@ -36,10 +36,6 @@ const Gallery = () => {
       window.removeEventListener('keydown', handleKeyDown);
     };
   }, [selectedImage, closeModal]);
-
-  const handleImageError = (e) => {
-    e.target.src = PLACEHOLDER_IMAGES.default;
-  };
 
   return (
     <>
@@ -95,7 +91,7 @@ const Gallery = () => {
                       alt={image.title}
                       className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                       loading="lazy"
-                      onError={handleImageError}
+                      onError={handleImageFallback}
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/75 to-transparent transition-transform duration-300 lg:translate-y-full lg:group-hover:translate-y-0" />
                     <div className="absolute bottom-0 left-0 right-0 p-5 text-white transition-transform duration-300 lg:translate-y-full lg:group-hover:translate-y-0">

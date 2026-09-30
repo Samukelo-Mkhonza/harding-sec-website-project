@@ -12,7 +12,7 @@ import {
   HERO_IMAGES,
   NEWS_IMAGES,
   ACTIVITY_IMAGES,
-  PLACEHOLDER_IMAGES
+  handleImageFallback
 } from '../utils/imageConstants';
 
 const TESTIMONIALS = [
@@ -133,10 +133,6 @@ const Home = () => {
     return () => clearInterval(id);
   }, []);
 
-  const handleImageError = (e) => {
-    e.target.src = PLACEHOLDER_IMAGES.default;
-  };
-
   return (
     <>
       <SEO {...SEOConfigs.home} />
@@ -198,7 +194,7 @@ const Home = () => {
                   src={HERO_IMAGES.campus}
                   alt="Harding Secondary School campus"
                   className="rounded-2xl w-full h-96 md:h-[420px] object-cover shadow-2xl"
-                  onError={handleImageError}
+                  onError={handleImageFallback}
                 />
                 <div className="absolute -bottom-6 -left-6 bg-primary text-white rounded-2xl p-5 shadow-xl">
                   <div className="text-4xl font-bold">70+</div>
@@ -251,7 +247,7 @@ const Home = () => {
                     src={pillar.image}
                     alt={pillar.title}
                     className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                    onError={handleImageError}
+                    onError={handleImageFallback}
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent transition-all duration-300 group-hover:from-primary-dark/90 group-hover:via-primary-dark/40" />
                   <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
@@ -302,7 +298,7 @@ const Home = () => {
                       alt={NEWS_ITEMS[0].title}
                       className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                       loading="lazy"
-                      onError={handleImageError}
+                      onError={handleImageFallback}
                     />
                     <span className="absolute top-4 left-4 bg-primary text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">
                       {NEWS_ITEMS[0].category}
@@ -340,7 +336,7 @@ const Home = () => {
                         alt={item.title}
                         className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                         loading="lazy"
-                        onError={handleImageError}
+                        onError={handleImageFallback}
                       />
                       <span className="absolute top-2 left-2 bg-primary text-white text-xs font-bold px-2 py-0.5 rounded-full uppercase tracking-wider leading-tight">
                         {item.category}

@@ -227,3 +227,15 @@ const imageConstants = {
 };
 
 export default imageConstants;
+
+/**
+ * onError handler that swaps in the placeholder once. Without the guard a
+ * failing placeholder (offline, blocked CDN) re-fires onError and the browser
+ * retries forever, burning mobile data.
+ */
+export const handleImageFallback = (e) => {
+  const img = e.currentTarget;
+  if (img.dataset.fallbackApplied) return;
+  img.dataset.fallbackApplied = 'true';
+  img.src = PLACEHOLDER_IMAGES.default;
+};
