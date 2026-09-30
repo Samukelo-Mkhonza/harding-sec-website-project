@@ -1,4 +1,4 @@
-import { useState, useEffect, lazy, Suspense } from 'react';
+import { useState, useEffect, useCallback, lazy, Suspense } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { FaPhone, FaEnvelope, FaSearch, FaBars, FaTimes } from 'react-icons/fa';
 import Navigation from './Navigation';
@@ -62,6 +62,8 @@ const Header = () => {
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [activeMenu, setActiveMenu] = useState(null);
   const location = useLocation();
+
+  const closeMobileMenu = useCallback(() => setIsMobileMenuOpen(false), []);
 
   const { isScrolled } = useScrollDirection(SCROLL_THRESHOLDS.HEADER_MINIMIZE);
 
@@ -236,6 +238,7 @@ const Header = () => {
                 className="p-2 text-neutral-500 hover:bg-neutral-100 rounded-lg transition-colors duration-200"
                 aria-label={isMobileMenuOpen ? 'Close menu' : 'Open menu'}
                 aria-expanded={isMobileMenuOpen}
+                aria-controls="mobile-menu"
               >
                 {isMobileMenuOpen ? (
                   <FaTimes className="text-2xl" />
@@ -267,7 +270,7 @@ const Header = () => {
 
       <MobileMenu
         isOpen={isMobileMenuOpen}
-        onClose={() => setIsMobileMenuOpen(false)}
+        onClose={closeMobileMenu}
       />
       {isSearchOpen && (
         <Suspense fallback={null}>

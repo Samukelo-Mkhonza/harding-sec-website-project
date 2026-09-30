@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { NavLink, Link } from 'react-router-dom';
 import { FaTimes, FaChevronDown, FaAngleRight, FaUserGraduate } from 'react-icons/fa';
 import { NAV_DATA, PORTAL_BUTTONS } from '../utils/navData';
@@ -8,6 +8,28 @@ const getSublinks = (item) =>
 
 const MobileMenu = ({ isOpen, onClose }) => {
   const [expandedMenu, setExpandedMenu] = useState(null);
+  const closeButtonRef = useRef(null);
+
+  // The closed drawer is only translated off-screen, so it is made inert to keep
+  // its links out of the tab order; while open, Escape closes it and the page
+  // behind stops scrolling.
+  useEffect(() => {
+    if (!isOpen) return undefined;
+    const previouslyFocused = document.activeElement;
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    closeButtonRef.current?.focus();
+
+    const handleKeyDown = (e) => {
+      if (e.key === 'Escape') onClose();
+    };
+    document.addEventListener('keydown', handleKeyDown);
+    return () => {
+      document.removeEventListener('keydown', handleKeyDown);
+      document.body.style.overflow = previousOverflow;
+      if (previouslyFocused && document.contains(previouslyFocused)) previouslyFocused.focus();
+    };
+  }, [isOpen, onClose]);
 
   const toggle = (index) =>
     setExpandedMenu(expandedMenu === index ? null : index);
@@ -20,10 +42,16 @@ const MobileMenu = ({ isOpen, onClose }) => {
           isOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'
         }`}
         onClick={onClose}
+        aria-hidden="true"
       />
 
       {/* Drawer */}
       <div
+        id="mobile-menu"
+        role="dialog"
+        aria-modal="true"
+        aria-label="Site menu"
+        inert={!isOpen}
         className={`fixed top-0 right-0 h-full w-80 max-w-[85%] bg-white z-50 shadow-2xl transform transition-transform duration-300 lg:hidden ${
           isOpen ? 'translate-x-0' : 'translate-x-full'
         }`}
@@ -42,6 +70,7 @@ const MobileMenu = ({ isOpen, onClose }) => {
             </div>
           </div>
           <button
+            ref={closeButtonRef}
             onClick={onClose}
             className="text-white hover:bg-white/10 p-2 rounded-lg transition-colors"
             aria-label="Close menu"
@@ -103,6 +132,7 @@ const MobileMenu = ({ isOpen, onClose }) => {
 
                 {sublinks && (
                   <div
+                    inert={expandedMenu !== index}
                     className={`bg-neutral-50 overflow-hidden transition-all duration-300 ${
                       expandedMenu === index ? 'max-h-96' : 'max-h-0'
                     }`}
