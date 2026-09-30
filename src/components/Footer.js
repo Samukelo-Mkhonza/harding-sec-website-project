@@ -264,8 +264,9 @@ const Footer = () => {
       </div>
 
       {/* ── Bottom bar ─────────────────────────────────────── */}
+      {/* Extra bottom (mobile) / right (sm+) padding keeps the links clear of the fixed back-to-top button */}
       <div style={{ backgroundColor: '#072713' }}>
-        <div className="container-custom py-5">
+        <div className="container-custom pt-5 pb-20 sm:pb-5 sm:pr-24 md:pr-28">
           <div className="flex flex-col sm:flex-row justify-between items-center gap-3 text-xs text-white/75">
             <p>© {currentYear} Harding Secondary School. All rights reserved.</p>
             <div className="flex items-center gap-5">
