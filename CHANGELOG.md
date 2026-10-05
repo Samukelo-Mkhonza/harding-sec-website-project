@@ -1,5 +1,18 @@
 # Changelog
 
+## [1.0.1](https://github.com/Samukelo-Mkhonza/harding-sec-website-project/compare/v1.0.0...v1.0.1) (2026-10-05)
+
+
+### Bug Fixes
+
+* **footer:** keep bottom-bar links clear of the back-to-top button ([a7d0c8d](https://github.com/Samukelo-Mkhonza/harding-sec-website-project/commit/a7d0c8d63feec79fe5eb1bc9fac44c418623feb1))
+* **header:** stop the desktop header overflowing between 1024 and 1300px ([6d8b2ee](https://github.com/Samukelo-Mkhonza/harding-sec-website-project/commit/6d8b2eec8aac39c81af1bb8a9102a86d1a81cb58))
+* **images:** stop infinite onError retry loop when placeholder fails ([f56890e](https://github.com/Samukelo-Mkhonza/harding-sec-website-project/commit/f56890edf3e41e1168d33bb8160f7695ed16b214))
+* modal scrolling, keyboard-accessible desktop menus and header overflow ([4d08430](https://github.com/Samukelo-Mkhonza/harding-sec-website-project/commit/4d08430ccc6f47e7e4c7f91c650be0dfcf0a5af5))
+* **modals:** keep the page still behind open modals ([bee6095](https://github.com/Samukelo-Mkhonza/harding-sec-website-project/commit/bee60953a3dd4965a892c68973bc1639a08cfb7d))
+* **nav:** make desktop mega menus keyboard accessible ([c64527d](https://github.com/Samukelo-Mkhonza/harding-sec-website-project/commit/c64527dff8b1ae1397fe55f988c6955e0f66ee48))
+* **nav:** make mobile drawer an accessible dialog, inert when closed ([02f43e0](https://github.com/Samukelo-Mkhonza/harding-sec-website-project/commit/02f43e0587a43aa989e6c267409052ee07e6a574))
+
 ## 1.0.0 (2026-07-04)
 
 
