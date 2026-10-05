@@ -12,6 +12,7 @@ import {
 import { HERO_IMAGES } from '../utils/imageConstants';
 import useUrlFilters from '../hooks/useUrlFilters';
 import { SCHOOL_CONTACT } from '../utils/constants';
+import useScrollLock from '../hooks/useScrollLock';
 
 // ─── Constants ─────────────────────────────────────────────────────────────────
 
@@ -263,6 +264,8 @@ const CreatePostModal = ({ onClose, onSubmit }) => {
       userPost: true,
     });
   };
+
+  useScrollLock();
 
   React.useEffect(() => {
     const handleKey = (e) => { if (e.key === 'Escape') onClose(); };

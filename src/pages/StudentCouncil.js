@@ -11,6 +11,7 @@ import {
 import { HERO_IMAGES } from '../utils/imageConstants';
 import { buildMailto } from '../utils/formValidation';
 import { SCHOOL_CONTACT } from '../utils/constants';
+import useScrollLock from '../hooks/useScrollLock';
 
 // ─── Data ──────────────────────────────────────────────────────────────────────
 
@@ -264,6 +265,8 @@ const MemberCard = ({ member, onClick }) => (
 // ─── Member Modal ─────────────────────────────────────────────────────────────
 
 const MemberModal = ({ member, onClose }) => {
+  useScrollLock();
+
   React.useEffect(() => {
     const fn = (e) => { if (e.key === 'Escape') onClose(); };
     window.addEventListener('keydown', fn);

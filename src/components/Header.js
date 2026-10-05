@@ -5,57 +5,11 @@ import Navigation from './Navigation';
 import MobileMenu from './MobileMenu';
 import useScrollDirection from '../hooks/useScrollDirection';
 import { SCROLL_THRESHOLDS } from '../utils/constants';
-import { NAV_DATA, PORTAL_BUTTONS, TOP_BAR_LINKS } from '../utils/navData';
+import { PORTAL_BUTTONS, TOP_BAR_LINKS } from '../utils/navData';
 
 // Search (and the animation library it uses) loads on first use, not on page load
 const loadSearch = () => import('./SearchOverlay');
 const SearchOverlay = lazy(loadSearch);
-
-const MegaMenuPanel = ({ megaMenuData, onClose }) => (
-  <div
-    className="grid gap-10"
-    style={{ gridTemplateColumns: `repeat(${megaMenuData.length}, 1fr) 240px` }}
-  >
-    {megaMenuData.map((col) => (
-      <div key={col.heading}>
-        <h4 className="text-primary font-bold text-xs uppercase tracking-widest mb-4 pb-2.5 border-b border-neutral-200">
-          {col.heading}
-        </h4>
-        <ul className="space-y-3">
-          {col.links.map((link) => (
-            <li key={link.label}>
-              <Link
-                to={link.path}
-                onClick={onClose}
-                className="text-neutral-400 hover:text-primary text-sm transition-colors duration-150"
-              >
-                {link.label}
-              </Link>
-            </li>
-          ))}
-        </ul>
-      </div>
-    ))}
-
-    {/* Brand panel */}
-    <div className="border-l border-neutral-200 pl-8 flex flex-col justify-start pt-0.5">
-      <img
-        src={`${process.env.PUBLIC_URL}/harding-sec-logo-sm.png`}
-        alt="Harding Secondary School"
-        width="64"
-        height="60"
-        className="h-12 mb-4 object-contain object-left"
-      />
-      <p className="font-heading font-bold text-neutral-700 text-sm mb-2 uppercase tracking-wide">
-        Harding Secondary School
-      </p>
-      <p className="text-neutral-400 text-xs leading-relaxed">
-        Nurturing excellence and building tomorrow's leaders in the heart of
-        KwaZulu-Natal since 1950.
-      </p>
-    </div>
-  </div>
-);
 
 const Header = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -84,10 +38,6 @@ const Header = () => {
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, []);
 
-  const activeMegaMenuData = activeMenu
-    ? NAV_DATA.find((item) => item.label === activeMenu)?.megaMenu
-    : null;
-
   return (
     <>
       <header className="fixed top-0 w-full z-50 bg-white">
@@ -107,38 +57,39 @@ const Header = () => {
                 <a
                   href="tel:0394331223"
                   aria-label="Call the school on 039 433 1223"
-                  className="flex items-center gap-1.5 text-white/75 hover:text-accent-neon transition-colors duration-200"
+                  className="flex items-center gap-1.5 whitespace-nowrap text-white/75 hover:text-accent-neon transition-colors duration-200"
                 >
                   <FaPhone className="text-accent-neon text-[10px]" />
                   <span className="hidden sm:inline">039 433 1223</span>
                 </a>
                 <a
                   href="mailto:hardingsec@telkomsa.net"
-                  className="hidden md:flex items-center gap-1.5 text-white/75 hover:text-accent-neon transition-colors duration-200"
+                  className="hidden md:flex items-center gap-1.5 whitespace-nowrap text-white/75 hover:text-accent-neon transition-colors duration-200"
                 >
                   <FaEnvelope className="text-accent-neon text-[10px]" />
                   hardingsec@telkomsa.net
                 </a>
               </div>
 
-              {/* Right: Portal buttons + plain links */}
+              {/* Right: Portal buttons + plain links (the links repeat main-nav pages
+                  and only fit on one line from xl up) */}
               <div className="flex items-center">
                 {PORTAL_BUTTONS.map((btn) => (
                   <Link
                     key={btn.label}
                     to={btn.path}
-                    className="px-3 py-1 text-xs font-semibold text-white hover:bg-primary-dark transition-colors duration-200"
+                    className="px-3 py-1 text-xs font-semibold whitespace-nowrap text-white hover:bg-primary-dark transition-colors duration-200"
                     style={{ backgroundColor: '#147538' }}
                   >
                     {btn.label}
                   </Link>
                 ))}
-                <span className="w-px h-4 bg-white/15 mx-2 hidden sm:block" />
+                <span className="w-px h-4 bg-white/15 mx-2 hidden xl:block" />
                 {TOP_BAR_LINKS.map((link) => (
                   <Link
                     key={link.label}
                     to={link.path}
-                    className="px-3 py-1 text-xs text-white/75 hover:text-white transition-colors duration-200 hidden sm:block"
+                    className="px-3 py-1 text-xs whitespace-nowrap text-white/75 hover:text-white transition-colors duration-200 hidden xl:block"
                   >
                     {link.label}
                   </Link>
@@ -180,7 +131,8 @@ const Header = () => {
                     isScrolled ? 'h-10' : 'h-14'
                   }`}
                 />
-                <div className="hidden md:block">
+                {/* Hidden from lg to xl: logo, name and the full nav don't fit together there */}
+                <div className="hidden md:block lg:hidden xl:block">
                   <p
                     className={`font-heading font-bold text-neutral-700 leading-tight uppercase tracking-wide transition-all duration-300 ${
                       isScrolled ? 'text-sm' : 'text-base'
@@ -212,8 +164,8 @@ const Header = () => {
                   title="Search (Ctrl+K)"
                 >
                   <FaSearch className="text-sm group-hover:text-primary transition-colors" />
-                  <span className="hidden xl:inline text-xs text-neutral-400 group-hover:text-neutral-500 transition-colors">Search…</span>
-                  <kbd className="hidden xl:inline text-[10px] px-1.5 py-0.5 bg-neutral-100 border border-neutral-200 rounded font-mono leading-none">⌃K</kbd>
+                  <span className="hidden 2xl:inline text-xs text-neutral-400 group-hover:text-neutral-500 transition-colors">Search…</span>
+                  <kbd className="hidden 2xl:inline text-[10px] px-1.5 py-0.5 bg-neutral-100 border border-neutral-200 rounded font-mono leading-none">⌃K</kbd>
                 </button>
                 <Link
                   to="/admissions"
@@ -250,21 +202,6 @@ const Header = () => {
             </div>
           </div>
 
-          {/* ── MEGA MENU PANEL ──────────────────────────────── */}
-          {activeMegaMenuData && (
-            <div
-              className="absolute top-full left-0 right-0 bg-white border-t-2 border-primary shadow-2xl z-40 animate-fade-in"
-              role="region"
-              aria-label={`${activeMenu} submenu`}
-            >
-              <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-                <MegaMenuPanel
-                  megaMenuData={activeMegaMenuData}
-                  onClose={() => setActiveMenu(null)}
-                />
-              </div>
-            </div>
-          )}
         </div>
       </header>
 

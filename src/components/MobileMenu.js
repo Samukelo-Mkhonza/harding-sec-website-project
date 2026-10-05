@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import { NavLink, Link } from 'react-router-dom';
 import { FaTimes, FaChevronDown, FaAngleRight, FaUserGraduate } from 'react-icons/fa';
 import { NAV_DATA, PORTAL_BUTTONS } from '../utils/navData';
+import useScrollLock from '../hooks/useScrollLock';
 
 const getSublinks = (item) =>
   item.megaMenu ? item.megaMenu.flatMap((col) => col.links) : null;
@@ -10,14 +11,13 @@ const MobileMenu = ({ isOpen, onClose }) => {
   const [expandedMenu, setExpandedMenu] = useState(null);
   const closeButtonRef = useRef(null);
 
+  useScrollLock(isOpen);
+
   // The closed drawer is only translated off-screen, so it is made inert to keep
-  // its links out of the tab order; while open, Escape closes it and the page
-  // behind stops scrolling.
+  // its links out of the tab order; while open, Escape closes it.
   useEffect(() => {
     if (!isOpen) return undefined;
     const previouslyFocused = document.activeElement;
-    const previousOverflow = document.body.style.overflow;
-    document.body.style.overflow = 'hidden';
     closeButtonRef.current?.focus();
 
     const handleKeyDown = (e) => {
@@ -26,7 +26,6 @@ const MobileMenu = ({ isOpen, onClose }) => {
     document.addEventListener('keydown', handleKeyDown);
     return () => {
       document.removeEventListener('keydown', handleKeyDown);
-      document.body.style.overflow = previousOverflow;
       if (previouslyFocused && document.contains(previouslyFocused)) previouslyFocused.focus();
     };
   }, [isOpen, onClose]);

@@ -9,6 +9,7 @@ import {
   FaClock, FaBullhorn, FaCompass, FaTrophy, FaChartBar, FaNewspaper, FaPenFancy,
 } from 'react-icons/fa';
 import { VALIDATION } from '../utils/constants';
+import useScrollLock from '../hooks/useScrollLock';
 
 /* ── Searchable page index ───────────────────────────────────────────── */
 const ALL_PAGES = [
@@ -96,6 +97,8 @@ const SearchOverlay = ({ isOpen, onClose }) => {
   const [activeIdx, setActiveIdx] = useState(0);
   const inputRef = useRef(null);
   const navigate = useNavigate();
+
+  useScrollLock(isOpen);
 
   useEffect(() => {
     if (isOpen) {
