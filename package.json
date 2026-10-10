@@ -15,7 +15,7 @@
     "react-router-dom": "^7.18.4",
     "react-scripts": "5.0.1",
     "react-window": "^2.3.3",
-    "web-vitals": "^6.2.2"
+    "web-vitals": "^6.2.3"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -61,7 +61,7 @@
     "@testing-library/user-event": "^14.6.7",
     "autoprefixer": "^10.6.1",
     "fast-check": "^4.10.2",
-    "postcss": "^8.5.28",
+    "postcss": "^8.5.29",
     "sharp": "^0.35.5",
     "tailwindcss": "^3.4.19"
   }
